@@ -1,0 +1,18 @@
+.sidebar{
+    /* z-index: 7; */
+}
+
+.sidebar-open{
+    position: absolute;
+    background-color: transparent;
+}
+
+.sidebar-closed{
+    /* opacity: 0; */
+}
+
+@media only screen and (min-width: 1200px) {
+    .sidebar-open{
+        position: relative;;
+    }
+}

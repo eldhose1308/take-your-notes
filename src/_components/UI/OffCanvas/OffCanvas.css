@@ -1,0 +1,60 @@
+.offcanvas {
+    padding: 0.875rem;
+    border: 1px solid var(--custom);
+    background-color: var(--gray);
+    position: fixed;
+    right: -500px;
+    top: 0;
+    z-index: 2;
+    /* transition: right 300ms ease-in-out; */
+}
+
+.offcanvas-body{
+    padding: 1rem;
+
+}
+
+@keyframes slide-in {
+    from {
+        right: -500px;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
+@keyframes slide-out {
+    from {
+        right: 0;
+    }
+
+    to {
+        right: -500px;
+    }
+}
+
+.offcanvas-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+
+.offcanvas-header .offcanvas-close {
+    cursor: pointer;
+    /* margin-top: auto; */
+}
+
+.offcanvas-bottom {
+    width: 40%;
+    height: 100%;
+}
+
+.offcanvas.show {
+    animation: slide-in 0.5s forwards;
+}
+
+.offcanvas.hide {
+    animation: slide-out 0.5s forwards;
+}

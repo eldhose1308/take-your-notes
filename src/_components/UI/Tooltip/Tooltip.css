@@ -1,0 +1,24 @@
+.tooltip-content{
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+    z-index: 3;
+    border: none;
+}
+
+.tooltip:hover .tooltip-content{
+    opacity: 1;
+}
+
+  
+  .tooltip-content:after {
+      content: "";
+      position: absolute;
+      right: 86px;
+      top: -21px;
+      width: 0;
+      height: 0;
+      border: solid transparent;
+      border-width: 10px;
+      border-bottom-color: var(--bg-secondary);
+      z-index: 3;
+  }

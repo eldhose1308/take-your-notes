@@ -1,0 +1,31 @@
+.header {
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: var(--custom);
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, .4);
+    padding: 0 .5rem;
+    height: var(--header-height);
+}
+
+.menu-icon-btn {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.menu-icon {
+    width: 25px;
+    height: 25px;
+    fill: var(--white);
+    cursor: pointer;
+}
+
+.menu-icon:hover {
+    fill: var(--lightest-gray);
+}
+
+.toggle-sidebar-checkbox{
+    display: none;
+}

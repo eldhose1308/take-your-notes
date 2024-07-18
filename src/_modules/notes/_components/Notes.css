@@ -1,0 +1,3 @@
+.note-html-content hr {
+    border-bottom: 1px solid var(--bg-another);
+}

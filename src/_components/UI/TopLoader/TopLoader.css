@@ -1,0 +1,44 @@
+#top-loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	/* width: 100%; */
+	width: var(--progress-width, 0%);
+	height: 3px;
+	background-color: var(--bg-another);
+	overflow: hidden;
+	z-index: 50;
+	transition: width 1s ease;
+}
+
+#loader {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: var(--bg-accent);
+	/* -webkit-animation: loadBar 2s cubic-bezier(0.09, 0.89, 0.7, 0.71) infinite;
+	animation: loadBar 2s cubic-bezier(0.09, 0.89, 0.7, 0.71) infinite; */
+}
+
+@-webkit-keyframes loadBar {
+	0% {
+		left: -110%;
+	}
+
+	100% {
+		left: 110%;
+	}
+}
+
+@keyframes loadBar {
+	0% {
+		left: -110%;
+	}
+
+	100% {
+		left: 110%;
+	}
+}

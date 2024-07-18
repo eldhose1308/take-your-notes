@@ -1,0 +1,160 @@
+.action {
+	margin-top: 2rem;
+}
+
+.action-button {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    cursor: pointer;
+    transition: background-color 1s ease;
+
+    &.failure{
+        background-color: var(--danger);
+        animation: shake 1s linear;
+    }
+
+    &.success{
+        background-color: var(--success);
+        animation: shake 1s linear;
+    }
+
+    &.primary{
+        background-color: var(--custom);
+    }
+  
+}
+
+.action-button.w-100{
+    width: 100%;
+}
+
+button.btn-muted {
+    /* border: 1px solid red; */
+    background: var(--light-gray);
+}
+
+button.btn-outline-muted{
+    border: 1px solid var(--medium-gray);
+    background-color: transparent;
+
+    &.button-text{
+        color: var(--medium-gray);
+        font-weight: bold;
+        /* font-size: 0.875rem; */
+    }
+}
+
+button.btn-outline-muted:hover{
+    border: none;
+    background-color: var(--medium-gray);
+    
+    &.button-text{
+        color: var(--white);
+    }
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+.outline{
+    border: 1px solid var(--custom);
+    background-color: transparent !important;
+
+    &:hover{
+        background-color: var(--custom) !important;
+    }
+}
+
+
+.button-text {
+    color: #ffffff;
+    transition: all 0.2s;
+}
+
+.outline .button-text{
+    color: var(--custom);
+    font-weight: bold;
+}
+
+
+.outline:hover .button-text{
+    color: #fff;
+}
+
+
+.action-button.w-20{
+    width: 20%;
+}
+
+.action-button.w-50{
+    width: 50%;
+}
+
+
+.button--loading{
+    opacity: 0.8;
+    /* animation: button-loading-bgcolor 7s infinite; */
+}
+
+.button--loading .button-text {
+    /* float: left; */
+    opacity: 0;
+}
+
+
+.button--loading::after {
+    content: "";
+    /* float: right; */
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s linear infinite;
+}
+
+
+@keyframes button-loading-bgcolor {
+    0%{
+        background-color: #03709f;
+    }
+    25%{
+        background-color: #02425e;
+    }
+    50%{
+        background-color: #023f59;
+    }
+    75%{
+        background-color: #02587d;
+    }
+    100%{
+        background-color: #0371a1;
+    }
+}
+
+@keyframes button-loading-spinner {
+    from {
+      transform: rotate(0turn);
+    }
+  
+    to {
+      transform: rotate(1turn);
+    }
+}

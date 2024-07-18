@@ -1,0 +1,26 @@
+.editor-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1000px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .editor-panel {
+    flex: 1;
+    /* height: 500px; */
+    /* padding: 20px; */
+  }
+  #editor {
+    /* width: 100%; */
+    /* height: calc(100vh - 80px); */
+    border: none;
+    border-radius: 4px;
+    /* padding: 10px; */
+    /* font-size: 16px; */
+    box-sizing: border-box;
+    resize: none;
+  }
+  
