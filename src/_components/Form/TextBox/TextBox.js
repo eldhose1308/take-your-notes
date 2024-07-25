@@ -22,6 +22,7 @@ const textBoxVariants = cva('flex h-12 toggle-placeholders disabled-50 rounded-m
         variant: {
             default: '',
             ghost: 'border-none',
+            dashed: 'border-dashed',
             error: 'border-red-500',
             success: 'border-green-500',
         },

@@ -25,15 +25,15 @@ const Template = ({ children, ...props }) => {
 
     return (
         <TemplateContext.Provider value={{ isSidebarOpen, hideSidebar, toggleSidebar }}>
-            <div class="grid-container">
+            <div className="grid-container">
       <Header />
       <Sidebar />
-      <main class="main">
+      <main className="main">
        {children}
       </main>
-      {/* <footer class="footer">
-        <div class="footer_copyright">&copy;2020</div>
-        <div class="footer_byline">Made with &hearts;</div>
+      {/* <footer className="footer">
+        <div className="footer_copyright">&copy;2020</div>
+        <div className="footer_byline">Made with &hearts;</div>
       </footer> */}
     </div>
         </TemplateContext.Provider>

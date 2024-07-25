@@ -1,7 +1,7 @@
 function convertMarkdownToHtml(markdown) {
     if(!markdown) { return markdown }
     
-    markdown = markdown.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    // markdown = markdown.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
     // Convert markdown syntax to HTML
     markdown = markdown.replace(/^#\s(.*)$/gm, '<h1>$1</h1>'); 
@@ -13,8 +13,16 @@ function convertMarkdownToHtml(markdown) {
 
     markdown = markdown.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); 
     markdown = markdown.replace(/\*(.*?)\*/g, '<em>$1</em>');
-    markdown = markdown.replace(/```(.*?)```/g, '<code>$1</code>'); 
-
+    // markdown = markdown.replace(/```([\s\S]*?)```/g, '<code>$1</code>'); 
+    // markdown = markdown.replace(/```([\s\S]*?)```/g, `<div class='code-preview'><div class="code-header"><span>code</span><span class="code-copy">
+    //     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg> 
+    //     <span class="code-copy-text">Copy code<span>
+    // </span>
+    // </div>
+    // <div class="code-body">
+    // <code>$1</code><div><div>`); 
+    markdown = markdown.replace(/```([\s\S]*?)```/g, `<div class='code-preview'><div class="code-header"><span>Code Snippet</span><span class="code-copy"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span class="code-copy-text">Copy code</span><span class="copied-message" style="display: none;">Copied!</span></span></div><div class="code-body"><code>$1</code></div> </div>`);
+    
     markdown = markdown.replace(/---/g, '<hr>'); // TODO: if more than 3 is written, then also a single line should only be done
     
     markdown = markdown.replace(/-\[\]/gm, '<input type="checkbox" disabled />');
@@ -25,7 +33,14 @@ function convertMarkdownToHtml(markdown) {
 
     markdown = markdown.replace(/<\/ul>\n<ul>/g, '');
 
+    markdown = markdown.replace(/(^\s*>.*(\n|$))+/gm, function(match) {
+        const content = match.replace(/^\s*>\s?/gm, '').trim();
+        return `<blockquote>${content.replace(/\n/g, '<br>')}</blockquote>`;
+    });
+
     markdown = markdown.replace(/\n/g, "<br>");
+
+
 
     return markdown;
 }

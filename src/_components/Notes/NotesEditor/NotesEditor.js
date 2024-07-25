@@ -7,6 +7,7 @@ import './NotesEditor.css'
 import Flex from "_components/Misc/Flex/Flex";
 import Separator from "_components/Misc/Separator/Separator";
 import Tags from "_components/UI/Tags/Tags";
+import EditableText from "_components/UI/EditableText/EditableText";
 
 // add save/cancel to here rather than markdownEditor
 const NotesEditor = (props) => {
@@ -14,12 +15,12 @@ const NotesEditor = (props) => {
     const { heading, link, tags } = noteMetaDetails;
 
     const [isFocused, setIsFocused] = useState(false)
-    const [isPreviewEnabled, setIsPreviewEnabled] = useState(false)
+    const [isPreviewEnabled, setIsPreviewEnabled] = useState(true)
 
     const [markdownContent, setMarkdownContent] = useState(content)
 
     const handleNoteHeadingChange = (value) => {
-        handleNoteMetaChange('heading', value)
+        // handleNoteMetaChange('heading', value)
     }
 
     const handleNoteLinkChange = (value) => {
@@ -70,9 +71,10 @@ const NotesEditor = (props) => {
             {/* {isFocused && <div className="overlay z-50"></div>} */}
 
             <div className="editing-note py-2 bg-default shadow-xl rounded-lg relative z-50">
-                <Flex justifyContent='end'>
+                <Flex justifyContent='spaceBetween' className='mx-2 my-1'>
+                    <EditableText className="text-default text-lg mx-2" text={heading} onSave={handleNoteHeadingChange} />
                     <Button variant='ghost' width='none' size='xs' onClick={onCancel} className='mx-3'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                     </Button>
                 </Flex>
                 {/* <TextBox variant='ghost' value={heading} onChange={handleNoteHeadingChange} className='text-lg font-bold' />

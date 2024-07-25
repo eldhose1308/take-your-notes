@@ -47,7 +47,7 @@ const Sidebar = (props) => {
                             Your Collections
                         </span>
 
-                        {/* <div class="p-4"> */}
+                        {/* <div className="p-4"> */}
                             <FolderItemsGroup />
                         {/* </div> */}
 

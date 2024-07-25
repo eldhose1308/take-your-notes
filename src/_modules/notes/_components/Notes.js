@@ -21,7 +21,7 @@ const Notes = (props) => {
                     <Flex justifyContent='spaceBetween' alignItems='none'>
                         <div className="flex mb-2">
                             <div className="flex flex-col">
-                                <div className="flex">
+                                <div className="flex mx-2">
 
                                     {/* <span>Icon</span> */}
                                     <h3 className="text-default text-lg">{heading}
@@ -46,7 +46,7 @@ const Notes = (props) => {
                                 </Button>}
                                 <span className="mx-1"></span>
                                 {!!onDeleteClick && <Button size='xs' variant='ghost' title='Delete' onClick={onDeleteClick} className='hover-destructive hover-text-custom' >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
                                 </Button>}
                             </Flex>
                         </div>
@@ -55,7 +55,7 @@ const Notes = (props) => {
 
                 <CardContent className="h-screen-1/2 overflow-scroll">
 
-                    <div className="note-html-content" dangerouslySetInnerHTML={{ __html: htmlContent }}>
+                    <div className="note-html-content text-default" dangerouslySetInnerHTML={{ __html: htmlContent }}>
                         {/* {content} */}
                     </div>
 
@@ -73,7 +73,7 @@ const Notes = (props) => {
                                 <div key={index} className="flex hover-custom cursor-pointer my-1 text-xs rounded-md">
                                     <span className="mx-1 px-2 py-1">#{tagItem}</span>
                                     {/* <span className="flex items-center text-bold rounded-md cursor-pointer px-1 hover-destructive hover-text-custom">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                                 </span> */}
                                 </div>
                             ))}

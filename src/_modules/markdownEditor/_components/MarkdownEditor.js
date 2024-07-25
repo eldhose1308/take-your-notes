@@ -5,7 +5,9 @@ import Flex from "_components/Misc/Flex/Flex";
 import { Button } from "_components/Form";
 import Separator from "_components/Misc/Separator/Separator";
 import { convertToHTML } from "../_utils/markdownConvert";
+import Toolbar from "./toolbar/Toolbar";
 
+// split into markdownEditor and PreviewComponent
 const MarkdownEditor = (props) => {
     const { content, isPreviewEnabled, onChange = () => { }, onKeyDown = () => { }, onSave = () => { }, onCancel = () => { }, onFocus = () => { } } = props
 
@@ -113,12 +115,12 @@ const MarkdownEditor = (props) => {
     }
 
     const handleScroll = () => {
-        // if (textareaRef.current && previewRef.current) {
-        //     const textarea = textareaRef.current;
-        //     const preview = previewRef.current;
-        //     const ratio = textarea.scrollTop / (textarea.scrollHeight - textarea.clientHeight);
-        //     preview.scrollTop = ratio * (preview.scrollHeight - preview.clientHeight);
-        // }
+        if (textareaRef.current && previewRef.current) {
+            const textarea = textareaRef.current;
+            const preview = previewRef.current;
+            const ratio = textarea.scrollTop / (textarea.scrollHeight - textarea.clientHeight);
+            preview.scrollTop = ratio * (preview.scrollHeight - preview.clientHeight);
+        }
     }
 
     useEffect(() => {
@@ -131,15 +133,16 @@ const MarkdownEditor = (props) => {
 
     return (
         <React.Fragment>
+            <Toolbar />
 
-        <div className="flex flex-nowrap">
-            <div className={`px-3 my-3 ${isPreviewEnabled ? 'w-half' : 'w-full'} space-y-1`}>
-                <textarea ref={textareaRef} onScroll={handleScroll} className={`bg-default w-full text-default px-2 py-2 text-sm h-screen-75`} id="editor" onChange={handleChange} onKeyDown={handleKeyDown} value={markdownContent} />
+            <div className="flex flex-nowrap">
+                <div className={`px-3 my-3 ${isPreviewEnabled ? 'w-half' : 'w-full'} space-y-1`}>
+                    <textarea ref={textareaRef} onScroll={handleScroll} className={`bg-default w-full text-default px-2 py-2 text-sm h-screen-75`} id="editor" onChange={handleChange} onKeyDown={handleKeyDown} value={markdownContent} />
+                </div>
+                {isPreviewEnabled && <div ref={previewRef} className={`preview pl-4 text-default border-l border-custom my-3 overflow-scroll w-half h-screen-75`} dangerouslySetInnerHTML={{ __html: markdownInHTML }} />}
             </div>
-            {isPreviewEnabled && <div ref={previewRef} className={`preview my-3 overflow-scroll w-half h-screen-75`} dangerouslySetInnerHTML={{ __html: markdownInHTML }} />}
-        </div>
 
-            
+
         </React.Fragment>
 
     )

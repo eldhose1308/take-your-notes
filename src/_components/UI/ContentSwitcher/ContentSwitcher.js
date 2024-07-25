@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import { Button } from "_components/Form";
 
-const ContentSwitcher = ({ children, ...props }) => {
+const ContentSwitcher = ({ isVisible, children, ...props }) => {
     const { direction='right' } = props
 
-    const [isContentVisible, setIsContentVisible] = useState(false)
+    const [isContentVisible, setIsContentVisible] = useState(isVisible)
     const [isAnimating, setIsAnimating] = useState(false)
 
 
@@ -69,7 +69,7 @@ const ContentSwitcher = ({ children, ...props }) => {
 
     return (
         <React.Fragment>
-            <div className={`content-switcher max-h-lg overflow-scroll ${isContentVisible ? ANIMATION_DIR[direction].show : ''} ${isAnimating ? ANIMATION_DIR[direction].hide : ''}`}>                
+            <div className={`content-switcher ${isContentVisible ? ANIMATION_DIR[direction].show : ''} ${isAnimating ? ANIMATION_DIR[direction].hide : ''}`}>                
                 <Button width='none' variant='ghost' size='xs' onClick={handleToggleVisiblity}>
                 {isContentVisible ? (
                     ARROW_ICONS[direction].show

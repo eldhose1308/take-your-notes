@@ -1,26 +1,73 @@
 .editor-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    max-width: 1000px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  .editor-panel {
-    flex: 1;
-    /* height: 500px; */
-    /* padding: 20px; */
-  }
-  #editor {
-    /* width: 100%; */
-    /* height: calc(100vh - 80px); */
-    border: none;
-    border-radius: 4px;
-    /* padding: 10px; */
-    /* font-size: 16px; */
-    box-sizing: border-box;
-    resize: none;
-  }
-  
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 1000px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.editor-panel {
+  flex: 1;
+  /* height: 500px; */
+  /* padding: 20px; */
+}
+
+#editor {
+  /* width: 100%; */
+  /* height: calc(100vh - 80px); */
+  border: none;
+  border-radius: 4px;
+  /* padding: 10px; */
+  /* font-size: 16px; */
+  box-sizing: border-box;
+  resize: none;
+}
+
+
+
+
+/***Move to Prevoew component **/
+
+blockquote {
+  background-color: var(--bg-custom);
+  border-left: 10px solid var(--bg-accent);
+  padding-left: 1rem;
+  padding: 1rem .5rem;
+  border-radius: 8px 0 0 8px;
+  margin-right: 3rem;
+}
+
+.code-preview{
+  background-color: var(--bg-custom);
+  display: block;
+  border-radius: 3px;
+  overflow-x: auto;
+  margin-right: 3rem;
+}
+
+.code-header{
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--default);
+  color: var(--custom);
+  border-width: 1px;
+  padding: .5rem;
+  font-size: small;
+  border-radius: 8px 8px 0 0;
+}
+
+.code-body {
+  padding: 0 1rem 1rem 1rem;
+}
+
+.code-copy{
+  display: flex;
+  cursor: pointer;
+}
+
+.code-copy .code-copy-text{
+  margin-left: 0.25rem;
+}

@@ -68,7 +68,7 @@ const TextBoxWithSuggestions = (props) => {
                         {shouldShowCreateNewButton && (
                             <div key={`suggestion_item_createNew`} className={`w-full hover-custom cursor-pointer flex items-center justify-between ${highlightedIndex === 0 ? 'bg-custom' : ''}`} onClick={handleSuggestionCreate} >
                                 <span className={`px-2 py-1 flex items-center`}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-plus"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-plus"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
                                     {textBoxValue}
                                 </span>
                                 <span className="text-xs px-2 py-1 bg-custom text-secondary border border-secondary rounded-md">
@@ -83,7 +83,7 @@ const TextBoxWithSuggestions = (props) => {
                             return (
                                 <div key={`suggestion_item_${id}`} className={`w-full hover-custom cursor-pointer  flex ${isOptionSelected ? 'justify-between' : ''} ${highlightedIndex === index ? 'bg-custom' : ''}`} onClick={() => handleSuggestionClick(id, suggestion, index)} >
                                     <span className={`px-2 py-1 ${isOptionSelected ? 'opacity-50' : ''}`}>{text}</span>
-                                    {isOptionSelected && <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5" /></svg>}
+                                    {isOptionSelected && <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check"><path d="M20 6 9 17l-5-5" /></svg>}
                                 </div>
                             )
                         })}

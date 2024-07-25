@@ -97,12 +97,12 @@ const NoteAndEditor = (props) => {
 
     return (
         <div className="m-3">
-            <div>
+            {/* <div>
                 <div>
                     <span className={`${isEditing ? 'bg-custom' : ''}`}>Raw</span>
                     <span className={`${isEditing ? '' : 'bg-custom'}`}>Preview</span>
                 </div>
-            </div>
+            </div> */}
             {isEditing ? (
                 <NotesEditor
                     content={content}
