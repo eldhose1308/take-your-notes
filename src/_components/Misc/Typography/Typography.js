@@ -25,6 +25,7 @@ const typographyVariants = cva(
                 secondary: 'text-secondary',
                 custom: 'text-custom',
                 destructive: 'text-destructive',
+                muted: 'text-default opacity-50',
             },
             size: {
                 xs: "text-xs",

@@ -68,25 +68,7 @@ const NotesEditor = (props) => {
     return (
         <React.Fragment>
 
-            {/* {isFocused && <div className="overlay z-50"></div>} */}
-
-            <div className="editing-note py-2 bg-default shadow-xl rounded-lg relative z-50">
-                <Flex justifyContent='spaceBetween' className='mx-2 my-1'>
-                    <EditableText className="text-default text-lg mx-2" text={heading} onSave={handleNoteHeadingChange} />
-                    <Button variant='ghost' width='none' size='xs' onClick={onCancel} className='mx-3'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                    </Button>
-                </Flex>
-                {/* <TextBox variant='ghost' value={heading} onChange={handleNoteHeadingChange} className='text-lg font-bold' />
-                <TextBox size='xs' variant='ghost' value={link} onChange={handleNoteLinkChange} /> */}
-
-                <MarkdownEditor {...props} isPreviewEnabled={isPreviewEnabled} onFocus={handleFocus} onChange={handleMarkdownChange} onKeyDown={handleKeyDown} />
-                <Separator />
-
-
-                <Tags size='xs' variant='ghost' tags={tags} onChange={handleTagChange} onKeyDown={handleKeyDown} className='ml-auto' />
-
-                <Flex justifyContent='spaceBetween' alignItems='none' className='px-3 py-1'>
+<Flex justifyContent='spaceBetween' alignItems='none' className='px-3 py-1'>
                     <div className="flex mb-2">
                         <Button size='xs' variant='outline' onClick={onCancel}>
                             Cancel
@@ -116,6 +98,54 @@ const NotesEditor = (props) => {
                     </div>
 
                 </Flex>
+            {/* {isFocused && <div className="overlay z-50"></div>} */}
+
+            <div className="editing-note py-2 bg-default shadow-xl rounded-lg">
+                <Flex justifyContent='spaceBetween' className='mx-2 my-1'>
+                    <EditableText className="text-default text-lg mx-2" text={heading} onSave={handleNoteHeadingChange} />
+                    <Button variant='ghost' width='none' size='xs' onClick={onCancel} className='mx-3'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                    </Button>
+                </Flex>
+                {/* <TextBox variant='ghost' value={heading} onChange={handleNoteHeadingChange} className='text-lg font-bold' />
+                <TextBox size='xs' variant='ghost' value={link} onChange={handleNoteLinkChange} /> */}
+
+                <MarkdownEditor {...props} isPreviewEnabled={isPreviewEnabled} onFocus={handleFocus} onChange={handleMarkdownChange} onKeyDown={handleKeyDown} />
+                {/* <Separator /> */}
+
+
+                {/* <Tags size='xs' variant='ghost' tags={tags} onChange={handleTagChange} onKeyDown={handleKeyDown} className='ml-auto' /> */}
+{/* 
+                <Flex justifyContent='spaceBetween' alignItems='none' className='px-3 py-1'>
+                    <div className="flex mb-2">
+                        <Button size='xs' variant='outline' onClick={onCancel}>
+                            Cancel
+                            <div className="mx-2 text-xs">
+                                <span className="text-xs bg-highlight text-secondary border border-secondary px-1 rounded-md">Esc</span>
+                            </div>
+                        </Button>
+                    </div>
+
+                    <div className="flex">
+                        <div className="flex mb-2">
+                            <Button size='xs' variant='outline' className='mx-1' onClick={handlePreview}>
+                                Preview
+                                <div className="mx-2 text-xs">
+                                    <span className="text-xs bg-highlight text-secondary border border-secondary px-1 rounded-md">⌘ + P</span>
+                                </div>
+                            </Button>
+                        </div>
+                        <div className="flex mb-2">
+                            <Button size='xs' variant='outline' onClick={handleSave}>
+                                Save
+                                <div className="mx-2 text-xs">
+                                    <span className="text-xs bg-highlight text-secondary border border-secondary px-1 rounded-md">⌘ + Enter</span>
+                                </div>
+                            </Button>
+                        </div>
+                    </div>
+
+                </Flex> */}
 
             </div>
         </React.Fragment>

@@ -24,7 +24,8 @@ const Dialog = ({ children, ...props }) => {
             {/* {children} */}
             {/* <div className={`dialog dialog-${positionX} dialog-${positionY} z-50 fixed flex items-center justify-end animate-slide-in-y`}> */}
             <div className={`dialog dialog-center dialog-top z-50 fixed flex items-center justify-end animate-slide-in-y`}>
-                <div className="max-w-sm min-w-sm">
+                <div className="min-w-sm">
+                {/* <div className="max-w-sm min-w-sm"> */}
                     <div className={`card bg-default rounded-lg m-3`}>
 
                         {children}

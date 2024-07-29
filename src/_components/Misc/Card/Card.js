@@ -64,7 +64,7 @@ const CardHeader = ({ className, children, ...props }) => {
 
 
 const CardContent = ({ className='', children, ...props }) => {
-    const classNames = `card-content flex flex-col px-3 py-4 ${className}`;
+    const classNames = `card-content flex flex-col px-3 py-2 ${className}`;
 
     return (
         <div className={classNames} {...props}>

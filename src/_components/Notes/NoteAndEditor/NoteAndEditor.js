@@ -89,7 +89,6 @@ const NoteAndEditor = (props) => {
     }
 
 
-
     const handleHighlightNote = () => {
         onHighlight(id)
     }

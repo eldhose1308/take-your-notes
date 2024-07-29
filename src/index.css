@@ -917,6 +917,18 @@ textarea::placeholder {
   }
 }
 
+
+.h-sm {
+  height: 16rem;
+}
+
+.w-sm {
+  width: 16rem;
+}
+.w-md {
+  width: 25rem;
+}
+
 .min-w-md {
   min-width: 25rem;
 }
@@ -1118,6 +1130,9 @@ textarea::placeholder {
   padding-right: 3rem;
 }
 
+.m-auto{
+  margin: auto;
+}
 
 .mx-1 {
   margin-right: .25rem;
@@ -1418,10 +1433,27 @@ textarea::placeholder {
   opacity: 0.5;
 }
 
+.opacity-75	{
+  opacity: 0.75;
+}
+
 .opacity-100	{
   opacity: 1;
 }
 
+.hover-opacity-100:hover {
+  opacity: 1;
+}
+
+.hover-pl-4:hover{
+  padding-left: 1rem;
+}
+
+
+
+.hover-animate-bounce-x:hover{
+  animation: bounce-x 1s infinite;
+}
 
 .transition-transform {
   transition-duration: .15s;
