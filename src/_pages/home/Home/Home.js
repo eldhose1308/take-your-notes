@@ -20,6 +20,18 @@ import { Button } from "_components/Form";
 import FolderStructure from '_modules/fileHierarchy/_components/FolderStructure';
 import NotesHierarchy from '_modules/fileHierarchy/_components/NotesHierarchy';
 import CommandCenter from '_modules/notes/_components/CommandCenter';
+import OptionsMenu from '_components/UI/OptionsMenu/OptionsMenu';
+import DropdownGroup, { DropdownContent, DropdownItem, DropdownMenuTrigger, DropdownTrigger } from '_components/UI/Dropdown/DropdownGroup';
+import Combobox, { ComboboxContent, ComboboxTrigger } from '_components/UI/Combobox/Combobox';
+
+const folderOptions = [
+    { "label": "Drive Clone", "value": "drive_clone" },
+    { "label": "Last Wore Dress", "value": "last_wore_dress" },
+    { "label": "Study Materials", "value": "study_materials" },
+    { "label": "Project Files", "value": "project_files" },
+    { "label": "Meeting Notes", "value": "meeting_notes" }
+  ]
+  
 
 const Home = () => {
     // const { isDrawerOpen, closeDrawer, openDrawer } = useDrawer()
@@ -68,19 +80,44 @@ const Home = () => {
                         <div className='px-2 min-w-sm'>
                             <div className='flex justify-between'>
 
-                                <div className='flex text-sm text-bold'>
+                                <div className='flex text-sm'>
                                     {/* same color as top icon or else we give a default color */}
                                     <span className='flex items-center mx-1 text-secondary cursor-pointer'>
-                                        <span className='mr-1' onClick={(e) => { setIsLanding(true) }}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
+                                        <span className='mr-2 items-center' onClick={(e) => { setIsLanding(true) }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 20C20 20.5523 19.5523 21 19 21H5C4.44772 21 4 20.5523 4 20V11L1 11L11.3273 1.6115C11.7087 1.26475 12.2913 1.26475 12.6727 1.6115L23 11L20 11V20ZM11 13V19H13V13H11Z"></path></svg>
+                                            {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19 21H5C4.44772 21 4 20.5523 4 20V11L1 11L11.3273 1.6115C11.7087 1.26475 12.2913 1.26475 12.6727 1.6115L23 11L20 11V20C20 20.5523 19.5523 21 19 21ZM6 19H18V9.15745L12 3.7029L6 9.15745V19ZM9 9.99998H15V16H9V9.99998ZM11 12V14H13V12H11Z"></path></svg>                                         */}
+                                            {/* Home */}
                                         </span>
                                         /
                                     </span>
-                                    <span className='text-secondary'>DSM / </span>
-                                    <span className='flex items-center mx-1 text-secondary'>
-                                        Day 1
-                                        {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevrons-up-down"><path d="m7 15 5 5 5-5" /><path d="m7 9 5-5 5 5" /></svg> */}
-                                    </span>
+                                    <div className='flex'>
+
+
+                                        <Combobox>
+                                            <ComboboxTrigger>
+                                                <span className='flex mx-2 items-center text-secondary cursor-pointer'>
+                                                    <span className=''>Personal</span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18 9 12 3 6 9H18ZM18 15 12 21 6 15H18Z"></path></svg>
+                                                </span>
+                                            </ComboboxTrigger>
+                                            <ComboboxContent
+                                                options={folderOptions}
+                                            />
+
+                                        </Combobox>
+                                        <span className='folder-separator'>
+                                            /
+                                        </span>
+                                    </div>
+
+                                    <div className='flex'>
+
+                                        <span className='flex mx-2 items-center text-secondary cursor-pointer'>
+                                            Notes
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18 9 12 3 6 9H18ZM18 15 12 21 6 15H18Z"></path></svg>
+                                        </span>
+                                    </div>
+
                                 </div>
 
                                 <div className='cursor-pointer' onClick={() => setIsHierarchyVisible(true)}>

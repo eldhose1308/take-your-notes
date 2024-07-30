@@ -33,23 +33,23 @@ const NoteOptionsMenu = (props) => {
             {isDeleteConfirmationOpen && <Dialog isShown hasOverlay >
 
                 <Card variant='ghost' rounded='lg'>
-                            <CardHeader>
-                                <Typography size='lg'>Confirm Deletion</Typography>
-                            </CardHeader>
+                    <CardHeader>
+                        <Typography size='lg'>Confirm Deletion</Typography>
+                    </CardHeader>
 
-                            <CardContent>
+                    <CardContent>
 
-                                <Typography size='sm' textVariant='default'>Are you sure you want to permanently delete this item?</Typography>
+                        <Typography size='sm' textVariant='default'>Are you sure you want to permanently delete this item?</Typography>
 
-                            </CardContent>
+                    </CardContent>
 
-                            <CardFooter className='p-0 flex justify-between'>
-                                <Button size='xs' width='none' variant='custom' onClick={hideDialog}>Cancel</Button>
-                                <Button size='xs' width='none' variant='destructive'>Delete</Button>
-                            </CardFooter>
-                        </Card>
+                    <CardFooter className='p-0 flex justify-between'>
+                        <Button size='xs' width='none' variant='custom' onClick={hideDialog}>Cancel</Button>
+                        <Button size='xs' width='none' variant='destructive'>Delete</Button>
+                    </CardFooter>
+                </Card>
 
-            </Dialog> }
+            </Dialog>}
 
             <OptionsMenu>
                 {/* <div className="menu-content text-xs flex flex-col bg-default rounded-md border border-another px-1 py-1"> */}

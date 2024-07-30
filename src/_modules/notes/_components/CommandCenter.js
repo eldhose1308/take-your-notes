@@ -3,7 +3,7 @@ import React from "react";
 const CommandCenter = (props) => {
 
     return (
-        <div className="mx-2 flex flex-col justify-center items-center opacity-75">
+        <div className="mx-2 text-secondary flex flex-col justify-center items-center h-screen-1/2">
             <div className="flex items-center px-2 py-1 text-md">
                 <span className="command-name mx-2">
                     Show all Commands
