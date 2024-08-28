@@ -1,0 +1,3 @@
+export const GET_FOLDERS = 'GET_FOLDERS';
+export const UPDATE_FOLDER = 'UPDATE_FOLDER';
+export const REMOVE_FOLDER = 'REMOVE_FOLDER';

@@ -1,4 +1,6 @@
+import { BASE_URL } from "_constants";
 import userData from "_mockData/user.mock";
+import { AccessAPI } from "_utils";
 
 const login = (data, config={}) => {
     const { setProgress, abortRequest } = config;
@@ -20,7 +22,17 @@ const login = (data, config={}) => {
     })
 }
 
+const signup = (payload) => {
+    return new AccessAPI(BASE_URL + 'auth/signup').post(payload)
+        .then((res) => {
+            return res
+        }).catch((err) => {
+            throw err.response
+        })
+} 
+
 export {
     login,
+    signup
 }
 

@@ -16,7 +16,7 @@ const OffCanvas = (props) => {
    
 
     return (
-        // <Portal>
+        <Portal>
              <div className={`offcanvas offcanvas-bottom ${isActive ? 'show' : 'hide'}`}>
                 <div className="offcanvas-header">
                     {/* <h3 className="header-title">Edit Option</h3> */}
@@ -29,7 +29,7 @@ const OffCanvas = (props) => {
 
                 <div className="offcanvas-footer"></div>
             </div>
-        // </Portal>
+         </Portal>
     )
 }
 

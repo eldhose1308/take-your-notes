@@ -19,9 +19,7 @@ const FolderComponent = ({ folder, isExpanded, expandedFiles, toggleFolder, togg
                 {files && files.map((file) => {
                     const { id } = file;
                     return (
-                        <>
-                            <FileComponent key={id} file={file} isExpanded={!!expandedFiles[id]} toggleFile={toggleFile} toggleNote={toggleNote} />
-                        </>
+                        <FileComponent key={`file_${id}`} file={file} isExpanded={!!expandedFiles[id]} toggleFile={toggleFile} toggleNote={toggleNote} />
                     )
                 })}
             </div>}
@@ -101,9 +99,11 @@ const FolderStructure = (props) => {
             {folders.map((folder) => {
                 const { id } = folder;
                 return (
-                    <>
+                    <React.Fragment
+                    key={`folder_fragment_${id}`}
+                    >
                         <FolderComponent
-                            key={id}
+                            key={`folder_${id}`}
                             folder={folder}
                             expandedFiles={expandedFiles}
                             isExpanded={!!expandedFolders[id]}
@@ -112,7 +112,7 @@ const FolderStructure = (props) => {
                             toggleNote={setSelectedNote}
                         />
                         <Separator />
-                    </>
+                    </React.Fragment>
                 )
             })}
         </div>

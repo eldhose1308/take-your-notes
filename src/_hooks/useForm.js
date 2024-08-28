@@ -46,8 +46,13 @@ const useForm = ({ schema }) => {
                 setValidations({ type: 'RESET_ALL' })
 
                 setIsSubmitting(true)
-                await submitCallback(formFields)
-                setIsSubmitting(false)
+                try{
+                    await submitCallback(formFields)
+                }catch(err){
+
+                }finally{
+                    setIsSubmitting(false)
+                }
 
             }else{
                 setValidations({ type: 'SET_ALL', data: validationObj })

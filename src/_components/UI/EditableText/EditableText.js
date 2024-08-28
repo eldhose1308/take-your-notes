@@ -4,7 +4,7 @@ import Typography from "_components/Misc/Typography/Typography"
 import { Button, TextBox } from "_components/Form"
 
 const EditableText = (props) => {
-    const { text = 'Edit text', onSave = () => { } } = props
+    const { text = '', onSave = () => { } } = props
 
     const [value, setValue] = useState(text)
     const [isEditing, setIsEditing] = useState(false)

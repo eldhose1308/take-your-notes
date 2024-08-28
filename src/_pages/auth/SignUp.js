@@ -17,11 +17,11 @@ import { useTopLoader } from "_contexts/TopLoaderProvider";
 
 export default function SignUp() {
     const { toast } = useToast()
-    const { login } = useAuth()
+    const { signup } = useAuth()
 
     const handleSubmit = async (formData) => {
         try {
-            const userData = await login(formData);
+            const userData = await signup(formData);
             const { message } = userData;
 
             toast({

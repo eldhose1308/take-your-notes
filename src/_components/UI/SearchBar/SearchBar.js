@@ -12,7 +12,7 @@ const SearchBar = (props) => {
 
     return (
         <React.Fragment>
-            <div className="flex items-center animate-slide-in-x-r">
+            <div className="flex flex-nowrap items-center animate-slide-in-x-r">
                 <div className='grow-1 mr-2'>
                     <TextBox onChange={handleChange} size={size} {...textBoxProps} />
                 </div>

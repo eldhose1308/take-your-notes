@@ -88,7 +88,7 @@ export default function SignIn() {
                             <TextBox
                                 type='text'
                                 labelName='Email'
-                                placeHolder="Enter email"
+                                placeholder="Enter email"
                                 validationMsg={errors.email}
                                 {...register('email')}
                             />
@@ -96,7 +96,7 @@ export default function SignIn() {
                             <TextBox
                                 type='password'
                                 labelName="Password"
-                                placeHolder="Enter password"
+                                placeholder="Enter password"
                                 validationMsg={errors.password}
                                 autoComplete='new-password'
                                 {...register('password')}

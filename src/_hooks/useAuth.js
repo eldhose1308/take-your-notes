@@ -22,6 +22,20 @@ const useAuth = () => {
         }
     }
 
+    const signup = async (formData) => {
+        showTopLoader()
+        
+        try{
+            const userData = await userModel.login(formData, { setProgress });
+            const { data } = userData;
+            loginClient(data)
+            return userData
+        }catch(err){
+        }finally{
+            hideTopLoader()
+        }
+    }
+
     const logout = () => {
         // call server api here
         logoutClient()
@@ -30,6 +44,7 @@ const useAuth = () => {
     return {
         isAuthenticated,
         login,
+        signup,
         logout
     }
 }

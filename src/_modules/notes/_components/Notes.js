@@ -12,7 +12,7 @@ const Notes = (props) => {
 
     const { isActive, content, noteMetaDetails={}, htmlContent, onEditClick, onDeleteClick, onHighLight=()=>{} } = props
 
-    const { heading, link, tags = [] } = noteMetaDetails;
+    const { title, link, tags = [] } = noteMetaDetails;
 
     return (
         <React.Fragment>
@@ -24,8 +24,7 @@ const Notes = (props) => {
                                 <div className="flex mx-2">
 
                                     {/* <span>Icon</span> */}
-                                    <h3 className="text-default text-lg">{heading}
-                                    </h3>
+                                    <h3 className="text-default text-lg">{title}</h3>
                                 </div>
                                 {link &&
                                     (<div className="flex items-center py-1">

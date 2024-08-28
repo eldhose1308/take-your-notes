@@ -17,7 +17,7 @@ const MarkdownEditor = (props) => {
     const previewRef = useRef(null);
 
     const markdownInHTML = convertToHTML(markdownContent)
-
+    // console.log(markdownInHTML);
     const handleSave = () => {
         onSave(markdownContent)
     }

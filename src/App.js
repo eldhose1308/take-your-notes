@@ -3,7 +3,9 @@ import {
   createHashRouter,
   RouterProvider,
 } from "react-router-dom";
+import { Provider } from 'react-redux';
 
+import store from "store/store";
 
 import { TopLoaderProvider } from "_contexts/TopLoaderProvider";
 
@@ -19,6 +21,7 @@ const router = createHashRouter(ROUTES);
 function App() {
   return (
     <React.Fragment>
+  <Provider store={store}>
 
       <ToastProvider>
         <TopLoaderProvider>
@@ -29,6 +32,7 @@ function App() {
           
         </TopLoaderProvider>
       </ToastProvider>
+  </Provider>
 
     </React.Fragment>
   );

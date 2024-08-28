@@ -103,7 +103,9 @@ body.light{
   /* font-family: "Geist Sans"; */
   /* font-family: LatoRegular; */
   /* font-family: 'Quicksand'; */
-  font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, sans-serif;
+  /* font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, sans-serif; */
+  font-family: "Shantell Sans", cursive;
+  /* font-family: "Assistant", sans-serif; */
   border: 0 solid transparent;
   outline: none;
   box-sizing: border-box;
@@ -669,6 +671,10 @@ line-height: 1.5rem;
   width: 50%;
 }
 
+.w-60 {
+  width: 60%;
+}
+
 .h-full {
   height: 100%;
 }
@@ -716,6 +722,10 @@ line-height: 1.5rem;
 .input {
   /* background-color: var(--bg-custom); */
   /* color: var(--default); */
+}
+
+.underline{
+  text-decoration: underline;
 }
 
 .outline-none {
@@ -903,7 +913,7 @@ textarea::placeholder {
 }
 
 .min-w-sm {
-  min-width: 15rem;
+  min-width: 12rem;
 }
 
 /* Adjust value for smaller screens */
@@ -1228,6 +1238,10 @@ textarea::placeholder {
   margin-top: 2rem;
 }
 
+
+.mr-1 {
+  margin-right: .25rem;
+}
 .mr-2 {
   margin-right: .5rem;
 }
@@ -1253,6 +1267,10 @@ textarea::placeholder {
   margin: 1.25rem;
 }
 
+
+.ml-2 {
+  margin-left: .5rem;
+}
 .ml-4 {
   margin-left: 1rem;
 }
@@ -1453,6 +1471,9 @@ textarea::placeholder {
 }
 
 
+.hover-animate-spin:hover{
+  animation: spin 2s linear 1;
+}
 
 .hover-animate-bounce-x:hover{
   animation: bounce-x 1s infinite;

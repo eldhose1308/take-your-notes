@@ -1,3 +1,6 @@
+import { BASE_URL } from "_constants";
+import { AccessAPI } from "_utils";
+
 const NOTES_KEY = 'notes';
 
 
@@ -35,15 +38,12 @@ const deleteLocalStorageData = (key, id) => {
     localStorage.setItem(key, JSON.stringify(updatedData));
 }
 
-const getNotes = (data, config = {}) => {
-    return new Promise((resolve, reject) => {
-        const storedNotes = getLocalStorageData(NOTES_KEY);
-        if (storedNotes) {
-            resolve(storedNotes);
-        }
-        else {
-            resolve([])
-        }
+const getNotes = ({ folderId, fileId }, config = {}) => {
+    return new AccessAPI(BASE_URL + `folders/${folderId}/files/${fileId}/notes`).get()
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err.response
     })
 }
 
@@ -61,76 +61,43 @@ const getNoteById = (id, config = {}) => {
     })
 }
 
-const saveNotes = (data, config = {}) => {
-    const { setProgress=()=>{}, abortRequest } = config;
-
-    let progress = 0;
-    return new Promise((resolve, reject) => {
-        const intervalId = setInterval(() => {
-            progress = progress + 10
-            setProgress(progress)
-            if (progress === 100) {
-                clearInterval(intervalId);
-                try {
-                    const res = saveLocalStorageData(NOTES_KEY, data);
-                    resolve(res);
-                } catch (error) {
-                    reject('Failed to save notes');
-                }
-            }
-        })
-    });
+const saveNote = (data, config = {}) => {
+    const { folderId, fileId } = data;
+    return new AccessAPI(BASE_URL + `folders/${folderId}/files/${fileId}/notes`).post(data)
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err.response
+    })
 };
 
 
-const updateNotes = (id, data, config = {}) => {
-    const { setProgress=()=>{}, abortRequest } = config;
-
-    let progress = 0;
-    return new Promise((resolve, reject) => {
-        const intervalId = setInterval(() => {
-            progress = progress + 10
-            setProgress(progress)
-            if (progress === 100) {
-                clearInterval(intervalId);
-                try {
-                    updateLocalStorageData(NOTES_KEY, id, data);
-                    resolve(data);
-                } catch (error) {
-                    reject('Failed to update notes');
-                }
-            }
-        })
-    });
-};
+const updateNote = async (data, id, config = {}) => {
+    const { folderId, fileId } = data;
+    return new AccessAPI(BASE_URL + `folders/${folderId}/files/${fileId}/notes/${id}`).put(data)
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err.response
+    })
+}
 
 
-const deleteNote = (id, config = {}) => {
-    const { setProgress=()=>{}, abortRequest } = config;
 
-    let progress = 0;
-    return new Promise((resolve, reject) => {
-        const intervalId = setInterval(() => {
-            progress = progress + 10
-            setProgress(progress)
-            if (progress === 100) {
-                clearInterval(intervalId);
-                try {
-                    deleteLocalStorageData(NOTES_KEY, id);
-                    resolve();
-                } catch (error) {
-                    reject('Failed to update notes');
-                }
-            }
-        })
-    });
-};
+const deleteNote = async ({ folderId, fileId, noteId }, config = {}) => {
+    return new AccessAPI(BASE_URL + `folders/${folderId}/files/${fileId}/notes/${noteId}`).delete()
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err.response
+    })
+}
 
 export {
     getNotes,
     getNoteById,
-    saveNotes,
-    updateNotes,
+    saveNote,
+    updateNote,
     deleteNote
 }
 

@@ -10,6 +10,7 @@ import Communities from '_pages/home/Communities'
 
 import { PATHS } from './paths'
 import SeeLater from '_pages/home/SeeLater'
+import Sample from '_pages/home/Sample/Sample'
 
   
 export const ROUTES = [
@@ -39,6 +40,10 @@ export const ROUTES = [
         {
           path: PATHS.home,
           element: <Home />,
+        },
+        {
+          path: PATHS.sample,
+          element: <Sample />,
         },
         {
           path: PATHS.popular,

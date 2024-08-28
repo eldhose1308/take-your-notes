@@ -8,48 +8,21 @@ import Typography from "_components/Misc/Typography/Typography";
 
 
 const NoteOptionsMenu = (props) => {
-    const { onEdit = () => { }, onDelete = () => { } } = props
+    const { id, item, onEdit = () => { }, onDelete = () => { } } = props
 
-    const [isDeleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
 
     const handleEdit = (e) => {
-        e.stopPropagation()
-        onEdit()
+        e.stopPropagation();
+        onEdit();
     }
     const handleDelete = (e) => {
-        e.stopPropagation()
-        setDeleteConfirmationOpen(true)
-        // onDelete()
+        e.stopPropagation();
+        onDelete(id, item, e);
     }
 
-    const hideDialog = (e) => {
-        e.stopPropagation()
-        setDeleteConfirmationOpen(false)
-    }
-
+   
     return (
         <>
-
-            {isDeleteConfirmationOpen && <Dialog isShown hasOverlay >
-
-                <Card variant='ghost' rounded='lg'>
-                    <CardHeader>
-                        <Typography size='lg'>Confirm Deletion</Typography>
-                    </CardHeader>
-
-                    <CardContent>
-
-                        <Typography size='sm' textVariant='default'>Are you sure you want to permanently delete this item?</Typography>
-
-                    </CardContent>
-
-                    <CardFooter className='p-0 flex justify-between'>
-                        <Button size='xs' width='none' variant='custom' onClick={hideDialog}>Cancel</Button>
-                        <Button size='xs' width='none' variant='destructive'>Delete</Button>
-                    </CardFooter>
-                </Card>
-
-            </Dialog>}
 
             <OptionsMenu>
                 {/* <div className="menu-content text-xs flex flex-col bg-default rounded-md border border-another px-1 py-1"> */}

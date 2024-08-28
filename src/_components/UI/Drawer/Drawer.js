@@ -1,8 +1,8 @@
 import React from "react";
 
-const Drawer = ({ hide, isActive, heading='', children, ...props }) => {
+const Drawer = ({ hide, isActive, heading = '', children, ...props }) => {
 
-    if(!isActive){
+    if (!isActive) {
         return null
     }
 
@@ -18,7 +18,7 @@ const Drawer = ({ hide, isActive, heading='', children, ...props }) => {
                 <div className="flex justify-between p-4 ">
                     <h5 id="drawer-label" className="flex items-center justify-center">{heading}</h5>
                     <button onClick={hide} type="button" data-drawer-hide="drawer-example" aria-controls="drawer-example" className="text-default bg-transparent rounded-lg text-sm top-2.5 end-2.5 flex items-center justify-center" >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                     </button>
                 </div>
                 {children}

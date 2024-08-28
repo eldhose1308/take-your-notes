@@ -8,7 +8,7 @@ const CommandCenter = (props) => {
                 <span className="command-name mx-2">
                     Show all Commands
                 </span>
-                <span className="command-shortcut text-sm opacity-50">
+                <span className="command-shortcut text-sm ">
                     ⌘ + Enter
                 </span>
             </div>
@@ -17,7 +17,7 @@ const CommandCenter = (props) => {
                 <span className="command-name mx-2">
                     Go to File
                 </span>
-                <span className="command-shortcut text-sm opacity-50">
+                <span className="command-shortcut text-sm ">
                     ⌘ + P
                 </span>
             </div>
@@ -26,7 +26,7 @@ const CommandCenter = (props) => {
                 <span className="command-name mx-2">
                     Find in Files
                 </span>
-                <span className="command-shortcut text-sm opacity-50">
+                <span className="command-shortcut text-sm ">
                     ⌘ + F
                 </span>
             </div>
