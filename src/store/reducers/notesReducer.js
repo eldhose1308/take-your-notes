@@ -18,7 +18,7 @@ const notesReducer = (state = initialState, action={}) => {
     const { type, payload } = action;
     switch (type) {
         case SET_IS_NOTE_ADDING:
-            return { ...state, selectedNoteId: null, currentNote: { title: `Untitled_${state.notesList.length}` }, isNoteAdding: payload };
+            return { ...state, selectedNoteId: null, currentNote: { title: `Untitled-${state.notesList.length + 1}` }, isNoteAdding: payload };
 
         case 'SET_CURRENT_NOTE':
             const { notesList=[] } = state;
