@@ -22,7 +22,7 @@ const Home = () => {
     // const { isDrawerOpen, closeDrawer, openDrawer } = useDrawer()
     const dispatch = useDispatch();
 
-    const isNoteAdding = useSelector(state => state.notes.isNoteAdding)
+    // const isNoteAdding = useSelector(state => state.notes.isNoteAdding)
 
     const [isLanding, setIsLanding] = useState(true);
 

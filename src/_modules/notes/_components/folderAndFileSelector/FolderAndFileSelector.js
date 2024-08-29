@@ -11,11 +11,11 @@ const FolderAndFileSelector = (props) => {
     const dispatch = useDispatch();
 
     const handleFileSelect = (id, option) => {
-        dispatch(setCurrentFile(option));
+        dispatch(setCurrentFile(option, true));
     }
 
     const handleFolderSelect = (id, option) => {
-        dispatch(setCurrentFolder(option));
+        dispatch(setCurrentFolder(option, true));
     }
 
     const handleToggleLandingPage = () => {

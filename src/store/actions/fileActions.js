@@ -2,6 +2,7 @@ import * as files from "_services/files.service";
 import { GET_FILES, REMOVE_FILE, UPDATE_FILE } from "store/actionTypes/filesActionTypes";
 import { setCurrentFile } from "./notesActions";
 import { ADD_FILE } from "store/actionTypes/notesActionTypes";
+import { getCurrentFileFromLocal } from "_utils/user-localDB/notesDB";
 
 
 export const getFiles = (folderId) => async (dispatch) => {
@@ -20,7 +21,9 @@ export const getFilesAndSet = (folder) => async (dispatch) => {
         dispatch({ type: GET_FILES, payload: filesList });
         
         if(filesList.length){
-            dispatch(setCurrentFile(filesList[0]))
+            const currentFileInLocalDB = getCurrentFileFromLocal();
+            const selectedFile = currentFileInLocalDB || filesList[0];
+            dispatch(setCurrentFile(selectedFile))
         }
     } catch (error) {
         console.error('Failed to get folder:', error);

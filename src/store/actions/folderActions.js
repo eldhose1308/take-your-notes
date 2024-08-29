@@ -2,6 +2,7 @@ import * as folders from "_services/folders.service";
 import { GET_FOLDERS, REMOVE_FOLDER, UPDATE_FOLDER } from "store/actionTypes/foldersActionTypes";
 import { setCurrentFolder } from "./notesActions";
 import { ADD_FOLDER } from "store/actionTypes/notesActionTypes";
+import { getCurrentFolderFromLocal } from "_utils/user-localDB/notesDB";
 
 
 export const getFolders = (folder) => async (dispatch) => {
@@ -20,14 +21,14 @@ export const getFoldersAndSet = (folder) => async (dispatch) => {
         dispatch({ type: GET_FOLDERS, payload: foldersList });
         
         if(foldersList.length){
-            dispatch(setCurrentFolder(foldersList[0]))
+            const currentFolderInLocalDB = getCurrentFolderFromLocal();
+            const selectedFolder = currentFolderInLocalDB || foldersList[0];
+            dispatch(setCurrentFolder(selectedFolder))
         }
     } catch (error) {
         console.error('Failed to get folder:', error);
     }
 };
-
-
 
 export const saveFolder = (folder) => async (dispatch) => {
     try {

@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 import Flex from '_components/Misc/Flex/Flex';
 
@@ -7,12 +8,17 @@ import { Button } from "_components/Form";
 
 import './Notes.css'
 import { convertToHTML } from "_modules/markdownEditor/_utils/markdownConvert";
+import { setIsNoteAdding } from "store/actions/notesActions";
 
 const Notes = (props) => {
-
-    const { isActive, content, noteMetaDetails={}, htmlContent, onEditClick, onDeleteClick, onHighLight=()=>{} } = props
-
+    const { isActive, content, noteMetaDetails={}, htmlContent, onEditClick, onHighLight=()=>{} } = props
     const { title, link, tags = [] } = noteMetaDetails;
+
+    const dispatch = useDispatch();
+
+    const onCloseClick = () => {
+        dispatch(setIsNoteAdding(false));
+    }
 
     return (
         <React.Fragment>
@@ -40,13 +46,13 @@ const Notes = (props) => {
 
                         <div className="flex mb-2">
                             <Flex justifyContent='none' alignItems='none' wrap='none' className='invisible group-hover-item'>
-                                {!!onEditClick && <Button size='xs' variant='ghost' title='Edit' onClick={onEditClick}>
+                                {!!onEditClick && <span onClick={onEditClick} className="flex items-center px-2 py-1 bg-transparent text-default hover-accent hover-text-custom rounded-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pencil-line"><path d="M12 20h9" /><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z" /><path d="m15 5 3 3" /></svg>
-                                </Button>}
+                                </span>}
                                 <span className="mx-1"></span>
-                                {!!onDeleteClick && <Button size='xs' variant='ghost' title='Delete' onClick={onDeleteClick} className='hover-destructive hover-text-custom' >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
-                                </Button>}
+                                <span onClick={onCloseClick} className="flex items-center px-2 py-1 bg-transparent text-default border hover-text-destructive hover-border-destructive rounded-md">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                                </span>
                             </Flex>
                         </div>
                     </Flex>

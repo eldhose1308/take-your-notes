@@ -25,6 +25,7 @@ const SettingsDrawer = () => {
             <Flex justifyContent='none' className='my-2 text-sm'>
                 <Separator variant='custom' className='w-full' />
                 <div className="flex my-3 w-full">
+                    <span className="text-xs text-secondary m-2">Show 'i' on all to give a small description</span>
                     <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
                         <span>
                             Open
@@ -89,6 +90,12 @@ const SettingsDrawer = () => {
 
                 <div className="flex w-full my-3">
                     <ThemeToggler />
+
+                    <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
+                        <span>Save previous state</span>
+                        <input type="checkbox" />
+                    </div>
+
                 </div>
 
             </Flex>

@@ -1,4 +1,5 @@
 import * as notes from "_services/notes.service";
+import { getCurrentNoteFromLocal, setCurrentFileToLocal, setCurrentFolderToLocal, setCurrentNoteToLocal } from "_utils/user-localDB/notesDB";
 import { ADD_FILE, ADD_FOLDER, ADD_NOTE, GET_NOTES, REMOVE_NOTE, SET_CURRENT_FILE, SET_CURRENT_FOLDER, SET_CURRENT_NOTE, SET_IS_NOTE_ADDING, UPDATE_NOTE } from "store/actionTypes/notesActionTypes";
 
 
@@ -7,15 +8,18 @@ export const setIsNoteAdding = (status = true) => async (dispatch) => {
 }
 
 
-export const setCurrentFolder = (data) => async (dispatch) => {
+export const setCurrentFolder = (data, resetFlag = false) => async (dispatch) => {
+    setCurrentFolderToLocal(data, resetFlag);
     dispatch({ type: SET_CURRENT_FOLDER, payload: data });
 }
 
-export const setCurrentFile = (data) => async (dispatch) => {
+export const setCurrentFile = (data, resetFlag = false) => async (dispatch) => {
+    setCurrentFileToLocal(data, resetFlag);
     dispatch({ type: SET_CURRENT_FILE, payload: data });
 }
 
 export const setCurrentNote = (data) => async (dispatch) => {
+    setCurrentNoteToLocal(data);
     dispatch({ type: SET_CURRENT_NOTE, payload: data });
 }
 
@@ -45,7 +49,9 @@ export const getNotesAndSet = (data) => async (dispatch) => {
         dispatch({ type: GET_NOTES, payload: notesList });
         
         if(notesList.length){
-            dispatch(setCurrentNote(notesList[0]))
+            const currentNoteInLocalDB = getCurrentNoteFromLocal();
+            const selectedNote = currentNoteInLocalDB || notesList[0];
+            dispatch(setCurrentNote(selectedNote))
         }
     } catch (error) {
         console.error('Failed to get notes:', error);
@@ -84,7 +90,7 @@ export const deleteNote = (data) => async (dispatch) => {
         dispatch({ type: REMOVE_NOTE, payload: noteId });
         return true;
     } catch (error) {
-        throw error;
         console.error('Failed to delete note:', error);
+        throw error;
     }
 };

@@ -131,6 +131,7 @@ const NoteAndEditor = (props) => {
                     content={content}
                     noteMetaDetails={noteMetaDetails}
                     onEditClick={enterEditMode}
+                    onCloseClick={() => alert('Close')}
                     onHighLight={handleHighlightNote}
                 />}
         </div>

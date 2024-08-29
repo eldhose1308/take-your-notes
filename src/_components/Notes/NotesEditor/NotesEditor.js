@@ -53,7 +53,7 @@ const NotesEditor = (props) => {
     const handleKeyDown = (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
             e.preventDefault()
-            onSave(markdownContent)
+            onSave({ content: markdownContent, title: noteTitle })
         }
 
         if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
@@ -105,14 +105,17 @@ const NotesEditor = (props) => {
             <div className="editing-note py-2 bg-default shadow-xl rounded-lg">
                 <Flex justifyContent='spaceBetween' className='mx-2 my-1'>
                     <EditableText className="text-default text-lg mx-2" text={noteTitle} onSave={handleNoteTitleChange} />
-                    <Button variant='ghost' width='none' size='xs' onClick={onCancel} className='mx-3'>
+                    <span onClick={onCancel} className="flex items-center mx-3 px-2 py-1 bg-transparent text-default border hover-text-destructive hover-border-destructive rounded-md">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                    </Button>
+                    </span>
+                    {/* <Button variant='ghost' width='none' size='xs' onClick={onCancel} className='mx-3'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                    </Button> */}
                 </Flex>
- 
+
 
                 <MarkdownEditor {...props} isPreviewEnabled={isPreviewEnabled} onFocus={handleFocus} onChange={handleMarkdownChange} onKeyDown={handleKeyDown} />
-                
+
             </div>
         </React.Fragment>
     )

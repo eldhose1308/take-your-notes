@@ -23,7 +23,7 @@ const notesReducer = (state = initialState, action={}) => {
         case 'SET_CURRENT_NOTE':
             const { notesList=[] } = state;
             const currentNote = notesList.find(notes => notes.id === payload);
-            return { ...state, isNoteAdding: null, currentNote, selectedNoteId: payload };
+            return { ...state, isNoteAdding: null, currentNote: payload };
 
         case SET_CURRENT_FOLDER:
             return { ...state, currentFile: null, currentFolder: payload };
