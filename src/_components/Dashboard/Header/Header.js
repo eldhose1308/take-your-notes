@@ -13,6 +13,7 @@ import UserProfileMenu from "_modules/profile/_components/UserProfileMenu";
 
 import useDrawer from "_hooks/useDrawer";
 import SettingsDrawer from "_modules/drawers/SettingsDrawer";
+import { openSettingsDrawer } from "store/actions/drawerActions";
 
 const Header = (props) => {
     const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const Header = (props) => {
     const { isAuthenticated } = useAuth()
 
     const handleSettingsClick = () => {
-        // dispatch(settingsModal());
+        dispatch(openSettingsDrawer());
     }
 
     return (
