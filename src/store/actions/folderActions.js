@@ -2,7 +2,7 @@ import * as folders from "_services/folders.service";
 import { GET_FOLDERS, REMOVE_FOLDER, UPDATE_FOLDER } from "store/actionTypes/foldersActionTypes";
 import { setCurrentFolder } from "./notesActions";
 import { ADD_FOLDER } from "store/actionTypes/notesActionTypes";
-import { getCurrentFolderFromLocal } from "_utils/user-localDB/notesDB";
+import { getCurrentFolderFromLocal, setCurrentFolderToLocal } from "_utils/user-localDB/notesDB";
 
 
 export const getFolders = (folder) => async (dispatch) => {
@@ -44,6 +44,7 @@ export const saveFolder = (folder) => async (dispatch) => {
 export const updateFolder = (folder, id) => async (dispatch) => {
     try {
         const newFolder = await folders.updateFolder(folder, id);
+        setCurrentFolderToLocal(newFolder);
         dispatch({ type: UPDATE_FOLDER, payload: newFolder });
         return newFolder;
     } catch (error) {

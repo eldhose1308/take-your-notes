@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Flex from "_components/Misc/Flex/Flex";
 import Separator from "_components/Misc/Separator/Separator";
@@ -12,13 +12,28 @@ import * as notesModel from "_services/notes.service";
 import NotesHierarchy from "_modules/fileHierarchy/_components/NotesHierarchy";
 import NotesControls from "../_components/notesControls/NotesControls";
 import FolderAndFileSelector from "../_components/folderAndFileSelector/FolderAndFileSelector";
+import CompactView from "../_components/CompactView";
+import ExplorerView from "../_components/ExplorerView";
+import ModeSelector from "_components/UI/ModeSelector/ModeSelector";
+import { getFoldersAndSet } from "store/actions/folderActions";
+
+
+const fileModes = [
+    { id: 'compact', label: 'Compact', modeElement: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg> },
+    { id: 'explorer', label: 'Explorer', modeElement: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-tree"><path d="M20 10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2.5a1 1 0 0 1-.8-.4l-.9-1.2A1 1 0 0 0 15 3h-2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z"/><path d="M20 21a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-2.9a1 1 0 0 1-.88-.55l-.42-.85a1 1 0 0 0-.92-.6H13a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z"/><path d="M3 5a2 2 0 0 0 2 2h3"/><path d="M3 3v13a2 2 0 0 0 2 2h3"/></svg> }
+]
 
 const NoteNavigator = () => {
     // const [notesList, setNotesList] = useState([]);
 
     const [isHierarchyVisible, setIsHierarchyVisible] = useState(false);
+    const [selectedView, setSelectedView] = useState('compact');
 
+    // const { label: selectedViewLabel } = fileModes.find(({ id }) => id === selectedView) || {};
 
+    const handleModeChange = (mode) => {
+        setSelectedView(mode)
+    }
 
     useEffect(() => {
         // async function fetchData() {
@@ -36,41 +51,16 @@ const NoteNavigator = () => {
 
                 <Flex direction='column' alignItems='none' justifyContent='spaceBetween' width='none' className='h-full sticky mr-4 top-0 right-0 overflow-scroll-y bg-light'>
 
+                    <div className="flex items-center justify-end px-2 my-2">
+                        {/* <span className="text-default">{selectedViewLabel}</span> */}
+                        <ModeSelector modes={fileModes} onChange={handleModeChange} selectedValue={selectedView} renderLabel />
+                    </div>
 
                     <div className='px-2 w-80'>
 
-                        <div className='flex justify-between'>
+                            <CompactView isActive={selectedView === 'compact'} />
 
-                            <span className='flex items-center text-secondary cursor-pointer'>
-                                <span className='mr-1 items-center' onClick={() => { }}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 20C20 20.5523 19.5523 21 19 21H5C4.44772 21 4 20.5523 4 20V11L1 11L11.3273 1.6115C11.7087 1.26475 12.2913 1.26475 12.6727 1.6115L23 11L20 11V20ZM11 13V19H13V13H11Z"></path></svg>
-                                </span>
-                            </span>
-
-                            <div className='text-default cursor-pointer' onClick={() => setIsHierarchyVisible(true)}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-folder-open"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2" /></svg>
-                                {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3 21C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5H20C20.5523 5 21 5.44772 21 6V9H19V7H11.5858L9.58579 5H4V16.998L5.5 11H22.5L20.1894 20.2425C20.0781 20.6877 19.6781 21 19.2192 21H3ZM19.9384 13H7.06155L5.56155 19H18.4384L19.9384 13Z"></path></svg> */}
-                                {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 7V4C6 3.44772 6.44772 3 7 3H13.4142L15.4142 5H21C21.5523 5 22 5.44772 22 6V16C22 16.5523 21.5523 17 21 17H18V20C18 20.5523 17.5523 21 17 21H3C2.44772 21 2 20.5523 2 20V8C2 7.44772 2.44772 7 3 7H6ZM6 9H4V19H16V17H6V9ZM8 5V15H20V7H14.5858L12.5858 5H8Z"></path></svg> */}
-                            </div>
-                        </div>
-
-                        <div className='flex mt-2 justify-between'>
-
-                            <FolderAndFileSelector
-                            />
-
-                        </div>
-
-                        <div className='text-xs text-secondary my-1'>5 cards</div>
-                        {/* Filters - Sort by: Name, Created Date, Updated Date */}
-
-
-                        <NotesControls />
-                        <CreateNoteButton />
-
-                        <Separator />
-
-                        <NoteGridList />
+                            <ExplorerView isActive={selectedView === 'explorer'}/>
 
                     </div>
                 </Flex>

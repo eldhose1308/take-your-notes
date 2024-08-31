@@ -2,7 +2,7 @@ import * as files from "_services/files.service";
 import { GET_FILES, REMOVE_FILE, UPDATE_FILE } from "store/actionTypes/filesActionTypes";
 import { setCurrentFile } from "./notesActions";
 import { ADD_FILE } from "store/actionTypes/notesActionTypes";
-import { getCurrentFileFromLocal } from "_utils/user-localDB/notesDB";
+import { getCurrentFileFromLocal, setCurrentFileToLocal } from "_utils/user-localDB/notesDB";
 
 
 export const getFiles = (folderId) => async (dispatch) => {
@@ -45,9 +45,10 @@ export const saveFile = (file) => async (dispatch) => {
 
 export const updateFile = (folder, id) => async (dispatch) => {
     try {
-        const newFolder = await files.updateFile(folder, id);
-        dispatch({ type: UPDATE_FILE, payload: newFolder });
-        return newFolder;
+        const newFile = await files.updateFile(folder, id);
+        setCurrentFileToLocal(newFile);
+        dispatch({ type: UPDATE_FILE, payload: newFile });
+        return newFile;
     } catch (error) {
         console.error('Failed to update file:', error);
     }

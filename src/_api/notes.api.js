@@ -73,8 +73,8 @@ const saveNote = (data, config = {}) => {
 
 
 const updateNote = async (data, id, config = {}) => {
-    const { folderId, fileId } = data;
-    return new AccessAPI(BASE_URL + `folders/${folderId}/files/${fileId}/notes/${id}`).put(data)
+    const { folderId, fileId, ...noteData } = data;
+    return new AccessAPI(BASE_URL + `folders/${folderId}/files/${fileId}/notes/${id}`).put(noteData)
     .then((res) => {
         return res
     }).catch((err) => {

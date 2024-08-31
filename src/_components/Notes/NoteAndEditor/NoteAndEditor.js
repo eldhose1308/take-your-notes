@@ -44,7 +44,6 @@ const NoteAndEditor = (props) => {
     }
 
     const handleUpdate = async (payload, id) => {
-        payload.folderId = id;
         await dispatch(updateNote(payload, id));         
     }
 

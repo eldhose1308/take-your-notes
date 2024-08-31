@@ -14,7 +14,7 @@ const FileSelector = (props) => {
     const dispatch = useDispatch();
 
     const fileOptions = useSelector(state => state.notes.filesList)
-    const { id, label, value } = useSelector(getCurrentFile)
+    const { id, label } = useSelector(getCurrentFile)
     const currentFolder = useSelector(state => state.notes.currentFolder)
 
 
@@ -22,20 +22,19 @@ const FileSelector = (props) => {
         onSelect(id, option);
     }
 
-    const handleSubmit = async (fileName, id) => {
-        const { folderId } = currentFolder;
+    const handleSubmit = async (fileName, fileId) => {
+        const { id: folderId } = currentFolder;
 
         const payload = {
             file_name: fileName,
             folderId
         }
-        if(id){
-            payload.folderId = folderId;
-            await dispatch(updateFile(payload, id)); 
+        if(fileId){
+            await dispatch(updateFile(payload, fileId)); 
             return;
         }
-        const { label, value, fileId } = await dispatch(saveFile(payload));
-        handleSelect(null, { label, value, fileId });
+        const { label, value, id } = await dispatch(saveFile(payload));
+        handleSelect(null, { label, value, id });
     }
 
     const showCreateDialog = (fileNameArg) => {
@@ -90,7 +89,7 @@ const FileSelector = (props) => {
         if(!currentFolder || !Object.keys(currentFolder).length){
             return
         }
-        const { folderId } = currentFolder;
+        const { id: folderId } = currentFolder;
         dispatch(getFilesAndSet(folderId));
     }, [currentFolder])
 
@@ -106,7 +105,7 @@ const FileSelector = (props) => {
                     <span className='folder-separator text-secondary'>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.1717 12.0005L9.34326 9.17203L10.7575 7.75781L15.0001 12.0005L10.7575 16.2431L9.34326 14.8289L12.1717 12.0005Z"></path></svg>
                     </span>
-                    <Combobox key={value} >
+                    <Combobox key={`${id}_${label}`} >
                         <ComboboxTrigger>
                             <span className='flex mx-1 items-center text-secondary cursor-pointer'>
                                 <span className=''>{label}</span>

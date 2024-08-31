@@ -1,5 +1,4 @@
 import { GET_FOLDERS } from "store/actionTypes/foldersActionTypes";
-import { setCurrentFolder } from "./notesActions";
 import { ADD_FOLDER } from "store/actionTypes/notesActionTypes";
 
 

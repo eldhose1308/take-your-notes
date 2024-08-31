@@ -20,16 +20,16 @@ const FolderSelector = (props) => {
         onSelect(id, option);
     }
 
-    const handleSubmit = async (folderName, id) => {
+    const handleSubmit = async (folderName, folderId) => {
         const payload = {
             folder_name: folderName
         }
-        if(id){
-            await dispatch(updateFolder(payload, id)); 
+        if(folderId){
+            await dispatch(updateFolder(payload, folderId)); 
             return;
         }
-        const { label, value, folderId } = await dispatch(saveFolder(payload));
-        handleSelect(null, { label, value, folderId });
+        const { label, value, id } = await dispatch(saveFolder(payload));
+        handleSelect(null, { label, value, id });
     }
 
     const showCreateDialog = (folderArg) => {
@@ -94,7 +94,7 @@ const FolderSelector = (props) => {
                     <span className='folder-separator text-secondary'>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.1717 12.0005L9.34326 9.17203L10.7575 7.75781L15.0001 12.0005L10.7575 16.2431L9.34326 14.8289L12.1717 12.0005Z"></path></svg>
                     </span>
-                    <Combobox key={value} >
+                    <Combobox key={`${id}_${label}`}>
                         <ComboboxTrigger>
                             <span className='flex mx-1 items-center text-secondary cursor-pointer'>
                                 <span className=''>{label}</span>

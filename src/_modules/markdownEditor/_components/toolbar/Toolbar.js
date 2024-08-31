@@ -1,6 +1,6 @@
 import { TOOLBAR_MODES } from "_modules/markdownEditor/_constants/toolbar";
 import React, { useState } from "react";
-import ModeSelector from "./ModeSelector";
+import EditorModeSelector from "./EditorModeSelector";
 import ToolbarButton from "./ToolbarButton";
 
 const Toolbar = (props) => {
@@ -12,7 +12,7 @@ const Toolbar = (props) => {
 
     return (
         <div className="flex border border-custom rounded-md px-2 py-1 m-2">
-            <ModeSelector mode={mode} onChange={handleModeChange} />
+            <EditorModeSelector mode={mode} onChange={handleModeChange} />
 
             <ToolbarButton title='Bold'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-bold"><path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8" /></svg>

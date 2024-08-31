@@ -2,7 +2,7 @@ import { MODES } from "_constants/UIPreferences";
 
 const initialState = {
     theme: MODES.system,
-    fontMode: '', // casual|classy,
+    fontMode: 'casual', // casual|classy,
     navigatorMode: 'compact' // compact|tree
 };
 

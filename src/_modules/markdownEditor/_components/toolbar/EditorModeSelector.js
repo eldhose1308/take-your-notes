@@ -4,7 +4,7 @@ import { ACTIVE_MODE_CLASS, TOOLBAR_MODES } from "_modules/markdownEditor/_const
 import ToolbarButton from "./ToolbarButton"
 
 
-const ModeSelector = ({ mode, onChange=()=>{} }) => {
+const EditorModeSelector = ({ mode, onChange=()=>{} }) => {
     
     const handleChange = (newMode,e) => {
         onChange(newMode, e)
@@ -25,4 +25,4 @@ const ModeSelector = ({ mode, onChange=()=>{} }) => {
     )
 }
 
-export default ModeSelector
+export default EditorModeSelector
