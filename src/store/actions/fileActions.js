@@ -22,7 +22,7 @@ export const getFilesAndSet = (folder) => async (dispatch) => {
         
         if(filesList.length){
             const currentFileInLocalDB = getCurrentFileFromLocal();
-            const selectedFile = currentFileInLocalDB || filesList[0];
+            const selectedFile = currentFileInLocalDB || filesList[0].id;
             dispatch(setCurrentFile(selectedFile))
         }
     } catch (error) {
@@ -46,7 +46,6 @@ export const saveFile = (file) => async (dispatch) => {
 export const updateFile = (folder, id) => async (dispatch) => {
     try {
         const newFile = await files.updateFile(folder, id);
-        setCurrentFileToLocal(newFile);
         dispatch({ type: UPDATE_FILE, payload: newFile });
         return newFile;
     } catch (error) {

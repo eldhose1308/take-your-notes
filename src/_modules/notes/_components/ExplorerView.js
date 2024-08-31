@@ -48,7 +48,7 @@ const ExplorerView = (props) => {
 
     return (
         <React.Fragment>
-            <div className={`${isActive ? 'translate-x-full-right' : 'hidden'}`}>
+            <div className={`${isActive ? '' : 'hidden'}`}>
                 <Typography textVariant='default' variant='muted' size='sm'>
                     /
                     {selectedFolder && `${normalizedFolders[selectedFolder].name} /`}

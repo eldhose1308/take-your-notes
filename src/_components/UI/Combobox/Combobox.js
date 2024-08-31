@@ -102,7 +102,7 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], selected
             {filteredItems.map(option => {
               const { id, label, value } = option;
               return (
-                <span key={`combobox_item_${value}`} onClick={(e) => { onChange(value, option, e); hide(); }} className={`flex flex-nowrap justify-between items-center w-full py-1.5 mb-1 px-2 cursor-pointer rounded-md ${selectedValue === id ? 'bg-highlight' : 'hover-custom'} text-secondary group-hover`}>
+                <span key={`combobox_item_${value}`} onClick={(e) => { onChange(id, option, e); hide(); }} className={`flex flex-nowrap justify-between items-center w-full py-1.5 mb-1 px-2 cursor-pointer rounded-md ${selectedValue === id ? 'bg-highlight' : 'hover-custom'} text-secondary group-hover`}>
                   <span className={`${renderItemAction ? 'w-60' : ''}`}>
                     {highlightText(label, searchQuery)}
                   </span>

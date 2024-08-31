@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Combobox, { ComboboxContent, ComboboxTrigger } from "_components/UI/Combobox/Combobox";
 
 
-import { getCurrentFile } from "store/selectors/notesSelectors";
+import { getCurrentFile, getSelectedFile, getSelectedFolder } from "store/selectors/notesSelectors";
 import { deleteFile, getFilesAndSet, saveFile, updateFile } from "store/actions/fileActions";
 import { confirmDeleteBox, showFileCreateModal } from "store/actions/modalActions";
 
@@ -13,9 +13,9 @@ const FileSelector = (props) => {
     const { onSelect } = props;
     const dispatch = useDispatch();
 
-    const fileOptions = useSelector(state => state.notes.filesList)
-    const { id, label } = useSelector(getCurrentFile)
-    const currentFolder = useSelector(state => state.notes.currentFolder)
+    const fileOptions = useSelector(state => state.notes.filesList);
+    const { id, label } = useSelector(getSelectedFile) || {};
+    const currentFolder = useSelector(getSelectedFolder) || {};
 
 
     const handleSelect = (id, option) => {
@@ -34,7 +34,7 @@ const FileSelector = (props) => {
             return;
         }
         const { label, value, id } = await dispatch(saveFile(payload));
-        handleSelect(null, { label, value, id });
+        handleSelect(id, { label, value, id });
     }
 
     const showCreateDialog = (fileNameArg) => {

@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 
 import CommandCenter from "./CommandCenter";
 import NoteAndEditor from "_components/Notes/NoteAndEditor/NoteAndEditor";
+import { getCurrentNote } from "store/selectors/notesSelectors";
 
 const NoteDisplayManager = () => {
     const isNoteAdding = useSelector(state => state.notes.isNoteAdding);
-    const currentNote = useSelector(state => state.notes.currentNote);
-    const { id: selectedNoteId } = currentNote || {};
+    const selectedNoteId = useSelector(getCurrentNote);
 
     return (
         <React.Fragment>

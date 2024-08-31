@@ -22,7 +22,7 @@ export const getFoldersAndSet = (folder) => async (dispatch) => {
         
         if(foldersList.length){
             const currentFolderInLocalDB = getCurrentFolderFromLocal();
-            const selectedFolder = currentFolderInLocalDB || foldersList[0];
+            const selectedFolder = currentFolderInLocalDB || foldersList[0].id;
             dispatch(setCurrentFolder(selectedFolder))
         }
     } catch (error) {
@@ -44,7 +44,6 @@ export const saveFolder = (folder) => async (dispatch) => {
 export const updateFolder = (folder, id) => async (dispatch) => {
     try {
         const newFolder = await folders.updateFolder(folder, id);
-        setCurrentFolderToLocal(newFolder);
         dispatch({ type: UPDATE_FOLDER, payload: newFolder });
         return newFolder;
     } catch (error) {

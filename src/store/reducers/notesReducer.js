@@ -1,4 +1,4 @@
-import { ADD_FILE, ADD_FOLDER, ADD_NOTE, GET_NOTES, SET_CURRENT_FILE, SET_CURRENT_FOLDER, SET_IS_NOTE_ADDING } from "store/actionTypes/notesActionTypes";
+import { ADD_FILE, ADD_FOLDER, ADD_NOTE, GET_NOTES, SET_CURRENT_FILE, SET_CURRENT_FOLDER, SET_IS_NOTE_ADDING, UPDATE_NOTE } from "store/actionTypes/notesActionTypes";
 import { GET_FOLDERS, REMOVE_FOLDER, UPDATE_FOLDER } from "store/actionTypes/foldersActionTypes";
 import { GET_FILES, REMOVE_FILE, UPDATE_FILE } from "store/actionTypes/filesActionTypes";
 
@@ -21,8 +21,8 @@ const notesReducer = (state = initialState, action={}) => {
             return { ...state, selectedNoteId: null, currentNote: { title: `Untitled-${state.notesList.length + 1}` }, isNoteAdding: payload };
 
         case 'SET_CURRENT_NOTE':
-            const { notesList=[] } = state;
-            const currentNote = notesList.find(notes => notes.id === payload);
+            // const { notesList=[] } = state;
+            // const currentNote = notesList.find(notes => notes.id === payload);
             return { ...state, isNoteAdding: null, currentNote: payload };
 
         case SET_CURRENT_FOLDER:
@@ -31,17 +31,15 @@ const notesReducer = (state = initialState, action={}) => {
         case SET_CURRENT_FILE:
             return { ...state, currentFile: payload };
     
-        case ADD_FOLDER:
-            return { ...state, foldersList: [...state.foldersList, payload] };
-        
-        case ADD_FILE:
-            return { ...state, filesList: [...state.filesList, payload] };
-    
-
+       
+       
         // Folders reducers    
         case GET_FOLDERS:    
             return { ...state, foldersList: [...payload] }
         
+        case ADD_FOLDER:
+            return { ...state, foldersList: [...state.foldersList, payload] };
+    
         case UPDATE_FOLDER:
             const { id: folderId } = payload;
             const updatedFolderIndex = state.foldersList.findIndex(({ id }) => id === folderId);
@@ -72,6 +70,9 @@ const notesReducer = (state = initialState, action={}) => {
         case GET_FILES:    
             return { ...state, filesList: [...payload] }
 
+        case ADD_FILE:
+            return { ...state, filesList: [...state.filesList, payload] };
+            
         case REMOVE_FILE:
             const filesAfterRemoval = state.filesList.filter(({ id }) => id !== payload);
             if(state.currentFolder.fileId === payload){
@@ -97,6 +98,17 @@ const notesReducer = (state = initialState, action={}) => {
         
         case ADD_NOTE:
                 return { ...state, notesList: [...state.notesList, payload] };
+           
+        case UPDATE_NOTE:
+            const { id: noteId } = payload;
+            const updatedNoteIndex = state.notesList.findIndex(({ id }) => id === noteId);
+            const updatedNote = [...state.notesList.slice(0, updatedNoteIndex), payload, ...state.notesList.slice(updatedNoteIndex + 1)];
+
+            let currentNote = state.currentNote;
+            if(state.currentNote.id === noteId){
+                currentNote = payload;
+            }
+            return { ...state, notesList: updatedNote, currentNote };
             
 
         default: 

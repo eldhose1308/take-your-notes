@@ -4,20 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import Separator from "_components/Misc/Separator/Separator";
 import NoteGridItem from "./NoteGridItem";
 import { getNotesAndSet, setCurrentNote } from "store/actions/notesActions";
+import { getSelectedFile, getSelectedFolder, getSelectedNote } from "store/selectors/notesSelectors";
 
 const NoteGridList = (props) => {
     // const { notesList = [] } = props;
 
-    const notesList = useSelector(state => state.notes.notesList)
-    const currentFile = useSelector(state => state.notes.currentFile)
-    const currentFolder = useSelector(state => state.notes.currentFolder)
-    const { id: selectedNoteId } = useSelector(state => state.notes.currentNote || {})
+    const notesList = useSelector(state => state.notes.notesList);
+    const currentFile = useSelector(getSelectedFile);
+    const currentFolder = useSelector(getSelectedFolder);
+    const { id: selectedNoteId } = useSelector(getSelectedNote) || {};
 
     const dispatch = useDispatch();
 
     const handleNoteSelect = (selectedId) => {
-        const selectedNote = notesList.find(({ id }) => id === selectedId);
-        dispatch(setCurrentNote(selectedNote));
+        // const selectedNote = notesList.find(({ id }) => id === selectedId);
+        dispatch(setCurrentNote(selectedId));
     }
 
     useEffect(() => {

@@ -50,7 +50,7 @@ export const getNotesAndSet = (data) => async (dispatch) => {
         
         if(notesList.length){
             const currentNoteInLocalDB = getCurrentNoteFromLocal();
-            const selectedNote = currentNoteInLocalDB || notesList[0];
+            const selectedNote = currentNoteInLocalDB || notesList[0].id;
             dispatch(setCurrentNote(selectedNote))
         }
     } catch (error) {

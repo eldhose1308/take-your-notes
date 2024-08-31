@@ -12,7 +12,7 @@ const CompactView = (props) => {
 
     return (
         <React.Fragment>
-            <div className={`${isActive ? 'translate-x-full-right' : 'hidden'}`}>
+            <div className={`${isActive ? '' : 'hidden'}`}>
                 <div className={`flex justify-between`}>
 
                     <span className='flex items-center text-secondary cursor-pointer'>

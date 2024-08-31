@@ -30,8 +30,8 @@ const saveNote = async (data, config={}) => {
 const updateNote = async (data, id, config={}) => {
     const response = await notes.updateNote(data, id, config);
     const { data: noteData=[] } = response;
-    const { folder_name, folder_icon, folder_id } = noteData;
-    const responseData = { id: folder_id, label: folder_name, value: `${folder_name}-${folder_id}`, folderId: folder_id, folderIcon: folder_icon };
+    const { title, content, note_id } = noteData;
+    const responseData = { id: note_id, content, title };
     return responseData
 }
 

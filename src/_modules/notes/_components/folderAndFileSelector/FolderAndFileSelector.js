@@ -10,12 +10,12 @@ import { getFiles, getFilesAndSet } from "store/actions/fileActions";
 const FolderAndFileSelector = (props) => {
     const dispatch = useDispatch();
 
-    const handleFileSelect = (id, option) => {
-        dispatch(setCurrentFile(option, true));
+    const handleFileSelect = (id) => {
+        dispatch(setCurrentFile(id, true));
     }
 
-    const handleFolderSelect = (id, option) => {
-        dispatch(setCurrentFolder(option, true));
+    const handleFolderSelect = (id) => {
+        dispatch(setCurrentFolder(id, true));
     }
 
     const handleToggleLandingPage = () => {

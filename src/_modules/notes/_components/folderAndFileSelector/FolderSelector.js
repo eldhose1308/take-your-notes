@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Combobox, { ComboboxContent, ComboboxTrigger } from "_components/UI/Combobox/Combobox";
 
-import { getCurrentFolder } from "store/selectors/notesSelectors";
+import { getAllFolders, getSelectedFolder } from "store/selectors/notesSelectors";
 import { deleteFolder, getFoldersAndSet, saveFolder, updateFolder } from "store/actions/folderActions";
 import { confirmDeleteBox, showFolderCreateModal } from "store/actions/modalActions";
 
@@ -12,9 +12,8 @@ const FolderSelector = (props) => {
     const { onSelect } = props;
     const dispatch = useDispatch();
 
-    const folderOptions = useSelector(state => state.notes.foldersList);
-    const { id, label, value } = useSelector(getCurrentFolder);
-
+    const folderOptions = useSelector(getAllFolders);
+    const { id, label } = useSelector(getSelectedFolder) || {};
 
     const handleSelect = (id, option) => {
         onSelect(id, option);
@@ -29,7 +28,7 @@ const FolderSelector = (props) => {
             return;
         }
         const { label, value, id } = await dispatch(saveFolder(payload));
-        handleSelect(null, { label, value, id });
+        handleSelect(id, { label, value, id });
     }
 
     const showCreateDialog = (folderArg) => {
