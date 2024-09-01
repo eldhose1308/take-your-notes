@@ -51,7 +51,8 @@ export const getNotesAndSet = (data) => async (dispatch) => {
         if(notesList.length){
             const currentNoteInLocalDB = getCurrentNoteFromLocal();
             const selectedNote = currentNoteInLocalDB || notesList[0].id;
-            dispatch(setCurrentNote(selectedNote))
+            dispatch(setCurrentNote(selectedNote));
+            return { notes: notesList, id: selectedNote };
         }
     } catch (error) {
         console.error('Failed to get notes:', error);

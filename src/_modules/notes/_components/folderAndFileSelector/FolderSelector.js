@@ -9,10 +9,10 @@ import { confirmDeleteBox, showFolderCreateModal } from "store/actions/modalActi
 
 
 const FolderSelector = (props) => {
-    const { onSelect } = props;
+    const { onSelect, folders: folderOptions } = props;
     const dispatch = useDispatch();
 
-    const folderOptions = useSelector(getAllFolders);
+    // const folderOptions = useSelector(getAllFolders);
     const { id, label } = useSelector(getSelectedFolder) || {};
 
     const handleSelect = (id, option) => {
@@ -76,9 +76,9 @@ const FolderSelector = (props) => {
     }
 
 
-    useEffect(() => {
-        dispatch(getFoldersAndSet());
-    }, [])
+    // useEffect(() => {
+    //     dispatch(getFoldersAndSet());
+    // }, [])
 
 
     return (

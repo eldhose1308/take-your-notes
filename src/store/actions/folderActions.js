@@ -24,6 +24,7 @@ export const getFoldersAndSet = (folder) => async (dispatch) => {
             const currentFolderInLocalDB = getCurrentFolderFromLocal();
             const selectedFolder = currentFolderInLocalDB || foldersList[0].id;
             dispatch(setCurrentFolder(selectedFolder))
+            return { folders: foldersList, id: selectedFolder };
         }
     } catch (error) {
         console.error('Failed to get folder:', error);

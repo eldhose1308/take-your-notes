@@ -8,14 +8,18 @@ import { getFolders, getFoldersAndSet } from "store/actions/folderActions";
 import { getFiles, getFilesAndSet } from "store/actions/fileActions";
 
 const FolderAndFileSelector = (props) => {
+    const { folders=[], files=[], onFolderChange, onFileChange } = props;
+
     const dispatch = useDispatch();
 
-    const handleFileSelect = (id) => {
+    const handleFileSelect = (id, folderId) => {
         dispatch(setCurrentFile(id, true));
+        onFileChange(id, folderId);
     }
 
     const handleFolderSelect = (id) => {
         dispatch(setCurrentFolder(id, true));
+        onFolderChange(id);
     }
 
     const handleToggleLandingPage = () => {
@@ -34,10 +38,12 @@ const FolderAndFileSelector = (props) => {
 
 
             <FolderSelector
+                folders={folders}
                 onSelect={handleFolderSelect}
             />
 
             <FileSelector
+                files={files}
                 onSelect={handleFileSelect}
             />
 

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux';
 
 import Flex from "_components/Misc/Flex/Flex";
@@ -6,6 +6,7 @@ import Separator from "_components/Misc/Separator/Separator";
 import Drawer from "_components/UI/Drawer/Drawer";
 import { openSettingsDrawer } from "store/actions/drawerActions";
 import ThemeToggler from "_modules/settings/ThemeToggler";
+import ModeSelector from "_components/UI/ModeSelector/ModeSelector";
 
 const SettingsDrawer = () => {
     const dispatch = useDispatch();
@@ -16,9 +17,24 @@ const SettingsDrawer = () => {
         dispatch(openSettingsDrawer(false));
     }
 
-    if(!status){
-        return null;
-    }
+
+
+const fontModes = [
+    { id: 'classic', label: 'Classic', modeElement: 'Classic' },
+    { id: 'modern', label: 'Modern', modeElement: 'Modern' }
+]
+
+const [selectedFont, setSelectedFont] = useState('classic');
+
+
+const handleModeChange = (mode) => {
+    setSelectedFont(mode)
+}
+
+
+if(!status){
+    return null;
+}
 
     return (
         <Drawer isActive={true} hide={closeDrawer}>
@@ -90,6 +106,13 @@ const SettingsDrawer = () => {
 
                 <div className="flex w-full my-3">
                     <ThemeToggler />
+
+                    <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
+                        <span>Font</span>
+                        <ModeSelector modes={fontModes} onChange={handleModeChange} selectedValue={selectedFont} />
+                    </div>
+
+
 
                     <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
                         <span>Save previous state</span>

@@ -9,7 +9,7 @@ import { convertToHTML } from "_modules/markdownEditor/_utils/markdownConvert";
 import * as notesModel from "_services/notes.service";
 import { Button } from "_components/Form";
 import { saveNote, updateNote } from "store/actions/notesActions";
-import { getSelectedFile, getSelectedFolder, getSelectedNote } from "store/selectors/notesSelectors";
+import { getBlankNote, getSelectedFile, getSelectedFolder, getSelectedNote } from "store/selectors/notesSelectors";
 
 
 const initialNoteMetaDetails = {
@@ -22,9 +22,12 @@ const initialNoteMetaDetails = {
 }
 const NoteAndEditor = (props) => {
     const { id, isActive, onSave = () => { }, onCancel = () => { }, onDelete = () => { }, onHighlight = () => { }, isEditMode = false } = props
-    const note = useSelector(getSelectedNote) || {};
+    const selectedNote = useSelector(getSelectedNote);
+    const blankNote = useSelector(getBlankNote);
     const currentFolder = useSelector(getSelectedFolder);
     const currentFile = useSelector(getSelectedFile);
+
+    const note = selectedNote || blankNote;
 
     const dispatch = useDispatch();
 

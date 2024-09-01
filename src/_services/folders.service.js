@@ -6,7 +6,7 @@ const getFolders = async (data, config={}) => {
     const { data: foldersData=[] } = response;
     const foldersFormatted = foldersData.map(folder => {
         const { folder_name, folder_icon, folder_id } = folder;
-        return { id: folder_id, label: folder_name, value: `${folder_name}-${folder_id}`, folderId: folder_id, folderIcon: folder_icon }
+        return { id: folder_id, label: folder_name, folderIcon: folder_icon }
     })
     return foldersFormatted || []
 }
@@ -22,7 +22,7 @@ const saveFolder = async (data, config={}) => {
     const response = await folders.saveFolder(data, config);
     const { data: folderData=[] } = response;
     const { folder_name, folder_icon, folder_id } = folderData;
-    const responseData = { id: folder_id, label: folder_name, value: `${folder_name}-${folder_id}`, folderId: folder_id, folderIcon: folder_icon };
+    const responseData = { id: folder_id, label: folder_name, folderIcon: folder_icon };
     return responseData
 }
 
@@ -31,7 +31,7 @@ const updateFolder = async (data, id, config={}) => {
     const response = await folders.updateFolder(data, id, config);
     const { data: folderData=[] } = response;
     const { folder_name, folder_icon, folder_id } = folderData;
-    const responseData = { id: folder_id, label: folder_name, value: `${folder_name}-${folder_id}`, folderId: folder_id, folderIcon: folder_icon };
+    const responseData = { id: folder_id, label: folder_name, folderIcon: folder_icon };
     return responseData
 }
 

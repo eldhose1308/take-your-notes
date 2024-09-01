@@ -6,7 +6,7 @@ const getFiles = async (data, config={}) => {
     const { data: filesData=[] } = response;
     const filesFormatted = filesData.map(folder => {
         const { file_name, file_id } = folder;
-        return { id: file_id, label: file_name, value: `${file_name}-${file_id}` }
+        return { id: file_id, label: file_name }
     })
     return filesFormatted || []
 }
@@ -22,7 +22,7 @@ const saveFile = async (data, config={}) => {
     const response = await files.saveFile(data, config);
     const { data: fileData=[] } = response;
     const { file_name, file_id } = fileData;
-    const responseData = { id: file_id, label: file_name, value: `${file_name}-${file_id}`, fileId: file_id };
+    const responseData = { id: file_id, label: file_name };
     return responseData
 }
 
@@ -32,7 +32,7 @@ const updateFile = async (data, id, config={}) => {
     const response = await files.updateFile(data, id, config);
     const { data: fileData=[] } = response;
     const { file_name, file_id } = fileData;
-    const responseData = { id: file_id, label: file_name, value: `${file_name}-${file_id}`, fileId: file_id };
+    const responseData = { id: file_id, label: file_name };
     return responseData
 }
 

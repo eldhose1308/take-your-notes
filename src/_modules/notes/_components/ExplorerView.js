@@ -1,29 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 
-import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card/Card";
 import Typography from "_components/Misc/Typography/Typography";
 import Separator from "_components/Misc/Separator/Separator";
-import Flex from "_components/Misc/Flex/Flex";
+
 import FolderStructure from "_modules/fileHierarchy/_components/FolderStructure";
 
-import folders from '../../fileHierarchy/_utils/mockData';
+import foldersMock from '../../fileHierarchy/_utils/mockData';
 import { normalizeData } from '../../fileHierarchy/_utils/normalizer';
 import CreateNoteButton from "./CreateNoteButton";
 import NotesControls from "./notesControls/NotesControls";
 
-const ExplorerView = (props) => {
-    const { isActive } = props;
 
-    const { folders: normalizedFolders, files: normalizedFiles, notes: normalizedNotes } = normalizeData(folders)
+const ExplorerView = (props) => {
+    const { isActive, folders=[], files=[], notes=[], } = props;
+    // const hierarchyData = 
+
+    const { folders: normalizedFolders, files: normalizedFiles, notes: normalizedNotes } = normalizeData(foldersMock)
 
     const [selectedFolder, setSelectedFolder] = useState()
     const [selectedFile, setSelectedFile] = useState()
     const [selectedNote, setSelectedNote] = useState()
 
 
-    if (!isActive) {
-        return null;
-    }
 
     const onSelectFolder = (id) => {
         setSelectedFolder(id);
@@ -46,6 +44,12 @@ const ExplorerView = (props) => {
         setSelectedNote(id);
     }
 
+
+
+    if (!isActive) {
+        return null;
+    }
+
     return (
         <React.Fragment>
             <div className={`${isActive ? '' : 'hidden'}`}>
@@ -65,7 +69,12 @@ const ExplorerView = (props) => {
                 <Separator />
 
                 <div className='overflow-scroll my-2 pr-4 h-screen-3/4'>
-                    <FolderStructure folders={folders} setSelectedFolder={onSelectFolder} setSelectedFile={onSelectFile} setSelectedNote={onSelectNote} />
+                    <FolderStructure 
+                        folders={foldersMock} 
+                        setSelectedFolder={onSelectFolder} 
+                        setSelectedFile={onSelectFile} 
+                        setSelectedNote={onSelectNote} 
+                    />
                 </div>
             </div>
         </React.Fragment>

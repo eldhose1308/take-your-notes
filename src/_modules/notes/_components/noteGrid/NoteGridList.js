@@ -7,9 +7,9 @@ import { getNotesAndSet, setCurrentNote } from "store/actions/notesActions";
 import { getSelectedFile, getSelectedFolder, getSelectedNote } from "store/selectors/notesSelectors";
 
 const NoteGridList = (props) => {
-    // const { notesList = [] } = props;
+    const { notes: notesList = [] } = props;
 
-    const notesList = useSelector(state => state.notes.notesList);
+    // const notesList = useSelector(state => state.notes.notesList);
     const currentFile = useSelector(getSelectedFile);
     const currentFolder = useSelector(getSelectedFolder);
     const { id: selectedNoteId } = useSelector(getSelectedNote) || {};
@@ -21,14 +21,14 @@ const NoteGridList = (props) => {
         dispatch(setCurrentNote(selectedId));
     }
 
-    useEffect(() => {
-        if(!currentFile || !Object.keys(currentFile).length){
-            return
-        }
-        const { id: fileId } = currentFile;
-        const { id: folderId } = currentFolder;
-        dispatch(getNotesAndSet({ folderId, fileId }));
-    }, [currentFile])
+    // useEffect(() => {
+    //     if(!currentFile || !Object.keys(currentFile).length){
+    //         return
+    //     }
+    //     const { id: fileId } = currentFile;
+    //     const { id: folderId } = currentFolder;
+    //     dispatch(getNotesAndSet({ folderId, fileId }));
+    // }, [currentFile])
 
 
     return (

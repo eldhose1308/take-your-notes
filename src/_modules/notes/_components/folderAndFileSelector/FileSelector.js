@@ -19,7 +19,8 @@ const FileSelector = (props) => {
 
 
     const handleSelect = (id, option) => {
-        onSelect(id, option);
+        const { id: folderId } = currentFolder;
+        onSelect(id, folderId, option);
     }
 
     const handleSubmit = async (fileName, fileId) => {
@@ -85,13 +86,13 @@ const FileSelector = (props) => {
     }
 
 
-    useEffect(() => {
-        if(!currentFolder || !Object.keys(currentFolder).length){
-            return
-        }
-        const { id: folderId } = currentFolder;
-        dispatch(getFilesAndSet(folderId));
-    }, [currentFolder])
+    // useEffect(() => {
+    //     if(!currentFolder || !Object.keys(currentFolder).length){
+    //         return
+    //     }
+    //     const { id: folderId } = currentFolder;
+    //     dispatch(getFilesAndSet(folderId));
+    // }, [currentFolder])
 
     return (
         <>

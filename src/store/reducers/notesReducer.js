@@ -18,7 +18,7 @@ const notesReducer = (state = initialState, action={}) => {
     const { type, payload } = action;
     switch (type) {
         case SET_IS_NOTE_ADDING:
-            return { ...state, selectedNoteId: null, currentNote: { title: `Untitled-${state.notesList.length + 1}` }, isNoteAdding: payload };
+            return { ...state, selectedNoteId: null, currentNote: null, isNoteAdding: payload };
 
         case 'SET_CURRENT_NOTE':
             // const { notesList=[] } = state;
@@ -26,10 +26,10 @@ const notesReducer = (state = initialState, action={}) => {
             return { ...state, isNoteAdding: null, currentNote: payload };
 
         case SET_CURRENT_FOLDER:
-            return { ...state, currentFile: null, currentFolder: payload };
+            return { ...state, currentNote: null, currentFile: null, currentFolder: payload };
             
         case SET_CURRENT_FILE:
-            return { ...state, currentFile: payload };
+            return { ...state, currentNote: null, currentFile: payload };
     
        
        

@@ -23,7 +23,8 @@ export const getFilesAndSet = (folder) => async (dispatch) => {
         if(filesList.length){
             const currentFileInLocalDB = getCurrentFileFromLocal();
             const selectedFile = currentFileInLocalDB || filesList[0].id;
-            dispatch(setCurrentFile(selectedFile))
+            dispatch(setCurrentFile(selectedFile));
+            return { files: filesList, id: selectedFile };
         }
     } catch (error) {
         console.error('Failed to get folder:', error);
