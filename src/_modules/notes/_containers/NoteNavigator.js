@@ -10,7 +10,7 @@ import NotesHierarchy from "_modules/fileHierarchy/_components/NotesHierarchy";
 import CompactView from "../_components/CompactView";
 import ExplorerView from "../_components/ExplorerView";
 import ModeSelector from "_components/UI/ModeSelector/ModeSelector";
-import { getFoldersAndSet } from "store/actions/folderActions";
+import { getFoldersAndSet, getFoldersFilesNotesAndSet } from "store/actions/folderActions";
 import { getFilesAndSet } from "store/actions/fileActions";
 import { getNotesAndSet } from "store/actions/notesActions";
 
@@ -23,8 +23,11 @@ const fileModes = [
 const NoteNavigator = () => {
     const dispatch = useDispatch();
 
+    const hierarchyCache = useRef({});
+
     // move it to reducer?
-    const [hierarchyData, setHierarchyData] = useState([]);
+    const [hierarchyData, setHierarchyData] = useState([]); 
+
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
     const [notes, setNotes] = useState([]);
@@ -52,6 +55,19 @@ const NoteNavigator = () => {
 
 
     useEffect(() => {
+        const fetchFoldersFilesNotes = async () => {
+            const { folders, id: folderId, normalisedData, hierarchyData } = await dispatch(getFoldersFilesNotesAndSet()); 
+            const { id: fileId, files } = await dispatch(getFilesAndSet(folderId));
+            const { notes } = await dispatch(getNotesAndSet({ folderId, fileId })) || {};
+            
+            hierarchyCache.current = normalisedData;
+
+            setHierarchyData(hierarchyData);
+            setFolders(folders);
+            setFiles(files);
+            setNotes(notes);
+
+        }
 
         const fetchFolders = async () => {
             const { id: folderId, folders } = await dispatch(getFoldersAndSet()); // another method for hirerachial view fetch for all data
@@ -62,7 +78,8 @@ const NoteNavigator = () => {
             setFiles(files);
             setNotes(notes);
         }
-        fetchFolders();
+        // fetchFolders();
+        fetchFoldersFilesNotes();
     }, [])
 
     return (
@@ -90,9 +107,7 @@ const NoteNavigator = () => {
                             />
                         ) : (
                             <ExplorerView
-                                folders={folders}
-                                files={files}
-                                notes={notes}
+                                hierarchyData={hierarchyData}
                                 isActive
                             />
                         )}

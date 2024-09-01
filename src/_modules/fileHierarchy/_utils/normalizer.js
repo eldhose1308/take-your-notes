@@ -6,16 +6,16 @@ export const normalizeData = (data=[]) => {
     };
 
     data.forEach(folder => {
-        const { id: folderId, name, files=[] } = folder;
-        normalizedData.folders[folderId] = { id: folderId, name, files: files.map(file => file.id) };
+        const { id: folderId, label, files=[] } = folder;
+        normalizedData.folders[folderId] = { id: folderId, label, files: files.map(file => file.id) };
 
         files.forEach(file => {
-            const { id: fileId, name, notes=[] } = file;
-            normalizedData.files[fileId] = { id: fileId, name, folderId, notes: notes.map(note => note.id) };
+            const { id: fileId, label, notes=[] } = file;
+            normalizedData.files[fileId] = { id: fileId, label, folderId, notes: notes.map(note => note.id) };
 
             notes.forEach(note => {
-                const { id, name } = note;
-                normalizedData.notes[note.id] = { id, fileId, name };
+                const { id, title } = note;
+                normalizedData.notes[note.id] = { id, fileId, title };
             });
         });
     });

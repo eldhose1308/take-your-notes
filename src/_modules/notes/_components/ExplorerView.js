@@ -12,10 +12,10 @@ import NotesControls from "./notesControls/NotesControls";
 
 
 const ExplorerView = (props) => {
-    const { isActive, folders=[], files=[], notes=[], } = props;
+    const { isActive, hierarchyData=[], } = props;
     // const hierarchyData = 
 
-    const { folders: normalizedFolders, files: normalizedFiles, notes: normalizedNotes } = normalizeData(foldersMock)
+    const { folders: normalizedFolders, files: normalizedFiles, notes: normalizedNotes } = normalizeData(hierarchyData)
 
     const [selectedFolder, setSelectedFolder] = useState()
     const [selectedFile, setSelectedFile] = useState()
@@ -55,9 +55,9 @@ const ExplorerView = (props) => {
             <div className={`${isActive ? '' : 'hidden'}`}>
                 <Typography textVariant='default' variant='muted' size='sm'>
                     /
-                    {selectedFolder && `${normalizedFolders[selectedFolder].name} /`}
-                    {selectedFile && `${normalizedFiles[selectedFile].name} /`}
-                    {selectedNote && `${normalizedNotes[selectedNote].name}`}
+                    {selectedFolder && `${normalizedFolders[selectedFolder].label} /`}
+                    {selectedFile && `${normalizedFiles[selectedFile].label} /`}
+                    {selectedNote && `${normalizedNotes[selectedNote].title}`}
                 </Typography>
 
 
@@ -70,7 +70,7 @@ const ExplorerView = (props) => {
 
                 <div className='overflow-scroll my-2 pr-4 h-screen-3/4'>
                     <FolderStructure 
-                        folders={foldersMock} 
+                        folders={hierarchyData} 
                         setSelectedFolder={onSelectFolder} 
                         setSelectedFile={onSelectFile} 
                         setSelectedNote={onSelectNote} 

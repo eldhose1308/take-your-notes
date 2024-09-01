@@ -43,8 +43,10 @@ export const addFile = (data) => async (dispatch) => {
 }
 
 
-export const getNotesAndSet = (data) => async (dispatch) => {
+export const getNotesAndSet = (data) => async (dispatch, getState) => {
     try {
+        const abcd = getState();
+        console.log(abcd);
         const notesList = await notes.getNotes(data);
         dispatch({ type: GET_NOTES, payload: notesList });
         

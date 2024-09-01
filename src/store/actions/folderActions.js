@@ -15,7 +15,7 @@ export const getFolders = (folder) => async (dispatch) => {
 };
 
 
-export const getFoldersAndSet = (folder) => async (dispatch) => {
+export const getFoldersAndSet = () => async (dispatch) => {
     try {
         const foldersList = await folders.getFolders();
         dispatch({ type: GET_FOLDERS, payload: foldersList });
@@ -63,3 +63,20 @@ export const deleteFolder = (folderId) => async (dispatch) => {
     }
 };
 
+
+
+export const getFoldersFilesNotesAndSet = () => async (dispatch) => {
+    try {
+        const { folders: foldersList, hierarchyData, normalisedData } = await folders.getFoldersFilesNotes();
+        dispatch({ type: GET_FOLDERS, payload: foldersList });
+        
+        if(foldersList.length){
+            const currentFolderInLocalDB = getCurrentFolderFromLocal();
+            const selectedFolder = currentFolderInLocalDB || foldersList[0].id;
+            dispatch(setCurrentFolder(selectedFolder))
+            return { folders: foldersList, id: selectedFolder, hierarchyData, normalisedData };
+        }
+    } catch (error) {
+        console.error('Failed to get folder file notes:', error);
+    }
+}

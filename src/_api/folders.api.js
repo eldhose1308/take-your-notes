@@ -37,7 +37,17 @@ const deleteFolder = async (folderId, config = {}) => {
     })
 }
 
+const getFoldersFilesNotes = async () => {
+    return new AccessAPI(BASE_URL + `folders?expand=files,notes`).get()
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err.response
+    })
+}
+
 export {
+    getFoldersFilesNotes,
     getFolders,
     saveFolder,
     updateFolder,
