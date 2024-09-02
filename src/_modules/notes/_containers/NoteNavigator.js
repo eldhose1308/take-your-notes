@@ -41,16 +41,18 @@ const NoteNavigator = () => {
     }
 
 
-    const handleFileChange = async (fileId, folderId) => { // pass the cacheObj and evaluate wrt
-        const { notes } = await dispatch(getNotesAndSet({ folderId, fileId })) || {};
+    const handleFileChange = async (fileId, folderId, flagSkipNotes) => { // pass the cacheObj and evaluate wrt
+        const { notes } = await dispatch(getNotesAndSet({ folderId, fileId },  hierarchyCache.current, flagSkipNotes)) || {};
         setNotes(notes);
     }
 
 
     const handleFolderChange = async (folderId) => { // pass the cacheObj and evaluate wrt
-        const { id: fileId, files } = await dispatch(getFilesAndSet(folderId));
+        const { id: fileId, files } = await dispatch(getFilesAndSet(folderId, hierarchyCache.current));
         setFiles(files);
-        handleFileChange(fileId, folderId);
+        // if(nextStep){
+            handleFileChange(fileId, folderId);
+        // }
     }
 
 
@@ -108,6 +110,8 @@ const NoteNavigator = () => {
                         ) : (
                             <ExplorerView
                                 hierarchyData={hierarchyData}
+                                onFolderChange={handleFolderChange}
+                                onFileChange={handleFileChange}
                                 isActive
                             />
                         )}

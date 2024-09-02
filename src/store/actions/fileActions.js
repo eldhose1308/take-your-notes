@@ -3,6 +3,7 @@ import { GET_FILES, REMOVE_FILE, UPDATE_FILE } from "store/actionTypes/filesActi
 import { setCurrentFile } from "./notesActions";
 import { ADD_FILE } from "store/actionTypes/notesActionTypes";
 import { getCurrentFileFromLocal, setCurrentFileToLocal } from "_utils/user-localDB/notesDB";
+import { checkInFolderCache } from "store/utils/checkInCache";
 
 
 export const getFiles = (folderId) => async (dispatch) => {
@@ -15,9 +16,9 @@ export const getFiles = (folderId) => async (dispatch) => {
 };
 
 
-export const getFilesAndSet = (folder) => async (dispatch) => {
+export const getFilesAndSet = (folder, cache) => async (dispatch) => {
     try {
-        const filesList = await files.getFiles(folder);
+        const filesList = checkInFolderCache(cache, folder) || await files.getFiles(folder);
         dispatch({ type: GET_FILES, payload: filesList });
         
         if(filesList.length){

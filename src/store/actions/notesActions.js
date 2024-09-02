@@ -1,6 +1,7 @@
 import * as notes from "_services/notes.service";
 import { getCurrentNoteFromLocal, setCurrentFileToLocal, setCurrentFolderToLocal, setCurrentNoteToLocal } from "_utils/user-localDB/notesDB";
 import { ADD_FILE, ADD_FOLDER, ADD_NOTE, GET_NOTES, REMOVE_NOTE, SET_CURRENT_FILE, SET_CURRENT_FOLDER, SET_CURRENT_NOTE, SET_IS_NOTE_ADDING, UPDATE_NOTE } from "store/actionTypes/notesActionTypes";
+import { checkInFileCache } from "store/utils/checkInCache";
 
 
 export const setIsNoteAdding = (status = true) => async (dispatch) => {
@@ -43,13 +44,15 @@ export const addFile = (data) => async (dispatch) => {
 }
 
 
-export const getNotesAndSet = (data) => async (dispatch, getState) => {
+export const getNotesAndSet = (data, cache, flagSkipNotes = false) => async (dispatch) => {
     try {
-        const abcd = getState();
-        console.log(abcd);
-        const notesList = await notes.getNotes(data);
+        const notesList = checkInFileCache(cache, data) || await notes.getNotes(data);
         dispatch({ type: GET_NOTES, payload: notesList });
         
+        if(flagSkipNotes){
+            return { notes: notesList };
+        }
+
         if(notesList.length){
             const currentNoteInLocalDB = getCurrentNoteFromLocal();
             const selectedNote = currentNoteInLocalDB || notesList[0].id;

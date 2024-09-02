@@ -32,10 +32,10 @@ const NoteAndEditor = (props) => {
     const dispatch = useDispatch();
 
     // const [note, setNote] = useState(initialNoteMetaDetails)
-    const { content, ...noteMeta } = note;
+    const { content, ...noteMetaDetails } = note;
 
     const [isEditing, setIsEditing] = useState(isEditMode)
-    const [noteMetaDetails, setNoteMetaDetails] = useState(noteMeta)
+    const [noteMetaDetails__, setNoteMetaDetails] = useState(noteMetaDetails)
     
     const convertedHtmlContent = convertToHTML(content)
     
@@ -73,10 +73,10 @@ const NoteAndEditor = (props) => {
             const notes = await notesModel.getNoteById(id)
             // setNote(notes)
         }
-        fetchData();
+        // fetchData();
 
 
-        setNoteMetaDetails(noteMeta);
+        // setNoteMetaDetails(noteMeta);
 
     }, [id]);
 

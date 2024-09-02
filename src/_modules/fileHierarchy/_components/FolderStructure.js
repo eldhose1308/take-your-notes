@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Separator from "_components/Misc/Separator/Separator";
 import { arrowIcons } from "../_utils/mockData";
 
-const FolderComponent = ({ folder, isExpanded, expandedFiles, toggleFolder, toggleFile, toggleNote }) => {
+const FolderComponent = ({ folder, isExpanded, expandedFiles, toggleFolder, toggleFile, toggleNote, selectedFile, selectedNote, }) => {
     const { id, label, files } = folder;
 
     return (
@@ -19,7 +19,7 @@ const FolderComponent = ({ folder, isExpanded, expandedFiles, toggleFolder, togg
                 {files && files.map((file) => {
                     const { id } = file;
                     return (
-                        <FileComponent key={`file_${id}`} file={file} isExpanded={!!expandedFiles[id]} toggleFile={toggleFile} toggleNote={toggleNote} />
+                        <FileComponent key={`file_${id}`} file={file} isExpanded={!!expandedFiles[id]} toggleFile={toggleFile} toggleNote={toggleNote} selectedNote={selectedNote} />
                     )
                 })}
             </div>}
@@ -30,7 +30,7 @@ const FolderComponent = ({ folder, isExpanded, expandedFiles, toggleFolder, togg
 
 
 
-const FileComponent = ({ file, isExpanded, toggleFile, toggleNote }) => {
+const FileComponent = ({ file, isExpanded, toggleFile, toggleNote, selectedNote }) => {
     const { id, label, notes } = file;
 
     return (
@@ -44,7 +44,7 @@ const FileComponent = ({ file, isExpanded, toggleFile, toggleNote }) => {
 
             {isExpanded && <div className='ml-4'>
                 {notes && notes.map((note) => (
-                    <NoteComponent key={note.id} note={note} toggleNote={toggleNote} />
+                    <NoteComponent key={note.id} note={note} toggleNote={toggleNote} selectedNote={selectedNote} />
                 ))}
             </div>}
 
@@ -54,8 +54,14 @@ const FileComponent = ({ file, isExpanded, toggleFile, toggleNote }) => {
 
 
 
-const NoteComponent = ({ note, toggleNote }) => {
+const NoteComponent = ({ note, toggleNote, selectedNote }) => {
     const { id, title } = note;
+    
+    useEffect(() => {
+        // if(selectedNote){
+        //     toggleNote(selectedNote);
+        // }
+    },[])
 
     return (
         <div key={id} className={`flex my-0 ml-6 py-1 pr-2 text-sm text-default cursor-pointer duration-300 hover-opacity-100`}>
@@ -72,14 +78,16 @@ const NoteComponent = ({ note, toggleNote }) => {
 
 
 const FolderStructure = (props) => {
-    const { folders, setSelectedFolder, setSelectedFile, setSelectedNote } = props;
+    const { folders, selectedFolder, selectedFile, selectedNote, setSelectedFolder, setSelectedFile, setSelectedNote } = props;
 
-    const [expandedFolders, setExpandedFolders] = useState({});
-    const [expandedFiles, setExpandedFiles] = useState({});
+    const [expandedFolders, setExpandedFolders] = useState({[selectedFolder]: true});
+    const [expandedFiles, setExpandedFiles] = useState({[selectedFile]: true});
 
 
     const toggleFolder = (folderId) => {
-        setSelectedFolder(folderId)
+        if(!expandedFolders[folderId]){
+            setSelectedFolder(folderId)
+        }
         setExpandedFolders((prev) => ({
             ...prev,
             [folderId]: !prev[folderId]
@@ -87,7 +95,9 @@ const FolderStructure = (props) => {
     };
 
     const toggleFile = (fileId) => {
-        setSelectedFile(fileId)
+        if(!expandedFiles[fileId]){
+            setSelectedFile(fileId)
+        }
         setExpandedFiles((prev) => ({
             ...prev,
             [fileId]: !prev[fileId]
@@ -110,6 +120,8 @@ const FolderStructure = (props) => {
                             toggleFolder={toggleFolder}
                             toggleFile={toggleFile}
                             toggleNote={setSelectedNote}
+                            selectedFile={selectedFile}
+                            selectedNote={selectedNote}
                         />
                         <Separator />
                     </React.Fragment>
