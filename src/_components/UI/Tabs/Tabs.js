@@ -78,7 +78,7 @@ const Tabs = ({ hasNav = false, children }) => {
 
 const TabItem = ({ isActive, onClick, children, ...props }) => {
 
-    const className = `tab-item py-1 px-2 my-1 mx-2 rounded-md cursor-pointer border text-xs ${isActive ? 'bg-accent text-custom' : 'bg-another hover-highlight'}`;
+    const className = `tab-item py-1 px-2 my-1 mx-2 rounded-md cursor-pointer border text-xs ${isActive ? 'bg-accent text-custom' : 'bg-another text-default hover-highlight'}`;
     return (
         <li onClick={onClick} className={className} {...props}>{children}</li>
     )

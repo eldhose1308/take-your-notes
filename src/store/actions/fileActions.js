@@ -66,3 +66,38 @@ export const deleteFile = (data) => async (dispatch) => {
         console.error('Failed to delete file:', error);
     }
 };
+
+
+/**** */
+
+export const removeFileHierarchy = (data) => async (dispatch) => {
+    try {
+        await files.deleteFile(data);
+        dispatch({ type: 'REMOVE_HIERARCHY_FILE', payload: data });
+        return true;
+    } catch (error) {
+        console.error('Failed to delete file:', error);
+    }
+}
+
+export const saveFileHierarchy = (file) => async (dispatch) => {
+    try {
+        const newFile = await files.saveFile(file);
+        dispatch({ type: 'ADD_HIERARCHY_FILE', payload: newFile });
+        return newFile;
+    } catch (error) {
+        console.error('Failed to save file:', error);
+    }
+}
+
+
+export const updateFileHierarchy = (data, id) => async (dispatch) => {
+    const { folderId, fileId } = id;
+    try {
+        const newFile = await files.updateFile({ ...data, folderId }, fileId);
+        dispatch({ type: 'UPDATE_HIERARCHY_FILE', payload: newFile });
+        return newFile;
+    } catch (error) {
+        console.error('Failed to update file:', error);
+    }
+}

@@ -1436,6 +1436,10 @@ textarea::placeholder {
   display: none;
 }
 
+.block {
+  display: block;
+}
+
 .invisible{
   visibility: hidden;
 }

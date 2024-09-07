@@ -13,6 +13,7 @@ import ModeSelector from "_components/UI/ModeSelector/ModeSelector";
 import { getFoldersAndSet, getFoldersFilesNotesAndSet } from "store/actions/folderActions";
 import { getFilesAndSet } from "store/actions/fileActions";
 import { getNotesAndSet } from "store/actions/notesActions";
+import { getAllFolders } from "store/selectors/notesSelectors";
 
 
 const fileModes = [
@@ -25,15 +26,15 @@ const NoteNavigator = () => {
 
     const hierarchyCache = useRef({});
 
-    // move it to reducer?
     const [hierarchyData, setHierarchyData] = useState([]); 
 
+    // remove all these and use the above for this
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
     const [notes, setNotes] = useState([]);
 
     const [isHierarchyVisible, setIsHierarchyVisible] = useState(false);
-    const [selectedView, setSelectedView] = useState('compact');
+    const [selectedView, setSelectedView] = useState('explorer');
 
 
     const handleModeChange = (mode) => {
@@ -50,10 +51,24 @@ const NoteNavigator = () => {
     const handleFolderChange = async (folderId) => { // pass the cacheObj and evaluate wrt
         const { id: fileId, files } = await dispatch(getFilesAndSet(folderId, hierarchyCache.current));
         setFiles(files);
-        // if(nextStep){
-            handleFileChange(fileId, folderId);
-        // }
+        handleFileChange(fileId, folderId);
     }
+
+    const handleFolderUpdate = () => {
+        
+    }
+
+    const handleFolderDelete = async (folderId) => {
+        const deletedFolderId = folders.findIndex(({ id }) => id === folderId);
+        const foldersWithoutFolder = folders.slice(0, deletedFolderId).concat(folders.slice(deletedFolderId + 1)); // use filter?
+        
+        setFolders(foldersWithoutFolder);
+        // sync with files(deleted folder's files remove) and hirearchy cache
+
+        const hirearchyDataWithoutFolder = hierarchyData.filter(({ id }) => id !== folderId);
+        setHierarchyData(hirearchyDataWithoutFolder);
+    }
+
 
 
     useEffect(() => {
@@ -65,22 +80,12 @@ const NoteNavigator = () => {
             hierarchyCache.current = normalisedData;
 
             setHierarchyData(hierarchyData);
-            setFolders(folders);
-            setFiles(files);
-            setNotes(notes);
+            // setFolders(folders);
+            // setFiles(files);
+            // setNotes(notes);
 
         }
 
-        const fetchFolders = async () => {
-            const { id: folderId, folders } = await dispatch(getFoldersAndSet()); // another method for hirerachial view fetch for all data
-            const { id: fileId, files } = await dispatch(getFilesAndSet(folderId)); // wont be needed
-            const { notes } = await dispatch(getNotesAndSet({ folderId, fileId })) || {};
-
-            setFolders(folders);
-            setFiles(files);
-            setNotes(notes);
-        }
-        // fetchFolders();
         fetchFoldersFilesNotes();
     }, [])
 
@@ -112,6 +117,8 @@ const NoteNavigator = () => {
                                 hierarchyData={hierarchyData}
                                 onFolderChange={handleFolderChange}
                                 onFileChange={handleFileChange}
+                                onFolderDelete={handleFolderDelete}
+                                onFolderUpdate={handleFolderUpdate}
                                 isActive
                             />
                         )}

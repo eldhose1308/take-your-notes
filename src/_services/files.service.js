@@ -21,8 +21,8 @@ const getFiles = async (data, config={}) => {
 const saveFile = async (data, config={}) => {
     const response = await files.saveFile(data, config);
     const { data: fileData=[] } = response;
-    const { file_name, file_id } = fileData;
-    const responseData = { id: file_id, label: file_name };
+    const { file_name, file_id, folder_id } = fileData;
+    const responseData = { id: file_id, label: file_name, folderId: folder_id };
     return responseData
 }
 
@@ -31,8 +31,8 @@ const saveFile = async (data, config={}) => {
 const updateFile = async (data, id, config={}) => {
     const response = await files.updateFile(data, id, config);
     const { data: fileData=[] } = response;
-    const { file_name, file_id } = fileData;
-    const responseData = { id: file_id, label: file_name };
+    const { file_name, file_id, folder_id } = fileData;
+    const responseData = { id: file_id, label: file_name, folderId: folder_id };
     return responseData
 }
 

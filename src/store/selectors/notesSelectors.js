@@ -31,10 +31,18 @@ export const getAllNotes = (state) => state.notes.notesList || []
 
 export const getSelectedNote = createSelector(
     [getCurrentNote, getAllNotes],
-    (currentNote='', notesList=[]) => {
-        const abc = notesList.find(({ id }) => id === currentNote);
-        return abc;
-    }
+    (currentNote='', notesList=[]) => notesList.find(({ id }) => id === currentNote)
 )
     
 export const getBlankNote = (state) => ({ title: `Untitled-${state.notes.notesList.length + 1}` })
+
+
+export const getHierarchyData = (state) => state.notes.hierarchyData;
+
+export const getFoldersList = createSelector(
+    [getHierarchyData],
+    (hierarchyData) => {
+        const folders = hierarchyData.map(({ files, ...folderDetails }) => folderDetails);
+        return folders;
+    }
+)

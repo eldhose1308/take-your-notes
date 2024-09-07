@@ -69,6 +69,9 @@ export const getFoldersFilesNotesAndSet = () => async (dispatch) => {
     try {
         const { folders: foldersList, hierarchyData, normalisedData } = await folders.getFoldersFilesNotes();
         dispatch({ type: GET_FOLDERS, payload: foldersList });
+
+        dispatch({ type: 'GET_HIERARCHY', payload: hierarchyData });
+        dispatch({ type: 'SET_NORMALISED_HIERARCHY', payload: normalisedData });
         
         if(foldersList.length){
             const currentFolderInLocalDB = getCurrentFolderFromLocal();
@@ -78,5 +81,33 @@ export const getFoldersFilesNotesAndSet = () => async (dispatch) => {
         }
     } catch (error) {
         console.error('Failed to get folder file notes:', error);
+    }
+}
+
+/** */
+
+export const removeFolderHierarchy = (folderId) => (dispatch) => {
+    dispatch({ type: 'REMOVE_HIERARCHY', payload: folderId });
+
+}
+
+
+export const saveFolderHierarchy= (folder) => async (dispatch) => {
+    try {
+        const newFolder = await folders.saveFolder(folder);
+        dispatch({ type: 'ADD_HIERARCHY_FOLDER', payload: newFolder });
+        return newFolder;
+    } catch (error) {
+        console.error('Failed to add folder:', error);
+    }
+};
+
+export const updateFolderHierarchy = (folder, id) => async (dispatch) => {
+    try {
+        const newFolder = await folders.updateFolder(folder, id);
+        dispatch({ type: 'UPDATE_HIERARCHY_FOLDER', payload: newFolder });
+        return newFolder;
+    } catch (error) {
+        console.error('Failed to update folder:', error);
     }
 }

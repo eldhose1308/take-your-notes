@@ -81,7 +81,7 @@ const FolderCreateModal = () => {
                             labelName='New folder name'
                             placeholder="Enter folder name"
                             value={newFolderName}
-                            onChange={(value) => setNewFolderName(value)}
+                            onChange={setNewFolderName}
                             size='sm'
                             isFocused
                         />

@@ -8,6 +8,13 @@ export const setIsNoteAdding = (status = true) => async (dispatch) => {
     dispatch({ type: SET_IS_NOTE_ADDING, payload: status });
 }
 
+// rename it to something meaningful
+export const setIsNoteAddingFor = (folderId, fileId) => async (dispatch) => {
+    dispatch(setCurrentFolder(folderId));
+    dispatch(setCurrentFile(fileId));
+    dispatch({ type: SET_IS_NOTE_ADDING, payload: true });
+}
+
 
 export const setCurrentFolder = (data, resetFlag = false) => async (dispatch) => {
     setCurrentFolderToLocal(data, resetFlag);

@@ -15,7 +15,7 @@ import { setCurrentFile, setCurrentFolder, setCurrentNote } from "store/actions/
 
 
 const ExplorerView = (props) => {
-    const { isActive, hierarchyData=[], onFolderChange, onFileChange } = props;
+    const { isActive, hierarchyData=[], onFolderChange, onFileChange, onFolderDelete } = props;
     const dispatch = useDispatch();
 
     const { id: currentFolderId, currentFolder } = useSelector(getSelectedFolder) || {};
@@ -25,7 +25,8 @@ const ExplorerView = (props) => {
 
     // const hierarchyData = 
 
-    const { folders: normalizedFolders, files: normalizedFiles, notes: normalizedNotes } = normalizeData(hierarchyData)
+    const normalisedData = normalizeData(hierarchyData);
+    const { folders: normalizedFolders, files: normalizedFiles, notes: normalizedNotes } = normalisedData;
 
     const [selectedFolder, setSelectedFolder] = useState()
     const [selectedFile, setSelectedFile] = useState()
@@ -34,20 +35,12 @@ const ExplorerView = (props) => {
 
 
     const onSelectFolder = (id) => {
-        // dispatch(setCurrentFolder(id, true));
-        // onFolderChange(id);
         setSelectedFolder(id);
-        // setSelectedFile(null);
-        // setSelectedNote(null);
     }
 
     const onSelectFile = (id) => {
         const { folderId } = normalizedFiles[id]
-        // dispatch(setCurrentFile(id, true));
-        // onFileChange(id, folderId);
         setSelectedFolder(folderId);
-        // setSelectedFile(id);
-        // setSelectedNote(null);
     }
 
     const onSelectNote = async (id) => {
@@ -65,10 +58,6 @@ const ExplorerView = (props) => {
         }
 
         dispatch(setCurrentNote(id, true));
-
-        // setSelectedFolder(folderId);
-        // setSelectedFile(fileId);
-        // setSelectedNote(id);
     }
 
 
@@ -98,12 +87,14 @@ const ExplorerView = (props) => {
                 <div className='overflow-scroll my-2 pr-4 h-screen-3/4'>
                     <FolderStructure 
                         folders={hierarchyData} 
-                        selectedFolder={currentFolderId}
-                        selectedFile={currentFileId}
-                        selectedNote={currentNoteId}
+                        normalisedData={normalisedData}
+                        // selectedFolder={currentFolderId}
+                        // selectedFile={currentFileId}
+                        // selectedNote={currentNoteId}
                         setSelectedFolder={onSelectFolder} 
                         setSelectedFile={onSelectFile} 
                         setSelectedNote={onSelectNote} 
+                        onFolderDelete={onFolderDelete}
                     />
                 </div>
             </div>
