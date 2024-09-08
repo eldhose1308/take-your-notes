@@ -30,8 +30,8 @@ const updateFile = async (data, id, config = {}) => {
     })
 }
 
-const deleteFile = async ({folderId, fileId}, config = {}) => {
-    return new AccessAPI(BASE_URL + `folders/${folderId}/files/${fileId}`).delete()
+const deleteFile = async ({folderId, id}, config = {}) => {
+    return new AccessAPI(BASE_URL + `folders/${folderId}/files/${id}`).delete()
     .then((res) => {
         return res
     }).catch((err) => {

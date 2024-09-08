@@ -14,6 +14,8 @@ import { getFoldersAndSet, getFoldersFilesNotesAndSet } from "store/actions/fold
 import { getFilesAndSet } from "store/actions/fileActions";
 import { getNotesAndSet } from "store/actions/notesActions";
 import { getAllFolders } from "store/selectors/notesSelectors";
+import NotesControls from "../_components/notesControls/NotesControls";
+import CreateNoteButton from "../_components/CreateNoteButton";
 
 
 const fileModes = [
@@ -26,7 +28,7 @@ const NoteNavigator = () => {
 
     const hierarchyCache = useRef({});
 
-    const [hierarchyData, setHierarchyData] = useState([]); 
+    const [hierarchyData, setHierarchyData] = useState([]);
 
     // remove all these and use the above for this
     const [folders, setFolders] = useState([]);
@@ -43,7 +45,7 @@ const NoteNavigator = () => {
 
 
     const handleFileChange = async (fileId, folderId, flagSkipNotes) => { // pass the cacheObj and evaluate wrt
-        const { notes } = await dispatch(getNotesAndSet({ folderId, fileId },  hierarchyCache.current, flagSkipNotes)) || {};
+        const { notes } = await dispatch(getNotesAndSet({ folderId, fileId }, hierarchyCache.current, flagSkipNotes)) || {};
         setNotes(notes);
     }
 
@@ -55,13 +57,13 @@ const NoteNavigator = () => {
     }
 
     const handleFolderUpdate = () => {
-        
+
     }
 
     const handleFolderDelete = async (folderId) => {
         const deletedFolderId = folders.findIndex(({ id }) => id === folderId);
         const foldersWithoutFolder = folders.slice(0, deletedFolderId).concat(folders.slice(deletedFolderId + 1)); // use filter?
-        
+
         setFolders(foldersWithoutFolder);
         // sync with files(deleted folder's files remove) and hirearchy cache
 
@@ -73,10 +75,10 @@ const NoteNavigator = () => {
 
     useEffect(() => {
         const fetchFoldersFilesNotes = async () => {
-            const { folders, id: folderId, normalisedData, hierarchyData } = await dispatch(getFoldersFilesNotesAndSet()); 
+            const { folders, id: folderId, normalisedData, hierarchyData } = await dispatch(getFoldersFilesNotesAndSet());
             const { id: fileId, files } = await dispatch(getFilesAndSet(folderId));
             const { notes } = await dispatch(getNotesAndSet({ folderId, fileId })) || {};
-            
+
             hierarchyCache.current = normalisedData;
 
             setHierarchyData(hierarchyData);
@@ -103,6 +105,12 @@ const NoteNavigator = () => {
 
                     <div className='px-2 w-80'>
 
+
+                        <NotesControls />
+
+                        <CreateNoteButton />
+
+
                         {selectedView === 'compact' ? (
                             <CompactView
                                 folders={folders}
@@ -115,6 +123,7 @@ const NoteNavigator = () => {
                         ) : (
                             <ExplorerView
                                 hierarchyData={hierarchyData}
+                                normalisedData={hierarchyCache.current}
                                 onFolderChange={handleFolderChange}
                                 onFileChange={handleFileChange}
                                 onFolderDelete={handleFolderDelete}

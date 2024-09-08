@@ -29,9 +29,9 @@ const useFilesCrud = (folderId) => {
     const showUpdateDialog = (id, folderId, option, e) => {
         e.stopPropagation();
 
-        const { id: fileId, label: fileName } = option;
+        const { id: fileId, label: fileName, folderName } = option;
         const dialogData = {
-            data: { id: { fileId, folderId }, fileName },
+            data: { id: { fileId, folderId, folderName }, fileName },
             status: true,
             onClick: handleSubmit
         }
@@ -42,7 +42,7 @@ const useFilesCrud = (folderId) => {
         const { id: fileId, folderId } = id;
         if (!fileId || !folderId) { return }
         try {
-            dispatch(removeFileHierarchy({ fileId, folderId }));
+            dispatch(removeFileHierarchy({ id: fileId, folderId }));
             return true;
         } catch (err) {
             throw err;

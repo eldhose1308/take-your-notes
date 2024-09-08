@@ -40,9 +40,9 @@ const CompactView = (props) => {
                 <div className='text-xs text-secondary my-1'>{notes.length} notes</div>
                 {/* Filters - Sort by: Name, Created Date, Updated Date */}
 
-
+{/* 
                 <NotesControls />
-                <CreateNoteButton />
+                <CreateNoteButton /> */}
 
                 <Separator />
 

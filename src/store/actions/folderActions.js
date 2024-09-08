@@ -3,6 +3,7 @@ import { GET_FOLDERS, REMOVE_FOLDER, UPDATE_FOLDER } from "store/actionTypes/fol
 import { setCurrentFolder } from "./notesActions";
 import { ADD_FOLDER } from "store/actionTypes/notesActionTypes";
 import { getCurrentFolderFromLocal, setCurrentFolderToLocal } from "_utils/user-localDB/notesDB";
+import { normalizeData } from "_modules/fileHierarchy/_utils/normalizer";
 
 
 export const getFolders = (folder) => async (dispatch) => {

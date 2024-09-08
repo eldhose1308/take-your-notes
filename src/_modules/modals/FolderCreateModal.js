@@ -24,7 +24,7 @@ const FolderCreateModal = () => {
     const { id, folderName='' } = data;
 
     const buttonStateValues = id ? buttonUpdateStateValues : buttonCreateStateValues;
-    const heading = `Confirm ${id ? 'Updation' : 'Creation'}`;
+    const heading = `${id ? 'Update Folder' : 'Create Folder'}`;
     const subHeading = `Are you sure you want to ${id ? `update the folder` : 'create a new folder'}?`;
 
     const [newFolderName, setNewFolderName] = useState(folderName);

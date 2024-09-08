@@ -6,14 +6,14 @@ import { arrowIcons } from "../_utils/mockData";
 import NoteComponent from "./NoteComponent";
 import useNotesCrud from "../_hooks/useNotesCrud";
 
-const FileComponent = ({ folderId, file, folder, isExpanded, toggleFile, toggleNote, selectedNote, onFileDelete, onFileEdit }) => {
-    const { id, label, notes } = file;
+const FileComponent = ({ folderId, file, folder, notes, normalizedNotes, isExpanded, toggleFile, toggleNote, selectedNote, onFileDelete, onFileEdit }) => {
+    const { id, label } = file;
 
     const [isHidden, setIsHidden] = useState(0);
 
     const { setNoteCreate, showUpdateDialog, showDeleteDialog } = useNotesCrud(folderId, id);
 
-    
+
     const onNoteDelete = (fileId, option, e) => {
         showDeleteDialog(fileId, folderId, option, e)
     }
@@ -25,6 +25,7 @@ const FileComponent = ({ folderId, file, folder, isExpanded, toggleFile, toggleN
     }
 
     const onNoteEdit = (id, option, e) => {
+        setIsHidden((prev) => prev + 1);
         toggleNote(id);
     }
 
@@ -49,16 +50,22 @@ const FileComponent = ({ folderId, file, folder, isExpanded, toggleFile, toggleN
             </div>
 
             {isExpanded && <div className='ml-4 w-full'>
-                {notes && notes.map((note) => (
-                    <NoteComponent 
-                        key={note.id} 
-                        note={note} 
-                        toggleNote={toggleNote} 
-                        selectedNote={selectedNote} 
-                        onNoteDelete={onNoteDelete}
-                        onNoteEdit={onNoteEdit}
-                    />
-                ))}
+                {notes.map((noteId) => {
+                    const note = normalizedNotes[noteId];
+
+                    return (
+                        <NoteComponent
+                            key={note.id}
+                            note={note}
+                            isHidden={isHidden}
+                            toggleNote={toggleNote}
+                            selectedNote={selectedNote}
+                            onNoteDelete={onNoteDelete}
+                            onNoteEdit={onNoteEdit}
+                        />
+                    )
+                }
+                )}
             </div>}
 
         </div>

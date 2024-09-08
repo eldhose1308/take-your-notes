@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NoteOptionsMenu from "_modules/notes/_components/noteOptionsMenu/NoteOptionsMenu";
 
-const NoteComponent = ({ note, toggleNote, selectedNote, onNoteEdit, onNoteDelete }) => {
+const NoteComponent = ({ note, isHidden, toggleNote, selectedNote, onNoteEdit, onNoteDelete }) => {
     const { id, title } = note;
     const isSelected = selectedNote === id;
 
@@ -18,6 +18,7 @@ const NoteComponent = ({ note, toggleNote, selectedNote, onNoteEdit, onNoteDelet
                 <NoteOptionsMenu
                     id={id}
                     item={note}
+                    isHidden={isHidden}
                     onDelete={onNoteDelete}
                     onEdit={onNoteEdit}
                 />

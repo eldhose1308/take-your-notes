@@ -14,8 +14,8 @@ export const normalizeData = (data=[]) => {
             normalizedData.files[fileId] = { id: fileId, label, folderId, notes: notes.map(note => note.id) };
 
             notes.forEach(note => {
-                const { id, title } = note;
-                normalizedData.notes[note.id] = { id, fileId, title };
+                const { id, title, content } = note;
+                normalizedData.notes[note.id] = { id, fileId, title, content };
             });
         });
     });

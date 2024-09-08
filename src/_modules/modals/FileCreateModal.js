@@ -73,10 +73,10 @@ const FileCreateModal = () => {
         <Dialog isShown hasOverlay >
                 <Card variant='ghost' rounded='lg'>
                     <CardHeader>
-                        <Typography size='lg'>Confirm {id ? 'Updation' : 'Creation'}</Typography>
+                        <Typography size='lg'>{id ? 'Update File' : 'Create File'}</Typography>
                         
-                        <Typography size='xs' textVariant='default'>Are you sure you want to {id ? `update the file ` : 'create a new folder file'}  under the folder - <b>{folderName}</b>?</Typography>
-                        {id ? <Typography size='xs' textVariant='bold'>{fileName} 'change this'</Typography> : null}
+                        <Typography size='xs' textVariant='default'>Are you sure you want to {id ? `update the file ` : 'create a new file'}  under the folder - <b>{folderName}</b>?</Typography>
+                        {id ? <Typography size='xs' textVariant='bold'>{fileName} 'change this into a badge?'</Typography> : null}
 
                     </CardHeader>
 

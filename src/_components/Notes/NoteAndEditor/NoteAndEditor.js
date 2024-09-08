@@ -27,18 +27,22 @@ const NoteAndEditor = (props) => {
     const currentFolder = useSelector(getSelectedFolder);
     const currentFile = useSelector(getSelectedFile);
 
+    const { id: folderId, label: folderName } = currentFolder || {};
+    const { id: fileId, label: fileName } = currentFile || {};
+
     const note = selectedNote || blankNote;
 
     const dispatch = useDispatch();
 
     // const [note, setNote] = useState(initialNoteMetaDetails)
     const { content, ...noteMetaDetails } = note;
+    const { title: noteTitle } = noteMetaDetails || {};
 
     const [isEditing, setIsEditing] = useState(isEditMode)
     const [noteMetaDetails__, setNoteMetaDetails] = useState(noteMetaDetails)
-    
+
     const convertedHtmlContent = convertToHTML(content)
-    
+
     const handleAdd = async (payload) => {
         const { label, value, noteId } = await dispatch(saveNote(payload));
 
@@ -48,13 +52,10 @@ const NoteAndEditor = (props) => {
     }
 
     const handleUpdate = async (payload, id) => {
-        await dispatch(updateNote(payload, id));         
+        await dispatch(updateNote(payload, id));
     }
 
     const handleSave = (note) => {
-        const { id: folderId } = currentFolder;
-        const { id: fileId } = currentFile;
-
         const { content, title } = note;
 
         const payload = {
@@ -113,12 +114,19 @@ const NoteAndEditor = (props) => {
 
     return (
         <div className="m-3">
-        {/* <div>
-                <div>
-                    <span className={`${isEditing ? 'bg-custom' : ''}`}>Raw</span>
-                    <span className={`${isEditing ? '' : 'bg-custom'}`}>Preview</span>
-                </div>
-            </div> */}
+            <div className="flex border px-1 py-2 text-sm text-secondary">
+                <span>{folderName}</span>
+                <span className="flex items-center text-default mx-1">
+                    {/* • */}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
+                </span>
+                <span>{fileName}</span>
+                <span className="flex items-center text-default mx-1">
+                    {/* • */}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
+                </span>
+                <span className="text-default">{noteTitle}</span>
+            </div>
             {isEditing ? (
                 <NotesEditor
                     content={content}

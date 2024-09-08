@@ -17,11 +17,11 @@ const NoteDisplayManager = () => {
             ) : (
                 <div className="flex">
                     <div className='w-full px-3 mr-3'>
-                        {/* <Tabs hasNav>
+                        <Tabs hasNav>
                             <TabItem isActive={true} onClick={() => { alert('show posts...') }} >Note 1</TabItem>
                             <TabItem>Note 2</TabItem>
-                        </Tabs> */}
-                        <NoteAndEditor key={selectedNoteId} id={selectedNoteId} />
+                        </Tabs>
+                        <NoteAndEditor isEditMode={isNoteAdding} key={selectedNoteId} id={selectedNoteId} />
                     </div>
                 </div>)}
         </React.Fragment>

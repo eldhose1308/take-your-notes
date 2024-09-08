@@ -41,6 +41,10 @@ const Home = () => {
     return (
         <React.Fragment>
 
+            {/* <Flex alignItems='none' justifyContent='spaceBetween' wrap='none' className='my-4 mx-4'>
+                
+            </Flex> */}
+
             <Flex alignItems='none' justifyContent='spaceBetween' wrap='none' className='my-4 mx-4'>
 
                 <NoteNavigator />

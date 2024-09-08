@@ -4,8 +4,8 @@ const getNotes = async (data, config={}) => {
     const response = await notes.getNotes(data, config);
     const { data: notesData=[] } = response;
     const filesFormatted = notesData.map(note => {
-        const { title, content, note_id } = note;
-        return { id: note_id, content, title }
+        const { title, content, note_id, folder_id, file_id } = note;
+        return { title, content, id: note_id, noteId: note_id, folderId: folder_id, fileId: file_id }
     })
     return filesFormatted || []
 }
@@ -20,8 +20,8 @@ const getNoteById = async (id, config={}) => {
 const saveNote = async (data, config={}) => {
     const response = await notes.saveNote(data, config);
     const { data: noteData=[] } = response;
-    const { title, content, note_id } = noteData;
-    const responseData = { title, content, id: note_id, noteId: note_id };
+    const { title, content, note_id, folder_id, file_id } = noteData;
+    const responseData = { title, content, id: note_id, noteId: note_id, folderId: folder_id, fileId: file_id };
     return responseData
 }
 
@@ -30,8 +30,8 @@ const saveNote = async (data, config={}) => {
 const updateNote = async (data, id, config={}) => {
     const response = await notes.updateNote(data, id, config);
     const { data: noteData=[] } = response;
-    const { title, content, note_id } = noteData;
-    const responseData = { id: note_id, content, title };
+    const { title, content, note_id, folder_id, file_id } = noteData;
+    const responseData = { title, content, id: note_id, noteId: note_id, folderId: folder_id, fileId: file_id };
     return responseData
 }
 

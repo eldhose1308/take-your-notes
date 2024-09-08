@@ -100,18 +100,19 @@ const notesReducer = (state = initialState, action = {}) => {
             return { ...state, notesList: [...payload] }
 
         case ADD_NOTE:
-            return { ...state, notesList: [...state.notesList, payload] };
+            const fileOfNoteAdded = state.normalisedHierarchyData.files[payload.fileId];
+            const hierarchyStateOfFilesAfterNotesAdd = { ...state.normalisedHierarchyData.files, [payload.fileId]: { ...fileOfNoteAdded, notes: [...fileOfNoteAdded.notes, payload.id] }  }
+
+            const hierarchyStateOfNotesBeforeAdd = state.normalisedHierarchyData.notes;
+            const hierarchyStateOfNotesAfterAdd = { ...hierarchyStateOfNotesBeforeAdd, [payload.id]: payload }
+            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, files: hierarchyStateOfFilesAfterNotesAdd, notes: hierarchyStateOfNotesAfterAdd } };
+
 
         case UPDATE_NOTE:
-            const { id: noteId } = payload;
-            const updatedNoteIndex = state.notesList.findIndex(({ id }) => id === noteId);
-            const updatedNote = [...state.notesList.slice(0, updatedNoteIndex), payload, ...state.notesList.slice(updatedNoteIndex + 1)];
+            const hierarchySelectedNoteBeforeUpdation = state.normalisedHierarchyData.notes[payload.id];
+            const hierarchyStateNoteAfterUpdation = { ...state.normalisedHierarchyData.notes, [payload.id]: { ...hierarchySelectedNoteBeforeUpdation, ...payload } }
+            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, notes:  hierarchyStateNoteAfterUpdation  } }
 
-            let currentNote = state.currentNote;
-            if (state.currentNote.id === noteId) {
-                currentNote = payload;
-            }
-            return { ...state, notesList: updatedNote, currentNote };
 
 
         case 'GET_HIERARCHY':
@@ -119,23 +120,20 @@ const notesReducer = (state = initialState, action = {}) => {
 
 
         case 'REMOVE_HIERARCHY':
-            const hierarchyAfterRemoval = state.hierarchyData.filter(({ id }) => id !== payload);
-            return { ...state, hierarchyData: hierarchyAfterRemoval }
+            const { [payload]: removedFolder, ...hierarchyAfterRemovalOfFolder } = state.normalisedHierarchyData.folders;
+            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, folders: hierarchyAfterRemovalOfFolder } }
 
         case 'UPDATE_HIERARCHY_FOLDER':
-            const { id: folderId } = payload;
-            const updatedFolderIndex = state.hierarchyData.findIndex(({ id }) => id === folderId);
-            const updatedFolder = [...state.hierarchyData.slice(0, updatedFolderIndex), payload, ...state.hierarchyData.slice(updatedFolderIndex + 1)];
+            const hierarchySelectedFolderBeforeUpdation = state.normalisedHierarchyData.folders[payload.id];
+            const hierarchyStateOfFolderAfterUpdation = { ...state.normalisedHierarchyData.folders, [payload.id]: { ...hierarchySelectedFolderBeforeUpdation, ...payload } }
 
-            let currentFolder = state.currentFolder;
-            if (state.currentFolder.folderId === folderId) {
-                currentFolder = payload;
-            }
-            return { ...state, hierarchyData: updatedFolder, currentFolder };
+            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, folders: hierarchyStateOfFolderAfterUpdation } }
 
 
         case 'ADD_HIERARCHY_FOLDER':
-            return { ...state, hierarchyData: [...state.hierarchyData, payload] };
+            const hierarchyStateOfFolderBeforeAdd = state.normalisedHierarchyData.folders;
+            const hierarchyStateOfFolderAfterAdd = { ...hierarchyStateOfFolderBeforeAdd, [payload.id]: payload }
+            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, folders: hierarchyStateOfFolderAfterAdd } };
 
         case 'SET_NORMALISED_HIERARCHY':
             return { ...state, normalisedHierarchyData: payload };
@@ -146,50 +144,25 @@ const notesReducer = (state = initialState, action = {}) => {
 
         /*** */    
         case 'REMOVE_HIERARCHY_FILE':
-            const hierarchyStateAfterRemoval = state.hierarchyData.map((folder) => {
-                const { id: folderId, files } = folder;
-                if (folderId === payload.folderId) {
-                    const updatedFile = files.filter(({ id: fileId }) => fileId !== payload.fileId);
-                    return {
-                        ...folder,
-                        files: updatedFile
-                    }
-                }
-                return folder;
-            });
-            return { ...state, hierarchyData: hierarchyStateAfterRemoval };
+            const hierarchyStateOfFolderForRemoval = state.normalisedHierarchyData.folders[payload.folderId];
+            const filesListAfterRemoval = hierarchyStateOfFolderForRemoval.files.filter(fileId => fileId !== payload.id);
+
+            const hierarchyStateOfFolderOnFileRemoval= { ...state.normalisedHierarchyData.folders, [payload.folderId]: { ...hierarchyStateOfFolderForRemoval, files: filesListAfterRemoval }  };
+            const { [payload.id]: removedFile, ...hierarchyStateAfterRemoval } = state.normalisedHierarchyData.files;
+            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, folders: hierarchyStateOfFolderOnFileRemoval, files:  hierarchyStateAfterRemoval  } }
 
 
         case 'UPDATE_HIERARCHY_FILE':
-            const hierarchyStateAfterUpdation = state.hierarchyData.map((folder) => {
-                const { id: folderId, files } = folder;
-                if (folderId === payload.folderId) {
-                    const updatedFile = files.map((file) => {
-                        const { id: fileId, notes=[] } = file;
-                        if(fileId !== payload.id){
-                            return file;
-                        }
-                        return { ...payload, notes }
-                    });
-                    return { ...folder, files: updatedFile };
-                }
-                return folder;
-            });
-            return { ...state, hierarchyData: hierarchyStateAfterUpdation };
+            const hierarchySelectedFileBeforeUpdation = state.normalisedHierarchyData.files[payload.id];
+            const hierarchyStateFileAfterUpdation = { ...state.normalisedHierarchyData.files, [payload.id]: { ...hierarchySelectedFileBeforeUpdation, ...payload } }
+            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, files:  hierarchyStateFileAfterUpdation  } }
     
-
         case 'ADD_HIERARCHY_FILE':
-            const newHierarchyState = state.hierarchyData.map((folder) => {
-                const { id: folderId, files } = folder;
-                if (folderId === payload.folderId) {
-                    return {
-                        ...folder,
-                        files: [...files, payload]
-                    }
-                }
-                return folder;
-            });
-            return { ...state, hierarchyData: newHierarchyState };
+            const folderOfFileAdded = state.normalisedHierarchyData.folders[payload.folderId];
+            const hierarchyStateNewFolder= { ...state.normalisedHierarchyData.folders, [payload.folderId]: { ...folderOfFileAdded, files: [...folderOfFileAdded.files, payload.id] }  }
+            const hierarchyStateNewFile = { ...state.normalisedHierarchyData.files, [payload.id]: payload }
+            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, folders: hierarchyStateNewFolder, files: hierarchyStateNewFile  } }
+    
 
         default:
             return state;

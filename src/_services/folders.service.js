@@ -1,4 +1,5 @@
 import * as folders from '_api/folders.api'
+import { normalizeData } from '_modules/fileHierarchy/_utils/normalizer';
 
 
 const getFolders = async (data, config = {}) => {
@@ -43,6 +44,10 @@ const deleteFolder = async (id, config = {}) => {
 const getFoldersFilesNotes = async (config) => {
     const response = await folders.getFoldersFilesNotes(config);
     const { data: foldersFilesNotesData = [] } = response;
+
+
+    // const normalisedData = normalizeData(hierarchyData);
+
 
     // move all these into utils
     /** */
@@ -89,7 +94,10 @@ const getFoldersFilesNotes = async (config) => {
         return { id: folder_id, label: folder_name, folderIcon: folder_icon, files: filesStructured }
     }, {})
     /** */
-    return { folders: foldersList, normalisedData, hierarchyData }
+    
+    const normalisedData_new = normalizeData(hierarchyData);
+    
+    return { folders: foldersList, normalisedData: normalisedData_new, hierarchyData }
 }
 
 

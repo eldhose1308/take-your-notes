@@ -15,7 +15,7 @@ import { setCurrentFile, setCurrentFolder, setCurrentNote } from "store/actions/
 
 
 const ExplorerView = (props) => {
-    const { isActive, hierarchyData=[], onFolderChange, onFileChange, onFolderDelete } = props;
+    const { isActive, hierarchyData=[], normalisedData={}, onFolderChange, onFileChange, onFolderDelete } = props;
     const dispatch = useDispatch();
 
     const { id: currentFolderId, currentFolder } = useSelector(getSelectedFolder) || {};
@@ -25,7 +25,7 @@ const ExplorerView = (props) => {
 
     // const hierarchyData = 
 
-    const normalisedData = normalizeData(hierarchyData);
+    // const normalisedData = normalizeData(hierarchyData);
     const { folders: normalizedFolders, files: normalizedFiles, notes: normalizedNotes } = normalisedData;
 
     const [selectedFolder, setSelectedFolder] = useState()
@@ -69,24 +69,24 @@ const ExplorerView = (props) => {
     return (
         <React.Fragment>
             <div className={`${isActive ? '' : 'hidden'}`}>
-                <Typography textVariant='default' variant='muted' size='sm'>
-                    /
+                {/* <Typography textVariant='default' variant='muted' size='sm'> */}
+                    {/* / */}
                     {/* {selectedFolder && `${normalizedFolders[selectedFolder].label} /`}
                     {selectedFile && `${normalizedFiles[selectedFile].label} /`}
                     {selectedNote && `${normalizedNotes[selectedNote].title}`} */}
-                </Typography>
+                {/* </Typography> */}
 
-
+{/* 
                 <NotesControls />
 
-                <CreateNoteButton />
+                <CreateNoteButton /> */}
 
 
                 <Separator />
 
                 <div className='overflow-scroll my-2 pr-4 h-screen-3/4'>
                     <FolderStructure 
-                        folders={hierarchyData} 
+                        // folders={hierarchyData} 
                         normalisedData={normalisedData}
                         // selectedFolder={currentFolderId}
                         // selectedFile={currentFileId}

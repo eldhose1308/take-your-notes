@@ -7,7 +7,7 @@ import ContextMenu from "_components/UI/ContextMenu/ContextMenu";
 import NoteOptionsMenu from "_modules/notes/_components/noteOptionsMenu/NoteOptionsMenu";
 
 
-import { getHierarchyData, getSelectedFile, getSelectedFolder, getSelectedNote } from "store/selectors/notesSelectors";
+import { getSelectedFile, getSelectedFolder, getSelectedNote } from "store/selectors/notesSelectors";
 import { setCurrentFile, setCurrentFolder, setCurrentNote } from "store/actions/notesActions";
 import Typography from "_components/Misc/Typography/Typography";
 import { useFolderCrud, useFilesCrud } from "../_hooks";
@@ -15,10 +15,9 @@ import FolderComponent from "./FolderComponent";
 
 
 const FolderStructure = (props) => {
-    const { normalisedData, selectedFile, selectedNote, setSelectedFile, setSelectedNote, onFolderDelete } = props;
-    const { folders: normalizedFolders, files: normalizedFiles, notes: normalizedNotes } = normalisedData;
+    const { normalisedData_old = {}, selectedFile, selectedNote, setSelectedFile, setSelectedNote, onFolderDelete } = props;
 
-    const folders = useSelector(getHierarchyData);
+    const normalisedData = useSelector(state => state.notes.normalisedHierarchyData);
 
     const { id: currentFolderId, currentFolder } = useSelector(getSelectedFolder) || {};
     const { id: currentFileId, currentFile } = useSelector(getSelectedFile) || {};
@@ -32,6 +31,7 @@ const FolderStructure = (props) => {
 
     const { showCreateDialog, showUpdateDialog, showDeleteDialog } = useFolderCrud();
 
+    const { folders: normalizedFolders = {}, files: normalizedFiles = {}, notes: normalizedNotes = {} } = normalisedData;
 
     const onFolderSelect = (id) => {
         setSelectedFolder(id);
@@ -94,19 +94,32 @@ const FolderStructure = (props) => {
             <div className=''>
                 <div className="flex items-center justify-between my-2">
                     <Typography>Explorer</Typography>
-                    <span className="flex text-secondary hover-text-default cursor-pointer" onClick={showCreateDialog}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-plus"><circle cx="12" cy="12" r="10" /><path d="M8 12h8" /><path d="M12 8v8" /></svg>
-                    </span>
+                    <div className="flex items-center">
+                        <span className="flex ml-2 text-secondary hover-text-default cursor-pointer" onClick={() => alert('Collapse')}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fold-vertical"><path d="M12 22v-6" /><path d="M12 8V2" /><path d="M4 12H2" /><path d="M10 12H8" /><path d="M16 12h-2" /><path d="M22 12h-2" /><path d="m15 19-3-3-3 3" /><path d="m15 5-3 3-3-3" /></svg>
+                        </span>
+                        <span className="flex ml-2 text-secondary hover-text-default cursor-pointer" onClick={() => alert('Expand')}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-unfold-vertical"><path d="M12 22v-6" /><path d="M12 8V2" /><path d="M4 12H2" /><path d="M10 12H8" /><path d="M16 12h-2" /><path d="M22 12h-2" /><path d="m15 19-3 3-3-3" /><path d="m15 5-3-3-3 3" /></svg>
+                        </span>
+                        <span className="flex ml-2 text-secondary hover-text-default cursor-pointer" onClick={showCreateDialog}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-plus"><circle cx="12" cy="12" r="10" /><path d="M8 12h8" /><path d="M12 8v8" /></svg>
+                        </span>
+                    </div>
                 </div>
-                {folders.map((folder) => {
-                    const { id } = folder;
+                {Object.keys(normalizedFolders).map((id) => {
+                    const folder = normalizedFolders[id];
+                    const { files, ...folderData } = folder;
+                    // const files = normalizedFiles; // only sent the files in the array of folder
                     return (
                         <React.Fragment
                             key={`folder_fragment_${id}`}
                         >
                             <FolderComponent
                                 key={`folder_${id}`}
-                                folder={folder}
+                                folder={folderData}
+                                files={files}
+                                normalizedFiles={normalizedFiles}
+                                normalizedNotes={normalizedNotes}
                                 expandedFiles={expandedFiles}
                                 isExpanded={!!expandedFolders[id]}
                                 toggleFolder={toggleFolder}

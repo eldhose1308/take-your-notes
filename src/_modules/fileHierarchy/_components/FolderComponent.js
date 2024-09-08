@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from 'react-redux';
 
 import ContextMenu from "_components/UI/ContextMenu/ContextMenu";
 import FileComponent from "./FileComponent";
@@ -14,9 +15,11 @@ const menuOptions = [
     { label: 'Option 3', onClick: () => console.log('Option 3 clicked') },
 ];
 
-const FolderComponent = ({ folder, isExpanded, expandedFiles, toggleFolder, toggleFile, toggleNote, selectedFile, selectedNote, onFolderDelete, onFolderEdit }) => {
-    const { files, ...folderData } = folder;
+const FolderComponent = ({ folder, files, normalizedFiles, normalizedNotes, isExpanded, expandedFiles, toggleFolder, toggleFile, toggleNote, selectedFile, selectedNote, onFolderDelete, onFolderEdit }) => {
+    const { files: unusedFiles, ...folderData } = folder;
     const { id: folderId, label } = folderData;
+
+    // const normalizedFiles = useSelector(state => state.notes.);
 
 
     const [menuPosition, setMenuPosition] = useState({ xPos: '0px', yPos: '0px' });
@@ -36,7 +39,7 @@ const FolderComponent = ({ folder, isExpanded, expandedFiles, toggleFolder, togg
     }
 
     const onFileEdit = (id, option, e) => {
-        showUpdateDialog(id, folderId, option, e);
+        showUpdateDialog(id, folderId, { ...option, folderName: label }, e);
     }
 
     const handleContextMenu = (event) => {
@@ -78,13 +81,17 @@ const FolderComponent = ({ folder, isExpanded, expandedFiles, toggleFolder, togg
             </div>
 
             {isExpanded && <div className='ml-4 w-full'>
-                {files && files.map((file) => {
-                    const { id: fileId } = file;
+                {files.map((fileId) => {
+                    // const { id: fileId } = file;
+                    const file = normalizedFiles[fileId];
+                    const { notes, ...fileData } = file;
                     return (
                         <FileComponent
                             key={`file_${fileId}`}
-                            file={file}
+                            file={fileData}
+                            notes={notes}
                             folder={folderData}
+                            normalizedNotes={normalizedNotes}
                             folderId={folderId}
                             isExpanded={!!expandedFiles[fileId]}
                             toggleFile={toggleFile}
