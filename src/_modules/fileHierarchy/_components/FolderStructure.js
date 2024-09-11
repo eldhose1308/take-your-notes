@@ -61,6 +61,41 @@ const FolderStructure = (props) => {
     }
 
 
+
+    const expandAllFiles = () => {
+        const fileIds = Object.keys(normalizedFiles).reduce((acc, fileId) => ({ ...acc, [fileId]: true }), {});
+        setExpandedFiles(fileIds)
+    }
+
+    const expandAllFolders = () => {
+        const folderIds = Object.keys(normalizedFolders).reduce((acc, folderId) => ({ ...acc, [folderId]: true }), {});
+        setExpandedFolders(folderIds)
+    }
+
+    const expandAll = () => {
+        expandAllFolders();
+        expandAllFiles();
+    }
+
+
+    const collapseAllFiles = () => {
+        const fileIds = Object.keys(normalizedFiles).reduce((acc, fileId) => ({ ...acc, [fileId]: false }), {});
+        setExpandedFiles(fileIds)
+    }
+
+    const collapseAllFolders = () => {
+        const folderIds = Object.keys(normalizedFolders).reduce((acc, folderId) => ({ ...acc, [folderId]: false }), {});
+        setExpandedFolders(folderIds)
+    }
+
+    const collapseAll = () => {
+        collapseAllFolders();
+        collapseAllFiles();
+    }
+
+
+
+
     useEffect(() => {
         setExpandedFolders(previousState => ({ ...previousState, [currentFolderId]: true }))
     }, [currentFolderId])
@@ -95,11 +130,11 @@ const FolderStructure = (props) => {
                 <div className="flex items-center justify-between my-2">
                     <Typography>Explorer</Typography>
                     <div className="flex items-center">
-                        <span className="flex ml-2 text-secondary hover-text-default cursor-pointer" onClick={() => alert('Collapse')}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fold-vertical"><path d="M12 22v-6" /><path d="M12 8V2" /><path d="M4 12H2" /><path d="M10 12H8" /><path d="M16 12h-2" /><path d="M22 12h-2" /><path d="m15 19-3-3-3 3" /><path d="m15 5-3 3-3-3" /></svg>
+                        <span className="flex ml-2 text-secondary hover-text-default cursor-pointer" onClick={collapseAll}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-fold-vertical"><path d="M12 22v-6" /><path d="M12 8V2" /><path d="M4 12H2" /><path d="M10 12H8" /><path d="M16 12h-2" /><path d="M22 12h-2" /><path d="m15 19-3-3-3 3" /><path d="m15 5-3 3-3-3" /></svg>
                         </span>
-                        <span className="flex ml-2 text-secondary hover-text-default cursor-pointer" onClick={() => alert('Expand')}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-unfold-vertical"><path d="M12 22v-6" /><path d="M12 8V2" /><path d="M4 12H2" /><path d="M10 12H8" /><path d="M16 12h-2" /><path d="M22 12h-2" /><path d="m15 19-3 3-3-3" /><path d="m15 5-3-3-3 3" /></svg>
+                        <span className="flex ml-2 text-secondary hover-text-default cursor-pointer" onClick={expandAll}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-unfold-vertical"><path d="M12 22v-6" /><path d="M12 8V2" /><path d="M4 12H2" /><path d="M10 12H8" /><path d="M16 12h-2" /><path d="M22 12h-2" /><path d="m15 19-3 3-3-3" /><path d="m15 5-3-3-3 3" /></svg>
                         </span>
                         <span className="flex ml-2 text-secondary hover-text-default cursor-pointer" onClick={showCreateDialog}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-plus"><circle cx="12" cy="12" r="10" /><path d="M8 12h8" /><path d="M12 8v8" /></svg>

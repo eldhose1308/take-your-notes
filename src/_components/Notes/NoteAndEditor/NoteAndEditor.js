@@ -8,9 +8,23 @@ import { convertToHTML } from "_modules/markdownEditor/_utils/markdownConvert";
 
 import * as notesModel from "_services/notes.service";
 import { Button } from "_components/Form";
-import { saveNote, updateNote } from "store/actions/notesActions";
+import { removeNoteFromTabs, saveNote, setCurrentNote, setIsNoteAdding, updateNote } from "store/actions/notesActions";
 import { getBlankNote, getSelectedFile, getSelectedFolder, getSelectedNote } from "store/selectors/notesSelectors";
+import Separator from "_components/Misc/Separator/Separator";
 
+
+const OpenedFile = ({ item, selectedId, note, onDelete, onClick }) => {
+    const isSelected = selectedId === item;
+    const { title } = note;
+    return (
+        <div onClick={(e) => onClick(item, e)} className={`flex items-center group-hover text-xs py-2 rounded-md cursor-pointer ${isSelected ? 'bg-another text-default' : 'bg-default text-secondary hover-text-default hover-another'}`}>
+            <span className="ml-2" title="Path here">{title}</span>
+            <span onClick={(e) => onDelete(item, e)} className={`flex cursor-pointer mx-2 bg-transparent text-default border hover-text-destructive hover-border-destructive rounded-md ${isSelected ? '' : 'invisible group-hover-item'}`}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+            </span>
+        </div>
+    )
+}
 
 const initialNoteMetaDetails = {
     id: '',
@@ -26,6 +40,9 @@ const NoteAndEditor = (props) => {
     const blankNote = useSelector(getBlankNote);
     const currentFolder = useSelector(getSelectedFolder);
     const currentFile = useSelector(getSelectedFile);
+
+    const notesTab = useSelector(state => state.notes.notesTab);
+    const notesObj = useSelector(state => state.notes.normalisedHierarchyData.notes);
 
     const { id: folderId, label: folderName } = currentFolder || {};
     const { id: fileId, label: fileName } = currentFile || {};
@@ -111,22 +128,57 @@ const NoteAndEditor = (props) => {
         onHighlight(id)
     }
 
+    const handleSelectNote = async (item, e) => {
+        e.stopPropagation();
+        dispatch(setCurrentNote(item, true));
+    }
+
+    const handleDeleteNote = async (item, e) => {
+        e.stopPropagation();
+        const noteIndex = notesTab.findIndex(note => note === item);
+
+        const currentTabs = await dispatch(removeNoteFromTabs(item));
+
+        if(!currentTabs.length){
+            dispatch(setIsNoteAdding(false));
+            return;
+        }
+
+        if(!currentTabs.includes(id)){
+            let nextItem;
+            if(noteIndex > 0){
+                nextItem = notesTab[noteIndex - 1];   
+            }else{
+                nextItem = notesTab[noteIndex + 1];   
+            }
+            handleSelectNote(nextItem, e)
+        }
+    }
 
     return (
         <div className="m-3">
-            <div className="flex border px-1 py-2 text-sm text-secondary">
-                <span>{folderName}</span>
-                <span className="flex items-center text-default mx-1">
-                    {/* • */}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
-                </span>
-                <span>{fileName}</span>
-                <span className="flex items-center text-default mx-1">
-                    {/* • */}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
-                </span>
-                <span className="text-default">{noteTitle}</span>
-            </div>
+            {/* <div className="rounded-lg"> */}
+                <div className="flex rounded-lg w-full bg-default border text-sm text-secondary">
+                    {
+                        notesTab.map((item) => <OpenedFile key={item} onDelete={handleDeleteNote} onClick={handleSelectNote} note={notesObj[item]} selectedId={id} item={item} />)
+                    }
+                </div>
+
+                <div className="flex rounded-lg px-2 my-2 text-xs bg-default text-secondary">
+                    <span>{folderName}</span>
+                    <span className="flex items-center text-default mx-1">
+                        {/* • */}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
+                    </span>
+                    <span>{fileName}</span>
+                    <span className="flex items-center text-default mx-1">
+                        {/* • */}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
+                    </span>
+                    <span className="text-default">{noteTitle}</span>
+                </div>
+            {/* </div> */}
+
             {isEditing ? (
                 <NotesEditor
                     content={content}

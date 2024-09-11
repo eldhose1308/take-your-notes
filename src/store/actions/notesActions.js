@@ -1,5 +1,6 @@
 import * as notes from "_services/notes.service";
 import { getCurrentNoteFromLocal, setCurrentFileToLocal, setCurrentFolderToLocal, setCurrentNoteToLocal } from "_utils/user-localDB/notesDB";
+import { removeNoteTabFromLocal, setNoteTabToLocal } from "_utils/user-localDB/notesHistoryDB";
 import { ADD_FILE, ADD_FOLDER, ADD_NOTE, GET_NOTES, REMOVE_NOTE, SET_CURRENT_FILE, SET_CURRENT_FOLDER, SET_CURRENT_NOTE, SET_IS_NOTE_ADDING, UPDATE_NOTE } from "store/actionTypes/notesActionTypes";
 import { checkInFileCache } from "store/utils/checkInCache";
 
@@ -26,11 +27,27 @@ export const setCurrentFile = (data, resetFlag = false) => async (dispatch) => {
     dispatch({ type: SET_CURRENT_FILE, payload: data });
 }
 
-export const setCurrentNote = (data) => async (dispatch) => {
+export const setCurrentNote = (data) => async (dispatch, getState) => {
+    const { notes } = getState();
+    const { normalisedHierarchyData } = notes;
+    const { notes: notesNormalised } = normalisedHierarchyData;
+    const { folderId, fileId } = notesNormalised[data];
+    
+    dispatch(setCurrentFolder(folderId));
+    dispatch(setCurrentFile(fileId));
+
+    const allNotesTab = setNoteTabToLocal(data);
     setCurrentNoteToLocal(data);
     dispatch({ type: SET_CURRENT_NOTE, payload: data });
+    dispatch({ type: 'SET_CURRENT_NOTES_TAB', payload: allNotesTab });
+    return allNotesTab;
 }
 
+export const removeNoteFromTabs = (data) => async (dispatch) => {
+    const allNotesTab = removeNoteTabFromLocal(data);
+    dispatch({ type: 'SET_CURRENT_NOTES_TAB', payload: allNotesTab });
+    return allNotesTab;
+}
 
 export const addFolder = (data) => async (dispatch) => {
     try {

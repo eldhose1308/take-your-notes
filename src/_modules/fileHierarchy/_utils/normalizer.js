@@ -15,7 +15,7 @@ export const normalizeData = (data=[]) => {
 
             notes.forEach(note => {
                 const { id, title, content } = note;
-                normalizedData.notes[note.id] = { id, fileId, title, content };
+                normalizedData.notes[note.id] = { id, fileId, folderId, title, content };
             });
         });
     });
