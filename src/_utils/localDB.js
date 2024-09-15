@@ -25,3 +25,12 @@ export const saveToLocalDB = (key, data) => {
 export const getFromLocalDB = (key) => {
     return parseJSON(localStorage.getItem(key));
 }
+
+export const removeFromLocalDB = (key) => {
+    try{
+        localStorage.removeItem(key);
+        return true;
+    }catch(err){
+        return false;
+    }
+}

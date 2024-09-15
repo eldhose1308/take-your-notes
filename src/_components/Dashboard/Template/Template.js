@@ -12,8 +12,8 @@ const TemplateContext = createContext();
 
 
 const Template = ({ children, ...props }) => {
-    const { isSidebarNeeded=true, isRightbarNeeded=true, isFooterNeeded=true } = props;
-    const [ isSidebarOpen, setSidebarOpen ] = useState(false)
+    const { isSidebarNeeded = true, isRightbarNeeded = true, isFooterNeeded = true } = props;
+    const [isSidebarOpen, setSidebarOpen] = useState(false)
 
     const toggleSidebar = () => {
         setSidebarOpen(currentStatus => !currentStatus)
@@ -26,16 +26,16 @@ const Template = ({ children, ...props }) => {
     return (
         <TemplateContext.Provider value={{ isSidebarOpen, hideSidebar, toggleSidebar }}>
             <div className="grid-container">
-      <Header />
-      <Sidebar />
-      <main className="main">
-       {children}
-      </main>
-      {/* <footer className="footer">
+                <Header isSidebarNeeded={isSidebarNeeded} />
+                <Sidebar />
+                <main className="main">
+                    {children}
+                </main>
+                {/* <footer className="footer">
         <div className="footer_copyright">&copy;2020</div>
         <div className="footer_byline">Made with &hearts;</div>
       </footer> */}
-    </div>
+            </div>
         </TemplateContext.Provider>
     )
 }
@@ -44,7 +44,7 @@ const Template = ({ children, ...props }) => {
 const useTemplateProvider = () => {
     const context = useContext(TemplateContext);
 
-    if(!context){
+    if (!context) {
         throw new Error('useTemplateProvider must be used within TemplateContext')
     }
 

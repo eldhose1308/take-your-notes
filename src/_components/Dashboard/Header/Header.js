@@ -28,6 +28,10 @@ const Header = (props) => {
         dispatch(openSettingsDrawer());
     }
 
+    if(!isSidebarNeeded){
+        return null;
+    }
+
     return (
         <>
 

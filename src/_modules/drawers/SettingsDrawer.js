@@ -7,9 +7,11 @@ import Drawer from "_components/UI/Drawer/Drawer";
 import { openSettingsDrawer } from "store/actions/drawerActions";
 import ThemeToggler from "_modules/settings/ThemeToggler";
 import ModeSelector from "_components/UI/ModeSelector/ModeSelector";
+import { useClientAuth } from "_contexts/AuthProvider";
 
 const SettingsDrawer = () => {
     const dispatch = useDispatch();
+    const { logoutClient } = useClientAuth();
 
     const status = useSelector(state => state.drawers.settingsDrawer);
 
@@ -19,22 +21,22 @@ const SettingsDrawer = () => {
 
 
 
-const fontModes = [
-    { id: 'classic', label: 'Classic', modeElement: 'Classic' },
-    { id: 'modern', label: 'Modern', modeElement: 'Modern' }
-]
+    const fontModes = [
+        { id: 'classic', label: 'Classic', modeElement: 'Classic' },
+        { id: 'modern', label: 'Modern', modeElement: 'Modern' }
+    ]
 
-const [selectedFont, setSelectedFont] = useState('classic');
-
-
-const handleModeChange = (mode) => {
-    setSelectedFont(mode)
-}
+    const [selectedFont, setSelectedFont] = useState('classic');
 
 
-if(!status){
-    return null;
-}
+    const handleModeChange = (mode) => {
+        setSelectedFont(mode)
+    }
+
+
+    if (!status) {
+        return null;
+    }
 
     return (
         <Drawer isActive={true} hide={closeDrawer}>
@@ -120,6 +122,19 @@ if(!status){
                     </div>
 
                 </div>
+
+
+                <Separator variant='custom' className='w-full' />
+
+                <div className="flex my-3 w-full">
+                    <div onClick={logoutClient} className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
+                        <span>
+                            Logout
+                        </span>
+                        <span>icon</span>
+                    </div>
+                </div>
+
 
             </Flex>
         </Drawer>
