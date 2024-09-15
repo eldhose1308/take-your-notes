@@ -76,8 +76,10 @@ export const getFoldersFilesNotesAndSet = () => async (dispatch) => {
         
         if(foldersList.length){
             const currentFolderInLocalDB = getCurrentFolderFromLocal();
-            const selectedFolder = currentFolderInLocalDB || foldersList[0].id;
-            dispatch(setCurrentFolder(selectedFolder))
+            const selectedFolder = currentFolderInLocalDB;
+            // const selectedFolder = currentFolderInLocalDB || foldersList[0].id;
+            // if(selectedFolder)
+            // dispatch(setCurrentFolder(selectedFolder))
             return { folders: foldersList, id: selectedFolder, hierarchyData, normalisedData };
         }
     } catch (error) {

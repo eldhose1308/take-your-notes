@@ -19,7 +19,7 @@ export const getFiles = (folderId) => async (dispatch) => {
 export const getFilesAndSet = (folder, cache) => async (dispatch) => {
     try {
         const filesList = checkInFolderCache(cache, folder) || await files.getFiles(folder);
-        dispatch({ type: GET_FILES, payload: filesList });
+        // dispatch({ type: GET_FILES, payload: filesList });
         
         if(filesList.length){
             const currentFileInLocalDB = getCurrentFileFromLocal();
@@ -68,7 +68,20 @@ export const deleteFile = (data) => async (dispatch) => {
 };
 
 
+
+export const setInitialFile = () => async (dispatch, getState) => {
+    const { notes } = getState();
+    const { normalisedHierarchyData } = notes;
+    const { files: filesNormalised } = normalisedHierarchyData;
+
+    
+}
+
+
 /**** */
+
+
+
 
 export const removeFileHierarchy = (data) => async (dispatch) => {
     try {

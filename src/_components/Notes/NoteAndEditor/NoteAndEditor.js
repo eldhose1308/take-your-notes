@@ -11,6 +11,8 @@ import { Button } from "_components/Form";
 import { removeNoteFromTabs, saveNote, setCurrentNote, setIsNoteAdding, updateNote } from "store/actions/notesActions";
 import { getBlankNote, getSelectedFile, getSelectedFolder, getSelectedNote } from "store/selectors/notesSelectors";
 import Separator from "_components/Misc/Separator/Separator";
+import { TabItem, Tabs } from "_components/UI/Tabs/Tabs";
+import FileTabManager from "_modules/notes/_components/fileTabManager/FileTabManager";
 
 
 const OpenedFile = ({ item, selectedId, note, onDelete, onClick }) => {
@@ -158,11 +160,8 @@ const NoteAndEditor = (props) => {
     return (
         <div className="m-3">
             {/* <div className="rounded-lg"> */}
-                <div className="flex rounded-lg w-full bg-default border text-sm text-secondary">
-                    {
-                        notesTab.map((item) => <OpenedFile key={item} onDelete={handleDeleteNote} onClick={handleSelectNote} note={notesObj[item]} selectedId={id} item={item} />)
-                    }
-                </div>
+                
+                <FileTabManager selectedItem={id} />
 
                 <div className="flex rounded-lg px-2 my-2 text-xs bg-default text-secondary">
                     <span>{folderName}</span>
@@ -181,6 +180,7 @@ const NoteAndEditor = (props) => {
 
             {isEditing ? (
                 <NotesEditor
+                    key={id}
                     content={content}
                     noteMetaDetails={noteMetaDetails}
                     onSave={handleSave}

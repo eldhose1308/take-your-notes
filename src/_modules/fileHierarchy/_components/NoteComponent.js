@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
 import NoteOptionsMenu from "_modules/notes/_components/noteOptionsMenu/NoteOptionsMenu";
 
 const NoteComponent = ({ note, isHidden, toggleNote, selectedNote, onNoteEdit, onNoteDelete }) => {
     const { id, title } = note;
     const isSelected = selectedNote === id;
 
+    const noteRef = useRef({});
+
+    useEffect(() => {
+        // if(isSelected){
+        //     noteRef.current.scrollIntoView({ behavior: 'smooth' });
+        //     console.log('Scroll', noteRef.current)
+        // }
+    },[isSelected])
 
     return (
-        <div key={id} className={`flex my-0 ml-6 py-1 pr-2 text-sm text-default cursor-pointer duration-300 hover-text-default ${isSelected ? 'text-default bg-highlights rounded-md' : 'text-secondary'}`}>
+        <div ref={noteRef} key={id} className={`flex my-0 ml-6 py-1 pr-2 text-sm text-default cursor-pointer duration-300 hover-text-default ${isSelected ? 'text-default bg-highlights rounded-md' : 'text-secondary'}`}>
             <div className='flex items-center justify-between w-full group-hover' onClick={() => toggleNote(id)}>
                 <div className="flex">
                     <span className='flex items-center mr-2'>

@@ -12,7 +12,7 @@ import ExplorerView from "../_components/ExplorerView";
 import ModeSelector from "_components/UI/ModeSelector/ModeSelector";
 import { getFoldersAndSet, getFoldersFilesNotesAndSet } from "store/actions/folderActions";
 import { getFilesAndSet } from "store/actions/fileActions";
-import { getNotesAndSet } from "store/actions/notesActions";
+import { getNotesAndSet, setCurrentNote, setInitialNoteData } from "store/actions/notesActions";
 import { getAllFolders } from "store/selectors/notesSelectors";
 import NotesControls from "../_components/notesControls/NotesControls";
 import CreateNoteButton from "../_components/CreateNoteButton";
@@ -76,8 +76,9 @@ const NoteNavigator = () => {
     useEffect(() => {
         const fetchFoldersFilesNotes = async () => {
             const { folders, id: folderId, normalisedData, hierarchyData } = await dispatch(getFoldersFilesNotesAndSet());
-            const { id: fileId, files } = await dispatch(getFilesAndSet(folderId));
-            const { notes } = await dispatch(getNotesAndSet({ folderId, fileId })) || {};
+            await dispatch(setInitialNoteData());
+            // const { id: fileId, files } = await dispatch(getFilesAndSet(folderId));
+            // const { notes } = await dispatch(getNotesAndSet({ folderId, fileId })) || {};
 
             hierarchyCache.current = normalisedData;
 

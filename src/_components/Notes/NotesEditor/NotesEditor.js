@@ -73,7 +73,9 @@ const NotesEditor = (props) => {
             <Flex justifyContent='spaceBetween' alignItems='none' className='px-3 py-1'>
                 <div className="flex mb-2">
                     <Button size='xs' variant='outline' onClick={onCancel}>
-                        Cancel
+                        <span>
+                            Cancel
+                            </span>
                         <div className="mx-2 text-xs">
                             <span className="text-xs bg-highlight text-secondary border border-secondary px-1 rounded-md">Esc</span>
                         </div>
@@ -113,8 +115,9 @@ const NotesEditor = (props) => {
                     </Button> */}
                 </Flex>
 
-
-                <MarkdownEditor {...props} isPreviewEnabled={isPreviewEnabled} onFocus={handleFocus} onChange={handleMarkdownChange} onKeyDown={handleKeyDown} />
+                <div className="h-screen-1/2 overflow-scroll">
+                    <MarkdownEditor {...props} isPreviewEnabled={isPreviewEnabled} onFocus={handleFocus} onChange={handleMarkdownChange} onKeyDown={handleKeyDown} />
+                </div>
 
             </div>
         </React.Fragment>

@@ -60,9 +60,9 @@ const Tabs = ({ hasNav = false, children }) => {
             ) : null}
 
             <div className={`${hasNav ? 'scrollable-tab-box grow-1 w-4' : '' }`}>
-                <ul ref={menuRef} className={`tab-box list-none flex flex-1 overflow-x-auto flex-nowrap scrollbar-none text-center my-0 mx-3 p-2 items-center`}>
+                <div ref={menuRef} className={`tab-box list-none flex flex-1 overflow-x-auto flex-nowrap scrollbar-none text-center my-0 mx-3 p-2 items-center`}>
                     {children}
-                </ul>
+                </div>
             </div>
 
             {hasNav ? (
@@ -80,7 +80,7 @@ const TabItem = ({ isActive, onClick, children, ...props }) => {
 
     const className = `tab-item py-1 px-2 my-1 mx-2 rounded-md cursor-pointer border text-xs ${isActive ? 'bg-accent text-custom' : 'bg-another text-default hover-highlight'}`;
     return (
-        <li onClick={onClick} className={className} {...props}>{children}</li>
+        <div onClick={onClick} className={className} {...props}>{children}</div>
     )
 }
 

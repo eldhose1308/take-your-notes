@@ -7,7 +7,7 @@ export default function AccessAPI(url){
                 xhr.open(method, url);
                 // xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
                 // xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-                // xhr.withCredentials = true;
+                xhr.withCredentials = true;
                 xhr.responseType = 'json';
                 
                 xhr.send(JSON.stringify((payload)));

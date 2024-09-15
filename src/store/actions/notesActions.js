@@ -68,6 +68,16 @@ export const addFile = (data) => async (dispatch) => {
 }
 
 
+export const setInitialNoteData = () => async (dispatch) => {
+    const currentNoteInLocalDB = getCurrentNoteFromLocal();
+    if(currentNoteInLocalDB){
+        dispatch(setCurrentNote(currentNoteInLocalDB));
+        return { id: currentNoteInLocalDB };
+    }
+}
+
+
+
 export const getNotesAndSet = (data, cache, flagSkipNotes = false) => async (dispatch) => {
     try {
         const notesList = checkInFileCache(cache, data) || await notes.getNotes(data);
