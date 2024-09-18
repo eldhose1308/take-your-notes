@@ -1,131 +1,65 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
-import { GoogleLogin } from '@react-oauth/google';
+import SignInForm from "_modules/auth/_components/SignInForm";
 
 import Flex from "_components/Misc/Flex/Flex";
 import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from "_components/Misc/Card/Card";
-import { Button, TextBox } from '_components/Form';
-import Typography from "_components/Misc/Typography/Typography";
-import Separator from "_components/Misc/Separator/Separator";
-
-import useForm from "_hooks/useForm";
-
-import { signupUser } from "./_actions";
-
-import { createSchema, defineRule } from "_utils/validation-library";
-
-import { useTopLoader } from "_contexts/TopLoaderProvider";
+import { Button } from '_components/Form';
 import Template from "_components/Dashboard/Template/Template";
+import Separator from "_components/Misc/Separator/Separator";
+import AuthNavigations from "_modules/auth/_components/AuthNavigations";
+
 import { useToast } from "_contexts/ToastProvider";
+import useAuth from "_hooks/useAuth";
+import { useTopLoader } from "_contexts/TopLoaderProvider";
 
-
-const FormSchema = createSchema({
-    email: defineRule().required().email().min(8).max(32).build(),
-    password: defineRule().required().password().min(8).max(32).build(),
-})
 
 export default function SignIn() {
-    const { register, submit, errors } = useForm({ schema: FormSchema })
+    const { toast } = useToast()
+    const { login } = useAuth()
 
-    const { toast, setProgress } = useToast()
 
-    const handleSubmit = (formValues) => {
-        toast({
-            message: 'This is a success',
-            options: { position: 'top-right' }
-        }).success()
+    const handleSubmit = async (formData) => {
+        try {
+            const { email } = formData;
+            toast({
+                heading: 'Checking your credentials',
+                description: `Please wait while we cross check the given password for ${email}`,
+                options: { position: 'top-right' }
+            }).loading()
 
-        // const start = 1;
-        // const end = 10;
-        // let current = start;
+            const userData = await login(formData);
+            const { message } = userData;
 
-        // const interval = setInterval(() => {
-        //     console.log(current);
-        //     current++;
-        //     setProgress(current)
-        //     if (current > end) {
-        //         clearInterval(interval);
-        //     }
-        // }, 100);
-        // console.log('Success', formValues)
-        // toast({ 
-        //     message: 'This is a success' ,
-        //     options: { position: 'bottom-right' }
-        // }).success()
+            toast({
+                heading: message,
+                description: 'You will be redirected in any moment now',
+                options: { position: 'top-right' }
+            }).success()
+        } catch (error) {
+            const { message } = error;
+            toast({
+                heading: message,
+                options: { position: 'top-right' }
+            }).error()
+        }
     }
 
     return (
         <React.Fragment>
             <Template isRightbarNeeded={false} isSidebarNeeded={false} >
-
-                <Flex direction='column' className='bg-default'>
-
-                {/* className='animate-rotate-x' */}
-                    <Card size='sm' className='animate-zoom-in-out'> 
+                <Flex direction='column' className='bg-default h-full'>
+                    <Card size='sm' rounded='lg' className='animate-zoom-in-out'>
                         <CardHeader>
                             <CardTitle>
-                                <Flex justifyContent='spaceBetween' className='mb-3'>
-                                    <Typography size='xl'>
-                                        Login
-                                    </Typography>
-                                    <Typography size='lg' variant='secondary'>
-                                        <Link to='/signup'>
-                                            <Flex className='hover-text-default'>
-                                                <span className="mx-2 text-md">
-                                                    Register
-                                                </span>
-                                                <svg className="lucide lucide-circle-arrow-right animate-bounce-x" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M8 12h8" /><path d="m12 16 4-4-4-4" /></svg>
-                                            </Flex>
-                                        </Link>
-                                    </Typography>
-                                </Flex>
+                                <AuthNavigations currentPage='Login' navigateTo='Register' navigateToLink='/signup' />
                             </CardTitle>
                             <CardDescription>Enter your email and password to create a new account and access further</CardDescription>
                         </CardHeader>
 
                         <CardContent>
-                            <TextBox
-                                type='text'
-                                labelName='Email'
-                                placeholder="Enter email"
-                                validationMsg={errors.email}
-                                {...register('email')}
-                            />
-
-                            <TextBox
-                                type='password'
-                                labelName="Password"
-                                placeholder="Enter password"
-                                validationMsg={errors.password}
-                                autoComplete='new-password'
-                                {...register('password')}
-                            />
-
-                            {/* <Button variant='accent' onClick={submit(handleSubmit)}>Sign In</Button> */}
-                            <Button variant='accent' onClick={handleSubmit}>Sign In</Button>
-
-                            <div className="border-b border-another my-5 text-center leading-1">
-                                <span className="bg-default text-secondary px-3">or</span>
-                            </div>
-
-
-                            <Flex direction='column'>
-
-                                <GoogleLogin
-                                    text="signup_with"
-                                    onSuccess={(credentialResponse) => { console.log(credentialResponse) }}
-                                    onError={() => { alert('Error') }}
-                                />
-
-                            </Flex>
-
-                            <Typography variant='secondary' className='my-2'>
-                                By clicking continue, you agree to our Terms of Service and Privacy Policy.
-                            </Typography>
-
-
-
+                            <SignInForm onSubmit={handleSubmit} />
                         </CardContent>
 
                         <Separator className="my-5" />
@@ -140,13 +74,8 @@ export default function SignIn() {
                                 </Button>
                             </Link>
                         </CardFooter>
-
-
-
-
                     </Card>
                 </Flex>
-
             </Template>
 
         </React.Fragment>

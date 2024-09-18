@@ -43,7 +43,6 @@ const Toast = (props) => {
                                 <div className="flex flex-col my-2">
                                     <span className="text-default">
                                         {currentToastIcon}
-
                                     </span>
                                     <span className={`text-default text-xs text-center`}>
                                         {progress ? `${progress}%` : ''}

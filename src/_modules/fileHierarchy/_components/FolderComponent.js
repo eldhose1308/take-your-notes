@@ -71,13 +71,16 @@ const FolderComponent = ({ folder, files, normalizedFiles, normalizedNotes, isEx
                     />
                 )}
 
-                <NoteOptionsMenu
-                    id={folderId}
-                    item={folderData}
-                    onCreate={onFileCreate}
-                    onDelete={onFolderDelete}
-                    onEdit={onFolderEdit}
-                />
+                <div className="flex">
+                    {/* <span className="text-xxs mr-2">2</span> */}
+                    <NoteOptionsMenu
+                        id={folderId}
+                        item={folderData}
+                        onCreate={onFileCreate}
+                        onDelete={onFolderDelete}
+                        onEdit={onFolderEdit}
+                    />
+                </div>
             </div>
 
             {isExpanded && <div className='ml-4 w-full'>

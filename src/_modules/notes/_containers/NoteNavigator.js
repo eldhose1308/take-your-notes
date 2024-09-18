@@ -75,7 +75,9 @@ const NoteNavigator = () => {
 
     useEffect(() => {
         const fetchFoldersFilesNotes = async () => {
-            const { folders, id: folderId, normalisedData, hierarchyData } = await dispatch(getFoldersFilesNotesAndSet());
+            const initialData = await dispatch(getFoldersFilesNotesAndSet());
+            if(!initialData){ return }
+            const { folders, id: folderId, normalisedData, hierarchyData } = initialData;
             await dispatch(setInitialNoteData());
             // const { id: fileId, files } = await dispatch(getFilesAndSet(folderId));
             // const { notes } = await dispatch(getNotesAndSet({ folderId, fileId })) || {};

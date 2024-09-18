@@ -5,7 +5,6 @@ import * as userModel from "_services/user.service";
 
 const useAuth = () => {
     const { showTopLoader, hideTopLoader, setProgress } = useTopLoader()
-
     const { isAuthenticated, loginClient, logoutClient } = useClientAuth()
 
     const login = async (formData) => {
@@ -14,9 +13,12 @@ const useAuth = () => {
         try{
             const userData = await userModel.login(formData, { setProgress });
             const { data } = userData;
-            loginClient(data)
+            setTimeout(() => {
+                loginClient(data)
+            }, 1500)
             return userData
         }catch(err){
+            throw err;
         }finally{
             hideTopLoader()
         }
@@ -26,11 +28,12 @@ const useAuth = () => {
         showTopLoader()
         
         try{
-            const userData = await userModel.login(formData, { setProgress });
+            const userData = await userModel.register(formData, { setProgress });
             const { data } = userData;
             loginClient(data)
             return userData
         }catch(err){
+            throw err;
         }finally{
             hideTopLoader()
         }

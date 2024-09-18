@@ -7,11 +7,11 @@ import Drawer from "_components/UI/Drawer/Drawer";
 import { openSettingsDrawer } from "store/actions/drawerActions";
 import ThemeToggler from "_modules/settings/ThemeToggler";
 import ModeSelector from "_components/UI/ModeSelector/ModeSelector";
-import { useClientAuth } from "_contexts/AuthProvider";
+import useAuth from "_hooks/useAuth";
 
 const SettingsDrawer = () => {
     const dispatch = useDispatch();
-    const { logoutClient } = useClientAuth();
+    const { logout } = useAuth();
 
     const status = useSelector(state => state.drawers.settingsDrawer);
 
@@ -127,7 +127,7 @@ const SettingsDrawer = () => {
                 <Separator variant='custom' className='w-full' />
 
                 <div className="flex my-3 w-full">
-                    <div onClick={logoutClient} className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
+                    <div onClick={logout} className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
                         <span>
                             Logout
                         </span>

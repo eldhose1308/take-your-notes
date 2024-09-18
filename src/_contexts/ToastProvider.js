@@ -26,6 +26,12 @@ const ToastProvider = ({ children }) => {
         setMessage({ heading, description })
         setType(type)
         setOptions(options)
+
+        setTimeout(() => {
+            if(type !== 'loading'){
+                hideToast();
+            }
+        }, 2000)
     }
 
 
@@ -50,6 +56,9 @@ const ToastProvider = ({ children }) => {
             },
             info: () => {
                 showToast('info', heading, description, options)
+            },
+            loading: () => {
+                showToast('loading', heading, description, options)
             }
         }
     }

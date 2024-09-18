@@ -17,7 +17,7 @@ import { useTopLoader } from "_contexts/TopLoaderProvider";
 
 export default function SignUp() {
     const { toast } = useToast()
-    const { signup } = useAuth()
+    const { signup, isAuthenticated } = useAuth()
 
     const handleSubmit = async (formData) => {
         try {
@@ -30,8 +30,9 @@ export default function SignUp() {
                 options: { position: 'top-right' }
             }).success()
         } catch (error) {
+            const { message } = error;
             toast({
-                heading: 'This is a failure',
+                heading: message,
                 options: { position: 'top-right' }
             }).error()
         }
@@ -40,7 +41,6 @@ export default function SignUp() {
     return (
         <React.Fragment>
             <Template isRightbarNeeded={false} isSidebarNeeded={false} >
-
                 <Flex direction='column' className='bg-default h-full'>
                     <Card size='sm' rounded='lg' className='animate-zoom-in-out'>
                         <CardHeader>

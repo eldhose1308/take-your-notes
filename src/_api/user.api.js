@@ -22,6 +22,15 @@ const login = (data, config={}) => {
     })
 }
 
+const signin = (payload) => {
+    return new AccessAPI(BASE_URL + 'auth/signin').post(payload)
+        .then((res) => {
+            return res
+        }).catch((err) => {
+            throw err.response
+        })
+} 
+
 const signup = (payload) => {
     return new AccessAPI(BASE_URL + 'auth/signup').post(payload)
         .then((res) => {
@@ -33,6 +42,7 @@ const signup = (payload) => {
 
 export {
     login,
+    signin,
     signup
 }
 

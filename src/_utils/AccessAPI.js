@@ -22,10 +22,14 @@ export default function AccessAPI(url){
 
 
                 xhr.onprogress = function(event) {
+                    console.log('@onPr', event.lengthComputable)
                     if (event.lengthComputable) {
-                        // console.log(`Received ${event.loaded} of ${event.total} bytes`);
+                        const percentComplete = (event.loaded / event.total) * 100;
+                        console.log('@progress', percentComplete);
                     } else {
-                        // console.log(`Received ${event.loaded} bytes`); 
+                        const percentComplete = (event.loaded / event.total) * 100;
+                        console.log('@progress', percentComplete);
+                        console.log(`Received ${event.loaded} bytes`); 
                     }
                 
                 };
@@ -36,8 +40,8 @@ export default function AccessAPI(url){
                 };
             })
 
-            promise.progress = () => {}
-            promise.abort = () => {}
+            // promise.progress = () => {}
+            // promise.abort = () => {}
 
             return promise
         }
