@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { BroadcastChannel } from 'broadcast-channel';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { getUserDetailFromLocal, removeUserDetailFromLocal, setUserDetailToLocal } from "_utils/user-localDB/authDB";
+import { getUserDetailFromLocal, removeUserDetailFromLocal, resetUserDetailFromLocal, setUserDetailToLocal } from "_utils/user-localDB/authDB";
 import { redirectOnAuthorised, redirectOnUnAuthorised } from "_utils/auth";
 
 const clientId = "996420354509-0d4trcb21bdo1tm9k6jc5d95ootgf7h5.apps.googleusercontent.com";
@@ -33,7 +33,8 @@ const AuthProvider = ({ children }) => {
 
     const logoutClient = () => {
         setUser({});
-        removeUserDetailFromLocal();
+        // removeUserDetailFromLocal();
+        resetUserDetailFromLocal();
         channel.postMessage('user-logout');
 
         // redirectOnUnAuthorised();

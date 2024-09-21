@@ -34,3 +34,17 @@ export const removeFromLocalDB = (key) => {
         return false;
     }
 }
+
+export const removeExceptFromLocalDB = (keysToExclude=[]) => {
+    // get all Data from localStorage and filter it here and set it as atomic operation
+    const allLocalStorageKeys = Object.keys(localStorage);
+    try{
+        allLocalStorageKeys.forEach(key => {
+            if(!(keysToExclude.includes(key))){
+                removeFromLocalDB(key);
+            }
+        })
+    }catch(err){
+        return false;
+    }
+}

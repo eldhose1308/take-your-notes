@@ -1,3 +1,5 @@
+import { getThemeFromLocal } from "_utils/user-localDB/themeDB"
+
 const useUser = () => {
    
     const getUserToken = () => {
@@ -9,7 +11,8 @@ const useUser = () => {
     }
 
     const getUserPreferences = () => {
-        const theme = localStorage.getItem('theme') || 'system';
+        const localDBTheme = getThemeFromLocal();
+        const theme = localDBTheme || 'system';
         return {
             theme,
             fontMode: 'casual',
