@@ -133,9 +133,12 @@ const notesReducer = (state = initialState, action = {}) => {
 
 
         case 'ADD_HIERARCHY_FOLDER':
-            const hierarchyStateOfFolderBeforeAdd = state.normalisedHierarchyData.folders;
-            const hierarchyStateOfFolderAfterAdd = { ...hierarchyStateOfFolderBeforeAdd, [payload.id]: payload }
-            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, folders: hierarchyStateOfFolderAfterAdd } };
+            const { file: fileOnFolder, ...folderWithoutFile } = payload;
+            const { note: noteOnFileInFolder, ...fileWithoutNoteInFolder } = fileOnFolder;
+            const hierarchyStateOfFolderAfterAdd = { ...state.normalisedHierarchyData.folders, [payload.id]: { ...folderWithoutFile, files: [fileOnFolder.id] } }
+            const hierarchyStateOfFolderAfterAddFile = { ...state.normalisedHierarchyData.files, [fileOnFolder.id]: { ...fileWithoutNoteInFolder, notes: [noteOnFileInFolder.id] } };
+            const hierarchyStateOfFolderAfterAddNote = { ...state.normalisedHierarchyData.notes, [noteOnFileInFolder.id]: { ...noteOnFileInFolder } };
+            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, folders: hierarchyStateOfFolderAfterAdd, files: hierarchyStateOfFolderAfterAddFile, notes: hierarchyStateOfFolderAfterAddNote } };
 
         case 'SET_NORMALISED_HIERARCHY':
             return { ...state, normalisedHierarchyData: payload };
@@ -160,10 +163,12 @@ const notesReducer = (state = initialState, action = {}) => {
             return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, files:  hierarchyStateFileAfterUpdation  } }
     
         case 'ADD_HIERARCHY_FILE':
+            const { note: noteOnFile, ...fileWithoutNote } = payload;
             const folderOfFileAdded = state.normalisedHierarchyData.folders[payload.folderId];
-            const hierarchyStateNewFolder= { ...state.normalisedHierarchyData.folders, [payload.folderId]: { ...folderOfFileAdded, files: [...folderOfFileAdded.files, payload.id] }  }
-            const hierarchyStateNewFile = { ...state.normalisedHierarchyData.files, [payload.id]: payload }
-            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, folders: hierarchyStateNewFolder, files: hierarchyStateNewFile  } }
+            const hierarchyStateNewFolder= { ...state.normalisedHierarchyData.folders, [payload.folderId]: { ...folderOfFileAdded, files: [...folderOfFileAdded.files, payload.id] }  };            
+            const hierarchyStateNewFile = { ...state.normalisedHierarchyData.files, [payload.id]: { ...fileWithoutNote, notes: [noteOnFile.id] } };
+            const hierarchyStateNewNote = { ...state.normalisedHierarchyData.notes, [noteOnFile.id]: noteOnFile };
+            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, folders: hierarchyStateNewFolder, files: hierarchyStateNewFile, notes: hierarchyStateNewNote  } };
     
 
         default:

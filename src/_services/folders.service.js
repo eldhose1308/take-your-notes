@@ -1,14 +1,18 @@
 import * as folders from '_api/folders.api'
 import { normalizeData } from '_modules/fileHierarchy/_utils/normalizer';
+import { formatFileData } from './files.service';
+import { formatNoteData } from './notes.service';
 
+export const formatFolderData = (data) => {
+    const { folder_name, folder_icon, folder_id } = data;
+    const formattedResponse = { id: folder_id, label: folder_name, folderIcon: folder_icon };
+    return formattedResponse;
+}
 
 const getFolders = async (data, config = {}) => {
     const response = await folders.getFolders(data, config);
     const { data: foldersData = [] } = response;
-    const foldersFormatted = foldersData.map(folder => {
-        const { folder_name, folder_icon, folder_id } = folder;
-        return { id: folder_id, label: folder_name, folderIcon: folder_icon }
-    })
+    const foldersFormatted = foldersData.map(formatFolderData)
     return foldersFormatted || []
 }
 
@@ -22,18 +26,22 @@ const getFolders = async (data, config = {}) => {
 const saveFolder = async (data, config = {}) => {
     const response = await folders.saveFolder(data, config);
     const { data: folderData = [] } = response;
-    const { folder_name, folder_icon, folder_id } = folderData;
-    const responseData = { id: folder_id, label: folder_name, folderIcon: folder_icon };
-    return responseData
+    const { file: fileData={} } = folderData;
+    const { note: noteData={} } = fileData;
+    const formattedFolderData = formatFolderData(folderData);
+    const formattedFileData = formatFileData(fileData);
+    const formattedNoteData = formatNoteData(noteData);
+
+    formattedFileData.note = formattedNoteData;
+    formattedFolderData.file = formattedFileData;
+    return formattedFolderData;
 }
 
 
 const updateFolder = async (data, id, config = {}) => {
     const response = await folders.updateFolder(data, id, config);
     const { data: folderData = [] } = response;
-    const { folder_name, folder_icon, folder_id } = folderData;
-    const responseData = { id: folder_id, label: folder_name, folderIcon: folder_icon };
-    return responseData
+    return formatFolderData(folderData);
 }
 
 const deleteFolder = async (id, config = {}) => {
