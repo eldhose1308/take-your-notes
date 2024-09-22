@@ -12,8 +12,8 @@ const uiReducer = (state = initialState, action={}) => {
         case 'USER_PREFERENCES':
             return { ...state, ...payload };
 
-        case 'RESET':
-            return initialState;    
+        case 'RESET_STATE':
+            return initialState;   
         
         default: 
             return state;

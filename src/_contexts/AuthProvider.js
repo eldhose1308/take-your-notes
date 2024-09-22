@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState, useMemo, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { BroadcastChannel } from 'broadcast-channel';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { getUserDetailFromLocal, removeUserDetailFromLocal, resetUserDetailFromLocal, setUserDetailToLocal } from "_utils/user-localDB/authDB";
 import { redirectOnAuthorised, redirectOnUnAuthorised } from "_utils/auth";
+import { resetAuth } from "store/actions/authActions";
 
 const clientId = "996420354509-0d4trcb21bdo1tm9k6jc5d95ootgf7h5.apps.googleusercontent.com";
 
@@ -16,6 +18,7 @@ const channel = new BroadcastChannel('foobar');
 const AuthProvider = ({ children }) => {
     // const navigate = useNavigate();
     const userData = getUserDetailFromLocal();
+    const dispatch = useDispatch();
 
     const [user, setUser] = useState(userData)
 
@@ -34,6 +37,7 @@ const AuthProvider = ({ children }) => {
     const logoutClient = () => {
         setUser({});
         // removeUserDetailFromLocal();
+        dispatch(resetAuth());
         resetUserDetailFromLocal();
         channel.postMessage('user-logout');
 

@@ -11,8 +11,6 @@ const drawerReducer = (state = initialState, action={}) => {
         case 'CLOSE_DRAWERS':
             return initialState;    
         
-        case 'RESET_STATE':
-                return initialState;    
         default: 
             return state;
     }

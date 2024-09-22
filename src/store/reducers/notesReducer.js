@@ -170,6 +170,8 @@ const notesReducer = (state = initialState, action = {}) => {
             const hierarchyStateNewNote = { ...state.normalisedHierarchyData.notes, [noteOnFile.id]: noteOnFile };
             return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, folders: hierarchyStateNewFolder, files: hierarchyStateNewFile, notes: hierarchyStateNewNote  } };
     
+        case 'RESET_STATE':
+            return initialState;    
 
         default:
             return state;
