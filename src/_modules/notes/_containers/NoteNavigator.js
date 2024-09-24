@@ -12,10 +12,12 @@ import ExplorerView from "../_components/ExplorerView";
 import ModeSelector from "_components/UI/ModeSelector/ModeSelector";
 import { getFoldersAndSet, getFoldersFilesNotesAndSet } from "store/actions/folderActions";
 import { getFilesAndSet } from "store/actions/fileActions";
-import { getNotesAndSet, setCurrentNote, setInitialNoteData } from "store/actions/notesActions";
+import { getNotesAndSet, setCurrentFile, setCurrentFolder, setCurrentNote, setInitialNoteData } from "store/actions/notesActions";
 import { getAllFolders } from "store/selectors/notesSelectors";
 import NotesControls from "../_components/notesControls/NotesControls";
 import CreateNoteButton from "../_components/CreateNoteButton";
+import { setNavigatorMode } from "store/actions/uiActions";
+import useUser from "_hooks/useUser";
 
 
 const fileModes = [
@@ -25,10 +27,12 @@ const fileModes = [
 
 const NoteNavigator = () => {
     const dispatch = useDispatch();
+    const selectedView = useSelector(state => state.preferences.navigatorMode);
 
     const hierarchyCache = useRef({});
 
     const [hierarchyData, setHierarchyData] = useState([]);
+    const { getUserPreferences } = useUser();
 
     // remove all these and use the above for this
     const [folders, setFolders] = useState([]);
@@ -36,24 +40,25 @@ const NoteNavigator = () => {
     const [notes, setNotes] = useState([]);
 
     const [isHierarchyVisible, setIsHierarchyVisible] = useState(false);
-    const [selectedView, setSelectedView] = useState('explorer');
+    const [selectedViews, setSelectedView] = useState('compact');
 
 
     const handleModeChange = (mode) => {
-        setSelectedView(mode)
+        // setSelectedView(mode);
+        dispatch(setNavigatorMode(mode))
     }
 
 
     const handleFileChange = async (fileId, folderId, flagSkipNotes) => { // pass the cacheObj and evaluate wrt
-        const { notes } = await dispatch(getNotesAndSet({ folderId, fileId }, hierarchyCache.current, flagSkipNotes)) || {};
-        setNotes(notes);
+        // const { notes } = await dispatch(getNotesAndSet({ folderId, fileId }, hierarchyCache.current, flagSkipNotes)) || {};
+        // setNotes(notes);
     }
 
 
     const handleFolderChange = async (folderId) => { // pass the cacheObj and evaluate wrt
-        const { id: fileId, files } = await dispatch(getFilesAndSet(folderId, hierarchyCache.current));
-        setFiles(files);
-        handleFileChange(fileId, folderId);
+        // const { id: fileId, files } = await dispatch(getFilesAndSet(folderId, hierarchyCache.current));
+        // setFiles(files);
+        // handleFileChange(fileId, folderId);
     }
 
     const handleFolderUpdate = () => {
@@ -77,21 +82,27 @@ const NoteNavigator = () => {
         const fetchFoldersFilesNotes = async () => {
             const initialData = await dispatch(getFoldersFilesNotesAndSet());
             if(!initialData){ return }
-            const { folders, id: folderId, normalisedData, hierarchyData } = initialData;
-            await dispatch(setInitialNoteData());
-            // const { id: fileId, files } = await dispatch(getFilesAndSet(folderId));
-            // const { notes } = await dispatch(getNotesAndSet({ folderId, fileId })) || {};
+            const { id: folderId, normalisedData, hierarchyData } = initialData;
+            const initialNoteId = await dispatch(setInitialNoteData());
 
             hierarchyCache.current = normalisedData;
 
+            const { folders: foldersObj } = normalisedData;
+            const [ firstFolder ] = Object.keys(foldersObj) || [];
+            const idOfFolder = folderId || firstFolder;
+            const { files=[] } = foldersObj[idOfFolder] || {};
+            const firstFile = files[0];
+            
             setHierarchyData(hierarchyData);
-            // setFolders(folders);
-            // setFiles(files);
-            // setNotes(notes);
-
+            if(!initialNoteId){
+                dispatch(setCurrentFolder(idOfFolder));
+                dispatch(setCurrentFile(firstFile));
+            }
         }
 
         fetchFoldersFilesNotes();
+        const { navigatorMode } = getUserPreferences();
+        handleModeChange(navigatorMode);
     }, [])
 
     return (

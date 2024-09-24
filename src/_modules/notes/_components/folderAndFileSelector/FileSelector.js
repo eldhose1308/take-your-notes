@@ -4,17 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import Combobox, { ComboboxContent, ComboboxTrigger } from "_components/UI/Combobox/Combobox";
 
 
-import { getCurrentFile, getSelectedFile, getSelectedFolder } from "store/selectors/notesSelectors";
+import { getCurrentFile, getFilesOfSelectedFolder, getSelectedFile, getSelectedFolder } from "store/selectors/notesSelectors";
 import { deleteFile, getFilesAndSet, saveFile, updateFile } from "store/actions/fileActions";
 import { confirmDeleteBox, showFileCreateModal } from "store/actions/modalActions";
 
 
 const FileSelector = (props) => {
-    const { onSelect } = props;
+    const { normalizedFiles, onSelect } = props;
     const dispatch = useDispatch();
 
-    const fileOptions = useSelector(state => state.notes.filesList);
-    const { id, label } = useSelector(getSelectedFile) || {};
+    const fileOptions = useSelector(getFilesOfSelectedFolder);
+    const { id, label } = useSelector(getSelectedFile) || Object.values(fileOptions)[0] || {};
     const currentFolder = useSelector(getSelectedFolder) || {};
 
 
@@ -86,13 +86,6 @@ const FileSelector = (props) => {
     }
 
 
-    // useEffect(() => {
-    //     if(!currentFolder || !Object.keys(currentFolder).length){
-    //         return
-    //     }
-    //     const { id: folderId } = currentFolder;
-    //     dispatch(getFilesAndSet(folderId));
-    // }, [currentFolder])
 
     return (
         <>
@@ -115,7 +108,7 @@ const FileSelector = (props) => {
                         </ComboboxTrigger>
                         <ComboboxContent
                             heading='Search in Files'
-                            options={fileOptions}
+                            options={Object.values(fileOptions)}
                             onChange={handleSelect}
                             selectedValue={id}
                             renderAdd={(searchQuery) => {

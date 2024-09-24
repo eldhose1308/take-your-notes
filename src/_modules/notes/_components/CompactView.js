@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector } from "react-redux"
 
 import FolderAndFileSelector from "./folderAndFileSelector/FolderAndFileSelector"
 import NotesControls from "./notesControls/NotesControls"
@@ -8,6 +9,9 @@ import NoteGridList from "./noteGrid/NoteGridList"
 
 const CompactView = (props) => {
     const { isActive, folders=[], files=[], notes=[], onFolderChange, onFileChange } = props;
+    const normalisedData = useSelector(state => state.notes.normalisedHierarchyData);
+
+    const { folders: normalizedFolders = {}, files: normalizedFiles = {}, notes: normalizedNotes = {} } = normalisedData;
 
 
     return (
@@ -29,6 +33,8 @@ const CompactView = (props) => {
                 <div className='flex mt-2 justify-between'>
 
                     <FolderAndFileSelector
+                        normalizedFolders={normalizedFolders}
+                        normalizedFiles={normalizedFiles}
                         folders={folders}
                         files={files}
                         onFolderChange={onFolderChange}

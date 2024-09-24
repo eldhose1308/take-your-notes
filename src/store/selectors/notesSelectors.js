@@ -50,3 +50,34 @@ export const getFoldersList = createSelector(
     }
 )
 
+
+
+export const getFilesOfSelectedFolder = createSelector(
+    [getCurrentFolder, getAllFolders, getAllFiles],
+    (currentFolder, foldersObj, filesObj) => {
+        const { files=[] } = foldersObj[currentFolder] || {};
+        const filesInFolder = Object.keys(filesObj).reduce((acc, fileId) => {
+            if(files.includes(fileId)){
+                return { ...acc, [fileId]: filesObj[fileId] }
+            }
+            return acc;
+        }, {});
+        return filesInFolder;
+    }
+)
+
+
+
+export const getNotesOfSelectedFile = createSelector(
+    [getCurrentFile, getAllFiles, getAllNotes],
+    (currentFolder, foldersObj, notesObj) => {
+        const { notes=[] } = foldersObj[currentFolder] || {};
+        const filesInFolder = Object.keys(notesObj).reduce((acc, fileId) => {
+            if(notes.includes(fileId)){
+                return { ...acc, [fileId]: notesObj[fileId] }
+            }
+            return acc;
+        }, {});
+        return filesInFolder;
+    }
+)

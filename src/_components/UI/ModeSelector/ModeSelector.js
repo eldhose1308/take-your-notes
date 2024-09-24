@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 
 const modeClass = 'flex items-center mx-1 py-1 px-1 rounded-md cursor-pointer';
@@ -16,6 +16,10 @@ const ModeSelector = (props) => {
         setActiveMode(id);
         onChange && onChange(id, selectedMode, e);
     }
+
+    useEffect(() => {
+        setActiveMode(selectedValue);
+    },[selectedValue])
 
     return (
         <span className="flex items-center p-1 rounded-md border border-accent cursor-pointer">

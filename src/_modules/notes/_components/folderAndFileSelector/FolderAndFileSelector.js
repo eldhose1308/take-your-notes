@@ -1,25 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
 import FolderSelector from "./FolderSelector";
 import FileSelector from "./FileSelector";
-import { setCurrentFile, setCurrentFolder } from "store/actions/notesActions";
+import { setCurrentFile, setCurrentFolder, setCurrentNote } from "store/actions/notesActions";
 import { getFolders, getFoldersAndSet } from "store/actions/folderActions";
 import { getFiles, getFilesAndSet } from "store/actions/fileActions";
 
 const FolderAndFileSelector = (props) => {
-    const { folders=[], files=[], onFolderChange, onFileChange } = props;
+    const { normalizedFolders={}, normalizedFiles={}, folders=[], files=[], onFolderChange, onFileChange } = props;
 
     const dispatch = useDispatch();
 
-    const handleFileSelect = (id, folderId) => {
+    const handleFileSelect = (id) => {
         dispatch(setCurrentFile(id, true));
-        onFileChange(id, folderId);
+        const { notes=[] } = normalizedFiles[id];
+        const [ firstNoteId ] = notes;
+
+        dispatch(setCurrentNote(firstNoteId));
     }
 
     const handleFolderSelect = (id) => {
         dispatch(setCurrentFolder(id, true));
-        onFolderChange(id);
+        const { files=[] } = normalizedFolders[id] || {};
+        const [ firstFileId ] = files;
+        
+        handleFileSelect(firstFileId);
     }
 
     const handleToggleLandingPage = () => {
@@ -38,11 +44,13 @@ const FolderAndFileSelector = (props) => {
 
 
             <FolderSelector
+                normalizedFolders={Object.values(normalizedFolders)}
                 folders={folders}
                 onSelect={handleFolderSelect}
             />
 
             <FileSelector
+                normalizedFiles={files}
                 files={files}
                 onSelect={handleFileSelect}
             />

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
 import Combobox, { ComboboxContent, ComboboxTrigger } from "_components/UI/Combobox/Combobox";
@@ -9,11 +9,12 @@ import { confirmDeleteBox, showFolderCreateModal } from "store/actions/modalActi
 
 
 const FolderSelector = (props) => {
-    const { onSelect, folders: folderOptions } = props;
+    const { normalizedFolders, onSelect, folders: folderOptions } = props;
     const dispatch = useDispatch();
 
     // const folderOptions = useSelector(getAllFolders);
-    const { id, label } = useSelector(getSelectedFolder) || {};
+    const selectedFolder = useSelector(getSelectedFolder) || {};
+    const { id, label } = selectedFolder;
 
     const handleSelect = (id, option) => {
         onSelect(id, option);
@@ -75,6 +76,7 @@ const FolderSelector = (props) => {
         dispatch(confirmDeleteBox(confirmBoxData))
     }
 
+   
 
     // useEffect(() => {
     //     dispatch(getFoldersAndSet());
@@ -102,7 +104,7 @@ const FolderSelector = (props) => {
                         </ComboboxTrigger>
                         <ComboboxContent
                             heading='Search in Folders'
-                            options={folderOptions}
+                            options={normalizedFolders}
                             onChange={handleSelect}
                             selectedValue={id}
                             renderAdd={(searchQuery) => {

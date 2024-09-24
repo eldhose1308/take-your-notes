@@ -74,6 +74,7 @@ export const setInitialNoteData = () => async (dispatch) => {
         dispatch(setCurrentNote(currentNoteInLocalDB));
         return { id: currentNoteInLocalDB };
     }
+    return null;
 }
 
 
