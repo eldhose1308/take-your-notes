@@ -157,6 +157,10 @@ const NoteAndEditor = (props) => {
         }
     }
 
+    useEffect(() => {
+        setIsEditing(isEditMode);
+    }, [isEditMode])
+
     return (
         <div className="m-3">
             {/* <div className="rounded-lg"> */}

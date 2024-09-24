@@ -46,7 +46,6 @@ const FileTabManager = (props) => {
     const [buttonStatus, setButtonStatus] = useState(initBtnStatus)
 
     useEffect(() => {
-        console.log('Mounted');
         // const menuNode = menuRef.current;
 
         // const handleScroll = () => {

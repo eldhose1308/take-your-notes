@@ -22,14 +22,11 @@ export default function AccessAPI(url){
 
 
                 xhr.onprogress = function(event) {
-                    console.log('@onPr', event.lengthComputable)
                     if (event.lengthComputable) {
                         const percentComplete = (event.loaded / event.total) * 100;
-                        console.log('@progress', percentComplete);
                     } else {
                         const percentComplete = (event.loaded / event.total) * 100;
-                        console.log('@progress', percentComplete);
-                        console.log(`Received ${event.loaded} bytes`); 
+                        // console.log(`Received ${event.loaded} bytes`); 
                     }
                 
                 };

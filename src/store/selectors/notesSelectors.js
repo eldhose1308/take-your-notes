@@ -38,7 +38,10 @@ export const getSelectedNote = createSelector(
     (currentNote, notesObj={}) => notesObj[currentNote]
 )
     
-export const getBlankNote = (state) => ({ title: `Untitled-${state.notes.notesList.length + 1}` })
+export const getBlankNote = (state) => {
+    const { notes=[] } = getSelectedFile(state);
+    return { title: `Untitled-${notes.length + 1}` }
+}
 
 
 
