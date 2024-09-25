@@ -8,6 +8,7 @@ import { getCurrentFile, getFilesOfSelectedFolder, getSelectedFile, getSelectedF
 import { deleteFile, getFilesAndSet, saveFile, updateFile } from "store/actions/fileActions";
 import { confirmDeleteBox, showFileCreateModal } from "store/actions/modalActions";
 
+import { useFilesCrud } from "_modules/fileHierarchy/_hooks";
 
 const FileSelector = (props) => {
     const { normalizedFiles, onSelect } = props;
@@ -16,51 +17,16 @@ const FileSelector = (props) => {
     const fileOptions = useSelector(getFilesOfSelectedFolder);
     const { id, label } = useSelector(getSelectedFile) || Object.values(fileOptions)[0] || {};
     const currentFolder = useSelector(getSelectedFolder) || {};
+    const { id: folderId } = currentFolder;
 
+    const { showCreateDialog, showUpdateDialog, showDeleteDialog } = useFilesCrud(folderId);
 
     const handleSelect = (id, option) => {
         const { id: folderId } = currentFolder;
         onSelect(id, folderId, option);
     }
 
-    const handleSubmit = async (fileName, fileId) => {
-        const { id: folderId } = currentFolder;
-
-        const payload = {
-            file_name: fileName,
-            folderId
-        }
-        if(fileId){
-            await dispatch(updateFile(payload, fileId)); 
-            return;
-        }
-        const { label, value, id } = await dispatch(saveFile(payload));
-        handleSelect(id, { label, value, id });
-    }
-
-    const showCreateDialog = (fileNameArg) => {
-        const fileName = typeof fileNameArg === 'string' ? fileNameArg : '';
-        const { label: folderName } = currentFolder;
-        const dialogData = {
-            data: { folderName, fileName },
-            status: true,
-            onClick: handleSubmit       
-        }
-        dispatch(showFileCreateModal(dialogData))
-    }
-
-    const showUpdateDialog = (id, option, e) => {
-        e.stopPropagation();
-
-        const { label: folderName } = currentFolder;
-        const { id: folderId, label: fileName } = option;
-        const dialogData = {
-            data: { id: folderId, folderName, fileName },
-            status: true,
-            onClick: handleSubmit
-        }
-        dispatch(showFileCreateModal(dialogData))
-    }
+   
 
     const handleDelete = async (id) => {
         if(!id){ return }
@@ -73,16 +39,6 @@ const FileSelector = (props) => {
             throw err;
         }
 
-    }
-
-    const showDeleteDialog = (id, option, e) => {
-        e.stopPropagation();
-        const confirmBoxData = {
-            id,
-            status: true,
-            onClick: handleDelete       
-        }
-        dispatch(confirmDeleteBox(confirmBoxData))
     }
 
 
@@ -117,10 +73,10 @@ const FileSelector = (props) => {
                             renderItemAction={(id, option) => {
                                 return (
                                     <div>
-                                        <span className="hover-text-primary mr-1 text-accent group-hover-item invisible" onClick={(e) => showUpdateDialog(id, option, e)}>
+                                        <span className="hover-text-primary mr-1 text-accent group-hover-item invisible" onClick={(e) => showUpdateDialog(id, folderId, option, e)}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
                                         </span>
-                                        <span className="hover-text-destructive text-accent group-hover-item invisible" onClick={(e) => showDeleteDialog(id, option, e)}>
+                                        <span className="hover-text-destructive text-accent group-hover-item invisible" onClick={(e) => showDeleteDialog(id, folderId, option, e)}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
                                         </span>
                                     </div>

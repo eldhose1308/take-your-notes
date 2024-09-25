@@ -71,3 +71,16 @@ blockquote {
 .code-copy .code-copy-text{
   margin-left: 0.25rem;
 }
+
+.highlighted-text{
+  background-color: #202022;
+  color: #a1a1aa;
+  padding: 0 0.5rem;
+  border-radius: 20%;
+}
+
+.md-link{
+  color: #a1a1aa;
+  text-decoration: underline;
+  font-style: italic;
+}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const FileTabItems = ({ item, selectedId, note, onDelete, onClick }) => {
     const isSelected = selectedId === item;
-    const { title } = note;
+    const { title } = note || {};
 
     const [path, setPath] = useState();
 

@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 
-import './MarkdownEditor.css'
 import Flex from "_components/Misc/Flex/Flex";
 import { Button } from "_components/Form";
 import Separator from "_components/Misc/Separator/Separator";
 import { convertToHTML } from "../_utils/markdownConvert";
 import Toolbar from "./toolbar/Toolbar";
+
+import './MarkdownEditor.css'
 
 // split into markdownEditor and PreviewComponent
 const MarkdownEditor = (props) => {
