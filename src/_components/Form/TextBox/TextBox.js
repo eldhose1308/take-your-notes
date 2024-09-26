@@ -55,8 +55,9 @@ const textBoxVariants = cva('flex h-12 toggle-placeholders disabled-50 rounded-m
 const TextBox = ({ labelName, validationMsg = {}, variant, width, size, placeholderFocus, className, ...otherProps }) => {
     const { type: messageType = 'default', messages = [] } = validationMsg;
 
-    const { labelProps, isFocused, onChange=()=>{}, onKeyDown=()=>{}, ...propsTextBox } = otherProps
-    
+    const { labelProps: labelPropsWithClassName, isFocused, onChange=()=>{}, onKeyDown=()=>{}, ...propsTextBox } = otherProps
+    const { className: labelClassName, ...labelProps } = labelPropsWithClassName || {};
+
     const inputRef = useRef(null);
 
     const validationClass = validationTextClass({ type: messageType });
@@ -89,7 +90,7 @@ const TextBox = ({ labelName, validationMsg = {}, variant, width, size, placehol
                     ref={inputRef}
                 />
                 {labelName && (
-                    <label className="label text-default absolute px-3 py-3 duration-400" {...labelProps}>
+                    <label className={`label text-default absolute px-3 py-3 duration-400 ${labelClassName}`} {...labelProps}>
                         {labelName}
                     </label>
                 )}

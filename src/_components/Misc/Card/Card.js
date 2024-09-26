@@ -56,7 +56,7 @@ const Card = ({ variant, size, border, rounded, className, children, ...props })
 
 const CardHeader = ({ className, children, ...props }) => {
     return (
-        <div className="card-header flex flex-col px-3 py-4" {...props}>
+        <div className="card-header flex flex-col px-3 py-2" {...props}>
             {children}                
         </div>
     )

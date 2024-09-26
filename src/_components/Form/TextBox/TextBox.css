@@ -8,6 +8,13 @@
 	}
 }
 
+.labelOnTop{
+	transform: translateY(-1.4rem) scale(.75);
+	color: var(--default);
+	padding-bottom: 0;
+	z-index: 100;
+	background-color: var(--bg-default);
+}
 
 .input-label {
 	display: inline-block;

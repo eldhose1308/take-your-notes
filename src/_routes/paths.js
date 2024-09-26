@@ -4,6 +4,7 @@ export const PATHS = {
     signup: '/signup',
     signin: '/signin',
     home: '/user/home',
+    publish: '/user/publish',
     popular: '/user/popular',
     tags: '/user/tags',
     profile: '/user/profile',

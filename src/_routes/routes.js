@@ -11,6 +11,7 @@ import Communities from '_pages/home/Communities'
 import { PATHS } from './paths'
 import SeeLater from '_pages/home/SeeLater'
 import Sample from '_pages/home/Sample/Sample'
+import Publish from '_pages/publish/Publish'
 
   
 export const ROUTES = [
@@ -40,6 +41,10 @@ export const ROUTES = [
         {
           path: PATHS.home,
           element: <Home />,
+        },
+        {
+          path: PATHS.publish,
+          element: <Publish />,
         },
         {
           path: PATHS.sample,

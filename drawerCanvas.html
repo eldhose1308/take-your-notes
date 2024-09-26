@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Drawing with Eraser</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .toolbar {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin: 0 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="toolbar">
+        <button id="penBtn">Pen</button>
+        <button id="eraserBtn">Eraser</button>
+    </div>
+    <canvas id="myCanvas" width="500" height="500"></canvas>
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let drawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let currentTool = 'pen'; // Default tool
+
+        // Button event listeners
+        document.getElementById('penBtn').addEventListener('click', () => {
+            currentTool = 'pen'; // Set the current tool to pen
+        });
+
+        document.getElementById('eraserBtn').addEventListener('click', () => {
+            currentTool = 'eraser'; // Set the current tool to eraser
+        });
+
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            [lastX, lastY] = getMousePos(canvas, e);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (drawing) {
+                const [x, y] = getMousePos(canvas, e);
+                if (currentTool === 'pen') {
+                    drawLine(lastX, lastY, x, y);
+                } else if (currentTool === 'eraser') {
+                    erase(x, y);
+                }
+                [lastX, lastY] = [x, y];
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            drawing = false;
+        });
+
+        canvas.addEventListener('mouseout', () => {
+            drawing = false;
+        });
+
+        function getMousePos(canvas, evt) {
+            const rect = canvas.getBoundingClientRect();
+            return [
+                evt.clientX - rect.left,
+                evt.clientY - rect.top
+            ];
+        }
+
+        function drawLine(x1, y1, x2, y2) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = 'blue'; // Pen color
+            ctx.lineWidth = 5;
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        function erase(x, y) {
+            ctx.clearRect(x - 10, y - 10, 20, 20); // Erase a square area around the mouse
+        }
+
+    </script>
+</body>
+
+</html>
