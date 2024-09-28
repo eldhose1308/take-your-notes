@@ -492,7 +492,9 @@ line-height: 1.5rem;
 .hover-border-destructive:hover {
   border: 1px solid var(--destructive);
 }
-
+.hover-border-accent:hover {
+  border: 1px solid var(--bg-accent);
+}
 .text-lighter{
   font-weight: lighter
 }
@@ -615,6 +617,13 @@ line-height: 1.5rem;
   height: 2.25rem;
 }
 
+
+.h-9 {
+  height: 2.25rem;
+}
+.h-60	{
+  height: 15rem;
+}
 
 .h-screen-75 {
   height: 65vh;
@@ -787,6 +796,9 @@ line-height: 1.5rem;
   border-color: var(--primary);
 }
 
+.border-destructive {
+  border-color: var(--destructive);
+}
 .border-info {
   border-color: var(--info);
 }
@@ -993,6 +1005,9 @@ textarea::placeholder {
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.2);
 }
 
+.text-ellipsis {
+  text-overflow: ellipsis;
+}
 
 .text-xxs {
   font-size: 0.5rem;

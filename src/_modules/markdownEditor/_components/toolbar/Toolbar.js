@@ -4,6 +4,7 @@ import EditorModeSelector from "./EditorModeSelector";
 import ToolbarButton from "./ToolbarButton";
 
 const Toolbar = (props) => {
+    const { onImageInsert=()=>{} } = props;
     const [mode, setMode] = useState(TOOLBAR_MODES.EDIT_PREVIEW)
 
     const handleModeChange = (newMode) => {
@@ -47,6 +48,10 @@ const Toolbar = (props) => {
 
 
             <ToolbarButton title='Code'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-code"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
+            </ToolbarButton>
+
+            <ToolbarButton title='Insert Image' onClick={onImageInsert}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-code"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
             </ToolbarButton>
 

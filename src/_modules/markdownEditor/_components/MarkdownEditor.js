@@ -7,12 +7,15 @@ import { convertToHTML } from "../_utils/markdownConvert";
 import Toolbar from "./toolbar/Toolbar";
 
 import './MarkdownEditor.css'
+import ImageUploadModal from "./imageUpload/ImageUploadModal";
 
 // split into markdownEditor and PreviewComponent
 const MarkdownEditor = (props) => {
     const { content, isPreviewEnabled, onChange = () => { }, onKeyDown = () => { }, onSave = () => { }, onCancel = () => { }, onFocus = () => { } } = props
 
     const [markdownContent, setMarkdownContent] = useState(content)
+    
+    const [hasImageModal, setHasImageModal] = useState(false);
 
     const textareaRef = useRef(null);
     const previewRef = useRef(null);
@@ -124,6 +127,18 @@ const MarkdownEditor = (props) => {
         }
     }
 
+    const handleImageInsertClick = () => {
+        setHasImageModal(true);
+    }
+
+    const handleImageInsertClose = () => {
+        setHasImageModal(false);
+    }
+
+    const handleImageUpload = () => {
+        alert(33)
+    }
+
     useEffect(() => {
         focusToTextArea()
     }, []);
@@ -134,8 +149,9 @@ const MarkdownEditor = (props) => {
 
     return (
         <React.Fragment>
-            <Toolbar />
+            <Toolbar onImageInsert={handleImageInsertClick} />
 
+            {hasImageModal && (<ImageUploadModal onClose={handleImageInsertClose} />)}
             <div className="flex flex-nowrap">
                 <div className={`px-3 my-3 ${isPreviewEnabled ? 'w-half' : 'w-full'} space-y-1`}>
                     <textarea ref={textareaRef} onScroll={handleScroll} className={`bg-default w-full text-default px-2 py-2 text-sm h-screen-75`} id="editor" onChange={handleChange} onKeyDown={handleKeyDown} value={markdownContent} />
