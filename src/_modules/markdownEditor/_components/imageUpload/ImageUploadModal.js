@@ -1,22 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Drawer from "_components/UI/Drawer/Drawer";
 import Flex from "_components/Misc/Flex/Flex";
 import Separator from "_components/Misc/Separator/Separator";
 
-import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card/Card";
 import Typography from "_components/Misc/Typography/Typography";
-import { Button, TextBox } from "_components/Form";
 import FileUpload from "_components/Form/FileUpload/FileUpload";
 
+import * as fileUpload from "_api/fileUpload.api";
+
 const ImageUploadModal = (props) => {
-    const { onClose } = props;
+    const { onClose, pastedFiles } = props;
+
+    const [uploadedFiles, setUploadedFiles] = useState([]);
     const [buttonStatus, setButtonStatus] = useState('none');
 
 
     const handleSubmitClick = () => {
 
     }
+
+    useEffect(() => {
+        const getUploadedFiles = async () => {
+            const response = await fileUpload.get();
+            setUploadedFiles(response);
+        }
+
+        getUploadedFiles();
+    }, [])
 
 
     return (
@@ -26,24 +37,17 @@ const ImageUploadModal = (props) => {
                 <div className="flex my-3 w-full">
                     <div className="flex flex-col w-full px-2 py-2 mx-2">
 
-                        <Typography size='md'>Upload Image</Typography>
+                        <Typography size='md'>Upload File</Typography>
 
-                        <Typography size='xs' textVariant='default'>Upload the image by clicking `Upload from device` to our server and paste the image url into the editor</Typography>
+                        <Typography size='xs' textVariant='default'>Upload the file by clicking `Upload from device` to our server and paste the file url into the editor</Typography>
 
                         <div className="flex my-3">
 
                             <div className="my-3">
-                                <FileUpload allowMultiple />
+                                <FileUpload pastedFiles={pastedFiles} allowMultiple />
                             </div>
 
 
-                        </div>
-
-                        <div className="flex justify-between">
-                            {/* <Button size='xs' width='none' variant='custom' onClick={handleResetClick}>Reset</Button> */}
-                            <Button size='xs' width='none' variant='accent' onClick={handleSubmitClick} buttonStatus={buttonStatus}>
-                                Upload Image
-                            </Button>
                         </div>
 
                     </div>
@@ -53,19 +57,28 @@ const ImageUploadModal = (props) => {
 
                 <div className="flex flex-col w-full px-2 py-2 mx-2">
                     <div className="flex flex-col my-2">
-                        <Typography size='md'>Your Images</Typography>
-                        <Typography size='xs' textVariant='default'>Images uploaded by you</Typography>
+                        <Typography size='md'>Your Files</Typography>
+                        <Typography size='xs' textVariant='default'>Files uploaded by you</Typography>
                     </div>
+
+                        <div className="flex text-default">
+                            <div>
+                                <span>PDF</span>
+                            </div>,
+                            <div>
+                                <span>Image</span>
+                            </div>
+                        </div>
 
                     <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
                         <span>
-                            Uploded Image 1
+                            Uploded File 1
                         </span>
                     </div>
 
                     <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
                         <span>
-                            Uploded Image 2
+                            Uploded File 2
                         </span>
                     </div>
                 </div>

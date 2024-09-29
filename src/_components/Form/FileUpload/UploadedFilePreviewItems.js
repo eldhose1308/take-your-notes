@@ -1,4 +1,5 @@
 import React from "react";
+import FileWithPreview from "./FileWithPreview";
 
 const UploadedFilePreviewItems = ({ onRemoveFile, id, name, size, format, preview  }) => {
 
@@ -6,15 +7,7 @@ const UploadedFilePreviewItems = ({ onRemoveFile, id, name, size, format, previe
         <div className="flex flex-nowrap space-between text-xs border border-secondary rounded-md my-2 p-2 w-sm">
 
                     <div className="flex border border-custom items-center justify-center rounded-md m-1 py-2 px-2 w-1/4">
-                        {format.startsWith("image/") ? (
-                            <div className="flex border border-accent rounded-md p-1 cursor-pointer">
-                                <img src={preview} alt="preview" className="h-10 w-10" />
-                            </div>
-                        ) : (
-                            <div className="flex border border-accent rounded-md p-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /></svg>
-                            </div>
-                        )}
+                        <FileWithPreview preview={preview} format={format} />
                     </div>
 
                     <div className="flex w-3/4 mx-1">

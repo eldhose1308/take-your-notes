@@ -16,6 +16,7 @@ const MarkdownEditor = (props) => {
     const [markdownContent, setMarkdownContent] = useState(content)
     
     const [hasImageModal, setHasImageModal] = useState(false);
+    const [pastedFiles, setPastedFiles] = useState(null);
 
     const textareaRef = useRef(null);
     const previewRef = useRef(null);
@@ -131,8 +132,21 @@ const MarkdownEditor = (props) => {
         setHasImageModal(true);
     }
 
+    const handlePaste = (e) => {
+        const { clipboardData } = e;
+
+        // if (clipboardData && clipboardData.files[0]?.type.startsWith("image")) {
+        if (clipboardData && clipboardData.files.length) {
+            e.preventDefault();
+            const files = Array.from(e.clipboardData.files);
+            setPastedFiles(files);
+            handleImageInsertClick();
+          }
+    }
+
     const handleImageInsertClose = () => {
         setHasImageModal(false);
+        setPastedFiles([])
     }
 
     const handleImageUpload = () => {
@@ -151,10 +165,10 @@ const MarkdownEditor = (props) => {
         <React.Fragment>
             <Toolbar onImageInsert={handleImageInsertClick} />
 
-            {hasImageModal && (<ImageUploadModal onClose={handleImageInsertClose} />)}
+            {hasImageModal && (<ImageUploadModal pastedFiles={pastedFiles} onClose={handleImageInsertClose} />)}
             <div className="flex flex-nowrap">
                 <div className={`px-3 my-3 ${isPreviewEnabled ? 'w-half' : 'w-full'} space-y-1`}>
-                    <textarea ref={textareaRef} onScroll={handleScroll} className={`bg-default w-full text-default px-2 py-2 text-sm h-screen-75`} id="editor" onChange={handleChange} onKeyDown={handleKeyDown} value={markdownContent} />
+                    <textarea ref={textareaRef} onPaste={handlePaste} onScroll={handleScroll} className={`bg-default w-full text-default px-2 py-2 text-sm h-screen-75`} id="editor" onChange={handleChange} onKeyDown={handleKeyDown} value={markdownContent} />
                 </div>
                 {isPreviewEnabled && <div ref={previewRef} className={`preview pl-4 text-default border-l border-custom my-3 overflow-scroll w-half h-screen-75`} dangerouslySetInnerHTML={{ __html: markdownInHTML }} />}
             </div>

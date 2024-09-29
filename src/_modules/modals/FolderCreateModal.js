@@ -45,7 +45,7 @@ const FolderCreateModal = () => {
             try{
                 await onClick(newFolderName, id);
             }catch(err){
-                console.log('Delete modal', err)
+                setButtonStatus('failure');
             }finally{
                 setButtonStatus('completed');
                 setTimeout(() => {

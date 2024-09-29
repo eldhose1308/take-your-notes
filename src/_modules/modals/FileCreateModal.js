@@ -48,7 +48,6 @@ const FileCreateModal = () => {
                 setButtonStatus('completed');
             }catch(err){
                 setButtonStatus('failure');
-                console.log('Delete modal', err)
             }finally{
                 setTimeout(() => {
                     setButtonStatus('none');

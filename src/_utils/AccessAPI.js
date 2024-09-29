@@ -5,12 +5,17 @@ export default function AccessAPI(url){
             const promise = new Promise((resolve, reject) => {
                 const xhr = new XMLHttpRequest();
                 xhr.open(method, url);
-                // xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
                 // xhr.setRequestHeader('Authorization', `Bearer ${token}`);
                 xhr.withCredentials = true;
                 xhr.responseType = 'json';
                 
-                xhr.send(JSON.stringify((payload)));
+
+                if (payload instanceof FormData) {
+                    xhr.send(payload);
+                }else{
+                    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+                    xhr.send(JSON.stringify((payload)));
+                }
 
                 xhr.onload = function() {
                     if (xhr.status === 200 || xhr.status === 201 || xhr.status === 204) { 
@@ -24,16 +29,18 @@ export default function AccessAPI(url){
                 xhr.onprogress = function(event) {
                     if (event.lengthComputable) {
                         const percentComplete = (event.loaded / event.total) * 100;
+                        console.log(`Received ${event.loaded} bytes`); 
                     } else {
                         const percentComplete = (event.loaded / event.total) * 100;
-                        // console.log(`Received ${event.loaded} bytes`); 
+                        console.log(`Received ${event.loaded} bytes`); 
                     }
                 
                 };
                 
                 xhr.onerror = function() {
-                    onFailure && onFailure();
-                    alert("Request failed");
+                    // onFailure && onFailure();
+                    reject(new Error('Something went wrong'))
+                    // alert("Request failed");
                 };
             })
 
@@ -50,16 +57,16 @@ export default function AccessAPI(url){
             return api.ajax('GET', url, args, {}, onSuccess, onFailure)
         },
         
-        post(payload = {}, onSuccess, onFailure){
-            return api.ajax('POST', url, null, payload, {}, onSuccess, onFailure)
+        post(payload = {}, onProgress, onSuccess, onFailure){
+            return api.ajax('POST', url, null, payload, {}, onSuccess, onFailure, onProgress)
         },
 
-        put(payload = {}, onSuccess, onFailure){
-            return api.ajax('PUT', url, null, payload, {}, onSuccess, onFailure)
+        put(payload = {}, onProgress, onSuccess, onFailure){
+            return api.ajax('PUT', url, null, payload, {}, onSuccess, onFailure, onProgress)
         },
 
-        delete(payload = {}, onSuccess, onFailure){
-            return api.ajax('DELETE', url, null, payload, {}, onSuccess, onFailure)
+        delete(payload = {}, onProgress, onSuccess, onFailure){
+            return api.ajax('DELETE', url, null, payload, {}, onSuccess, onFailure, onProgress)
         }
     }
 }
