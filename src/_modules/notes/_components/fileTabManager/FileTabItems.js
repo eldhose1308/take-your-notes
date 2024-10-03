@@ -14,6 +14,9 @@ const FileTabItems = ({ item, selectedId, note, onDelete, onClick }) => {
         setPath(`${folderLabel} / ${fileLabel} / ${title}`)
     }
 
+    if(!note){
+        return null;
+    }
 
     return (
         // <div className="flex w-full">

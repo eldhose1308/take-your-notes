@@ -3,7 +3,8 @@ import React, { useState } from "react";
 const FileWithPreview = ({ preview, format }) => {
     const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
-    const handleOpenPreview = () => {
+    const handleOpenPreview = (e) => {
+        e.stopPropagation();
         setIsPreviewOpen(true);
     }
 

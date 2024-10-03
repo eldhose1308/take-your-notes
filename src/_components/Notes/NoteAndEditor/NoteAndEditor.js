@@ -76,7 +76,10 @@ const NoteAndEditor = (props) => {
 
     const handleSave = (note) => {
         const { content, title } = note;
-
+        if(!folderId || !fileId){
+            alert('Show toast of no valid note')
+            return;
+        }
         const payload = {
             title,
             content,
@@ -168,14 +171,13 @@ const NoteAndEditor = (props) => {
                 <FileTabManager selectedItem={id} />
 
                 <div className="flex rounded-lg px-2 my-2 text-xs bg-default text-secondary">
+                    {(!folderName || !fileName) && <span className="text-destructive rounded-md mr-2 px-2">deleted</span>}
                     <span>{folderName}</span>
                     <span className="flex items-center text-default mx-1">
-                        {/* • */}
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
                     </span>
                     <span>{fileName}</span>
                     <span className="flex items-center text-default mx-1">
-                        {/* • */}
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
                     </span>
                     <span className="text-default">{noteTitle}</span>

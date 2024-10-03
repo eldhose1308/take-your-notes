@@ -3,29 +3,65 @@ import React, { useState, useEffect, useRef } from "react";
 import Separator from "_components/Misc/Separator/Separator";
 import UploadedFilePreview from "./UploadedFilePreview";
 import { preProcessImage } from "./_utils/processImage";
-import { AccessAPI } from "_utils";
 
-import * as fileUpload from "_api/fileUpload.api";
+import * as fileUpload from "_services/fileUpload.service";
+
+
+const buttonUploadStateValues = {
+    none: 'Upload', 
+    loading: 'Uploading', 
+    failure: 'Failed', 
+    completed: 'Uploaded', 
+}
 
 const FileUpload = (props) => {
-    const { pastedFiles, allowMultiple = false } = props;
+    const { pastedFiles, onSuccess, allowMultiple = false } = props;
+
+    const [buttonStatus, setButtonStatus] = useState('none');
 
     const [fileData, setFileData] = useState([]);
+    const [fileUploadStatus, setFileUploadStatus] = useState({});
     const fileInputRef = useRef(null);
 
+    const uploadCount = Object.keys(fileUploadStatus).length / fileData.length;
+
+    const handleUploadSingleFile = async (formData, fileInfo, index) => {
+        try{
+            setFileUploadStatus((prev) => ({...prev, [fileInfo.id]: { isUploading: true } }))
+            const response = await fileUpload.upload(formData);
+            setFileUploadStatus((prev) => ({...prev, [fileInfo.id]: { isUploading: false, isUploaded: true, status: true } }))
+            onSuccess(response)
+        }catch(err){
+            const { message } = err;
+            const { message: errMessage } = message;
+            setFileUploadStatus((prev) => ({...prev, [fileInfo.id]: { isUploading: false, status: false, canRetry: false, message: errMessage } }))
+            throw err;
+        }
+
+    }
+
     const handleUploadFiles = async () => {
-        Array.from(fileData).forEach(async ({ file }, index) => {
-            try {
-                // sent this method from parent
+        const failureFiles = [];
+        setButtonStatus('loading');
+        try{
+            for (let [index, fileInfo] of fileData.entries()) {
+                const { file } = fileInfo;
                 const formData = new FormData();
                 formData.append(`file`, file);
-                const response = await fileUpload.upload(formData);
-            } catch (error) {
-                alert('Failure');
-                console.error('Error uploading files:', error);
+                try{
+                    await handleUploadSingleFile(formData, fileInfo, index);
+                }catch(err){
+                    setButtonStatus('failure');
+                    failureFiles.push(fileInfo)
+                }
             }
-        });
-
+        }finally{
+            setButtonStatus('completed');
+            setTimeout(() => {
+                setButtonStatus('none');
+            }, 1000)
+        }
+        setFileData(failureFiles);
     }
 
     const handleFileChange = (e) => {
@@ -40,6 +76,7 @@ const FileUpload = (props) => {
 
     const handleRemoveAllFiles = () => {
         setFileData([]);
+        setFileUploadStatus({})
         fileInputRef.value = null;
     }
 
@@ -99,7 +136,11 @@ const FileUpload = (props) => {
                         <span className="flex items-center mr-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" x2="12" y1="3" y2="15" /></svg>
                         </span>
-                        <span>Upload {fileData.length > 1 ? 'All' : ''}</span>
+                        <span>
+                            {buttonUploadStateValues[buttonStatus]} 
+                            {/* {uploadCount || ''} */}
+                            {/* {fileData.length > 1 ? 'All' : ''} */}
+                        </span>
                     </div>
                     {fileData.length > 1 && (
                         <div onClick={handleRemoveAllFiles} className="flex border border-destructive hover-destructive items-center justify-center cursor-pointer rounded-md p-2">
@@ -115,7 +156,7 @@ const FileUpload = (props) => {
 
                         <Separator variant='custom' className='w-full my-3' />
 
-                        <UploadedFilePreview fileData={fileData} onRemoveFile={handleRemoveFile} />
+                        <UploadedFilePreview fileData={fileData} fileUploadStatus={fileUploadStatus} onRemoveFile={handleRemoveFile} />
 
                         <Separator variant='custom' className='w-full mt-3' />
                     </React.Fragment>

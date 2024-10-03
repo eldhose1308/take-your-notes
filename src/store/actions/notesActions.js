@@ -31,8 +31,9 @@ export const setCurrentNote = (data) => async (dispatch, getState) => {
     const { notes } = getState();
     const { normalisedHierarchyData } = notes;
     const { notes: notesNormalised } = normalisedHierarchyData;
-    const { folderId, fileId } = notesNormalised[data];
+    const { folderId, fileId } = notesNormalised[data] || {};
     
+    if(!folderId){ return; }
     dispatch(setCurrentFolder(folderId));
     dispatch(setCurrentFile(fileId));
 

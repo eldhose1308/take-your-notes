@@ -8,24 +8,28 @@ import Toolbar from "./toolbar/Toolbar";
 
 import './MarkdownEditor.css'
 import ImageUploadModal from "./imageUpload/ImageUploadModal";
+import { formatFileToMarkdown } from "../_utils/editor";
 
 // split into markdownEditor and PreviewComponent
 const MarkdownEditor = (props) => {
-    const { content, isPreviewEnabled, onChange = () => { }, onKeyDown = () => { }, onSave = () => { }, onCancel = () => { }, onFocus = () => { } } = props
+    const { content: markdownContent, isPreviewEnabled, onChange = () => { }, onKeyDown = () => { }, onSave = () => { }, onCancel = () => { }, onFocus = () => { } } = props
 
-    const [markdownContent, setMarkdownContent] = useState(content)
-    
+    // const [markdownContent, setMarkdownContent] = useState(content)
+
     const [hasImageModal, setHasImageModal] = useState(false);
     const [pastedFiles, setPastedFiles] = useState(null);
 
     const textareaRef = useRef(null);
     const previewRef = useRef(null);
 
+    const lastCaretRef = useRef({
+        selectionStart: null,
+        selectionEnd: null
+    });
+
     const markdownInHTML = convertToHTML(markdownContent)
     // console.log(markdownInHTML);
-    const handleSave = () => {
-        onSave(markdownContent)
-    }
+
 
     const handleEnterKey = (e) => {
         const textarea = textareaRef.current;
@@ -70,7 +74,7 @@ const MarkdownEditor = (props) => {
             const newTextBeforeCaret = textBeforeCaret + '\n' + newLineContent;
             const newText = newTextBeforeCaret + textAfterCaret;
 
-            setMarkdownContent(newText);
+            onChange(newText);
 
             const newCaretPos = newTextBeforeCaret.length;
             setTimeout(() => {
@@ -98,8 +102,8 @@ const MarkdownEditor = (props) => {
 
     const handleChange = (e) => {
         const { value } = e.target
-        setMarkdownContent(value)
-        onChange(value)
+        // setMarkdownContent(value)
+        onChange(value);
     }
 
     const adjustTextareaHeight = () => {
@@ -129,24 +133,42 @@ const MarkdownEditor = (props) => {
     }
 
     const handleImageInsertClick = () => {
+        const selectionStart = textareaRef.current.selectionStart;
+        const selectionEnd = textareaRef.current.selectionEnd;
+        lastCaretRef.current.selectionStart = selectionStart;
+        lastCaretRef.current.selectionEnd = selectionEnd;
         setHasImageModal(true);
     }
 
     const handlePaste = (e) => {
         const { clipboardData } = e;
 
-        // if (clipboardData && clipboardData.files[0]?.type.startsWith("image")) {
         if (clipboardData && clipboardData.files.length) {
             e.preventDefault();
             const files = Array.from(e.clipboardData.files);
             setPastedFiles(files);
             handleImageInsertClick();
-          }
+        }
     }
 
     const handleImageInsertClose = () => {
         setHasImageModal(false);
         setPastedFiles([])
+    }
+
+    const handleInsertFileToEditor = (file, e) => {
+        // const markdownContentAfterFileInsertion = file.reduce((acc, fileItem) => {
+        //     const { fileName, filePath } = fileItem;
+        //     const fileFormattedText = `![${fileName}](${filePath}){width=100}{height=100} \n\n`;
+        //     return acc + fileFormattedText;
+        // }, '')
+        const markdownContentAfterFileInsertion = formatFileToMarkdown(file);
+
+        const { selectionStart, selectionEnd } = lastCaretRef.current;
+        const textBeforeCaret = textareaRef.current.value.substring(0, selectionStart);
+        const textAfterCaret = textareaRef.current.value.substring(selectionEnd, textareaRef.current.value.length);
+        onChange(textBeforeCaret + markdownContentAfterFileInsertion + textAfterCaret)
+
     }
 
     const handleImageUpload = () => {
@@ -165,7 +187,7 @@ const MarkdownEditor = (props) => {
         <React.Fragment>
             <Toolbar onImageInsert={handleImageInsertClick} />
 
-            {hasImageModal && (<ImageUploadModal pastedFiles={pastedFiles} onClose={handleImageInsertClose} />)}
+            {hasImageModal && (<ImageUploadModal pastedFiles={pastedFiles} onInsertFileToEditor={handleInsertFileToEditor} onClose={handleImageInsertClose} />)}
             <div className="flex flex-nowrap">
                 <div className={`px-3 my-3 ${isPreviewEnabled ? 'w-half' : 'w-full'} space-y-1`}>
                     <textarea ref={textareaRef} onPaste={handlePaste} onScroll={handleScroll} className={`bg-default w-full text-default px-2 py-2 text-sm h-screen-75`} id="editor" onChange={handleChange} onKeyDown={handleKeyDown} value={markdownContent} />

@@ -116,7 +116,7 @@ const NotesEditor = (props) => {
                 </Flex>
 
                 <div className="h-screen-1/2 overflow-scroll">
-                    <MarkdownEditor {...props} isPreviewEnabled={isPreviewEnabled} onFocus={handleFocus} onChange={handleMarkdownChange} onKeyDown={handleKeyDown} />
+                    <MarkdownEditor {...props} content={markdownContent} isPreviewEnabled={isPreviewEnabled} onFocus={handleFocus} onChange={handleMarkdownChange} onKeyDown={handleKeyDown} />
                 </div>
 
             </div>

@@ -9,12 +9,14 @@ import { Button, TextBox } from "_components/Form";
 const buttonCreateStateValues = {
     none: 'Create', 
     loading: 'Creating', 
+    failure: 'Failed', 
     completed: 'Created', 
 }
 
 const buttonUpdateStateValues = {
     none: 'Update', 
     loading: 'Updating', 
+    failure: 'Failed', 
     completed: 'Updated', 
 }
 

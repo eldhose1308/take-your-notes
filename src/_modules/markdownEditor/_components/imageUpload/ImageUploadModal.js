@@ -6,23 +6,53 @@ import Separator from "_components/Misc/Separator/Separator";
 
 import Typography from "_components/Misc/Typography/Typography";
 import FileUpload from "_components/Form/FileUpload/FileUpload";
+import UploadedImagesItem from "./UploadedImagesItem";
 
-import * as fileUpload from "_api/fileUpload.api";
+import copyToCliboard from "_utils/clipboardAPI";
+import { useToast } from "_contexts/ToastProvider";
+
+import * as fileUpload from "_services/fileUpload.service";
+
+
 
 const ImageUploadModal = (props) => {
-    const { onClose, pastedFiles } = props;
+    const { onClose, onInsertFileToEditor, pastedFiles } = props;
+    const { toast } = useToast()
 
     const [uploadedFiles, setUploadedFiles] = useState([]);
-    const [buttonStatus, setButtonStatus] = useState('none');
-
 
     const handleSubmitClick = () => {
 
     }
 
+    const handleFileUploadSuccess = (data) => {
+        setUploadedFiles((previousFiles => [data, ...previousFiles]));
+
+        const preview = `${data.basePath}${data.fileName}`;
+        data.filePath = preview;
+        onInsertFileToEditor(data)
+    }
+
+    const handleCopyFilePath = async (filePath, file, e) => {
+        e.stopPropagation();
+        const hasCopied = await copyToCliboard(filePath);
+        if(hasCopied){
+            toast({
+                heading: 'Copied to Clipboard',
+                options: { position: 'top-right' }
+            }).success();
+            file.filePath = filePath;
+            onInsertFileToEditor(file);
+            onClose();
+            return;
+        }
+
+        alert('Not Copied')
+    }
+
     useEffect(() => {
         const getUploadedFiles = async () => {
-            const response = await fileUpload.get();
+            const response = await fileUpload.getFileUploads();
             setUploadedFiles(response);
         }
 
@@ -44,7 +74,7 @@ const ImageUploadModal = (props) => {
                         <div className="flex my-3">
 
                             <div className="my-3">
-                                <FileUpload pastedFiles={pastedFiles} allowMultiple />
+                                <FileUpload onSuccess={handleFileUploadSuccess} pastedFiles={pastedFiles} allowMultiple />
                             </div>
 
 
@@ -59,28 +89,25 @@ const ImageUploadModal = (props) => {
                     <div className="flex flex-col my-2">
                         <Typography size='md'>Your Files</Typography>
                         <Typography size='xs' textVariant='default'>Files uploaded by you</Typography>
+                        <Typography size='xs' textVariant='default' className='text-secondary'>Click on the file to copy the url to clipboard</Typography>
                     </div>
 
-                        <div className="flex text-default">
-                            <div>
-                                <span>PDF</span>
-                            </div>,
-                            <div>
-                                <span>Image</span>
-                            </div>
+                    <div className="flex text-default">
+                        <div>
+                            <span>PDF</span>
+                        </div>,
+                        <div>
+                            <span>Image</span>
                         </div>
-
-                    <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
-                        <span>
-                            Uploded File 1
-                        </span>
                     </div>
 
-                    <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
-                        <span>
-                            Uploded File 2
-                        </span>
+
+                    <div className="h-48 overflow-scroll pr-4">
+                        {uploadedFiles.map((uploadedFile, index) => 
+                             <UploadedImagesItem key={index} file={uploadedFile} onCopy={handleCopyFilePath} />
+                        )}
                     </div>
+
                 </div>
 
 

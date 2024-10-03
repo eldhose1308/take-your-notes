@@ -33,7 +33,7 @@ const Toast = (props) => {
 
     return (
         <div className="flex flex-col">
-            <div className={`dialog dialog-${positionX} dialog-${positionY} z-50 fixed flex items-center justify-end animate-slide-in-y`}>
+            <div className={`dialog dialog-${positionX} dialog-${positionY} z-60 fixed flex items-center justify-end animate-slide-in-y`}>
                 <div className="max-w-sm min-w-sm">
                     <div className={`card border  border-custom bg-default rounded-lg m-3`}>
 

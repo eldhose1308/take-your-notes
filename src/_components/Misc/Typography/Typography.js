@@ -28,6 +28,7 @@ const typographyVariants = cva(
                 muted: 'text-default opacity-50',
             },
             size: {
+                xxs: 'text-xxs',
                 xs: "text-xs",
                 sm: "text-sm",
                 md: "text-md",

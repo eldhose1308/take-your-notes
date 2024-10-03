@@ -311,6 +311,10 @@ line-height: 1.5rem;
   cursor: pointer;
 }
 
+.cursor-copy {
+  cursor: copy;
+}
+
 
 
 .bg-accent {
@@ -827,6 +831,10 @@ line-height: 1.5rem;
 }
 .border-accent {
   border-color: var(--bg-accent);
+}
+
+.border-highlight {
+  border-color: var(--highlight);
 }
 
 
@@ -1439,6 +1447,10 @@ textarea::placeholder {
 
 .z-50 {
   z-index: 50;
+}
+
+.z-60 {
+  z-index: 60;
 }
 
 

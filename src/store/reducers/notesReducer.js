@@ -154,7 +154,13 @@ const notesReducer = (state = initialState, action = {}) => {
 
             const hierarchyStateOfFolderOnFileRemoval= { ...state.normalisedHierarchyData.folders, [payload.folderId]: { ...hierarchyStateOfFolderForRemoval, files: filesListAfterRemoval }  };
             const { [payload.id]: removedFile, ...hierarchyStateAfterRemoval } = state.normalisedHierarchyData.files;
-            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, folders: hierarchyStateOfFolderOnFileRemoval, files:  hierarchyStateAfterRemoval  } }
+            const { notes: removedFilesNotes=[] } = removedFile;
+
+            const shallowCopyOfNotes = state.normalisedHierarchyData.notes;
+            removedFilesNotes.forEach((noteId) => {
+                delete shallowCopyOfNotes[noteId]
+            });
+            return { ...state, normalisedHierarchyData: { ...state.normalisedHierarchyData, folders: hierarchyStateOfFolderOnFileRemoval, files:  hierarchyStateAfterRemoval, notes: shallowCopyOfNotes  } }
 
 
         case 'UPDATE_HIERARCHY_FILE':
