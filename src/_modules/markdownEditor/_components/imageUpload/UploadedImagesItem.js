@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import FileWithPreview from "_components/Form/FileUpload/FileWithPreview";
 
 const buttonClipboardStateValues = {
-    none: 'Copy to Clipboard',
-    completed: 'Copied',
+    none: 'Insert to Editor',
+    completed: 'Inserted to Editor',
     failure: 'Failed', 
 }
 
@@ -14,11 +14,11 @@ const UploadedImagesItem = ({ file, onCopy }) => {
     const [clipboardButtonText, setClipboardButtonText] = useState(buttonClipboardStateValues.none)
 
     const handleCopy = (e) => {
-        setClipboardButtonText(buttonClipboardStateValues.completed)
-        setTimeout(() => {
-            setClipboardButtonText(buttonClipboardStateValues.none)
+        // setClipboardButtonText(buttonClipboardStateValues.completed)
+        // setTimeout(() => {
+            // setClipboardButtonText(buttonClipboardStateValues.none)
             onCopy(preview, file, e);
-        }, 1500);
+        // }, 1500);
     }
 
     return (

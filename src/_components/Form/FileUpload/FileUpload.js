@@ -23,7 +23,7 @@ const FileUpload = (props) => {
     const [fileUploadStatus, setFileUploadStatus] = useState({});
     const fileInputRef = useRef(null);
 
-    const uploadCount = Object.keys(fileUploadStatus).length / fileData.length;
+    const uploadCount = `${Object.keys(fileUploadStatus).length} / ${fileData.length}`;
 
     const handleUploadSingleFile = async (formData, fileInfo, index) => {
         try{
@@ -71,6 +71,8 @@ const FileUpload = (props) => {
     const handleRemoveFile = (idToRemove) => {
         const updatedFileData = fileData.filter(({ id }) => id !== idToRemove);
         setFileData(updatedFileData);
+        const { [idToRemove]:_, ...remainingFileUploadStatuses } = fileUploadStatus;
+        setFileUploadStatus(remainingFileUploadStatuses)
     };
 
     const handleRemoveAllFiles = () => {
@@ -81,6 +83,7 @@ const FileUpload = (props) => {
 
     const handleOpenFileUpload = () => {
         fileInputRef.current.click();
+        setFileUploadStatus({});
     }
 
     const handlePaste = (e) => {
@@ -137,7 +140,7 @@ const FileUpload = (props) => {
                         </span>
                         <span>
                             {buttonUploadStateValues[buttonStatus]} 
-                            {/* {uploadCount || ''} */}
+                            {buttonStatus === 'loading' ? uploadCount || '' : '' }
                             {/* {fileData.length > 1 ? 'All' : ''} */}
                         </span>
                     </div>

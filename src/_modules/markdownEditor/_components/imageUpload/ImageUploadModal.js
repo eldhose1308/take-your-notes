@@ -35,19 +35,19 @@ const ImageUploadModal = (props) => {
 
     const handleCopyFilePath = async (filePath, file, e) => {
         e.stopPropagation();
-        const hasCopied = await copyToCliboard(filePath);
-        if(hasCopied){
+        // const hasCopied = await copyToCliboard(filePath);
+        // if(hasCopied){
             toast({
-                heading: 'Copied to Clipboard',
+                heading: 'Inserted to editor',
                 options: { position: 'top-right' }
             }).success();
             file.filePath = filePath;
             onInsertFileToEditor(file);
             onClose();
-            return;
-        }
+            // return;
+        // }
 
-        alert('Not Copied')
+        // alert('Not Copied')
     }
 
     useEffect(() => {
