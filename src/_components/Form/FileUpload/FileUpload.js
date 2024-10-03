@@ -11,7 +11,7 @@ const buttonUploadStateValues = {
     none: 'Upload', 
     loading: 'Uploading', 
     failure: 'Failed', 
-    completed: 'Uploaded', 
+    completed: 'Completed', 
 }
 
 const FileUpload = (props) => {
@@ -51,7 +51,6 @@ const FileUpload = (props) => {
                 try{
                     await handleUploadSingleFile(formData, fileInfo, index);
                 }catch(err){
-                    setButtonStatus('failure');
                     failureFiles.push(fileInfo)
                 }
             }
