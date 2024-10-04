@@ -8,17 +8,17 @@ const buttonClipboardStateValues = {
 }
 
 const UploadedImagesItem = ({ file, onCopy }) => {
-    const { id, fileName, fileType: format='image/sd' } = file;
-    const preview = 'https://notes.nexcode.in/uploads/' + fileName;
+    const { id, fileName, fileType: format, basePath } = file;
+    const preview = basePath + fileName;
 
     const [clipboardButtonText, setClipboardButtonText] = useState(buttonClipboardStateValues.none)
 
     const handleCopy = (e) => {
-        // setClipboardButtonText(buttonClipboardStateValues.completed)
-        // setTimeout(() => {
-            // setClipboardButtonText(buttonClipboardStateValues.none)
-            onCopy(preview, file, e);
-        // }, 1500);
+        setClipboardButtonText(buttonClipboardStateValues.completed)
+        setTimeout(() => {
+            setClipboardButtonText(buttonClipboardStateValues.none)
+        }, 1500);
+        onCopy(preview, file, e);
     }
 
     return (

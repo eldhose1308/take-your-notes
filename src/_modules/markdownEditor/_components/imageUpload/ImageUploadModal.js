@@ -6,12 +6,10 @@ import Separator from "_components/Misc/Separator/Separator";
 
 import Typography from "_components/Misc/Typography/Typography";
 import FileUpload from "_components/Form/FileUpload/FileUpload";
-import UploadedImagesItem from "./UploadedImagesItem";
 
-import copyToCliboard from "_utils/clipboardAPI";
 import { useToast } from "_contexts/ToastProvider";
 
-import * as fileUpload from "_services/fileUpload.service";
+import UploadedImages from "./UploadedImages";
 
 
 
@@ -43,7 +41,7 @@ const ImageUploadModal = (props) => {
             }).success();
             file.filePath = filePath;
             onInsertFileToEditor(file);
-            onClose();
+            // onClose();
             // return;
         // }
 
@@ -51,12 +49,12 @@ const ImageUploadModal = (props) => {
     }
 
     useEffect(() => {
-        const getUploadedFiles = async () => {
-            const response = await fileUpload.getFileUploads();
-            setUploadedFiles(response);
-        }
+        // const getUploadedFiles = async () => {
+        //     const response = await fileUpload.getFileUploads();
+        //     setUploadedFiles(response);
+        // }
 
-        getUploadedFiles();
+        // getUploadedFiles();
     }, [])
 
 
@@ -85,33 +83,7 @@ const ImageUploadModal = (props) => {
                 </div>
                 <Separator variant='custom' className='w-full' />
 
-                <div className="flex flex-col w-full px-2 py-2 mx-2">
-                    <div className="flex flex-col my-2">
-                        <Typography size='md'>Your Files</Typography>
-                        <Typography size='xs' textVariant='default'>Files uploaded by you</Typography>
-                        <Typography size='xs' textVariant='default' className='text-secondary'>Click on the file to copy the url to clipboard</Typography>
-                    </div>
-
-                    <div className="flex text-default">
-                        <div>
-                            <span>PDF</span>
-                        </div>,
-                        <div>
-                            <span>Image</span>
-                        </div>
-                    </div>
-
-
-                    <div className="h-48 overflow-scroll pr-4">
-                        {uploadedFiles.map((uploadedFile, index) => 
-                             <UploadedImagesItem key={index} file={uploadedFile} onCopy={handleCopyFilePath} />
-                        )}
-                    </div>
-
-                </div>
-
-
-
+                <UploadedImages uploadedFiles={uploadedFiles} onCopy={handleCopyFilePath} setUploadedFiles={setUploadedFiles} />
 
 
             </Flex>
