@@ -11,7 +11,7 @@ const filesListAccordionIcon = {
 }
 
 const UploadedImages = ({ uploadedFiles, onCopy, setUploadedFiles }) => {
-    const [isFilesListOpen, setIsFilesListOpen] = useState(false);
+    const [isFilesListOpen, setIsFilesListOpen] = useState(true);
 
     const toggleFilesList = () => {
         setIsFilesListOpen((previousState) => !previousState);

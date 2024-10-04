@@ -23,10 +23,9 @@ const UploadedFilePreviewItems = ({ onRemoveFile, onRetryFile, fileUploadStatusI
                         <span className="w-3/4 font-bold text-ellipsis overflow-hidden">{name}</span>
                         <span className="">{size}</span>
                         <span className="text-secondary">{format}</span>
-
                     </div>
                     <div className="flex flex-col items-center justify-center px-4 mt-1 w-full">
-                        {onRemoveFile && <div onClick={(e) => onRemoveFile(id, e)} className="flex items-center justify-between border border-destructive hover-destructive cursor-pointer rounded-md px-1 py-1 my-1">
+                        {(!isUploading && onRemoveFile) && <div onClick={(e) => onRemoveFile(id, e)} className="flex items-center justify-between border border-destructive hover-destructive cursor-pointer rounded-md px-1 py-1 my-1">
                             <span className="flex items-center mr-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-x"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><line x1="15" x2="9" y1="9" y2="15" /><line x1="9" x2="15" y1="9" y2="15" /></svg>
                             </span>
