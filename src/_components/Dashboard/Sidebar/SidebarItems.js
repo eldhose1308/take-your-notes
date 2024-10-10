@@ -6,7 +6,7 @@ const SidebarItems = (props) => {
     const { item = {}, isActive=false } = props;
     const { toggleSidebar } = useTemplateProvider()
 
-    const { id, text, route, svg } = item;
+    const { id, text, route, svg, path } = item;
 
     return (
         <Link to={route}>

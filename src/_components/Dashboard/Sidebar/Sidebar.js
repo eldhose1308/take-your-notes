@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from 'react-router-dom';
 
 import { MENU_ITEMS } from "_constants/SidebarValues";
 
@@ -10,6 +11,7 @@ const { top, middle, bottom } = MENU_ITEMS
 
 const Sidebar = (props) => {
     const { isSidebarOpen, toggleSidebar } = useTemplateProvider()
+    const { pathname } = useLocation();
 
 
     return (
@@ -29,16 +31,16 @@ const Sidebar = (props) => {
 
                 <div className="aside_divst">
                     {top.map(menuItem => {
-                        const { id } = menuItem
-                        return (<SidebarItems key={id} item={menuItem} />)
+                        const { id, path } = menuItem
+                        return (<SidebarItems key={id} item={menuItem} isActive={pathname === path} />)
                     })}
                     {middle.map(menuItem => {
                         const { id, text, path } = menuItem
-                        return (<SidebarItems key={id} item={menuItem} />)
+                        return (<SidebarItems key={id} item={menuItem} isActive={pathname === path} />)
                     })}
                     {bottom.map(menuItem => {
                         const { id, text, path } = menuItem
-                        return (<SidebarItems key={id} item={menuItem} />)
+                        return (<SidebarItems key={id} item={menuItem} isActive={pathname === path} />)
                     })}
                 </div>
             </aside>
