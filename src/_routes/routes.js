@@ -40,7 +40,19 @@ export const ROUTES = [
       children: [
         {
           path: PATHS.home,
+          element: <div>Home page</div>,
+        },
+        {
+          path: PATHS.notes,
           element: <Home />,
+        },
+        {
+          path: PATHS.posts,
+          element: <div>Posts page</div>,
+        },
+        {
+          path: PATHS.tasks,
+          element: <div>Tasks page</div>,
         },
         {
           path: PATHS.publish,
