@@ -51,20 +51,21 @@ const NotesEditor = (props) => {
     }
 
     const handleKeyDown = (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-            e.preventDefault()
-            onSave({ content: markdownContent, title: noteTitle })
-        }
+        // if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        //     e.preventDefault()
+        //     handleSave();
+        //     // onSave({ content: markdownContent, title: noteTitle })
+        // }
 
         if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
             e.preventDefault()
             handlePreview()
         }
 
-        if (e.key === 'Escape') {
-            e.preventDefault()
-            onCancel()
-        }
+        // if (e.key === 'Escape') {
+        //     e.preventDefault()
+        //     onCancel()
+        // }
     }
 
     return (
@@ -116,7 +117,7 @@ const NotesEditor = (props) => {
                 </Flex>
 
                 <div className="h-screen-1/2 overflow-scroll">
-                    <MarkdownEditor {...props} content={markdownContent} isPreviewEnabled={isPreviewEnabled} onFocus={handleFocus} onChange={handleMarkdownChange} onKeyDown={handleKeyDown} />
+                    <MarkdownEditor {...props} content={markdownContent} isPreviewEnabled={isPreviewEnabled} onFocus={handleFocus} onChange={handleMarkdownChange} onSave={handleSave} onKeyDown={handleKeyDown} />
                 </div>
 
             </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Post from '_modules/posts/_components/Post';
+import Post from '_modules/posts/_components/list/PostList';
 import { TabItem, Tabs } from '_components/UI/Tabs/Tabs';
 import { Card, CardContent, CardFooter, CardTitle } from "_components/Misc/Card/Card";
 import Typography from "_components/Misc/Typography/Typography";

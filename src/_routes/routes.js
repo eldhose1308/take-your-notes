@@ -12,6 +12,7 @@ import { PATHS } from './paths'
 import SeeLater from '_pages/home/SeeLater'
 import Sample from '_pages/home/Sample/Sample'
 import Publish from '_pages/publish/Publish'
+import Posts from '_pages/posts/Posts'
 
   
 export const ROUTES = [
@@ -48,7 +49,7 @@ export const ROUTES = [
         },
         {
           path: PATHS.posts,
-          element: <div>Posts page</div>,
+          element: <Posts />,
         },
         {
           path: PATHS.tasks,

@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import TextBoxWithSuggestions from "../TextBoxWithSuggestions/TextBoxWithSuggestions";
 
 
-const suggestions = [{
+const dummySuggestions = [{
     id: 'One',
     text: 'One'
 },
@@ -32,7 +32,7 @@ const suggestions = [{
 ]
 
 const Tags = (props) => {
-    const { tags = [], onChange = () => { }, className, ...textBoxProps } = props;
+    const { tags = [], suggestions=dummySuggestions, onChange = () => { }, onCreate = () => { }, className, ...textBoxProps } = props;
     const extraProps = {
         placeholder: 'Type and press Enter'
     }
@@ -59,7 +59,7 @@ const Tags = (props) => {
         if (e.key === 'Enter') {
             if (!value) { return }
             setValue('')
-            onChange([...tags, value])
+            onCreate(value)
         }
 
         if (e.key === 'Backspace' && value.length === 0) {
@@ -75,26 +75,29 @@ const Tags = (props) => {
 
     const handleSuggestionClick = (id, selectedValues) => {
         onChange(selectedValues)
-        setValue('')
+        // setValue('')
     }
 
     const handleCreate = (value, selectedValues) => {
         // alert('Create')
-        onChange(selectedValues)
+        onCreate(value)
         setValue('')
     }
 
     return (
         <React.Fragment>
-            <div className={`flex max-w-md justify-end ${className}`}>
-                {tags.map((tagItem, index) => (
+            <div>
+            <div className={`flex max-w-mds justify-ends ${className}`}>
+                {tags.map((tag, index) => {
+                    const { text: tagItem } = tag;
+                    return (
                     <div key={index} className="flex bg-custom mx-1 my-1 text-xs rounded-md">
                         <span className="mx-1 px-2 py-1">#{tagItem}</span>
                         <span className="flex items-center text-bold rounded-md cursor-pointer px-1 hover-destructive hover-text-custom" onClick={() => handleRemoveTag(index)}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                         </span>
                     </div>
-                ))}
+                )})}
                 {tags.length > 2 && (
                     <div className="flex mx-1 my-1 text-xs rounded-md">
                         <span className="flex items-center text-bold rounded-md cursor-pointer px-1 hover-destructive hover-text-custom" onClick={handleRemoveAll}>
@@ -103,10 +106,11 @@ const Tags = (props) => {
                     </div>
                 )}
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-ends">
                 <div className="min-w-md">
                     <TextBoxWithSuggestions {...extraProps} {...textBoxProps} onKeyDown={handleKeyDown} onChange={handleChange} onSuggestionClick={handleSuggestionClick} onCreate={handleCreate} value={value} selectedOptions={tags} suggestions={suggestions} />
                 </div>
+            </div>
             </div>
         </React.Fragment>
     )

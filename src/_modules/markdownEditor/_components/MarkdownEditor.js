@@ -14,7 +14,7 @@ import { formatFileToMarkdown } from "../_utils/editor";
 const MarkdownEditor = (props) => {
     const { content: markdownContent, isPreviewEnabled, onChange = () => { }, onKeyDown = () => { }, onSave = () => { }, onCancel = () => { }, onFocus = () => { } } = props
 
-    // const [markdownContent, setMarkdownContent] = useState(content)
+    // const [markdownContent_state, setMarkdownContent] = useState(markdownContent)
 
     const [hasImageModal, setHasImageModal] = useState(false);
     const [pastedFiles, setPastedFiles] = useState(null);
@@ -84,15 +84,15 @@ const MarkdownEditor = (props) => {
     }
 
     const handleKeyDown = (e) => {
-        // if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-        //     e.preventDefault()
-        //     onSave(markdownContent)
-        // }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            e.preventDefault()
+            onSave()
+        }
 
-        // if (e.key === 'Escape') {
-        //     e.preventDefault()
-        //     onCancel()
-        // }
+        if (e.key === 'Escape') {
+            e.preventDefault()
+            onCancel()
+        }
 
         if (e.key === 'Enter') {
             handleEnterKey(e);

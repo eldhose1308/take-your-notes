@@ -49,7 +49,7 @@ const useForm = ({ schema }) => {
                 try{
                     await submitCallback(formFields)
                 }catch(err){
-
+                    throw err;
                 }finally{
                     setIsSubmitting(false)
                 }

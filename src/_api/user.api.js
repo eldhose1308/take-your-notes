@@ -27,7 +27,7 @@ const signin = (payload) => {
         .then((res) => {
             return res
         }).catch((err) => {
-            throw err.response
+            throw err
         })
 } 
 
@@ -36,7 +36,7 @@ const signup = (payload) => {
         .then((res) => {
             return res
         }).catch((err) => {
-            throw err.response
+            throw err
         })
 } 
 

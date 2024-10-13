@@ -2,7 +2,7 @@ import React from "react";
 
 import Flex from "_components/Misc/Flex/Flex";
 import Avatar from "_components/UI/Avatar/Avatar";
-import Post from "_modules/posts/_components/Post";
+import Post from "_modules/posts/_components/list/PostList";
 import { Card, CardContent, CardFooter, CardTitle } from "_components/Misc/Card/Card";
 import Typography from "_components/Misc/Typography/Typography";
 import { Button } from "_components/Form";

@@ -1,14 +1,22 @@
 import * as user from '_api/user.api'
 
-const login = async (data, config={}) => {
-    const response = await user.signin(data, config)
-    return response
+const login = async (data, config = {}) => {
+    try {
+        const response = await user.signin(data, config)
+        return response
+    } catch (err) {
+        throw err;
+    }
 }
 
 
-const register = async (data, config={}) => {
-    const response = await user.signup(data, config)
-    return response
+const register = async (data, config = {}) => {
+    try {
+        const response = await user.signup(data, config)
+        return response
+    } catch (err) {
+        throw err;
+    }
 }
 
 export {

@@ -21,7 +21,7 @@ export default function AccessAPI(url){
                     if (xhr.status === 200 || xhr.status === 201 || xhr.status === 204) { 
                         resolve(xhr.response)
                     } else { 
-                        reject({status: xhr.status, statusText: xhr.statusText, response: xhr.response})
+                        reject(xhr.response)
                     }
                 };
 
