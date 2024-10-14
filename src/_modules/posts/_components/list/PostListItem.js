@@ -9,10 +9,11 @@ import FollowButton from '_modules/users/_component/FollowButton';
 
 
 const PostListItem = (props) => {
-    const { hasFollowButton = true } = props;
+    const { postItem, onEdit, hasFollowButton = true } = props;
+    const { postTitle, postSlug, id, content, categoryName } = postItem;
 
     return (
-        <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full'>
+        <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-md'>
             <CardHeader>
                 <Flex justifyContent='spaceBetween' alignItems='none'>
                     <div className="flex mb-2">
@@ -36,14 +37,16 @@ const PostListItem = (props) => {
             </CardHeader>
 
             <CardContent>
-                <div className='cursor-pointer group-hover'>
+                <div onClick={(e) => onEdit(id, postItem, e)} className='cursor-pointer group-hover'>
                     <Typography type='h1' size='md' className='mb-2 w-full'>
-                        Might Nvidia Be the First Company With an AI CEO?
+                        {postTitle}
                         <span className="text-center ml-2 invisible group-hover-item">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-chevron-right"><circle cx="12" cy="12" r="10" /><path d="m10 8 4 4-4 4" /></svg>
                         </span>
                     </Typography>
-                    <Typography variant='secondary' size='xs' textVariant='default'>Might Nvidia Be the First Company With an AI CEO?</Typography>
+                    {/* <Typography variant='secondary' size='xs' textVariant='default'>
+                        {content}
+                    </Typography> */}
                 </div>
                 <span></span>
             </CardContent>

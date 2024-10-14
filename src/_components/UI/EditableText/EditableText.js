@@ -9,6 +9,10 @@ const EditableText = (props) => {
     const [value, setValue] = useState(text)
     const [isEditing, setIsEditing] = useState(false)
 
+    useEffect(() => {
+        setValue(text);
+    }, [text])
+
     const enterEditMode = () => {
         setIsEditing(true)
     }

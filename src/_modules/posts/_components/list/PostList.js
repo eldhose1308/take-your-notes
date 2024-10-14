@@ -4,9 +4,10 @@ import Typography from "_components/Misc/Typography/Typography";
 import PostListItem from './PostListItem';
 import PostVisibilitySelector from '../PostVisibilitySelector';
 import { VISIBILITY_MODES } from '_modules/posts/_constants/posts';
+import CreatePostButton from '../CreatePostButton';
 
 const PostList = (props) => {
-    const { hasFollowButton = true, onCreate, onEdit } = props;
+    const { hasFollowButton = true, postsList=[], onCreate, onEdit } = props;
     const [currentVisibilityMode, setCurrentVisibilityMode] = useState(VISIBILITY_MODES.public)
 
     const handleVisibilityModeChange = (newMode) => {
@@ -24,15 +25,8 @@ const PostList = (props) => {
                             List of all the posts published by you
                         </Typography>
                     </div>
-                    <div className="flex flex-col">
-                        <div onClick={onCreate} className="bg-accent border border-accent hover-text-default hover-border-accent hover-transparent text-custom text-sm my-2 p-1 px-2 cursor-pointer rounded-md">
-                            <span className="flex">
-                                Start Writing
-                                <span className="flex items-center ml-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus"><circle cx="12" cy="12" r="10" /><path d="M8 12h8" /><path d="M12 8v8" /></svg>
-                                </span>
-                            </span>
-                        </div>
+                    <div className="flex flex-col my-2">
+                        <CreatePostButton onCreate={onCreate} />
                     </div>
                 </div>
 
@@ -52,9 +46,27 @@ const PostList = (props) => {
                 </div>
 
                 <div className="flex w-full px-2 my-4 rounded-md h-screen overflow-scroll">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => (
-                        <PostListItem hasFollowButton={hasFollowButton} />
-                    ))}
+                    {!postsList.length ? (
+                        <div className='flex flex-col w-full items-center'>
+                            <Typography size='lg' type='h2'>No Blog Posts Available</Typography>
+                            <Typography variant='secondary' size='sm' textVariant='default'>
+                                It seems there aren't any blog posts to display right now.
+                            </Typography>
+                            <Typography variant='secondary' size='sm' textVariant='default'>
+                                Start creating a new blog post to share your thoughts and ideas!
+                            </Typography>
+                            
+                            <div className='my-4'>
+                                <CreatePostButton onCreate={onCreate} />
+                            </div>
+                        </div>
+                    ) : (
+                        <div className='flex content-start'>
+                        <React.Fragment>
+                            {postsList.map(postItem => <PostListItem key={postItem.id} postItem={postItem} onEdit={onEdit} hasFollowButton={hasFollowButton} />)}
+                        </React.Fragment>
+                        </div>
+                    )}
                 </div>
             </div>
 

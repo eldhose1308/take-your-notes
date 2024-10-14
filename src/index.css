@@ -553,6 +553,13 @@ line-height: 1.5rem;
   align-items: start;
 }
 
+.content-start	{
+  align-content: flex-start;
+}
+
+.justify-start	{
+  justify-content: flex-start;
+}
 .justify-center {
   justify-content: center;
 }

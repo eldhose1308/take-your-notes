@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import MarkdownEditor from "_modules/markdownEditor/_components/MarkdownEditor";
 import BreadCrumbs from "_components/UI/BreadCrumbs/BreadCrumbs";
@@ -6,7 +6,7 @@ import Tags from "_components/UI/Tags/Tags";
 import EditableText from "_components/UI/EditableText/EditableText";
 import PostVisibilitySelector from "../PostVisibilitySelector";
 
-import { VISIBILITY_MODES } from "../../_constants/posts";
+import { VISIBILITY_MODES, EMPTY_POST_TITLE } from "../../_constants/posts";
 
 const tagsSuggestions = [
     { id: 'JavaScript', text: 'JavaScript' },
@@ -48,10 +48,12 @@ const tagsSuggestions = [
 ];
 
 const PostForm = (props) => {
-    const { onCancel } = props;
+    const { id, postDetails, onCreate, onUpdate, onCancel } = props;
 
     const [postTags, setPostTags] = useState([]);
     const [currentVisibilityMode, setCurrentVisibilityMode] = useState(VISIBILITY_MODES.private)
+    const [postCategory, setPostCategory] = useState({ id: 1, text: 'Category 1' });
+    const [postTitle, setPostTitle] = useState(EMPTY_POST_TITLE);
 
     const [markdownContent, setMarkdownContent] = useState('')
 
@@ -73,6 +75,34 @@ const PostForm = (props) => {
         setMarkdownContent(value)
     }
 
+    const handlePostTitleChange = (value) => {
+        setPostTitle(value);
+    }
+
+    const handleSave = () => {
+        // validate
+        const postPayload = {
+            category: postCategory.id,
+            content: markdownContent,
+            post_title: postTitle
+        }
+        id ? onUpdate(postPayload, id) : onCreate(postPayload);
+    }
+
+    useEffect(() => {
+        if(!id){
+            return
+        }
+
+        if(postDetails){
+            const { category, content, postTitle, postSlug } = postDetails || {};
+            const { categoryId, categoryName } = category;
+            setPostCategory({ id: categoryId, text: categoryName });
+            setMarkdownContent(content);
+            setPostTitle(postTitle);
+        }
+    },[id, postDetails])
+
     return (
         <React.Fragment>
             <div className="flex">
@@ -88,7 +118,6 @@ const PostForm = (props) => {
                     <div>
                         <BreadCrumbs items={['CategoryName', 'Post Slug Post Slug Post Slug Post Slug Post SlugPost SlugPost SlugPos']} />
                     </div>
-                    {/* <span>URL preview</span> */}
                     <div className="flex">
                         <Tags textBoxFieldProps={{ size: 'sm', placeholder: 'Choose tags (press Enter to add)' }} tags={postTags} onChange={handleSelectTags} onCreate={handleTagCreate} suggestions={tagsSuggestions} />
                     </div>
@@ -97,7 +126,7 @@ const PostForm = (props) => {
                     <div className="">
                         <PostVisibilitySelector onChange={handleVisibilityModeChange} currentMode={currentVisibilityMode} />
                     </div>
-                    <div className="bg-accent border border-accent hover-text-default hover-border-accent hover-transparent text-custom text-sm my-2 p-1 px-2 cursor-pointer rounded-md">
+                    <div onClick={handleSave} className="bg-accent border border-accent hover-text-default hover-border-accent hover-transparent text-custom text-sm my-2 p-1 px-2 cursor-pointer rounded-md">
                         <span className="flex">
                             Save
                             <span className="text-xs bg-secondary text-secondary border border-secondary px-1 mx-1 rounded-md">⌘ + Enter</span>
@@ -106,7 +135,7 @@ const PostForm = (props) => {
                 </div>
             </div>
             <div className="editing-note py-2 bg-default shadow-xl rounded-lg">
-                <EditableText className="text-default text-lg mx-2" text={'noteTitle'} onSave={() => { }} />
+                <EditableText className="text-default text-lg mx-2" text={postTitle} onSave={handlePostTitleChange} />
                 <div className="h-screen-1/2 overflow-scroll">
                     <MarkdownEditor content={markdownContent} onChange={handleMarkdownChange} isPreviewEnabled />
                 </div>
