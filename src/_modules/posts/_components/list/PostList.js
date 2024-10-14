@@ -1,17 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Typography from "_components/Misc/Typography/Typography";
 import PostListItem from './PostListItem';
 import PostVisibilitySelector from '../PostVisibilitySelector';
 import { VISIBILITY_MODES } from '_modules/posts/_constants/posts';
 import CreatePostButton from '../CreatePostButton';
+import PostCategory from '../PostCategory';
 
 const PostList = (props) => {
-    const { hasFollowButton = true, postsList=[], onCreate, onEdit } = props;
+    const { hasFollowButton = true, postsList = [], categories, onCreate, onEdit } = props;
     const [currentVisibilityMode, setCurrentVisibilityMode] = useState(VISIBILITY_MODES.public)
+    const [postCategory, setPostCategory] = useState(categories[0]);
+
+    useEffect(() => {
+        setPostCategory(categories[0])
+    }, [categories])
 
     const handleVisibilityModeChange = (newMode) => {
         setCurrentVisibilityMode(newMode);
+    }
+    const handlePostCategoryChange = (id, option) => {
+        setPostCategory(option);
     }
 
 
@@ -36,7 +45,9 @@ const PostList = (props) => {
                     </div>
 
                     <div className='mx-2'>
-                        <span>Category</span>
+                        <div className="flex text-sm p-2 bg-highlight rounded-md cursor-pointer mx-1">
+                            <PostCategory category={postCategory} categoryList={categories} onChange={handlePostCategoryChange} />
+                        </div>
                     </div>
 
                     <div className='mx-2'>
@@ -55,16 +66,16 @@ const PostList = (props) => {
                             <Typography variant='secondary' size='sm' textVariant='default'>
                                 Start creating a new blog post to share your thoughts and ideas!
                             </Typography>
-                            
+
                             <div className='my-4'>
                                 <CreatePostButton onCreate={onCreate} />
                             </div>
                         </div>
                     ) : (
                         <div className='flex content-start'>
-                        <React.Fragment>
-                            {postsList.map(postItem => <PostListItem key={postItem.id} postItem={postItem} onEdit={onEdit} hasFollowButton={hasFollowButton} />)}
-                        </React.Fragment>
+                            <React.Fragment>
+                                {postsList.map(postItem => <PostListItem key={postItem.id} postItem={postItem} onEdit={onEdit} hasFollowButton={hasFollowButton} />)}
+                            </React.Fragment>
                         </div>
                     )}
                 </div>

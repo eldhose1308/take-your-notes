@@ -45,6 +45,7 @@ const ComboboxTrigger = ({ children }) => {
 const ComboboxContent = ({ heading = 'Heading', children, options = [], selectedValue, renderAdd, renderItemAction, onChange, onSearch }) => {
   const { isMenuOpen, hide, searchQuery, setSearchQuery } = useContext(ComboboxContext)
   // call debounced search func
+  const [highlightedIndex, setHighlightedIndex] = useState(-1)
 
   const dropdownRef = useRef(null);
   const filteredItems = useMemo(() =>
@@ -57,13 +58,30 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], selected
     setSearchQuery(value);
     onSearch && onSearch(value, e); // call debounced search func
   }
+  
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'ArrowDown') {
+        setHighlightedIndex((prevIndex) => (prevIndex + 1) % filteredItems.length)
+    } else if (event.key === 'ArrowUp') {
+        setHighlightedIndex((prevIndex) => (prevIndex - 1 + filteredItems.length) % filteredItems.length)
+    } else if (event.key === 'Enter') {
+        if (highlightedIndex >= 0 && highlightedIndex < filteredItems.length) {
+            const selectedSuggestion = filteredItems[highlightedIndex]
+            onChange(selectedSuggestion.id, selectedSuggestion, highlightedIndex)
+        }
+    } else 
+    if (event.key === 'Escape') {
+        event.preventDefault();
+        hide();
+    }
+}
 
   useEffect(() => {
 
   }, [searchQuery])
 
   useEffect(() => {
-
     const closeDropdown = () => {
       hide();
     }
@@ -81,13 +99,16 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], selected
   return (
     <React.Fragment>
       {isMenuOpen && (
-        <div ref={dropdownRef} className="absolute my-2 top-100 right-0 left-0 text-xs flex flex-row bg-default min-w-sm max-w-xs overflow-y-scroll rounded-md border border-another px-1 py-1 z-10">
+        <div ref={dropdownRef} onKeyDown={handleKeyDown} className="absolute my-2 top-100 right-0 left-0 text-xs flex flex-row bg-default min-w-md max-w-sm overflow-y-scroll rounded-md border border-another px-1 py-1 z-10">
           <div className="flex items-center justify-between w-full px-2">
             <span>
               {heading}
             </span>
-            <span onClick={hide} className="flex items-center rounded-md cursor-pointer hover-accent hover-text-custom p-1">
+            {/* <span onClick={hide} className="flex items-center rounded-md cursor-pointer hover-accent hover-text-custom p-1">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path></svg>
+            </span> */}
+            <span onClick={hide} className="flex items-center text-default hover-text-custom hover-accent p-1 rounded-md cursor-pointer">
+              <span className="text-xs bg-secondary text-secondary border border-secondary px-1 mx-1 rounded-md">Esc</span>
             </span>
           </div>
           <div className="Combobox-search my-2 w-full">
@@ -99,10 +120,10 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], selected
               <span className="py-2 px-2 flex items-center">No results found.</span>
             )}
 
-            {filteredItems.map(option => {
+            {filteredItems.map((option, index) => {
               const { id, label, value } = option;
               return (
-                <span key={`combobox_item_${value}`} onClick={(e) => { onChange(id, option, e); hide(); }} className={`flex flex-nowrap justify-between items-center w-full py-1.5 mb-1 px-2 cursor-pointer rounded-md ${selectedValue === id ? 'bg-highlight' : 'hover-custom'} text-secondary group-hover`}>
+                <span key={`combobox_item_${value}`} onClick={(e) => { onChange(id, option, e); hide(); }} className={`flex flex-nowrap justify-between items-center w-full py-1.5 mb-1 px-2 cursor-pointer rounded-md ${selectedValue === id ? 'bg-highlight' : 'hover-custom'} ${highlightedIndex === index ? 'bg-custom' : ''} text-secondary group-hover`}>
                   <span className={`${renderItemAction ? 'w-60' : ''}`}>
                     {highlightText(label, searchQuery)}
                   </span>

@@ -4,6 +4,7 @@ import PostForm from "_modules/posts/_components/form/PostForm";
 import PostList from "_modules/posts/_components/list/PostList";
 
 import * as posts from "_services/posts.service";
+import * as postsCategories from "_services/postsCategories.service";
 
 
 
@@ -11,8 +12,9 @@ const Posts = () => {
     const [isCreating, setIsCreating] = useState(false);
     const [selectedPost, setSelectedPost] = useState(null);
 
+    const [postCategoriesList, setPostCategoriesList] = useState([]);
     const [postsList, setPostsList] = useState([]);
-    const normalisedPosts = useMemo(() => postsList.reduce((acc, postItem) => ({ ...acc, [postItem.id]: postItem }), {}))
+    const normalisedPosts = useMemo(() => postsList.reduce((acc, postItem) => ({ ...acc, [postItem.id]: postItem }), {}), [postsList])
 
     const navigateToCreate = () => {
         setSelectedPost(null);
@@ -55,6 +57,17 @@ const Posts = () => {
             setPostsList(postsData);
         }
 
+        const fetchPostCategories = async () => {
+            const postsData = await postsCategories.getPostsCategories();
+            const postDataFormatted = postsData.map((postData) => {
+                const { id, categoryName, categoryIcon } = postData;
+                return { id, label: categoryName, value: id }
+            })
+            setPostCategoriesList(postDataFormatted);
+        }
+
+        fetchPostCategories();
+
         fetchUserPosts();
     }, [])
 
@@ -62,9 +75,9 @@ const Posts = () => {
         <React.Fragment>
             <div className="text-default m-5">
                 {isCreating ? (
-                    <PostForm id={selectedPost} postDetails={normalisedPosts[selectedPost]} onCreate={handleCreate} onUpdate={handleUpdate} onCancel={navigateToList} />
+                    <PostForm id={selectedPost} postDetails={normalisedPosts[selectedPost]} categories={postCategoriesList} onCreate={handleCreate} onUpdate={handleUpdate} onCancel={navigateToList} />
                 ) : (
-                    <PostList postsList={postsList} onCreate={navigateToCreate} onEdit={navigateToEdit} />
+                    <PostList postsList={postsList} categories={postCategoriesList} onCreate={navigateToCreate} onEdit={navigateToEdit} />
                 )}
             </div>
         </React.Fragment>

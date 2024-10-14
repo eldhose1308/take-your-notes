@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 
 import MarkdownEditor from "_modules/markdownEditor/_components/MarkdownEditor";
 import BreadCrumbs from "_components/UI/BreadCrumbs/BreadCrumbs";
@@ -7,6 +7,7 @@ import EditableText from "_components/UI/EditableText/EditableText";
 import PostVisibilitySelector from "../PostVisibilitySelector";
 
 import { VISIBILITY_MODES, EMPTY_POST_TITLE } from "../../_constants/posts";
+import PostCategory from "../PostCategory";
 
 const tagsSuggestions = [
     { id: 'JavaScript', text: 'JavaScript' },
@@ -47,18 +48,47 @@ const tagsSuggestions = [
     { id: 'Swift', text: 'Swift' },
 ];
 
+
 const PostForm = (props) => {
-    const { id, postDetails, onCreate, onUpdate, onCancel } = props;
+    const { id, postDetails, categories, onCreate, onUpdate, onCancel } = props;
 
-    const [postTags, setPostTags] = useState([]);
-    const [currentVisibilityMode, setCurrentVisibilityMode] = useState(VISIBILITY_MODES.private)
-    const [postCategory, setPostCategory] = useState({ id: 1, text: 'Category 1' });
-    const [postTitle, setPostTitle] = useState(EMPTY_POST_TITLE);
 
-    const [markdownContent, setMarkdownContent] = useState('')
+    const postFormReducer = (state, { type, payload }) => {
+        switch (type) {
+            case 'SET_FIELDS':
+                return { ...state, ...payload };
+            case 'SET_TAGS':
+                return { ...state, postTags: payload };
+            case 'SET_VISIBILITY':
+                return { ...state, currentVisibilityMode: payload };
+            case 'SET_CONTENT':
+                return { ...state, markdownContent: payload };
+            case 'SET_TITLE':
+                return { ...state, postTitle: payload };
+            case 'SET_CATEGORY':
+                return { ...state, postCategory: payload };
+            case 'RESET_FORM':
+                return initialState;
+            default:
+                return state;
+        }
+    };
+
+
+    const initialState = {
+        postTags: [],
+        currentVisibilityMode: VISIBILITY_MODES.private,
+        postTitle: EMPTY_POST_TITLE,
+        postCategory: categories[0] || {},
+        markdownContent: '',
+    };
+
+    const [state, dispatch] = useReducer(postFormReducer, initialState);
+    const { postTags, currentVisibilityMode, postCategory, postTitle, markdownContent } = state;
+
 
     const handleSelectTags = (tagsList) => {
-        setPostTags(tagsList);
+        dispatch({ type: 'SET_TAGS', payload: tagsList });
     }
 
     const handleTagCreate = (tag) => {
@@ -67,16 +97,20 @@ const PostForm = (props) => {
     }
 
     const handleVisibilityModeChange = (newMode) => {
-        setCurrentVisibilityMode(newMode);
+        dispatch({ type: 'SET_VISIBILITY', payload: newMode });
     }
 
 
     const handleMarkdownChange = (value) => {
-        setMarkdownContent(value)
+        dispatch({ type: 'SET_CONTENT', payload: value });
     }
 
     const handlePostTitleChange = (value) => {
-        setPostTitle(value);
+        dispatch({ type: 'SET_TITLE', payload: value });
+    }
+
+    const handlePostCategoryChange = (id, option) => {
+        dispatch({ type: 'SET_CATEGORY', payload: option });
     }
 
     const handleSave = () => {
@@ -90,28 +124,32 @@ const PostForm = (props) => {
     }
 
     useEffect(() => {
-        if(!id){
+        if (!id) {
             return
         }
 
-        if(postDetails){
+        if (postDetails) {
             const { category, content, postTitle, postSlug } = postDetails || {};
             const { categoryId, categoryName } = category;
-            setPostCategory({ id: categoryId, text: categoryName });
-            setMarkdownContent(content);
-            setPostTitle(postTitle);
+
+            const payload = { markdownContent: content, postTitle, postCategory : { id: categoryId, label: categoryName, value: id } };
+
+            dispatch({ type: 'SET_FIELDS', payload });
         }
-    },[id, postDetails])
+    }, [id, postDetails])
 
     return (
         <React.Fragment>
-            <div className="flex">
-                <span onClick={onCancel} className="flex text-sm p-2 bg-default hover-accent hover-text-custom rounded-md cursor-pointer">
+            <div className="flex my-2">
+                <span onClick={onCancel} className="flex text-sm p-2 bg-default hover-accent hover-text-custom rounded-md cursor-pointer mx-1">
                     <span className="flex items-center pr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-chevron-left"><circle cx="12" cy="12" r="10" /><path d="m14 16-4-4 4-4" /></svg>
                     </span>
                     Go Back
                 </span>
+                <div className="flex text-sm p-2 bg-highlight rounded-md cursor-pointer mx-1">
+                    <PostCategory category={postCategory} categoryList={categories} onChange={handlePostCategoryChange} />
+                </div>
             </div>
             <div className="flex justify-between w-full ">
                 <div className="flex flex-col w-3/4">
@@ -142,6 +180,6 @@ const PostForm = (props) => {
             </div>
         </React.Fragment>
     )
-} 
+}
 
 export default PostForm;
