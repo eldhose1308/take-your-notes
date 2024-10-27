@@ -4,14 +4,13 @@ import { GoogleLogin } from "@react-oauth/google";
 
 import { Button, TextBox } from "_components/Form";
 import Flex from "_components/Misc/Flex/Flex";
-import Typography from "_components/Misc/Typography/Typography";
 
 import useForm from "_hooks/useForm";
 
 import { SignUpSchema } from "../_utils/validation-rules";
 
 const SignUpForm = (props) => {
-    const { onSubmit } = props;
+    const { onSubmit, buttonStatus, buttonStatusText } = props;
 
     const { register, submit, errors, isSubmitting } = useForm({ schema: SignUpSchema })
 
@@ -42,8 +41,35 @@ const SignUpForm = (props) => {
                 />
             </div>
 
-            <Button variant='accent' isLoading={isSubmitting} disabled={isSubmitting} onClick={submit(onSubmit)}>
-                Sign Up with Email
+            <div className="my-3">
+                <TextBox
+                    type='text'
+                    labelName="Full Name"
+                    placeHolder="Enter full name"
+                    validationMsg={errors.full_name}
+                    // className='my-2'
+                    {...register('full_name')}
+                />
+            </div>
+
+            <div className="my-3">
+                <TextBox
+                    type='text'
+                    labelName="User Name"
+                    placeHolder="Enter user name"
+                    validationMsg={errors.user_name}
+                    // className='my-2'
+                    {...register('user_name')}
+                />
+            </div>
+
+            <Button variant='accent' buttonStatus={buttonStatus} disabled={isSubmitting} onClick={submit(onSubmit)}>
+                <span className="flex items-center">
+                    Sign Up with Email
+                    <span className="flex items-end ml-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right animate-bounce-x"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
+                    </span>
+                </span>
             </Button>
 
 
@@ -52,7 +78,7 @@ const SignUpForm = (props) => {
             </div>
 
 
-            <Flex direction='column'>
+            <Flex direction='column' className='mb-4'>
 
                 <GoogleLogin
                     text="signup_with"
@@ -62,9 +88,9 @@ const SignUpForm = (props) => {
 
             </Flex>
 
-            <Typography variant='secondary' className='my-2'>
+            {/* <Typography variant='secondary' className='my-2'>
                 By clicking continue, you agree to our Terms of Service and Privacy Policy.
-            </Typography>
+            </Typography> */}
 
         </React.Fragment>
     )

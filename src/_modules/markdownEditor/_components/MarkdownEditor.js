@@ -9,15 +9,18 @@ import Toolbar from "./toolbar/Toolbar";
 import './MarkdownEditor.css'
 import ImageUploadModal from "./imageUpload/ImageUploadModal";
 import { formatFileToMarkdown } from "../_utils/editor";
+import { TOOLBAR_MODES } from "../_constants/toolbar";
 
 // split into markdownEditor and PreviewComponent
 const MarkdownEditor = (props) => {
-    const { content: markdownContent, isPreviewEnabled, onChange = () => { }, onKeyDown = () => { }, onSave = () => { }, onCancel = () => { }, onFocus = () => { } } = props
+    const { content: markdownContent, onChange = () => { }, onKeyDown = () => { }, onSave = () => { }, onCancel = () => { }, onFocus = () => { } } = props
 
     // const [markdownContent_state, setMarkdownContent] = useState(markdownContent)
 
     const [hasImageModal, setHasImageModal] = useState(false);
     const [pastedFiles, setPastedFiles] = useState(null);
+
+    const [editorMode, setEditorMode] = useState(TOOLBAR_MODES.EDIT_PREVIEW);
 
     const textareaRef = useRef(null);
     const previewRef = useRef(null);
@@ -30,6 +33,10 @@ const MarkdownEditor = (props) => {
     const markdownInHTML = convertToHTML(markdownContent)
     // console.log(markdownInHTML);
 
+
+    const handlePreview = () => {
+        setEditorMode(TOOLBAR_MODES.PREVIEW);
+    }
 
     const handleEnterKey = (e) => {
         const textarea = textareaRef.current;
@@ -87,6 +94,11 @@ const MarkdownEditor = (props) => {
         if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
             e.preventDefault()
             onSave()
+        }
+
+        if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+            e.preventDefault()
+            handlePreview();
         }
 
         if (e.key === 'Escape') {
@@ -157,11 +169,6 @@ const MarkdownEditor = (props) => {
     }
 
     const handleInsertFileToEditor = (file, e) => {
-        // const markdownContentAfterFileInsertion = file.reduce((acc, fileItem) => {
-        //     const { fileName, filePath } = fileItem;
-        //     const fileFormattedText = `![${fileName}](${filePath}){width=100}{height=100} \n\n`;
-        //     return acc + fileFormattedText;
-        // }, '')
         const markdownContentAfterFileInsertion = formatFileToMarkdown(file);
 
         const { selectionStart, selectionEnd } = lastCaretRef.current;
@@ -171,8 +178,8 @@ const MarkdownEditor = (props) => {
 
     }
 
-    const handleImageUpload = () => {
-        alert(33)
+    const handleEditorModeChange = (selectedMode) => {
+        setEditorMode(selectedMode);
     }
 
     useEffect(() => {
@@ -185,14 +192,17 @@ const MarkdownEditor = (props) => {
 
     return (
         <React.Fragment>
-            <Toolbar onImageInsert={handleImageInsertClick} />
+            <Toolbar onEditorModeChange={handleEditorModeChange} onImageInsert={handleImageInsertClick} />
 
             {hasImageModal && (<ImageUploadModal pastedFiles={pastedFiles} onInsertFileToEditor={handleInsertFileToEditor} onClose={handleImageInsertClose} />)}
+            
             <div className="flex flex-nowrap">
-                <div className={`px-3 my-3 ${isPreviewEnabled ? 'w-half' : 'w-full'} space-y-1`}>
+                {editorMode !== TOOLBAR_MODES.PREVIEW && (
+                <div className={`px-3 my-3 ${editorMode === TOOLBAR_MODES.EDIT_PREVIEW ? 'w-half' : 'w-full'} space-y-1`}>
                     <textarea ref={textareaRef} onPaste={handlePaste} onScroll={handleScroll} className={`bg-default w-full text-default px-2 py-2 text-sm h-screen-75`} id="editor" onChange={handleChange} onKeyDown={handleKeyDown} value={markdownContent} />
                 </div>
-                {isPreviewEnabled && <div ref={previewRef} className={`preview pl-4 text-default border-l border-custom my-3 overflow-scroll w-half h-screen-75`} dangerouslySetInnerHTML={{ __html: markdownInHTML }} />}
+                )}
+                {editorMode !== TOOLBAR_MODES.EDIT && <div ref={previewRef} className={`preview pl-4 text-default border-l border-custom my-3 overflow-scroll ${editorMode === TOOLBAR_MODES.EDIT_PREVIEW ? 'w-half' : 'w-full'} h-screen-75`} dangerouslySetInnerHTML={{ __html: markdownInHTML }} />}
             </div>
 
 

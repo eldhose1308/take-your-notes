@@ -4,11 +4,12 @@ import EditorModeSelector from "./EditorModeSelector";
 import ToolbarButton from "./ToolbarButton";
 
 const Toolbar = (props) => {
-    const { onImageInsert=()=>{} } = props;
+    const { onEditorModeChange=()=>{}, onImageInsert=()=>{} } = props;
     const [mode, setMode] = useState(TOOLBAR_MODES.EDIT_PREVIEW)
 
     const handleModeChange = (newMode) => {
-        setMode(newMode)
+        setMode(newMode);
+        onEditorModeChange(newMode);
     }
 
     return (

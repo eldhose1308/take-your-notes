@@ -1384,14 +1384,16 @@ textarea::placeholder {
 }
 
 .placeholder-visible-focus:not(:focus)::placeholder {
-  opacity: 0;
+  opacity: 1;
+  /* opacity: 0; */
 }
 
 .input.toggle-placeholder:not(:focus)::placeholder {
   opacity: 1;
 }
 
-.input:focus+.label,
+/* .input:focus+.label, */
+.input+.label,
 .input:not(:placeholder-shown)+.label {
   transform: translateY(-1.4rem) scale(.75);
   color: var(--default);

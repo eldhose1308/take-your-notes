@@ -4,14 +4,18 @@ import Typography from "_components/Misc/Typography/Typography";
 import UploadedImagesItem from "./UploadedImagesItem";
 
 import * as fileUpload from "_services/fileUpload.service";
+import useLoading from "_hooks/useLoading";
+import Loader from "_components/Loader/Loader";
 
 const filesListAccordionIcon = {
     true: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up"><path d="m18 15-6-6-6 6" /></svg>,
     false: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6" /></svg>
 }
 
+const StencilLoader = <Loader type='stencil' />
 const UploadedImages = ({ uploadedFiles, onCopy, setUploadedFiles }) => {
     const [isFilesListOpen, setIsFilesListOpen] = useState(true);
+    const { isLoading, startLoading, stopLoading } = useLoading();
 
     const toggleFilesList = () => {
         setIsFilesListOpen((previousState) => !previousState);
@@ -19,7 +23,9 @@ const UploadedImages = ({ uploadedFiles, onCopy, setUploadedFiles }) => {
 
     useEffect(() => {
         const getUploadedFiles = async () => {
+            startLoading();
             const response = await fileUpload.getFileUploads();
+            stopLoading();
             setUploadedFiles(response);
         }
 
@@ -42,7 +48,7 @@ const UploadedImages = ({ uploadedFiles, onCopy, setUploadedFiles }) => {
 
             </div>
 
-            <div className="flex text-default">
+            <div className="flex flex-col text-default">
                 {isFilesListOpen && (
                     <React.Fragment>
 
@@ -54,13 +60,17 @@ const UploadedImages = ({ uploadedFiles, onCopy, setUploadedFiles }) => {
                                 <span>Image</span>
                             </div>
                         </div>
-
-
-                        <div className="h-48 overflow-scroll pr-4">
+                        {isLoading ? (
+                            <div className="flex items-center justify-center text-default mt-4">
+                                {StencilLoader}
+                            </div>
+                        ) : (
+                            <div className="h-48 overflow-scroll pr-4">
                             {uploadedFiles.map((uploadedFile, index) =>
                                 <UploadedImagesItem key={index} file={uploadedFile} onCopy={onCopy} />
                             )}
                         </div>
+                            )}
                     </React.Fragment>
                 )}
 

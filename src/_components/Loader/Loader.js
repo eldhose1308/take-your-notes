@@ -11,7 +11,6 @@ const loadersMap = {
 
 const Loader = (props) => {
     const { type='stencil' } = props;
-    const { isLoading, setIsLoading } = useLoading();
     
     // return Spinner
     const Component = loadersMap[type] || Spinner;
