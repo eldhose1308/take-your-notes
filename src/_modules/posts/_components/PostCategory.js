@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import Combobox, { ComboboxContent, ComboboxTrigger } from "_components/UI/Combobox/Combobox";
 
 const PostCategory = ({ category, categoryList, onChange=()=>{} }) => {
-    const { id, label } = category || {};
+    const { id, categoryName: label } = useMemo(() => category || {}, [category]);
 
     return (
         <Combobox key={`${id}_${label}`} >
@@ -18,6 +18,8 @@ const PostCategory = ({ category, categoryList, onChange=()=>{} }) => {
                 options={categoryList}
                 onChange={onChange}
                 selectedValue={id}
+                idKey='id'
+                labelKey='categoryName'
             />
         </Combobox>)
 }

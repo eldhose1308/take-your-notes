@@ -22,17 +22,20 @@ const buttonVariants = cva(
     }
 )
 
-const Avatar = ({ src, name, alt='Avatar', size, className, ...props }) => {
+const Avatar = ({ src, name='', alt='Avatar', size, className, ...props }) => {
     const classNames = buttonVariants({
         size, className,
     });
+
+    const nameImg = name.split(' ').map(word => word[0]).join('').slice(0,3).toUpperCase();
 
     // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2whjzwoBz71waeE07wh1L_sfjpdm6IIf7g&amp;usqp=CAU"
 
     return (
         <span className={classNames} {...props}>
-            {name ? name : null}
-            {src ? <img alt={alt} className="flex object-cover w-full h-full transition-opacity duration-500" src={src} /> : null}
+            {/* {nameImg ? nameImg : null} */}
+            {src ? <img alt={name || alt} className="flex object-cover w-full h-full transition-opacity duration-500" src={src} /> : 
+            <div>{nameImg}</div>}
         </span>
     )
 }

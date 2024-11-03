@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import PostForm from "_modules/posts/_components/form/PostForm";
 import PostList from "_modules/posts/_components/list/PostList";
@@ -8,7 +9,10 @@ import * as postsCategories from "_services/postsCategories.service";
 
 
 
-const Posts = () => {
+const Posts = ({ action='list' }) => {
+    const navigate = useNavigate();
+    const { id } = useParams();
+    
     const [isCreating, setIsCreating] = useState(false);
     const [selectedPost, setSelectedPost] = useState(null);
 
@@ -19,6 +23,7 @@ const Posts = () => {
     const navigateToCreate = () => {
         setSelectedPost(null);
         setIsCreating(true);
+        navigate("create");
     }
 
     const navigateToEdit = (id, item, e) => {
@@ -74,10 +79,10 @@ const Posts = () => {
     return (
         <React.Fragment>
             <div className="text-default m-5">
-                {isCreating ? (
-                    <PostForm id={selectedPost} postDetails={normalisedPosts[selectedPost]} categories={postCategoriesList} onCreate={handleCreate} onUpdate={handleUpdate} onCancel={navigateToList} />
-                ) : (
+                {action === 'list' ? (
                     <PostList postsList={postsList} categories={postCategoriesList} onCreate={navigateToCreate} onEdit={navigateToEdit} />
+                    ) : (
+                    <PostForm id={selectedPost} postDetails={normalisedPosts[selectedPost]} categories={postCategoriesList} onCreate={handleCreate} onUpdate={handleUpdate} onCancel={navigateToList} />
                 )}
             </div>
         </React.Fragment>

@@ -42,7 +42,7 @@ const ComboboxTrigger = ({ children }) => {
   )
 }
 
-const ComboboxContent = ({ heading = 'Heading', children, options = [], selectedValue, renderAdd, renderItemAction, onChange, onSearch }) => {
+const ComboboxContent = ({ heading = 'Heading', children, options = [], selectedValue, renderAdd, renderItemAction, onChange, onSearch, idKey='id', labelKey='label' }) => {
   const { isMenuOpen, hide, searchQuery, setSearchQuery } = useContext(ComboboxContext)
   // call debounced search func
   const [highlightedIndex, setHighlightedIndex] = useState(-1)
@@ -121,7 +121,7 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], selected
             )}
 
             {filteredItems.map((option, index) => {
-              const { id, label, value } = option;
+              const { [idKey]: id, [labelKey]: label, [idKey]: value } = option;
               return (
                 <span key={`combobox_item_${value}`} onClick={(e) => { onChange(id, option, e); hide(); }} className={`flex flex-nowrap justify-between items-center w-full py-1.5 mb-1 px-2 cursor-pointer rounded-md ${selectedValue === id ? 'bg-highlight' : 'hover-custom'} ${highlightedIndex === index ? 'bg-custom' : ''} text-secondary group-hover`}>
                   <span className={`${renderItemAction ? 'w-60' : ''}`}>

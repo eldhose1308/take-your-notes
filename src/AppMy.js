@@ -28,13 +28,14 @@ export const NoDashboardLayout = () => {
 }
 
 
-export const WithDashboardLayout = () => {
+export const WithDashboardLayout = (props) => {
+  const { authRequired=true } = props;
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (authRequired && !isAuthenticated) {
       navigate('/signin');
     }
   }, [isAuthenticated, navigate])

@@ -1,29 +1,35 @@
 import React from "react";
 
-
 import Flex from '_components/Misc/Flex/Flex';
 import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card/Card";
 import Typography from '_components/Misc/Typography/Typography';
 import Avatar from '_components/UI/Avatar/Avatar';
 import FollowButton from '_modules/users/_component/FollowButton';
+import { isUserDataSameAsLoggedInUser, routeBasedOnAuthorisation } from "_utils/userAuth";
+import { Link } from "react-router-dom";
 
 
 const PostListItem = (props) => {
     const { postItem, onEdit, hasFollowButton = true } = props;
-    const { postTitle, postSlug, id, content, categoryName } = postItem;
+    const { postTitle, postSlug, id, content, category, user } = postItem;
+    const { categoryName } = category || {};
+    const { userName, fullName } = user || {};
+
+    const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
+    const postDetailRoute = routeBasedOnAuthorisation(userName, postSlug)
 
     return (
         <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-md'>
             <CardHeader>
                 <Flex justifyContent='spaceBetween' alignItems='none'>
                     <div className="flex mb-2">
-                        <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2whjzwoBz71waeE07wh1L_sfjpdm6IIf7g&amp;usqp=CAU" />
+                        <Avatar name={fullName} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2whjzwoBz71waeE07wh1L_sfjpdm6IIf7g&amp;usqp=CAU" />
                         <div className="flex flex-col">
-                            <h3 className="text-sm text-default px-3">Joe Banks</h3>
+                            <h3 className="text-sm text-default px-3">{fullName}</h3>
                             <p className="text-secondary px-3 space-y-1 text-xs">2w ago</p>
                         </div>
                     </div>
-                    {hasFollowButton ? (
+                    {!isCurrentUserDetail ? (
                         <div className="bg-custom text-accent hover-text-custom hover-accent text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md">
                             <span className="flex items-center">
                                 <span className="flex items-center mr-2">
@@ -37,7 +43,7 @@ const PostListItem = (props) => {
             </CardHeader>
 
             <CardContent>
-                <div onClick={(e) => onEdit(id, postItem, e)} className='cursor-pointer group-hover'>
+                <Link to={postDetailRoute} className='cursor-pointer group-hover'>
                     <Typography type='h1' size='md' className='mb-2 w-full'>
                         {postTitle}
                         <span className="text-center ml-2 invisible group-hover-item">
@@ -47,7 +53,7 @@ const PostListItem = (props) => {
                     {/* <Typography variant='secondary' size='xs' textVariant='default'>
                         {content}
                     </Typography> */}
-                </div>
+                </Link>
                 <span></span>
             </CardContent>
 

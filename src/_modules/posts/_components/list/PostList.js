@@ -6,27 +6,32 @@ import PostVisibilitySelector from '../PostVisibilitySelector';
 import { VISIBILITY_MODES } from '_modules/posts/_constants/posts';
 import CreatePostButton from '../CreatePostButton';
 import PostCategory from '../PostCategory';
+import usePostsNavigation from '_modules/posts/_hooks/usePostsNavigation';
+import usePosts from '_modules/posts/_hooks/usePosts';
 
 const PostList = (props) => {
-    const { hasFollowButton = true, postsList = [], categories, onCreate, onEdit } = props;
-    const [currentVisibilityMode, setCurrentVisibilityMode] = useState(VISIBILITY_MODES.public)
-    const [postCategory, setPostCategory] = useState(categories[0]);
+    const { navigateToCreate, navigateToEdit } = usePostsNavigation();
+    const { posts, categories, selectedCategory, setSelectedCategory } = usePosts();
 
-    useEffect(() => {
-        setPostCategory(categories[0])
-    }, [categories])
+    const { hasFollowButton = true, onEdit } = props;
+    const [currentVisibilityMode, setCurrentVisibilityMode] = useState(VISIBILITY_MODES.public)
+
+    const handleCreate = () => {
+        navigateToCreate();
+    }
+
 
     const handleVisibilityModeChange = (newMode) => {
         setCurrentVisibilityMode(newMode);
     }
     const handlePostCategoryChange = (id, option) => {
-        setPostCategory(option);
+        setSelectedCategory(option);
     }
 
 
     return (
         <React.Fragment>
-            <div className=''>
+            <div className="text-default m-5">
                 <div className='flex justify-between'>
                     <div className="flex flex-col mx-2 my-2">
                         <Typography size='lg' type='h2'>Your Posts</Typography>
@@ -35,7 +40,7 @@ const PostList = (props) => {
                         </Typography>
                     </div>
                     <div className="flex flex-col my-2">
-                        <CreatePostButton onCreate={onCreate} />
+                        <CreatePostButton onCreate={handleCreate} />
                     </div>
                 </div>
 
@@ -46,7 +51,7 @@ const PostList = (props) => {
 
                     <div className='mx-2'>
                         <div className="flex text-sm p-2 bg-highlight rounded-md cursor-pointer mx-1">
-                            <PostCategory category={postCategory} categoryList={categories} onChange={handlePostCategoryChange} />
+                            <PostCategory category={selectedCategory} categoryList={categories} onChange={handlePostCategoryChange} />
                         </div>
                     </div>
 
@@ -57,7 +62,7 @@ const PostList = (props) => {
                 </div>
 
                 <div className="flex w-full px-2 my-4 rounded-md h-screen overflow-scroll">
-                    {!postsList.length ? (
+                    {!posts.length ? (
                         <div className='flex flex-col w-full items-center'>
                             <Typography size='lg' type='h2'>No Blog Posts Available</Typography>
                             <Typography variant='secondary' size='sm' textVariant='default'>
@@ -68,13 +73,13 @@ const PostList = (props) => {
                             </Typography>
 
                             <div className='my-4'>
-                                <CreatePostButton onCreate={onCreate} />
+                                <CreatePostButton onCreate={handleCreate} />
                             </div>
                         </div>
                     ) : (
                         <div className='flex content-start'>
                             <React.Fragment>
-                                {postsList.map(postItem => <PostListItem key={postItem.id} postItem={postItem} onEdit={onEdit} hasFollowButton={hasFollowButton} />)}
+                                {posts.map(postItem => <PostListItem key={postItem.id} postItem={postItem} onEdit={navigateToEdit} hasFollowButton={hasFollowButton} />)}
                             </React.Fragment>
                         </div>
                     )}

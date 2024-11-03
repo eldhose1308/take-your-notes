@@ -4,8 +4,6 @@ import { AccessAPI } from "_utils";
 
 const login = (data, config={}) => {
     const { setProgress, abortRequest } = config;
-
-    
     let progress = 0;
     return new Promise((resolve, reject) => {
         const intervalId = setInterval(() => {

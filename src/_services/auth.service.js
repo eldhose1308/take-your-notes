@@ -1,4 +1,4 @@
-import * as user from '_api/user.api'
+import * as user from '_api/auth.api'
 
 const login = async (data, config = {}) => {
     try {

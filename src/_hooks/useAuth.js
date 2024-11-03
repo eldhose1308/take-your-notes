@@ -1,7 +1,7 @@
 import { useClientAuth } from "_contexts/AuthProvider"
 import { useTopLoader } from "_contexts/TopLoaderProvider";
 
-import * as userModel from "_services/user.service";
+import * as userModel from "_services/auth.service";
 
 const useAuth = () => {
     const { showTopLoader, hideTopLoader, setProgress } = useTopLoader()
