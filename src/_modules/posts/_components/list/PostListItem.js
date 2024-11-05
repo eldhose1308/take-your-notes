@@ -7,6 +7,7 @@ import Avatar from '_components/UI/Avatar/Avatar';
 import FollowButton from '_modules/users/_component/FollowButton';
 import { isUserDataSameAsLoggedInUser, routeBasedOnAuthorisation } from "_utils/userAuth";
 import { Link } from "react-router-dom";
+import CLIENT_ROUTES from "_routes/clientRoutes";
 
 
 const PostListItem = (props) => {
@@ -17,17 +18,22 @@ const PostListItem = (props) => {
 
     const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
     const postDetailRoute = routeBasedOnAuthorisation(userName, postSlug)
+    const userDetailRoute = CLIENT_ROUTES.USER_DETAIL(userName);
 
     return (
         <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-md'>
             <CardHeader>
-                <Flex justifyContent='spaceBetween' alignItems='none'>
+                <Flex justifyContent='spaceBetween' alignItems='none' className=''>
                     <div className="flex mb-2">
-                        <Avatar name={fullName} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2whjzwoBz71waeE07wh1L_sfjpdm6IIf7g&amp;usqp=CAU" />
-                        <div className="flex flex-col">
-                            <h3 className="text-sm text-default px-3">{fullName}</h3>
-                            <p className="text-secondary px-3 space-y-1 text-xs">2w ago</p>
-                        </div>
+                        <Link to={userDetailRoute} className='cursor-pointer group-hover'>
+                            <div className="flex mb-2">
+                                <Avatar name={fullName} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2whjzwoBz71waeE07wh1L_sfjpdm6IIf7g&amp;usqp=CAU" />
+                                <div className="flex flex-col">
+                                    <h3 className="text-sm text-default px-3">{fullName}</h3>
+                                    <p className="text-secondary px-3 space-y-1 text-xs">2w ago</p>
+                                </div>
+                            </div>
+                        </Link>
                     </div>
                     {!isCurrentUserDetail ? (
                         <div className="bg-custom text-accent hover-text-custom hover-accent text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md">

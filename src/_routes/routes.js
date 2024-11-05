@@ -23,6 +23,7 @@ import UsersList from '_pages/users/UsersList'
 import UsersPostList from '_pages/users/UsersPostList'
 import PostItem from '_pages/posts/PostItem'
 import PostsHome from '_pages/posts/PostsHome'
+import UserDetail from '_pages/users/UserDetail'
 
 export const ROUTES = [
   {
@@ -169,6 +170,10 @@ export const ROUTES = [
       {
         path: "",
         element: <UsersProvider><UsersList /></UsersProvider>
+      },
+      {
+        path: ":id",
+        element: <UsersProvider><UserDetail /></UsersProvider>
       },
       {
         path: ":id/posts",

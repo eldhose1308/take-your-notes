@@ -4,11 +4,18 @@ import * as postsService from "_services/posts.service";
 
 const usePosts = () => {
     const [postsList, setPostsList] = useState([]);
+    const [fetchStatus, setFetchStatus] = useState('none');
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const postsData = await postsService.getPosts();
-            setPostsList(postsData);
+            try{
+                setFetchStatus('loading');
+                const postsData = await postsService.getPosts();
+                setPostsList(postsData);
+                setFetchStatus('success');
+            }catch(error){
+                setFetchStatus('failure');
+            }
         };
 
 
@@ -16,7 +23,8 @@ const usePosts = () => {
     }, [])
 
     return {
-        postsList
+        postsList,
+        fetchStatus
     }
 }
 
