@@ -23,6 +23,13 @@ const getPosts = async (data, config = {}) => {
 }
 
 
+const getPostBySlug = async (data, config = {}) => {
+    const response = await posts.getPostsBySlug(data, config);
+    const { data: postData = {} } = response;
+    const formattedFolderData = formatPostData(postData);
+    return formattedFolderData;}
+
+
 // const getFolderById = async (id, config={}) => {
 //     const response = await folders.getFolderById(id, config)
 //     return response || []
@@ -61,6 +68,7 @@ const deletePost = async (id, config = {}) => {
 export {
     getAuthPosts,
     getPosts,
+    getPostBySlug,
     savePost,
     updatePost,
     deletePost

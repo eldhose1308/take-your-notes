@@ -8,7 +8,7 @@ import PostVisibilitySelector from "../PostVisibilitySelector";
 
 import PostCategory from "../PostCategory";
 import usePostsNavigation from "_modules/posts/_hooks/usePostsNavigation";
-import usePosts from "_modules/posts/_hooks/usePosts";
+import useMyPosts from "_modules/posts/_hooks/useMyPosts";
 import { POST_ACTIONS } from "_modules/posts/_constants/postReducerActionTypes";
 
 const tagsSuggestions = [
@@ -53,7 +53,7 @@ const tagsSuggestions = [
 const PostForm = () => {
     const { navigateToList } = usePostsNavigation();
 
-    const { categories, postFormState, postFormDispatcher, savePost } = usePosts();
+    const { categories, postFormState, postFormDispatcher, savePost } = useMyPosts();
 
     const { postTags, currentVisibilityMode, postCategory, postTitle, markdownContent } = postFormState;
     const { categoryName } = postCategory || {};

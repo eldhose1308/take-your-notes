@@ -19,6 +19,15 @@ const getPosts = async (data, config = {}) => {
     })
 }
 
+const getPostsBySlug = async ({ userName, postSlug }, config = {}) => {
+    return new AccessAPI(BASE_URL + `users/${userName}/posts/${postSlug}`).get()
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err.response
+    })
+}
+
 const savePost = async (data, config = {}) => {
     return new AccessAPI(BASE_URL + 'posts').post(data)
     .then((res) => {
@@ -49,6 +58,7 @@ const deletePost = async (folderId, config = {}) => {
 export {
     getAuthPosts,
     getPosts,
+    getPostsBySlug,
     savePost,
     updatePost,
     deletePost

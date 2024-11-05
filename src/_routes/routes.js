@@ -22,6 +22,7 @@ import { UsersProvider } from '_contexts/UsersContext'
 import UsersList from '_pages/users/UsersList'
 import UsersPostList from '_pages/users/UsersPostList'
 import PostItem from '_pages/posts/PostItem'
+import PostsHome from '_pages/posts/PostsHome'
 
 export const ROUTES = [
   {
@@ -144,6 +145,24 @@ export const ROUTES = [
     ]
   },
   {
+    path: '/posts',
+    element: <WithDashboardLayout authRequired={false} />,
+    children: [
+      {
+        path: "",
+        element: <PostsHome />
+      },
+      {
+        path: ":id/posts",
+        element: <PostsProvider><UsersPostList /></PostsProvider>
+      },
+      {
+        path: ":userName/posts/:postSlug",
+        element: <PostsProvider><PostItem /></PostsProvider>
+      }
+    ]
+  },
+  {
     path: PATHS.users,
     element: <WithDashboardLayout authRequired={false} />,
     children: [
@@ -156,7 +175,7 @@ export const ROUTES = [
         element: <UsersProvider><UsersPostList /></UsersProvider>
       },
       {
-        path: ":id/posts/:id",
+        path: ":userName/posts/:postSlug",
         element: <UsersProvider><PostItem /></UsersProvider>
       }
     ]

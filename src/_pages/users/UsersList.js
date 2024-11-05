@@ -14,7 +14,7 @@ const UsersList = () => {
             <div className="flex w-full px-2 my-4 rounded-md h-screen overflow-scroll">
                 <Flex justifyContent='none' alignItems='none' className='mb-3'>
                         {usersList.map((userData, index) => {
-                        return (<UserCard key={index} userData={userData} />)})}
+                        return (<div className="min-w-md"><UserCard key={index} userData={userData} /></div>)})}
                 </Flex>
             </div>
             </div>

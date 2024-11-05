@@ -27,7 +27,7 @@ const Avatar = ({ src, name='', alt='Avatar', size, className, ...props }) => {
         size, className,
     });
 
-    const nameImg = name.split(' ').map(word => word[0]).join('').slice(0,3).toUpperCase();
+    const nameImg = name && name.split(' ').map(word => word[0]).join('').slice(0,3).toUpperCase();
 
     // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2whjzwoBz71waeE07wh1L_sfjpdm6IIf7g&amp;usqp=CAU"
 

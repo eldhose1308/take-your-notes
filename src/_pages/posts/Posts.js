@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import PostForm from "_modules/posts/_components/form/PostForm";
 import PostList from "_modules/posts/_components/list/PostList";
@@ -11,7 +11,6 @@ import * as postsCategories from "_services/postsCategories.service";
 
 const Posts = ({ action='list' }) => {
     const navigate = useNavigate();
-    const { id } = useParams();
     
     const [isCreating, setIsCreating] = useState(false);
     const [selectedPost, setSelectedPost] = useState(null);

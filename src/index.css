@@ -998,6 +998,10 @@ textarea::placeholder {
   min-width: 25rem;
 }
 
+.max-w-fit{
+  max-width: fit-content;
+}
+
 .max-w-xs {
   max-width: 20rem;
 }

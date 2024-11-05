@@ -7,11 +7,11 @@ import { VISIBILITY_MODES } from '_modules/posts/_constants/posts';
 import CreatePostButton from '../CreatePostButton';
 import PostCategory from '../PostCategory';
 import usePostsNavigation from '_modules/posts/_hooks/usePostsNavigation';
-import usePosts from '_modules/posts/_hooks/usePosts';
+import useMyPosts from '_modules/posts/_hooks/useMyPosts';
 
 const PostList = (props) => {
     const { navigateToCreate, navigateToEdit } = usePostsNavigation();
-    const { posts, categories, selectedCategory, setSelectedCategory } = usePosts();
+    const { posts, categories, selectedCategory, setSelectedCategory } = useMyPosts();
 
     const { hasFollowButton = true, onEdit } = props;
     const [currentVisibilityMode, setCurrentVisibilityMode] = useState(VISIBILITY_MODES.public)

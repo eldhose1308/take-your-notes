@@ -7,7 +7,7 @@ import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card
 import { isUserDataSameAsLoggedInUser } from "_utils/userAuth";
 
 const UserCard = ({ userData }) => {
-    const { fullName, userName } = userData;
+    const { fullName, userName } = userData || {};
     const navigate = useNavigate();
 
     const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
@@ -17,7 +17,7 @@ const UserCard = ({ userData }) => {
     }
 
     return (
-        <Card size='sm' rounded='lg' className='border hover-border-highlight min-w-md mx-4 my-2'>
+        <Card size='sm' rounded='lg' className='border hover-border-highlight mx-4 my-2'>
             <CardContent>
                 <Flex direction='' alignItems='none' justifyContent='spaceBetween'>
                     <div className="flex flex-col mb-2">
