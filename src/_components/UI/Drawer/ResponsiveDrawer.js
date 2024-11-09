@@ -37,7 +37,7 @@ const ResponsiveDrawer = ({ children, ...props }) => {
 
             {isHookVisible ? (
 
-                <div className='drawer-hook h-full absolute right-0 w-1 border border-light-gray'>
+                <div className='drawer-hook h-full absolute right-0  border border-light-gray'>
                     <span onClick={openDrawer} className='absolute top-20 right-100 cursor-pointer bg-custom text-default border border-light-gray border-r-none p-1 rounded-x-md'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevrons-left"><path d="m11 17-5-5 5-5"/><path d="m18 17-5-5 5-5"/></svg>                    
                     </span>

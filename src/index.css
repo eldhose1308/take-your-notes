@@ -591,6 +591,9 @@ line-height: 1.5rem;
 .flex-1 {
   flex: 1 1 0%;
 }
+.basis-0{
+  flex-basis: 0;
+}
 
 .grow-1 {
   flex-grow: 1;
@@ -599,6 +602,9 @@ line-height: 1.5rem;
   flex-grow: 2;
 }
 
+.grow-3 {
+  flex-grow: 3;
+}
 .grow-4 {
   flex-grow: 4;
 }

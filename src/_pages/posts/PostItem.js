@@ -13,6 +13,7 @@ import UserCard from "_modules/users/_component/UserCard";
 import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card/Card";
 import Separator from "_components/Misc/Separator/Separator";
 import useUserPosts from "_modules/users/_hooks/useUserPosts";
+import ResponsiveDrawer from "_components/UI/Drawer/ResponsiveDrawer";
 
 const PostItem = () => {
     const { userName, postSlug } = useParams();
@@ -62,32 +63,34 @@ const PostItem = () => {
     return (
         <div className="text-default m-5">
 
-            <div className="flex">
-                <div className="flex flex-col flex-nowrap w-3/4">
+            <div className="flex flex-nowrap">
+                <div className="flex flex-col flex-nowrap grow-3 basis-0">
                     {fetchingUserPostComponent[fetchStatus]}
                 </div>
 
-                <div className="flex flex-col grow-1 w-1/4">
-                    <div className="">
-                        {fetchingUserCardComponent[fetchStatus]}
+                <ResponsiveDrawer direction='right'>
+                    <div className="flex flex-col grow-1 basis-0">
+                        <div className="">
+                            {fetchingUserCardComponent[fetchStatus]}
+                        </div>
+                        <div>
+                            <Card size='sm' rounded='lg' className='border hover-border-highlight mx-4 my-2'>
+                                <CardHeader>
+                                    <span className="flex">More from <Link to='sdf' className="text-bold mx-2">{fullName}</Link></span>
+                                </CardHeader>
+                                <Separator variant='custom' />
+                                <CardContent>
+                                    {fetchingUserPostListComponent[userPostsFetchStatus]}
+                                </CardContent>
+                                <CardFooter>
+                                    <span>See more</span>
+                                </CardFooter>
+                            </Card>
+                        </div>
                     </div>
-                    <div>
-                        <Card size='sm' rounded='lg' className='border hover-border-highlight mx-4 my-2'>
-                            <CardHeader>
-                                <span className="flex">More from <Link to='sdf' className="text-bold mx-2">{fullName}</Link></span>
-                            </CardHeader>
-                            <Separator variant='custom' />
-                            <CardContent>
-                                {fetchingUserPostListComponent[userPostsFetchStatus]}
-                            </CardContent>
-                            <CardFooter>
-                                <span>See more</span>
-                            </CardFooter>
-                        </Card>
-                    </div>
-                </div>
+                </ResponsiveDrawer>
             </div>
-        </div>
+        </div >
     )
 }
 
