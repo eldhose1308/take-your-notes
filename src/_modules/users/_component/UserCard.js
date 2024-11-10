@@ -8,7 +8,7 @@ import { isUserDataSameAsLoggedInUser } from "_utils/userAuth";
 import CLIENT_ROUTES from "_routes/clientRoutes";
 
 const UserCard = ({ userData }) => {
-    const { fullName, userName } = userData || {};
+    const { fullName, userName, avatar } = userData || {};
     const navigate = useNavigate();
 
     const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
@@ -21,7 +21,7 @@ const UserCard = ({ userData }) => {
                     <div className="flex flex-col mb-2">
                         <Link to={userDetailRoute} className='cursor-pointer group-hover'>
                             <div className="flex mb-2">
-                                <Avatar name={fullName} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2whjzwoBz71waeE07wh1L_sfjpdm6IIf7g&amp;usqp=CAU" />
+                                <Avatar name={fullName} src={avatar} />
                                 <div className="flex flex-col">
                                     <h3 className="text-sm text-default px-3">{fullName}</h3>
                                     <p className="text-secondary px-3 space-y-1 text-xs">2w ago</p>

@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import Loader from "_components/Loader/Loader";
 import Typography from "_components/Misc/Typography/Typography";
 import BreadCrumbs from "_components/UI/BreadCrumbs/BreadCrumbs";
+import Avatar from "_components/UI/Avatar/Avatar";
 
 import useUserPostItems from "_modules/users/_hooks/useUserPostItems";
 import { isUserDataSameAsLoggedInUser, routeBasedOnAuthorisation } from "_utils/userAuth";
@@ -14,6 +15,8 @@ import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card
 import Separator from "_components/Misc/Separator/Separator";
 import useUserPosts from "_modules/users/_hooks/useUserPosts";
 import ResponsiveDrawer from "_components/UI/Drawer/ResponsiveDrawer";
+import { compareAndFormatTimes } from "_utils/timestampUtils";
+import CLIENT_ROUTES from "_routes/clientRoutes";
 
 const PostItem = () => {
     const { userName, postSlug } = useParams();
@@ -21,17 +24,37 @@ const PostItem = () => {
     const { usersPostItem, fetchStatus } = useUserPostItems({ userName, postSlug });
     const { usersPostList, fetchStatus: userPostsFetchStatus } = useUserPosts({ userName });
 
-    const { postTitle, id, content, category, user } = usersPostItem;
+    const { postTitle, id, content, category, user, createdAt, updatedAt } = usersPostItem;
     const { categoryName } = category || {};
-    const { fullName } = user || {};
+    const { fullName, avatar } = user || {};
 
+    const [createdTime, updatedTime] = compareAndFormatTimes(createdAt, updatedAt);
     const markdownInHTML = convertToHTML(content)
+    const userDetailRoute = CLIENT_ROUTES.USER_DETAIL(userName);
 
     const fetchingUserPostComponent = {
         loading: <Loader type='stencil' />,
         failure: <div>Failed</div>,
-        success: <><BreadCrumbs items={[categoryName, postTitle]} />
-            <div className="preview pl-4 text-default border-l border-custom my-3 overflow-scroll h-screen-75" dangerouslySetInnerHTML={{ __html: markdownInHTML }} /></>
+        success: <React.Fragment>
+            <BreadCrumbs items={[categoryName, postTitle]} />
+            <div className="flex  flex-col pl-4">
+                <Link to={userDetailRoute} className='cursor-pointer group-hover my-4'>
+                    <div className="flex">
+                        <Avatar name={fullName} src={avatar} />
+                        <div className="flex flex-col">
+                            <h3 className="text-sm text-default px-3">{fullName}</h3>
+                            <p className="text-secondary px-3 space-y-1 text-xs">2w ago</p>
+                        </div>
+                    </div>
+                </Link>
+                <span className="">
+                    <p className="text-secondary space-y-1 text-xs">{createdTime}</p>
+                    {!!updatedTime && <p className="text-secondary space-y-1 text-xxs">[Edited] {updatedTime}</p>}
+                </span>
+            </div>
+            <Typography>{postTitle}</Typography>
+            <div className="preview pl-4 text-default border-l border-custom my-3 overflow-scroll h-screen-75" dangerouslySetInnerHTML={{ __html: markdownInHTML }} />
+        </React.Fragment>
     }
 
     const fetchingUserCardComponent = {

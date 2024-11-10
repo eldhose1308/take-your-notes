@@ -8,29 +8,34 @@ import FollowButton from '_modules/users/_component/FollowButton';
 import { isUserDataSameAsLoggedInUser, routeBasedOnAuthorisation } from "_utils/userAuth";
 import { Link } from "react-router-dom";
 import CLIENT_ROUTES from "_routes/clientRoutes";
+import { compareAndFormatTimes, formatToIST } from "_utils/timestampUtils";
 
 
 const PostListItem = (props) => {
-    const { postItem, onEdit, hasFollowButton = true } = props;
-    const { postTitle, postSlug, id, content, category, user } = postItem;
+    const { postItem } = props;
+    const { postTitle, postSlug, id, content, category, user, createdAt, updatedAt } = postItem;
     const { categoryName } = category || {};
-    const { userName, fullName } = user || {};
+    const { userName, fullName, avatar } = user || {};
 
+    const [createdTime, updatedTime] = compareAndFormatTimes(createdAt, updatedAt);
     const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
     const postDetailRoute = routeBasedOnAuthorisation(userName, postSlug)
     const userDetailRoute = CLIENT_ROUTES.USER_DETAIL(userName);
 
     return (
-        <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-md'>
+        <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-mds'>
             <CardHeader>
                 <Flex justifyContent='spaceBetween' alignItems='none' className=''>
                     <div className="flex mb-2">
                         <Link to={userDetailRoute} className='cursor-pointer group-hover'>
                             <div className="flex mb-2">
-                                <Avatar name={fullName} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2whjzwoBz71waeE07wh1L_sfjpdm6IIf7g&amp;usqp=CAU" />
+                                <Avatar name={fullName} src={avatar} />
                                 <div className="flex flex-col">
                                     <h3 className="text-sm text-default px-3">{fullName}</h3>
-                                    <p className="text-secondary px-3 space-y-1 text-xs">2w ago</p>
+                                    <span>
+                                        <p className="text-secondary px-3 space-y-1 text-xs">{createdTime}</p>
+                                        {!!updatedTime && <p className="text-secondary px-3 space-y-1 text-xxs">[Edited] {updatedTime}</p>}
+                                    </span>
                                 </div>
                             </div>
                         </Link>

@@ -13,14 +13,16 @@ const PostsHome = () => {
         loading: <Loader type='stencil' />,
         failure: <div>Failed</div>,
         success: <React.Fragment>
+            {/* <div className='flex content-start'> */}
             {postsList.map(postItem => <PostListItem key={postItem.id} postItem={postItem} />)}
+            {/* </div> */}
         </React.Fragment>
     }
 
     return (
         <div className="text-default m-5">
-            <div className='flex content-start'>
-                <div className="flex w-full px-2 my-4 rounded-md h-screen overflow-scroll">
+            <div className="flex w-full px-2 my-4 rounded-md h-screen overflow-scroll">
+                <div className='flex content-start'>
                     {fetchingPostsComponent[fetchStatus]}
                 </div>
             </div>
