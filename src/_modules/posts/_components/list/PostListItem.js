@@ -26,12 +26,17 @@ const PostListItem = (props) => {
         <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-mds'>
             <CardHeader>
                 <Flex justifyContent='spaceBetween' alignItems='none' className=''>
-                    <div className="flex mb-2">
-                        <Link to={userDetailRoute} className='cursor-pointer group-hover'>
+                    <div className="flex mb-2 p-1 rounded-md border hover-border-custom group-hover">
+                        <Link to={userDetailRoute} className='cursor-pointer'>
                             <div className="flex mb-2">
                                 <Avatar name={fullName} src={avatar} />
                                 <div className="flex flex-col">
-                                    <h3 className="text-sm text-default px-3">{fullName}</h3>
+                                    <div className="flex items-center">
+                                        <h3 className="text-sm text-default px-3">{fullName}</h3>
+                                        <span className="text-center ml-2 invisible group-hover-item">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-chevron-right"><circle cx="12" cy="12" r="10" /><path d="m10 8 4 4-4 4" /></svg>
+                                        </span>
+                                    </div>
                                     <span>
                                         <p className="text-secondary px-3 space-y-1 text-xs">{createdTime}</p>
                                         {!!updatedTime && <p className="text-secondary px-3 space-y-1 text-xxs">[Edited] {updatedTime}</p>}

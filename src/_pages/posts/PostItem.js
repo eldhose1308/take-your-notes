@@ -47,12 +47,12 @@ const PostItem = () => {
                         </div>
                     </div>
                 </Link>
-                <span className="">
+                <span className="my-1">
                     <p className="text-secondary space-y-1 text-xs">{createdTime}</p>
                     {!!updatedTime && <p className="text-secondary space-y-1 text-xxs">[Edited] {updatedTime}</p>}
                 </span>
+            <Typography size='xl' className='underline'>{postTitle}</Typography>
             </div>
-            <Typography>{postTitle}</Typography>
             <div className="preview pl-4 text-default border-l border-custom my-3 overflow-scroll h-screen-75" dangerouslySetInnerHTML={{ __html: markdownInHTML }} />
         </React.Fragment>
     }
