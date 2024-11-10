@@ -26,7 +26,7 @@ const PostListItem = (props) => {
         <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-mds'>
             <CardHeader>
                 <Flex justifyContent='spaceBetween' alignItems='none' className=''>
-                    <div className="flex mb-2 p-1 rounded-md border hover-border-custom group-hover">
+                    <div className="flex mb-2 p-1 rounded-md group-hover">
                         <Link to={userDetailRoute} className='cursor-pointer'>
                             <div className="flex mb-2">
                                 <Avatar name={fullName} src={avatar} />
