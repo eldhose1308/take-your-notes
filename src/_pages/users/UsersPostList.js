@@ -8,12 +8,15 @@ import PostListItem from "_modules/posts/_components/list/PostListItem";
 
 import useUsersPostNavigation from "_modules/users/_hooks/useUsersPostNavigation";
 import useUserPosts from "_modules/users/_hooks/useUserPosts";
+import useTitle from "_hooks/useTitle";
 
 const UsersPostList = () => {
     const { id: userName } = useParams();
 
     const { navigateToView } = useUsersPostNavigation();
     const { usersPostList, fetchStatus } = useUserPosts({ userName });
+    useTitle(`${userName}'s Posts`);
+
 
     const handlePostView = (postId, postItem) => {
         const { postSlug } = postItem;

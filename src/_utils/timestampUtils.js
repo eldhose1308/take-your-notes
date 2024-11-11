@@ -14,7 +14,7 @@ export const formatToIST = (utcDate, optionsArg={}) => {
     try{
       return new Intl.DateTimeFormat('en-US', options).format(isoTimestamp);
     }catch(err){
-      console.error('@unable to format date', err);
+      console.error('@unable to format date', utcDate, err);
       return '';
     }
 }
