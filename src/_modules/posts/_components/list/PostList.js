@@ -77,7 +77,7 @@ const PostList = (props) => {
                             </div>
                         </div>
                     ) : (
-                        <div className='flex content-start'>
+                        <div className='flex content-start w-full'>
                             <React.Fragment>
                                 {posts.map(postItem => <PostListItem key={postItem.id} postItem={postItem} onEdit={navigateToEdit} hasFollowButton={hasFollowButton} />)}
                             </React.Fragment>

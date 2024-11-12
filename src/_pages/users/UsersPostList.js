@@ -38,7 +38,7 @@ const UsersPostList = () => {
 
             </div>
         ) : (
-            <div className='flex content-start'>
+            <div className='flex content-start w-full'>
                 <React.Fragment>
                     {usersPostList.map(postItem => <PostListItem key={postItem.id} postItem={postItem} onEdit={handlePostView} hasFollowButton={true} />)}
                 </React.Fragment>

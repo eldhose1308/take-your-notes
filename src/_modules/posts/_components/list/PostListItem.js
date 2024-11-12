@@ -30,25 +30,28 @@ const PostListItem = (props) => {
                 <Flex justifyContent='spaceBetween' alignItems='none' className=''>
                     <div className="flex mb-2 p-1 rounded-md group-hover">
                         <Link to={userDetailRoute} className='cursor-pointer'>
-                            <div className="flex mb-2">
+                            <div className="flex mb-2 items-center">
                                 <Avatar name={fullName} src={avatar} />
                                 <div className="flex flex-col">
                                     <div className="flex items-center">
-                                        <h3 className="text-sm text-default px-3">{fullName}</h3>
+                                        <div className="flex flex-col">
+                                            <h3 className="text-sm text-default px-3">{fullName}</h3>
+                                            {/* <p className="text-secondary px-3 space-y-1 text-xs">123 followers</p> */}
+                                        </div>
                                         <span className="text-center ml-2 invisible group-hover-item">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-chevron-right"><circle cx="12" cy="12" r="10" /><path d="m10 8 4 4-4 4" /></svg>
                                         </span>
                                     </div>
-                                    <span>
+                                    {/* <span>
                                         <p className="text-secondary px-3 space-y-1 text-xs">{createdTime}</p>
                                         {!!updatedTime && <p className="text-secondary px-3 space-y-1 text-xxs">[Edited] {updatedTime}</p>}
-                                    </span>
+                                    </span> */}
                                 </div>
                             </div>
                         </Link>
                     </div>
                     {!isCurrentUserDetail ? (
-                        <div className="bg-custom text-accent hover-text-custom hover-accent text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md">
+                        <div className="flex bg-custom text-accent hover-text-custom hover-accent text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md">
                             <span className="flex items-center">
                                 <span className="flex items-center mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user-round-plus"><path d="M2 21a8 8 0 0 1 13.292-6" /><circle cx="10" cy="8" r="5" /><path d="M19 16v6" /><path d="M22 19h-6" /></svg>
@@ -72,7 +75,6 @@ const PostListItem = (props) => {
                         {content}
                     </Typography> */}
                 </Link>
-                <span></span>
             </CardContent>
 
 
@@ -118,23 +120,29 @@ const PostListItem = (props) => {
                             </div>
                         </Flex>
                     </div>
+                    <Separator variant='custom' className='my-2' />
+
+                    <span>
+                        <p className="text-secondary px-3 space-y-1 text-xs">{createdTime}</p>
+                        {!!updatedTime && <p className="text-secondary px-3 space-y-1 text-xxs">[Edited] {updatedTime}</p>}
+                    </span>
 
                     {isCurrentUserDetail ? (
                         <React.Fragment>
-                            <Separator variant='custom' className='mb-2' />
-                            <div className="flex">
+                            <Separator variant='custom' className='my-2' />
+                            <div className="flex text-xs">
                                 <Link to={postEditRoute} className='cursor-pointer'>
-                                    <span className='flex items-center group-hover px-1 py-1 mx-2 hover-custom hover-text-primary rounded-md cursor-pointer' onClick={() => { }}>
+                                    <span className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-primary rounded-md cursor-pointer' onClick={() => { }}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pencil-line"><path d="M12 20h9" /><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z" /><path d="m15 5 3 3" /></svg>
-                                        <span className='pl-1 invisible group-hover-item'>
+                                        <span className='pl-1'>
                                             Edit
                                         </span>
                                     </span>
                                 </Link>
 
-                                <span className='flex items-center group-hover px-1 py-1 mx-2 hover-custom hover-text-destructive rounded-md cursor-pointer' onClick={() => { }}>
+                                <span className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-destructive rounded-md cursor-pointer' onClick={() => { }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
-                                    <span className='pl-1 invisible group-hover-item'>
+                                    <span className='pl-1'>
                                         Delete
                                     </span>
                                 </span>

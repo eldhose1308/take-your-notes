@@ -23,7 +23,7 @@ const Post = (props) => {
 
                             <div className="flex flex-col">
                                 <h3 className="text-default px-3">Joe Banks</h3>
-                                <p className="text-secondary px-3 space-y-1 text-xs">2w ago</p>
+                                <p className="text-secondary px-3 space-y-1 text-xs">130 followers</p>
                             </div>
                         </div>
                         {hasFollowButton ? (
