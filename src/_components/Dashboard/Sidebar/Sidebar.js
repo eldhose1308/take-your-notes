@@ -6,12 +6,14 @@ import { MENU_ITEMS } from "_constants/SidebarValues";
 // import './Sidebar.css'
 import { useTemplateProvider } from "../Template/Template";
 import SidebarItems from "./SidebarItems";
+import { useClientAuth } from "_contexts/AuthProvider";
 
 const { top, middle, bottom } = MENU_ITEMS
 
 const Sidebar = (props) => {
     const { isSidebarOpen, toggleSidebar } = useTemplateProvider()
     const { pathname } = useLocation();
+    const { isAuthenticated } = useClientAuth()
 
 
     return (
@@ -31,16 +33,16 @@ const Sidebar = (props) => {
 
                 <div className="aside_divst">
                     {top.map(menuItem => {
-                        const { id, path } = menuItem
-                        return (<SidebarItems key={id} item={menuItem} isActive={pathname === path} />)
+                        const { id, path, needsAuth } = menuItem
+                        return (<SidebarItems key={id} item={menuItem} isActive={pathname === path} isAuthenticated={isAuthenticated} />)
                     })}
                     {middle.map(menuItem => {
-                        const { id, text, path } = menuItem
-                        return (<SidebarItems key={id} item={menuItem} isActive={pathname === path} />)
+                        const { id, text, path, needsAuth } = menuItem
+                        return (<SidebarItems key={id} item={menuItem} isActive={pathname === path} isAuthenticated={isAuthenticated} />)
                     })}
                     {bottom.map(menuItem => {
-                        const { id, text, path } = menuItem
-                        return (<SidebarItems key={id} item={menuItem} isActive={pathname === path} />)
+                        const { id, text, path, needsAuth } = menuItem
+                        return (<SidebarItems key={id} item={menuItem} isActive={pathname === path} isAuthenticated={isAuthenticated} />)
                     })}
                 </div>
             </aside>

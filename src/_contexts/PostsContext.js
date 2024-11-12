@@ -16,14 +16,26 @@ export const PostsProvider = ({ children }) => {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const postsData = await postsService.getAuthPosts();
-            setPostsList(postsData);
+            try{
+                const postsData = await postsService.getAuthPosts();
+                setPostsList(postsData);
+            }catch(err){
+                toast({
+                    heading: 'Oops! There was an error retrieving your posts.',
+                    description: 'message',
+                    options: { position: 'top-right' }
+                }).error()
+            }
         };
 
         const fetchCategories = async () => {
-            const categoriesData = await categoriesService.getPostsCategories();
-            setCategoriesList(categoriesData);
-            setSelectedCategory(categoriesData.length > 0 ? categoriesData[0] : null)
+            try{
+                const categoriesData = await categoriesService.getPostsCategories();
+                setCategoriesList(categoriesData);
+                setSelectedCategory(categoriesData.length > 0 ? categoriesData[0] : null)
+            }catch(err){
+                alert(33)
+            }
         };
 
         fetchPosts();

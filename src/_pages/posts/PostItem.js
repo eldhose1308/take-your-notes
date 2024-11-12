@@ -41,7 +41,7 @@ const PostItem = () => {
         success: <React.Fragment>
             <BreadCrumbs items={[categoryName, postTitle]} />
             <div className="flex  flex-col pl-4">
-                <Typography size='xl' className=''>{postTitle}</Typography>
+                <Typography type='h1' size='none' className=''>{postTitle}</Typography>
 
                 <Link to={userDetailRoute} className='cursor-pointer group-hover my-2'>
                     <div className="flex items-center">

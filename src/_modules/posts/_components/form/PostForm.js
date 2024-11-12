@@ -10,6 +10,7 @@ import PostCategory from "../PostCategory";
 import usePostsNavigation from "_modules/posts/_hooks/usePostsNavigation";
 import useMyPosts from "_modules/posts/_hooks/useMyPosts";
 import { POST_ACTIONS } from "_modules/posts/_constants/postReducerActionTypes";
+import { Stencil } from "_components/Loader";
 
 const tagsSuggestions = [
     { id: 'JavaScript', text: 'JavaScript' },
@@ -53,7 +54,7 @@ const tagsSuggestions = [
 const PostForm = () => {
     const { navigateToList } = usePostsNavigation();
 
-    const { categories, postFormState, postFormDispatcher, savePost } = useMyPosts();
+    const { categories, postFormState, postFormDispatcher, savePost, fetchStatus } = useMyPosts();
 
     const { postTags, currentVisibilityMode, postCategory, postTitle, markdownContent } = postFormState;
     const { categoryName } = postCategory || {};
@@ -97,6 +98,19 @@ const PostForm = () => {
         postFormDispatcher({ type: POST_ACTIONS.SET_CATEGORY, payload: option });
     }
 
+    if(fetchStatus === 'loading'){
+        return <div className="m-5">
+            <Stencil />
+            <Stencil />
+            <Stencil />
+            <Stencil />
+            <Stencil />
+        </div>
+    }
+
+    if(fetchStatus === 'failure'){
+        return <div>Failed</div>
+    }
 
     return (
         <React.Fragment>

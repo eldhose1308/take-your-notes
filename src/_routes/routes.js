@@ -28,12 +28,20 @@ import UserDetail from '_pages/users/UserDetail'
 export const ROUTES = [
   {
     path: "/",
-    element: <NoDashboardLayout />,
+    element: <WithDashboardLayout authRequired={false} />,
     children: [
       {
         path: "/",
-        element: <SignUp />,
-      },
+        element: <PostsHome />,
+      }
+    ],
+    errorElement: <div>Error</div>
+  },
+  {
+    path: "/",
+    element: <NoDashboardLayout />,
+    children: [
+    
       {
         path: PATHS.signup,
         element: <SignUp />,
@@ -53,10 +61,10 @@ export const ROUTES = [
         path: PATHS.home,
         element: <div>Home page</div>,
       },
-      {
-        path: PATHS.notes,
-        element: <Home />,
-      },
+      // {
+      //   path: PATHS.notes,
+      //   element: <Home />,
+      // },
       // {
       //   path: PATHS.posts,
       //   // element: <PostsProvider>,
@@ -75,46 +83,46 @@ export const ROUTES = [
       //     },
       //   ],
       // },
-      {
-        path: PATHS.tasks,
-        element: <div>Tasks page</div>,
-      },
+      // {
+      //   path: PATHS.tasks,
+      //   element: <div>Tasks page</div>,
+      // },
       {
         path: PATHS.publish,
         element: <Publish />,
       },
-      {
-        path: PATHS.sample,
-        element: <Sample />,
-      },
-      {
-        path: PATHS.popular,
-        element: <Popular />,
-      },
-      {
-        path: PATHS.tags,
-        element: <Tags />,
-      },
-      {
-        path: PATHS.profile,
-        element: <UserProfile />,
-      },
+      // {
+      //   path: PATHS.sample,
+      //   element: <Sample />,
+      // },
+      // {
+      //   path: PATHS.popular,
+      //   element: <Popular />,
+      // },
+      // {
+      //   path: PATHS.tags,
+      //   element: <Tags />,
+      // },
+      // {
+      //   path: PATHS.profile,
+      //   element: <UserProfile />,
+      // },
       // {
       //   path: "/user/posts/:id",
       //   element: <PostPage />,
       // },
-      {
-        path: PATHS.communities,
-        element: <Communities />,
-      },
-      {
-        path: PATHS.seeLater,
-        element: <SeeLater />,
-      },
-      {
-        path: "/user/search",
-        element: <Search />,
-      },
+      // {
+      //   path: PATHS.communities,
+      //   element: <Communities />,
+      // },
+      // {
+      //   path: PATHS.seeLater,
+      //   element: <SeeLater />,
+      // },
+      // {
+      //   path: "/user/search",
+      //   element: <Search />,
+      // },
       {
         path: "/user/settings",
         element: <div>settings</div>,

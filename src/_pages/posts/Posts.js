@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import PostForm from "_modules/posts/_components/form/PostForm";
@@ -6,34 +6,30 @@ import PostList from "_modules/posts/_components/list/PostList";
 
 import * as posts from "_services/posts.service";
 import * as postsCategories from "_services/postsCategories.service";
+import { PostsContext } from "_contexts/PostsContext";
 
 
 
 const Posts = ({ action='list' }) => {
     const navigate = useNavigate();
-    
-    const [isCreating, setIsCreating] = useState(false);
+    const { postsList, setPostsList, categoriesList: postCategoriesList } = useContext(PostsContext);
+
     const [selectedPost, setSelectedPost] = useState(null);
 
-    const [postCategoriesList, setPostCategoriesList] = useState([]);
-    const [postsList, setPostsList] = useState([]);
     const normalisedPosts = useMemo(() => postsList.reduce((acc, postItem) => ({ ...acc, [postItem.id]: postItem }), {}), [postsList])
 
     const navigateToCreate = () => {
         setSelectedPost(null);
-        setIsCreating(true);
         navigate("create");
     }
 
     const navigateToEdit = (id, item, e) => {
         e.stopPropagation();
         setSelectedPost(id);
-        setIsCreating(true);
     }
 
     const navigateToList = () => {
         setSelectedPost(null);
-        setIsCreating(false);
     }
 
     const handleCreate = async (payload) => {
@@ -56,23 +52,7 @@ const Posts = ({ action='list' }) => {
     }
 
     useEffect(() => {
-        const fetchUserPosts = async () => {
-            const postsData = await posts.getAuthPosts();
-            setPostsList(postsData);
-        }
-
-        const fetchPostCategories = async () => {
-            const postsData = await postsCategories.getPostsCategories();
-            const postDataFormatted = postsData.map((postData) => {
-                const { id, categoryName, categoryIcon } = postData;
-                return { id, label: categoryName, value: id }
-            })
-            setPostCategoriesList(postDataFormatted);
-        }
-
-        fetchPostCategories();
-
-        fetchUserPosts();
+       
     }, [])
 
     return (
