@@ -8,14 +8,22 @@ export const UsersContext = createContext();
 
 export const UsersProvider = ({ children }) => {
     const [usersList, setUsersList] = useState([]);
+    const [fetchStatus, setFetchStatus] = useState('none');
+
     const { toast } = useToast()
 
     // const normalisedPosts = useMemo(() => postsList.reduce((acc, postItem) => ({ ...acc, [postItem.id]: postItem }), {}), [postsList])
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const usersData = await usersService.getUsers();
-            setUsersList(usersData);
+            try{
+                setFetchStatus('loading');
+                const usersData = await usersService.getUsers();
+                setUsersList(usersData);
+                setFetchStatus('success');
+            }catch(error){
+                setFetchStatus('failure');
+            }
         };
 
 
@@ -23,7 +31,7 @@ export const UsersProvider = ({ children }) => {
     }, []);
 
     return (
-        <UsersContext.Provider value={{ usersList }}>
+        <UsersContext.Provider value={{ usersList, fetchStatus }}>
             {children}
         </UsersContext.Provider>
     );

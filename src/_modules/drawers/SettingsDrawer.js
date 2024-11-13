@@ -8,10 +8,14 @@ import { openSettingsDrawer } from "store/actions/drawerActions";
 import ThemeToggler from "_modules/settings/ThemeToggler";
 import ModeSelector from "_components/UI/ModeSelector/ModeSelector";
 import useAuth from "_hooks/useAuth";
+import { setUserFont } from "store/actions/uiActions";
+import useUser from "_hooks/useUser";
 
 const SettingsDrawer = () => {
     const dispatch = useDispatch();
     const { logout } = useAuth();
+    const { getUserPreferences } = useUser();
+    const { fontMode: currentFont } = getUserPreferences();
 
     const status = useSelector(state => state.drawers.settingsDrawer);
 
@@ -22,15 +26,16 @@ const SettingsDrawer = () => {
 
 
     const fontModes = [
-        { id: 'classic', label: 'Classic', modeElement: 'Classic' },
-        { id: 'modern', label: 'Modern', modeElement: 'Modern' }
+        { id: 'classic-font', label: 'Classic', modeElement: 'Classic' },
+        { id: 'modern-font', label: 'Modern', modeElement: 'Modern' }
     ]
 
-    const [selectedFont, setSelectedFont] = useState('classic');
+    const [selectedFont, setSelectedFont] = useState(currentFont);
 
 
     const handleModeChange = (mode) => {
-        setSelectedFont(mode)
+        setSelectedFont(mode);
+        dispatch(setUserFont(mode));
     }
 
 

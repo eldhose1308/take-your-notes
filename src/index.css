@@ -100,21 +100,24 @@ body.light{
 }
 
 * {
-  /* font-family: "Geist Sans"; */
-  /* font-family: LatoRegular; */
-  /* font-family: 'Quicksand'; */
-  /* font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, sans-serif; */
-  font-family: "Shantell Sans", cursive;
-  /* font-family: "Assistant", sans-serif; */
+  /* font-family: "Shantell Sans", cursive; */
   border: 0 solid transparent;
   outline: none;
   box-sizing: border-box;
 }
 
 body {
+  /* font-family: "Assistant", sans-serif; */
   background-color: var(--bg-light);
   margin: 0;
   overflow: hidden; /* remove if can solve the sidebar scroll issue */
+}
+
+.modern-font {
+  font-family: "Shantell Sans", cursive;
+}
+.classic-font {
+  font-family: "JetBrains Mono", monospace;
 }
 
 blockquote,
@@ -714,6 +717,10 @@ line-height: 1.5rem;
   width: 25%;
 }
 
+.w-1\/2 {
+  width: 50%;
+}
+
 .w-3\/4 {
   width: 75%;
 }
@@ -1270,6 +1277,15 @@ textarea::placeholder {
 .my-7 {
   margin-top: 1.75rem;
   margin-bottom: 1.75rem;
+}
+
+.my-10 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+.my-12 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .mt-1 {

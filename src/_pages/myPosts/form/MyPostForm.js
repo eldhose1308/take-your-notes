@@ -4,9 +4,9 @@ import MarkdownEditor from "_modules/markdownEditor/_components/MarkdownEditor";
 import BreadCrumbs from "_components/UI/BreadCrumbs/BreadCrumbs";
 import Tags from "_components/UI/Tags/Tags";
 import EditableText from "_components/UI/EditableText/EditableText";
-import PostVisibilitySelector from "../PostVisibilitySelector";
+import PostVisibilitySelector from "_modules/posts/_components/PostVisibilitySelector";
 
-import PostCategory from "../PostCategory";
+import PostCategory from "_modules/posts/_components/PostCategory";
 import usePostsNavigation from "_modules/posts/_hooks/usePostsNavigation";
 import useMyPosts from "_modules/posts/_hooks/useMyPosts";
 import { POST_ACTIONS } from "_modules/posts/_constants/postReducerActionTypes";
@@ -51,7 +51,7 @@ const tagsSuggestions = [
     { id: 'Swift', text: 'Swift' },
 ];
 
-const PostForm = () => {
+const MyPostForm = () => {
     const { navigateToList } = usePostsNavigation();
 
     const { categories, postFormState, postFormDispatcher, savePost, fetchStatus } = useMyPosts();
@@ -158,4 +158,4 @@ const PostForm = () => {
     )
 }
 
-export default PostForm;
+export default MyPostForm;

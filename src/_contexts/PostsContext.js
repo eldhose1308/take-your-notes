@@ -22,7 +22,6 @@ export const PostsProvider = ({ children }) => {
             }catch(err){
                 toast({
                     heading: 'Oops! There was an error retrieving your posts.',
-                    description: 'message',
                     options: { position: 'top-right' }
                 }).error()
             }

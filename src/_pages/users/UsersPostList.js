@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import Loader from "_components/Loader/Loader";
+import CardStencil from "_components/Loader/CardStencil";
 
 import Typography from "_components/Misc/Typography/Typography";
 import PostListItem from "_modules/posts/_components/list/PostListItem";
@@ -24,7 +24,7 @@ const UsersPostList = () => {
     }
 
     const fetchingComponent = {
-        loading: <Loader type='stencil' />,
+        loading: <CardStencil count='3' />,
         failure: <div>Failed</div>,
         success: !usersPostList.length ? (
             <div className='flex flex-col w-full items-center'>

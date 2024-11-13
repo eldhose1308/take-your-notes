@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
 import Typography from "_components/Misc/Typography/Typography";
-import PostListItem from './PostListItem';
-import PostVisibilitySelector from '../PostVisibilitySelector';
+import PostListItem from '_modules/posts/_components/list/PostListItem';
+import PostVisibilitySelector from '_modules/posts/_components/PostVisibilitySelector';
 import { VISIBILITY_MODES } from '_modules/posts/_constants/posts';
-import CreatePostButton from '../CreatePostButton';
-import PostCategory from '../PostCategory';
+import CreatePostButton from '_modules/posts/_components/CreatePostButton';
+import PostCategory from '_modules/posts/_components/PostCategory';
 import usePostsNavigation from '_modules/posts/_hooks/usePostsNavigation';
 import useMyPosts from '_modules/posts/_hooks/useMyPosts';
 
-const PostList = (props) => {
+const MyPostList = (props) => {
     const { navigateToCreate, navigateToEdit } = usePostsNavigation();
     const { posts, categories, selectedCategory, setSelectedCategory } = useMyPosts();
 
@@ -90,4 +90,4 @@ const PostList = (props) => {
     )
 }
 
-export default PostList;
+export default MyPostList;

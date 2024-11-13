@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import {
-  Outlet, useNavigate
+  Outlet
 } from "react-router-dom";
 
 import Template from "_components/Dashboard/Template/Template";
@@ -9,10 +9,11 @@ import useAuth from "_hooks/useAuth";
 import { SignIn } from "_pages/auth";
 import Home from "_pages/home/Home/Home";
 import { redirectOnAuthorised, redirectOnUnAuthorised } from "_utils/auth";
+import useCustomNavigate from "_hooks/useCustomNavigate";
 
 
 export const NoDashboardLayout = () => {
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export const NoDashboardLayout = () => {
 
 export const WithDashboardLayout = (props) => {
   const { authRequired=true } = props;
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const { isAuthenticated } = useAuth();
 
 

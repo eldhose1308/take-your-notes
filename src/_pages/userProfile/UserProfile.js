@@ -2,7 +2,7 @@ import React from "react";
 
 import Flex from "_components/Misc/Flex/Flex";
 import Avatar from "_components/UI/Avatar/Avatar";
-import Post from "_modules/posts/_components/list/PostList";
+// import Post from "_modules/posts/_components/list/PostList";
 import { Card, CardContent, CardFooter, CardTitle } from "_components/Misc/Card/Card";
 import Typography from "_components/Misc/Typography/Typography";
 import { Button } from "_components/Form";
@@ -92,16 +92,16 @@ const UserProfile = () => {
                             <CenterLineText text='Today' onClick={() => {alert(111)}} /> 
                         </div>
 
+                        {/* <Post hasFollowButton={false} />
                         <Post hasFollowButton={false} />
-                        <Post hasFollowButton={false} />
-                        <Post hasFollowButton={false} />
+                        <Post hasFollowButton={false} /> */}
 
                         <div className="text-sm hover-custom cursor-pointer">
                             <CenterLineText text='Aug 10 - Aug 17' onClick={() => {alert(111)}} /> 
                         </div>
             
-                        <Post hasFollowButton={false} />
-                        <Post hasFollowButton={false} />
+                        {/* <Post hasFollowButton={false} />
+                        <Post hasFollowButton={false} /> */}
 
                     </div>
                 </div>

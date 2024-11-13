@@ -18,16 +18,17 @@ import ResponsiveDrawer from "_components/UI/Drawer/ResponsiveDrawer";
 import { compareAndFormatTimes } from "_utils/timestampUtils";
 import CLIENT_ROUTES from "_routes/clientRoutes";
 import useTitle from "_hooks/useTitle";
+import CardStencil from "_components/Loader/CardStencil";
 
 const PostItem = () => {
     const { userName, postSlug } = useParams();
     const { usersPostItem, fetchStatus } = useUserPostItems({ userName, postSlug });
     const { usersPostList, fetchStatus: userPostsFetchStatus } = useUserPosts({ userName });
-    
+
     const { postTitle, id, content, category, user, createdAt, updatedAt } = usersPostItem;
     const { categoryName } = category || {};
     const { fullName, avatar } = user || {};
-    
+
     useTitle(postTitle);
 
     const [createdTime, updatedTime] = compareAndFormatTimes(createdAt, updatedAt);
@@ -36,9 +37,18 @@ const PostItem = () => {
 
 
     const fetchingUserPostComponent = {
-        loading: <Loader type='stencil' />,
+        loading: <React.Fragment><Loader type='stencil' /><CardStencil /></React.Fragment>,
         failure: <div>Failed</div>,
         success: <React.Fragment>
+            <div className="flex">
+                <span onClick={() => { }} className="flex text-sm p-2 bg-default hover-accent hover-text-custom rounded-md cursor-pointer mx-1">
+                    <span className="flex items-center pr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-chevron-left"><circle cx="12" cy="12" r="10" /><path d="m14 16-4-4 4-4" /></svg>
+                    </span>
+                    Go Back
+                </span>
+            </div>
+            
             <BreadCrumbs items={[categoryName, postTitle]} />
             <div className="flex  flex-col pl-4">
                 <Typography type='h1' size='none' className=''>{postTitle}</Typography>
