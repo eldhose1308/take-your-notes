@@ -18,7 +18,7 @@ export const NoDashboardLayout = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/user/home');
+      navigate('/');
     }
   }, [isAuthenticated, navigate])
 

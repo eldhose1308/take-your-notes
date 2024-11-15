@@ -18,7 +18,7 @@ const useUser = () => {
         const localDBNavigatorMode = getNavigatorFromLocal();
         
         const theme = localDBTheme || 'system';
-        const font = localDBFont || 'modern-font';
+        const font = localDBFont || 'classic-font';
         const navigatorMode = localDBNavigatorMode || 'explorer';
         return {
             theme,
