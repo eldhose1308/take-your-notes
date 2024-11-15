@@ -23,7 +23,7 @@ const Tag = () => {
             </CardContent>
             <CardFooter>
                 <Flex justifyContent='spaceBetween'>
-                    <Button variant='outline'>Follow</Button>
+                    <Button variant='outline'>Add</Button>
                 </Flex>
             </CardFooter>
         </Card>

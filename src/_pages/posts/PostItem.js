@@ -4,10 +4,9 @@ import { Link, useParams } from "react-router-dom";
 import Loader from "_components/Loader/Loader";
 import Typography from "_components/Misc/Typography/Typography";
 import BreadCrumbs from "_components/UI/BreadCrumbs/BreadCrumbs";
-import Avatar from "_components/UI/Avatar/Avatar";
 
 import useUserPostItems from "_modules/users/_hooks/useUserPostItems";
-import { isUserDataSameAsLoggedInUser, routeBasedOnAuthorisation } from "_utils/userAuth";
+import { routeBasedOnAuthorisation } from "_utils/userAuth";
 import { convertToHTML } from "_modules/markdownEditor/_utils/markdownConvert";
 import UserCard from "_modules/users/_component/UserCard";
 
@@ -16,9 +15,10 @@ import Separator from "_components/Misc/Separator/Separator";
 import useUserPosts from "_modules/users/_hooks/useUserPosts";
 import ResponsiveDrawer from "_components/UI/Drawer/ResponsiveDrawer";
 import { compareAndFormatTimes } from "_utils/timestampUtils";
-import CLIENT_ROUTES from "_routes/clientRoutes";
 import useTitle from "_hooks/useTitle";
 import CardStencil from "_components/Loader/CardStencil";
+import UserProfileInfo from "_modules/users/_component/UserProfileInfo";
+import FormattedTimestamp from "_modules/posts/_components/FormattedTimestamp";
 
 const PostItem = () => {
     const { userName, postSlug } = useParams();
@@ -33,7 +33,6 @@ const PostItem = () => {
 
     const [createdTime, updatedTime] = compareAndFormatTimes(createdAt, updatedAt);
     const markdownInHTML = convertToHTML(content)
-    const userDetailRoute = CLIENT_ROUTES.USER_DETAIL(userName);
 
 
     const fetchingUserPostComponent = {
@@ -48,24 +47,20 @@ const PostItem = () => {
                     Go Back
                 </span>
             </div>
-            
+
             <BreadCrumbs items={[categoryName, postTitle]} />
             <div className="flex  flex-col pl-4">
                 <Typography type='h1' size='none' className=''>{postTitle}</Typography>
 
-                <Link to={userDetailRoute} className='cursor-pointer group-hover my-2'>
-                    <div className="flex items-center">
-                        <Avatar name={fullName} src={avatar} />
-                        <div className="flex flex-col">
-                            <h3 className="text-sm text-default px-3">{fullName}</h3>
-                            <p className="text-secondary px-3 space-y-1 text-xs">123 followers</p>
-                        </div>
-                    </div>
-                </Link>
-                <span className="mb-4">
-                    <p className="text-secondary space-y-1s text-xs">{createdTime}</p>
-                    {!!updatedTime && <p className="text-secondary space-y-1 text-xxs">[Edited] {updatedTime}</p>}
-                </span>
+                <div className="flex my-2">
+                    <UserProfileInfo userData={user} hasFollowers hasFollowButton={true} />
+                </div>
+
+                <div className="mb-4">
+                    <FormattedTimestamp createdTime={createdAt} updatedTime={updatedAt} />
+                </div>
+
+
             </div>
             <Separator variant='accent' />
             <div className="preview pl-4 text-default border-l border-custom my-3 overflow-scroll h-screen-75" dangerouslySetInnerHTML={{ __html: markdownInHTML }} />

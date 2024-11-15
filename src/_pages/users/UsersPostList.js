@@ -1,55 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 
-import CardStencil from "_components/Loader/CardStencil";
+import PostsSuccess from "../posts/states/PostsSuccess";
+import UsersPostEmpty from "./states/UsersPostEmpty";
 
-import Typography from "_components/Misc/Typography/Typography";
-import PostListItem from "_modules/posts/_components/list/PostListItem";
-
-import useUsersPostNavigation from "_modules/users/_hooks/useUsersPostNavigation";
 import useUserPosts from "_modules/users/_hooks/useUserPosts";
 import useTitle from "_hooks/useTitle";
+import useComponentFetchState from "_hooks/useComponentFetchState";
 
 const UsersPostList = () => {
     const { id: userName } = useParams();
 
-    const { navigateToView } = useUsersPostNavigation();
-    const { usersPostList, fetchStatus } = useUserPosts({ userName });
     useTitle(`${userName}'s Posts`);
+    const { usersPostList, fetchStatus } = useUserPosts({ userName });
 
+    const UsersPostComponentState = useComponentFetchState({ 
+        fetchStatus, 
+        empty: <UsersPostEmpty />, 
+        success: <PostsSuccess usersPostList={usersPostList} /> 
+    });
 
-    const handlePostView = (postId, postItem) => {
-        const { postSlug } = postItem;
-        navigateToView({ userName, postSlug })
-    }
-
-    const fetchingComponent = {
-        loading: <CardStencil count='3' />,
-        failure: <div>Failed</div>,
-        success: !usersPostList.length ? (
-            <div className='flex flex-col w-full items-center'>
-                <Typography size='lg' type='h2'>No Blog Posts Available</Typography>
-                <Typography variant='secondary' size='sm' textVariant='default'>
-                    It seems there aren't any blog posts to display right now.
-                </Typography>
-                <Typography variant='secondary' size='sm' textVariant='default'>
-                    Start creating a new blog post to share your thoughts and ideas!
-                </Typography>
-
-            </div>
-        ) : (
-            <div className='flex content-start w-full'>
-                <React.Fragment>
-                    {usersPostList.map(postItem => <PostListItem key={postItem.id} postItem={postItem} onEdit={handlePostView} hasFollowButton={true} />)}
-                </React.Fragment>
-            </div>
-        )
-    }
 
     return (
         <div className="text-default m-5">
             <div className="flex w-full px-2 my-4 rounded-md h-screen overflow-scroll">
-                {fetchingComponent[fetchStatus]}
+                {UsersPostComponentState}
             </div>
         </div>
     )

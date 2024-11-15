@@ -3,13 +3,12 @@ import React from "react";
 import Flex from '_components/Misc/Flex/Flex';
 import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card/Card";
 import Typography from '_components/Misc/Typography/Typography';
-import Avatar from '_components/UI/Avatar/Avatar';
-import FollowButton from '_modules/users/_component/FollowButton';
 import { isUserDataSameAsLoggedInUser, routeBasedOnAuthorisation } from "_utils/userAuth";
 import { Link } from "react-router-dom";
 import CLIENT_ROUTES from "_routes/clientRoutes";
-import { compareAndFormatTimes, formatToIST } from "_utils/timestampUtils";
 import Separator from "_components/Misc/Separator/Separator";
+import UserProfileInfo from "_modules/users/_component/UserProfileInfo";
+import FormattedTimestamp from "../FormattedTimestamp";
 
 
 const PostListItem = (props) => {
@@ -18,48 +17,15 @@ const PostListItem = (props) => {
     const { categoryName } = category || {};
     const { userName, fullName, avatar } = user || {};
 
-    const [createdTime, updatedTime] = compareAndFormatTimes(createdAt, updatedAt);
     const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
     const postDetailRoute = routeBasedOnAuthorisation(userName, postSlug)
-    const userDetailRoute = CLIENT_ROUTES.USER_DETAIL(userName);
     const postEditRoute = CLIENT_ROUTES.POST_EDIT(postSlug);
 
     return (
         <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-mds'>
             <CardHeader>
                 <Flex justifyContent='spaceBetween' alignItems='none' className=''>
-                    <div className="flex mb-2 p-1 rounded-md group-hover">
-                        <Link to={userDetailRoute} className='cursor-pointer'>
-                            <div className="flex mb-2 items-center">
-                                <Avatar name={fullName} src={avatar} />
-                                <div className="flex flex-col">
-                                    <div className="flex items-center">
-                                        <div className="flex flex-col">
-                                            <h3 className="text-sm text-default px-3">{fullName}</h3>
-                                            {/* <p className="text-secondary px-3 space-y-1 text-xs">123 followers</p> */}
-                                        </div>
-                                        <span className="text-center ml-2 invisible group-hover-item">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-chevron-right"><circle cx="12" cy="12" r="10" /><path d="m10 8 4 4-4 4" /></svg>
-                                        </span>
-                                    </div>
-                                    {/* <span>
-                                        <p className="text-secondary px-3 space-y-1 text-xs">{createdTime}</p>
-                                        {!!updatedTime && <p className="text-secondary px-3 space-y-1 text-xxs">[Edited] {updatedTime}</p>}
-                                    </span> */}
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                    {!isCurrentUserDetail ? (
-                        <div className="flex bg-custom text-accent hover-text-custom hover-accent text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md">
-                            <span className="flex items-center">
-                                <span className="flex items-center mr-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user-round-plus"><path d="M2 21a8 8 0 0 1 13.292-6" /><circle cx="10" cy="8" r="5" /><path d="M19 16v6" /><path d="M22 19h-6" /></svg>
-                                </span>
-                                Follow
-                            </span>
-                        </div>
-                    ) : null}
+                    <UserProfileInfo userData={user} />
                 </Flex>
             </CardHeader>
 
@@ -122,10 +88,7 @@ const PostListItem = (props) => {
                     </div>
                     <Separator variant='custom' className='my-2' />
 
-                    <span>
-                        <p className="text-secondary px-3 space-y-1 text-xs">{createdTime}</p>
-                        {!!updatedTime && <p className="text-secondary px-3 space-y-1 text-xxs">[Edited] {updatedTime}</p>}
-                    </span>
+                    <FormattedTimestamp createdTime={createdAt} updatedTime={updatedAt} />
 
                     {isCurrentUserDetail ? (
                         <React.Fragment>

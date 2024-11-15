@@ -15,7 +15,7 @@ const UserInfo = (props) => {
             </div>
 
             <div className="user-actions">
-                <button className="btn btn-custom-outline">Follow</button>
+                <button className="btn btn-custom-outline">Follows</button>
 
             </div>
             </div>

@@ -16,7 +16,11 @@ const useUserPosts = ({ userName }) => {
                 setFetchStatus('loading');
                 const usersPostData = await usersService.getUsersPost(userName);
                 setUsersPostList(usersPostData);
-                setFetchStatus('success');
+                if(usersPostData.length === 0){
+                    setFetchStatus('empty');
+                }else{
+                    setFetchStatus('success');
+                }
             }catch(error){
                 setFetchStatus('failure');
             }
