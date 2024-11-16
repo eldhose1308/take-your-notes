@@ -10,6 +10,10 @@ const UserProfileInfo = (props) => {
 
     const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
 
+    const handleFollowUser = () => {
+        // chnge state of userData's followers count + 1 on success of api call. (disable button on click with status)
+    }
+
     return (
         <React.Fragment>
             <UserInfo userData={userData} hasFollowers={hasFollowers} />

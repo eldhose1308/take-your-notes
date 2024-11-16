@@ -163,10 +163,10 @@ export const ROUTES = [
         path: ":id/posts",
         element: <PostsProvider><UsersPostList /></PostsProvider>
       },
-      {
-        path: ":userName/posts/:postSlug",
-        element: <PostsProvider><PostItem /></PostsProvider>
-      }
+      // {
+      //   path: ":userName/posts/:postSlug",
+      //   element: <PostsProvider><PostItem /></PostsProvider>
+      // }
     ]
   },
   {
@@ -187,7 +187,7 @@ export const ROUTES = [
       },
       {
         path: ":userName/posts/:postSlug",
-        element: <UsersProvider><PostItem /></UsersProvider>
+        element: <PostItem />
       }
     ]
   },

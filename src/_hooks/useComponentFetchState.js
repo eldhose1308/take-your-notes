@@ -6,8 +6,12 @@ import Failure from "_components/State/Failure";
 const DefaultStencil = () => <Stencil count={3} />
 
 const useComponentFetchState = (props) => {
-    const { fetchStatus, loading: Loading=<DefaultStencil />, success: Success, empty: Empty, failure: FailureTemplate=<Failure /> } = props;
-    const FailureComponent = <FailureTemplate />;
+    const { fetchStatus, messages, loading: Loading=<DefaultStencil />, success: Success, empty: Empty, failure: FailureTemplate=<Failure /> } = props;
+    const { failure, empty } = messages || {};
+    const { heading: failureHeading, description: failureDescription } = failure || {};
+    const { heading: emptyHeading, description: emptyDescription } = empty || {};
+
+    const FailureComponent = <FailureTemplate heading={failureHeading} description={failureDescription} />;
 
     const ComponentStateMap = {
         none: Success,
