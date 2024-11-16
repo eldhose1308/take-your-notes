@@ -25,7 +25,7 @@ const Header = (props) => {
     const { toggleSidebar } = useTemplateProvider(null)
     const { isDrawerOpen, closeDrawer, openDrawer } = useDrawer()
     const { isAuthenticated, user } = useAuth()
-    const { userName, fullName, avatar } = user;
+    const { userName, fullName, avatar } = user || {};
 
     const handleSettingsClick = () => {
         dispatch(openSettingsDrawer());
