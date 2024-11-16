@@ -11,7 +11,7 @@ const buttonVariants = cva(
                 xs: "w-10 h-8",
                 sm: "w-10 h-10",
                 md: "w-10 h-10",
-                lg: "h-11 w-16",
+                lg: "h-14 w-16",
                 xl: ""
             },
             

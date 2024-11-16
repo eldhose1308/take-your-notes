@@ -594,6 +594,10 @@ line-height: 1.5rem;
 .flex-1 {
   flex: 1 1 0%;
 }
+
+.basis-auto{
+  flex-basis: auto;
+}
 .basis-0{
   flex-basis: 0;
 }
@@ -650,6 +654,10 @@ line-height: 1.5rem;
 
 .h-9 {
   height: 2.25rem;
+}
+
+.h-14 {
+  height: 3.5rem;
 }
 
 .h-48	{

@@ -10,6 +10,7 @@ import ResponsiveDrawer from "_components/UI/Drawer/ResponsiveDrawer";
 import AdditionalContentSection from "_components/Misc/AdditionalContentSection";
 import AdditionalUsersPosts from "_modules/additionalContents/AdditionalUsersPosts";
 import AdditionalUsers from "_modules/additionalContents/AdditionalUsers";
+import UserDetailSuccess from "./states/UserDetailSuccess";
 
 const userProfile = {
     avatar: "https://example.com/images/profile-picture.jpg",
@@ -39,47 +40,8 @@ const UserDetail = () => {
         <div className="text-default m-5">
             <div className="flex">
                 <div className="flex flex-col mx-2 grow-3 basis-0">
-                    <div className="border bg-secondary p-4">
 
-                        <UserInfo userData={userProfile} hasFollowers />
-
-                        <Separator variant='default' />
-                        <div className="flex my-2">
-                            <div className="flex flex-col text-center">
-                                <Typography>{postCounts}</Typography>
-                                <Typography size='xs' textVariant='none'>Posts</Typography>
-                            </div>
-                            <div className="mx-4"></div>
-                            <div className="flex flex-col text-center">
-                                <Typography>{followers}</Typography>
-                                <Typography size='xs' textVariant='none'>Followers</Typography>
-                            </div>
-                            <div className="mx-4"></div>
-                            <div className="flex flex-col text-center">
-                                <Typography>{following}</Typography>
-                                <Typography size='xs' textVariant='none'>Following</Typography>
-                            </div>
-                        </div>
-
-                        <Separator variant='default' />
-
-                        <div className="flex my-2">
-                            <div>
-                                <Typography textVariant='none'>Joined on <Typography type='span'>{joinedAt}</Typography></Typography>
-                            </div>
-                            <Separator orientation='vertical' />
-                            <div>
-                                <Typography textVariant='none'>Website : <Typography type='span'>{websiteLink}</Typography></Typography>
-                            </div>
-                        </div>
-
-
-                        <div className="flex my-4">
-                            <Typography textVariant='none'>{bio}</Typography>
-                        </div>
-
-                    </div>
-
+                    <UserDetailSuccess userData={userProfile} />
                     <UsersPostList userName={userName} />
 
 
