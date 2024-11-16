@@ -10,6 +10,7 @@ const variantsMapping = {
     h6: "h6",
     subheading1: "h6",
     subheading2: "h6",
+    span: "span",
     body1: "p",
     body2: "p",
   };

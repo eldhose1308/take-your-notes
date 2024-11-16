@@ -27,7 +27,8 @@ const getPostBySlug = async (data, config = {}) => {
     const response = await posts.getPostsBySlug(data, config);
     const { data: postData = {} } = response;
     const formattedFolderData = formatPostData(postData);
-    return formattedFolderData;}
+    return formattedFolderData;
+}
 
 
 // const getFolderById = async (id, config={}) => {

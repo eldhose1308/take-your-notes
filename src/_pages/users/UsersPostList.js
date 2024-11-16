@@ -8,10 +8,11 @@ import useUserPosts from "_modules/users/_hooks/useUserPosts";
 import useTitle from "_hooks/useTitle";
 import useComponentFetchState from "_hooks/useComponentFetchState";
 
-const UsersPostList = () => {
-    const { id: userName } = useParams();
+// move it to modules
+const UsersPostList = ({ userName }) => {
+    // const { id: userName } = useParams();
 
-    useTitle(`${userName}'s Posts`);
+    // useTitle(`${userName}'s Posts`);
     const { usersPostList, fetchStatus } = useUserPosts({ userName });
 
     const UsersPostComponentState = useComponentFetchState({ 
@@ -22,11 +23,14 @@ const UsersPostList = () => {
 
 
     return (
-        <div className="text-default m-5">
-            <div className="flex w-full px-2 my-4 rounded-md h-screen overflow-scroll">
+        <React.Fragment>
+
+        {/* <div className="text-default m-5"> */}
+            {/* <div className="flex w-full px-2 my-4 rounded-md h-screen overflow-scroll"> */}
                 {UsersPostComponentState}
-            </div>
-        </div>
+            {/* </div> */}
+        {/* </div> */}
+        </React.Fragment>
     )
 }
 

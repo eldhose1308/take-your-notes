@@ -4,20 +4,22 @@ import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card
 import Separator from "_components/Misc/Separator/Separator";
 
 const AdditionalContentSection = ({ children, ...props }) => {
-    const { renderHeader, renderFooter } = props;
+    const { heading, footer, renderHeader, renderFooter } = props;
+    const headerContent = heading || renderHeader();
+    const footerContent = footer || renderFooter();
 
     return (
         <div>
             <Card size='sm' rounded='lg' className='border hover-border-highlight mx-4 my-2'>
-                {renderHeader && <React.Fragment><CardHeader>
-                    {renderHeader()}
+                {headerContent && <React.Fragment><CardHeader>
+                    {headerContent}
                 </CardHeader>
                     <Separator variant='custom' /></React.Fragment>}
                 <CardContent>
                     {children}
                 </CardContent>
-                {renderFooter && <CardFooter>
-                    {renderFooter()}
+                {footerContent && <CardFooter>
+                    {footerContent}
                 </CardFooter>}
             </Card>
         </div>

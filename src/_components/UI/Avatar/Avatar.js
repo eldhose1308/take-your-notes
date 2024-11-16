@@ -8,7 +8,7 @@ const buttonVariants = cva(
         variants: {
     
             size: {
-                xs: "w-8 h-7",
+                xs: "w-10 h-8",
                 sm: "w-10 h-10",
                 md: "w-10 h-10",
                 lg: "h-11 w-16",

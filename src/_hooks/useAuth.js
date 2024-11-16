@@ -5,16 +5,16 @@ import * as userModel from "_services/auth.service";
 
 const useAuth = () => {
     const { showTopLoader, hideTopLoader, setProgress } = useTopLoader()
-    const { isAuthenticated, loginClient, logoutClient } = useClientAuth()
+    const { isAuthenticated, loginClient, logoutClient, user } = useClientAuth()
 
     const login = async (formData) => {
         showTopLoader()
         
         try{
             const userData = await userModel.login(formData, { setProgress });
-            const { data } = userData;
+            // const { data } = userData;
             setTimeout(() => {
-                loginClient(data)
+                loginClient(userData)
             }, 1500)
             return userData
         }catch(err){
@@ -45,6 +45,7 @@ const useAuth = () => {
     }
 
     return {
+        user,
         isAuthenticated,
         login,
         signup,

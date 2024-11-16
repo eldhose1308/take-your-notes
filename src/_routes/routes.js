@@ -1,6 +1,5 @@
 import Home from '_pages/home/Home/Home'
 import { SignIn, SignUp } from '_pages/auth'
-import UserProfile from '_pages/userProfile/UserProfile'
 import PostPage from '_pages/home/PostPage/PostPage'
 import Search from '_pages/home/Search/Search'
 import { NoDashboardLayout, WithDashboardLayout } from 'AppMy'
@@ -22,6 +21,7 @@ import PostsHome from '_pages/posts/PostsHome'
 import UserDetail from '_pages/users/UserDetail'
 import MyPostForm from '_pages/myPosts/form/MyPostForm'
 import MyPostList from '_pages/myPosts/list/MyPostList'
+import MyProfile from '_pages/myProfile/MyProfile'
 
 export const ROUTES = [
   {
@@ -129,7 +129,17 @@ export const ROUTES = [
     errorElement: <div>Error</div>
   },
   {
-    path: "/my",
+    path: PATHS.profile,
+    element: <WithDashboardLayout />,
+    children: [
+      {
+        path: "",
+        element: <MyProfile />
+      }
+    ]
+  },
+  {
+    path: "/my/posts",
     element: <WithDashboardLayout />,
     children: [
       {

@@ -2,8 +2,8 @@ import * as users from '_api/users.api'
 import { formatPostData } from './posts.service';
 
 export const formatUserData = (data) => {
-    const { user_name, full_name } = data;
-    const formattedResponse = { userName: user_name, fullName: full_name };
+    const { user_name, full_name, avatar } = data;
+    const formattedResponse = { userName: user_name, fullName: full_name, avatar };
     return formattedResponse;
 }
 

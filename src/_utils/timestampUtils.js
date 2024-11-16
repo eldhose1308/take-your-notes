@@ -1,4 +1,4 @@
-export const formatToIST = (utcDate, optionsArg={}) => {
+export const formatToLocalTime = (utcDate, optionsArg={}) => {
     const isoTimestamp = new Date(utcDate + ' UTC');
     const options = {
       year: 'numeric',
@@ -20,8 +20,8 @@ export const formatToIST = (utcDate, optionsArg={}) => {
 }
 
 export const compareAndFormatTimes = (createdAt, updatedAt) => {
-    const createdTime = formatToIST(createdAt);
-    const updatedTime = formatToIST(updatedAt);
+    const createdTime = formatToLocalTime(createdAt);
+    const updatedTime = formatToLocalTime(updatedAt);
   
     return createdAt === updatedAt ? [createdTime] : [createdTime, updatedTime];
 }

@@ -3,6 +3,7 @@ export const PATHS = {
     sample: '/user/sample',
     signup: '/signup',
     signin: '/signin',
+    profile: '/my/profile',
     home: '/user/home',
     notes: '/user/notes',
     tasks: '/user/tasks',
@@ -11,7 +12,6 @@ export const PATHS = {
     publish: '/user/publish',
     popular: '/user/popular',
     tags: '/user/tags',
-    profile: '/user/profile',
     communities: '/user/communities',
     seeLater: '/user/see-later',
 }
