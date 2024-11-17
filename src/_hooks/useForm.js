@@ -17,11 +17,11 @@ const validationStateReducer = (state, action) => {
     }
 }
 
-const useForm = ({ schema }) => {
+const useForm = ({ schema, initialValues={} }) => {
     // rename error variable into formState which holds messages and message types
     const [ validations, setValidations ] = useReducer(validationStateReducer, {})
 
-    const [ formFields, setFormFields ] = useState({})
+    const [ formFields, setFormFields ] = useState(initialValues)
 
     const [ isSubmitting, setIsSubmitting ] = useState(false)
 
@@ -34,6 +34,7 @@ const useForm = ({ schema }) => {
                 setFormFields((prevFieldState) => ({ ...prevFieldState, [fieldName]: value  }))
             },
 
+            value: formFields[fieldName],
             disabled: isSubmitting
         }
 

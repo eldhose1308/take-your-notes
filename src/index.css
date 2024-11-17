@@ -387,6 +387,10 @@ line-height: 1.5rem;
   background-color: var(--destructive);
 }
 
+.hover-primary:hover {
+  background-color: var(--primary);
+}
+
 .hover-outline-destructive:hover {
   background-color: transparent;
   border-width: 1px;

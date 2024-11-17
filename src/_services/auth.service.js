@@ -1,9 +1,9 @@
-import * as user from '_api/auth.api'
+import * as auth from '_api/auth.api'
 import { formatUserData } from './users.service';
 
 const login = async (data, config = {}) => {
     try {
-        const response = await user.signin(data, config);
+        const response = await auth.signin(data, config);
         const { data: userData = [] } = response;
         const formattedUserData = formatUserData(userData);
         return formattedUserData;
@@ -15,7 +15,7 @@ const login = async (data, config = {}) => {
 
 const register = async (data, config = {}) => {
     try {
-        const response = await user.signup(data, config);
+        const response = await auth.signup(data, config);
         const { data: userData = [] } = response;
         const formattedUserData = formatUserData(userData);
         return formattedUserData;

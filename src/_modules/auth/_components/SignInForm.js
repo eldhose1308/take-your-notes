@@ -26,7 +26,6 @@ const SignInForm = (props) => {
                     labelName='Email'
                     placeHolder="Enter email"
                     validationMsg={errors.email}
-                    // className='my-2'
                     {...register('email')}
                 />
             </div>
@@ -38,7 +37,6 @@ const SignInForm = (props) => {
                     placeHolder="Enter password"
                     validationMsg={errors.password}
                     autoComplete='new-password'
-                    // className='my-2'
                     {...register('password')}
                 />
             </div>

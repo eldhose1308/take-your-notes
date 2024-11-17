@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 
 import cva from '_utils/createVariantClassNames';
+import { USER_AVATAR_URL } from "_constants/API";
 
 const buttonVariants = cva(
     'avatar flex justify-center items-center overflow-hidden outline-none text-sm bg-another text-default-foreground rounded-full',
@@ -35,6 +36,7 @@ const Avatar = ({ src, name='', alt='Avatar', size, className, ...props }) => {
         setImageError(true);
     }
 
+    // load a placeholder span and hide img src, then onLoad show the img src
     return (
         <span className={classNames} {...props}>
             {src && !imageError ? <img onError={handleError} alt={name || alt} className="flex object-cover w-full h-full transition-opacity duration-500" src={src} /> : 

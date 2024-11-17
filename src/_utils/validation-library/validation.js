@@ -54,7 +54,7 @@ const createSchema = (formSchema) => {
                 const fieldErrors = validateObj.validateField(field, formValues[field])
                 if(fieldErrors.length){
                     errors[field] = {}
-                    errors[field].type = 'ERROR'
+                    errors[field].type = 'error'
                     errors[field].messages = fieldErrors
                 }
             }

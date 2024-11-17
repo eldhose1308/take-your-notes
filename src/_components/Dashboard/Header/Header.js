@@ -16,6 +16,7 @@ import SettingsDrawer from "_modules/drawers/SettingsDrawer";
 import { openSettingsDrawer } from "store/actions/drawerActions";
 import { Link } from "react-router-dom";
 import CLIENT_ROUTES from "_routes/clientRoutes";
+import { USER_AVATAR_URL } from "_constants/API";
 
 const Header = (props) => {
     const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const Header = (props) => {
                 <div className="flex justify-center items-center">
                     {isAuthenticated ? (
                         <Link to={CLIENT_ROUTES.PROFILE} >
-                            <Avatar src={avatar} name={fullName} size='xs' />
+                            <Avatar key={avatar} src={`${USER_AVATAR_URL}${avatar}`} name={fullName} size='xs' />
                         </Link>
                     ) : (
                         <Link to={CLIENT_ROUTES.SIGNIN} >

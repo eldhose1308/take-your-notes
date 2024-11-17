@@ -24,6 +24,11 @@ const AuthProvider = ({ children }) => {
 
     const isAuthenticated = useMemo(() => user ? !!Object.keys(user).length : false, [user])
 
+    const updateUser = (newUserData) => {
+        setUser((previousUserState) => ({ ...previousUserState, ...newUserData }));
+        setUserDetailToLocal({ ...user, ...newUserData });
+    }
+
     const loginClient = (data) => {
         const { token, ...remainingUserData } = userData || data;
 
@@ -78,7 +83,7 @@ const AuthProvider = ({ children }) => {
     // }
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, user, loginClient, logoutClient }}>
+        <AuthContext.Provider value={{ isAuthenticated, user, updateUser, loginClient, logoutClient }}>
             <GoogleOAuthProvider clientId={clientId}>
                 {children}
             </GoogleOAuthProvider>

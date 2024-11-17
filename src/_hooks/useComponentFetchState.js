@@ -16,7 +16,7 @@ const useComponentFetchState = (props) => {
     const ComponentStateMap = {
         none: Success,
         loading: Loading,
-        failure: Failure,
+        failure: FailureTemplate,
         success: Success,
         empty: Empty,
     }

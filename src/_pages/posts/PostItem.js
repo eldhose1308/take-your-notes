@@ -29,7 +29,7 @@ const PostItem = () => {
         messages: {
             failure: {
                 heading: 'Looks like this post is removed or no such post existed',
-                description: 'Please recheck the route'
+                description: 'Please recheck the url'
             }
         },
         success: <PostItemSuccess postItem={usersPostItem} />
