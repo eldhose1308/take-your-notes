@@ -11,23 +11,13 @@ const UserDetailSuccess = (props) => {
     const { avatar, id: userId, userName, fullName, bio, joinedAt, websiteLink, posts, followers, following, rank, isFollowing } = userState;
 
 
-    const handleFollowUser = async () => {
-        setUserState(previousUserState => ({ ...previousUserState, followers: Number(previousUserState.followers) + 1, isFollowing: !previousUserState.isFollowing }));
-        // chnge state of userData's followers count + 1 on success of api call. (disable button on click with status)
-    }
-
-    const handleUnFollowUser = async () => {
-        setUserState(previousUserState => ({ ...previousUserState, followers: Number(previousUserState.followers) - 1, isFollowing: !previousUserState.isFollowing }));
-        // chnge state of userData's followers count - 1 on success of api call. (disable button on click with status)
-    }
-
     return (
         <div className="border bg-secondary p-4 rounded-md">
 
             <div className="flex justify-between">
 
             <UserInfo userData={userState} hasFollowers />
-            <FollowButton userId={userId} userName={userName} isFollowing={isFollowing} updateUser={setUserState} onFollow={handleFollowUser} onUnFollow={()=>{}} />
+            <FollowButton userId={userId} userName={userName} isFollowing={isFollowing} updateUser={setUserState} />
             </div>
 
 

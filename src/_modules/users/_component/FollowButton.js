@@ -26,7 +26,7 @@ const FollowButton = (props) => {
             updateUser(previousUserState => ({ ...previousUserState, followers: Number(previousUserState.followers) + 1, isFollowing: !previousUserState.isFollowing }));
             // await onFollow();
         }catch(err){
-            alert('err');
+            alert(err.message);
         }
     }
 
@@ -36,7 +36,7 @@ const FollowButton = (props) => {
             updateUser(previousUserState => ({ ...previousUserState, followers: Number(previousUserState.followers) - 1, isFollowing: !previousUserState.isFollowing }));
             // await onFollow();
         }catch(err){
-            alert('err');
+            alert(err.message);
         }
     }
 
