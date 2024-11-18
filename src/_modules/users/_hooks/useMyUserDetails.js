@@ -14,6 +14,7 @@ const useMyUserDetails = () => {
                 setUserDetail(userDetailsRespnse);
                 setFetchStatus('success');
             }catch(error){
+                alert(JSON.stringify(error))
                 setFetchStatus('failure');
             }
         }
