@@ -8,7 +8,6 @@ import useAuth from "_hooks/useAuth";
 import useMyUserDetails from "_modules/users/_hooks/useMyUserDetails";
 import CardStencil from "_components/Loader/CardStencil";
 import useComponentFetchState from "_hooks/useComponentFetchState";
-import { getUserDetailsOfCurrentUser } from "_utils/userAuth";
 
 
 
@@ -53,8 +52,6 @@ const MyProfile = () => {
     const { updateUserData } = useAuth()
     const { userDetail, fetchStatus } = useMyUserDetails();
 
-    const userInLocal = getUserDetailsOfCurrentUser();
-
     const UserDetailComponentState = useComponentFetchState({
         fetchStatus,
         loading: <CardStencil />,
@@ -80,8 +77,6 @@ const MyProfile = () => {
             <div className="flex">
 
                 <div className="flex flex-col mr-2 my-4 grow-2 basis-0">
-                    <p>Local: {JSON.stringify(userInLocal)}</p>
-                    <p>API: {JSON.stringify(userDetail)}</p>
                     {UserDetailComponentState}
                 </div>
 
