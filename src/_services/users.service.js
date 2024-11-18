@@ -23,10 +23,14 @@ const getUserDetail = async (data, config = {}) => {
 }
 
 const getMyUserDetail = async (data, config = {}) => {
-    const response = await users.getMyUserDetail(data, config);
-    const { data: usersData = [] } = response;
-    const formattedUserData = formatUserData(usersData);
-    return formattedUserData;
+    try{
+        const response = await users.getMyUserDetail(data, config);
+        const { data: usersData = [] } = response;
+        const formattedUserData = formatUserData(usersData);
+        return formattedUserData;
+    }catch(err){
+        throw err;
+    }
 }
 
 const getUsersPost = async (data, config = {}) => {
