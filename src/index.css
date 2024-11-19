@@ -318,6 +318,10 @@ line-height: 1.5rem;
   cursor: copy;
 }
 
+.cursor-not-allowed{
+  cursor: not-allowed
+}
+
 
 
 .bg-accent {

@@ -6,24 +6,25 @@ const useUserPosts = ({ userName }) => {
     const [usersPostList, setUsersPostList] = useState([]);
     const [fetchStatus, setFetchStatus] = useState('none');
 
+
+    const fetchUsersPost = async () => {
+        try{
+            setFetchStatus('loading');
+            const usersPostData = await usersService.getUsersPost(userName);
+            setUsersPostList(usersPostData);
+            if(usersPostData.length === 0){
+                setFetchStatus('empty');
+            }else{
+                setFetchStatus('success');
+            }
+        }catch(error){
+            setFetchStatus('failure');
+        }
+    }
+
     useEffect(() => {
         if (!userName) {
             return;
-        }
-
-        const fetchUsersPost = async () => {
-            try{
-                setFetchStatus('loading');
-                const usersPostData = await usersService.getUsersPost(userName);
-                setUsersPostList(usersPostData);
-                if(usersPostData.length === 0){
-                    setFetchStatus('empty');
-                }else{
-                    setFetchStatus('success');
-                }
-            }catch(error){
-                setFetchStatus('failure');
-            }
         }
 
         fetchUsersPost();
@@ -31,7 +32,9 @@ const useUserPosts = ({ userName }) => {
 
     return {
         fetchStatus,
-        usersPostList
+        usersPostList,
+
+        fetchUsersPost
     }
 }
 

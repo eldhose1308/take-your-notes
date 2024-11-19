@@ -7,18 +7,19 @@ import UsersPostEmpty from "./states/UsersPostEmpty";
 import useUserPosts from "_modules/users/_hooks/useUserPosts";
 import useTitle from "_hooks/useTitle";
 import useComponentFetchState from "_hooks/useComponentFetchState";
+import PaginationWrapper from "_components/Pagination/PaginationWrapper";
 
 // move it to modules
 const UsersPostList = ({ userName }) => {
     // const { id: userName } = useParams();
 
     // useTitle(`${userName}'s Posts`);
-    const { usersPostList, fetchStatus } = useUserPosts({ userName });
+    const { fetchUsersPost, usersPostList, fetchStatus } = useUserPosts({ userName });
 
     const UsersPostComponentState = useComponentFetchState({ 
         fetchStatus, 
         empty: <UsersPostEmpty />, 
-        success: <PostsSuccess usersPostList={usersPostList} /> 
+        success: <PaginationWrapper initialData={usersPostList} fetchDataMethod={fetchUsersPost} >{({ data }) => <PostsSuccess usersPostList={data} />}</PaginationWrapper>
     });
 
 

@@ -11,7 +11,8 @@ const getAuthPosts = async (data, config = {}) => {
 }
 
 const getPosts = async (data, config = {}) => {
-    return new AccessAPI(BASE_URL + 'posts').get()
+    const { page=1, limit=20 } = data || {};
+    return new AccessAPI(BASE_URL + `posts?page=${page}&limit=${limit}`).get()
     .then((res) => {
         return res
     }).catch((err) => {

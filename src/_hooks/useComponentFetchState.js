@@ -14,7 +14,7 @@ const useComponentFetchState = (props) => {
     const FailureComponent = <FailureTemplate heading={failureHeading} description={failureDescription} />;
 
     const ComponentStateMap = {
-        none: Success,
+        none: Loading,
         loading: Loading,
         failure: FailureTemplate,
         success: Success,

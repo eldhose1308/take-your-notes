@@ -3,12 +3,14 @@ import React, { useContext } from "react";
 import { UsersContext } from "_contexts/UsersContext";
 import useComponentFetchState from "_hooks/useComponentFetchState";
 import UsersListSuccess from "./states/UsersListSuccess";
+import PaginationWrapper from "_components/Pagination/PaginationWrapper";
 
 const UsersList = () => {
-    const { usersList, fetchStatus } = useContext(UsersContext);
+    // move to hook
+    const { fetchUsers, usersList, fetchStatus } = useContext(UsersContext);
     const UsersComponentState = useComponentFetchState({ 
         fetchStatus, 
-        success: <UsersListSuccess usersList={usersList} /> 
+        success: <PaginationWrapper initialData={usersList} fetchDataMethod={fetchUsers} >{({ data }) => <UsersListSuccess usersList={data} />}</PaginationWrapper> 
     });
 
 

@@ -6,6 +6,8 @@ const usePosts = () => {
     const [postsList, setPostsList] = useState([]);
     const [fetchStatus, setFetchStatus] = useState('none');
 
+    const fetchPostsData = postsService.getPosts;
+
     useEffect(() => {
         const fetchPosts = async () => {
             try{
@@ -24,7 +26,8 @@ const usePosts = () => {
 
     return {
         postsList,
-        fetchStatus
+        fetchStatus,
+        fetchPostsData
     }
 }
 
