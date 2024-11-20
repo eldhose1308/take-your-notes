@@ -10,6 +10,7 @@ const PaginationWrapper = (props) => {
     const [fetchStatus, setFetchStatus] = useState('none');
     // use lru for caching the results so that memory doesnt become full
 
+
     const fetchData = async (newPage) => {
         setFetchStatus('loading');
         try {
@@ -33,11 +34,11 @@ const PaginationWrapper = (props) => {
         <React.Fragment>
             {children({ data })}
             <div className="flex w-full justify-between text-sm my-4 mx-2">
-            <div className="">
+            {/* <div className="my-1 items-center">
                 Showing <span className="font-bold">{data.length}</span> entries
-            </div>
+            </div> */}
 
-            <div className="pagination-controls flex">
+            {/* <div className="pagination-controls my-1 flex items-center">
 
                 <span className={`flex items-center mx-1 py-1 px-2 rounded-md cursor-pointer border bg-transparent ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover-accent hover-text-custom'}`} onClick={() => !(currentPage === 1) ? handlePageChange(currentPage - 1) : ()=>{}}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6" /></svg>
@@ -69,7 +70,7 @@ const PaginationWrapper = (props) => {
                     <span className="mr-2">Next</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
                 </span>
-            </div>
+            </div> */}
             </div>
 
         </React.Fragment>

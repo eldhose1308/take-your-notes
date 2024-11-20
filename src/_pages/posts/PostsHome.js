@@ -6,7 +6,7 @@ import CardStencil from "_components/Loader/CardStencil";
 import useComponentFetchState from "_hooks/useComponentFetchState";
 import UsersPostEmpty from "_pages/users/states/UsersPostEmpty";
 import PostsSuccess from "_pages/posts/states/PostsSuccess";
-import PaginationWrapper from "_components/Pagination/PaginationWrapper";
+import ShowMorePaginationWrapper from "_components/Pagination/ShowMorePaginationWrapper";
 
 const PostsHome = () => {
 
@@ -15,7 +15,7 @@ const PostsHome = () => {
         fetchStatus, 
         loading: <CardStencil count='3' />,
         empty: <UsersPostEmpty />, 
-        success: <PaginationWrapper initialData={postsList} fetchDataMethod={fetchPostsData} >{({ data }) => <PostsSuccess usersPostList={data} />}</PaginationWrapper> 
+        success: <ShowMorePaginationWrapper initialData={postsList} fetchDataMethod={fetchPostsData} >{({ data }) => <PostsSuccess usersPostList={data} />}</ShowMorePaginationWrapper> 
     });
 
 
