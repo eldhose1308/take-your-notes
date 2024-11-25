@@ -30,8 +30,8 @@ const useAuth = () => {
         
         try{
             const userData = await authModel.register(formData, { setProgress });
-            const { data } = userData;
-            loginClient(data)
+            // const { data } = userData;
+            loginClient(userData)
             return userData
         }catch(err){
             throw err;

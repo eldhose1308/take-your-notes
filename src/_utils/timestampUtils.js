@@ -1,4 +1,5 @@
 export const formatToLocalTime = (utcDate, optionsArg={}) => {
+  if(!utcDate){ return '' }
   const standardizedUTCString = utcDate.replace(' ', 'T');
     const isoTimestamp = new Date(standardizedUTCString + 'Z');
     const options = {
