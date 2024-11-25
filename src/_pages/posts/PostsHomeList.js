@@ -5,32 +5,31 @@ import ShowMorePaginationWrapper from "_components/Pagination/ShowMorePagination
 import PostFilters from "_modules/posts/_components/PostFilters";
 import usePosts from "_modules/posts/_hooks/usePosts";
 import useShowMorePagination from "_components/Pagination/_hooks/useShowMorePagination";
-import useUserPosts from "_modules/users/_hooks/useUserPosts";
 
 
-const UsersPostList = (props) => {
-    const { pageSize = 10, initialPage = 0, initialData = [], userName } = props;
+const PostsHomeList = (props) => {
+    const { pageSize = 10, initialPage = 0, initialData = [], initialFilters=[] } = props;
 
     const { currentPage, incrementPagination, resetPagination } = useShowMorePagination();
-    const { fetchUsersPost, usersPostList, fetchStatus } = useUserPosts({ userName });
-    // const { fetchStatus, postsList, fetchPostsData, setPostsList } = usePosts();
+    const { fetchStatus, postsList, fetchPostsData, setPostsList } = usePosts();
 
-    const [filters, setFilters] = useState();
+    const [filters, setFilters] = useState(initialFilters);
     const [data, setData] = useState(initialData || []);
 
 
-    const handleFiltersChange = async (filters) => {
-        setFilters(filters);
+    const handleFiltersChange = async (newFilters) => {
+        const postFilters = {...filters, ...newFilters};
+        setFilters(postFilters);
         setData([]);
-        const postsFilter = { page: 1, limit: pageSize, ...filters };
-        const posts = await fetchUsersPost(postsFilter);
+        const postsFilter = { page: 1, limit: pageSize, ...postFilters };
+        const posts = await fetchPostsData(postsFilter);
         resetPagination();
         setData(posts);
     }
 
     const fetchPosts = async () => {
         const postsFilter = { page: currentPage + 1, limit: pageSize, ...filters };
-        const posts = await fetchUsersPost(postsFilter);
+        const posts = await fetchPostsData(postsFilter);
         setData((previousPosts) => [...previousPosts, ...posts]);
 
         incrementPagination();
@@ -54,4 +53,4 @@ const UsersPostList = (props) => {
     )
 }
 
-export default UsersPostList;
+export default PostsHomeList;

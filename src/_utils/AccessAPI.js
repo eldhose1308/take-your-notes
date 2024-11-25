@@ -1,4 +1,12 @@
-const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2LCJpZGVudGlmaWVyIjoiTjBkaU1saFZTWEJyZW13d2FWTTFVVWd2U0hCWVFUMDk0MiIsImlhdCI6MTcyNDU4MDczOCwiZXhwIjoxNzI0NTg0MzM4fQ.1SfAayiN7bp1AqKmnvTDXjEM3ScXSwojkgW03O1w_-I';
+export const constructUrl = (baseUrl, data = {}) => {
+    const queryParams = Object.entries(data)
+        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+        .join('&');
+
+    return `${baseUrl}?${queryParams}`;
+};
+
+
 export default function AccessAPI(url){
     const api = {
          ajax(method, url, args, payload = {}, onSuccess, onFailure, onProgress){
@@ -29,10 +37,10 @@ export default function AccessAPI(url){
                 xhr.onprogress = function(event) {
                     if (event.lengthComputable) {
                         const percentComplete = (event.loaded / event.total) * 100;
-                        console.log(`Received ${event.loaded} bytes`); 
+                        // console.log(`Received ${event.loaded} bytes`); 
                     } else {
                         const percentComplete = (event.loaded / event.total) * 100;
-                        console.log(`Received ${event.loaded} bytes`); 
+                        // console.log(`Received ${event.loaded} bytes`); 
                     }
                 
                 };

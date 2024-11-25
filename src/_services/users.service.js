@@ -33,8 +33,8 @@ const getMyUserDetail = async (data, config = {}) => {
     }
 }
 
-const getUsersPost = async (data, config = {}) => {
-    const response = await users.getUsersPost(data, config);
+const getUsersPost = async (userName, data, config = {}) => {
+    const response = await users.getUsersPost(userName, data, config);
     const { data: usersPostData = [] } = response;
     const usersPostFormatted = usersPostData.map(formatPostData)
     return usersPostFormatted || []

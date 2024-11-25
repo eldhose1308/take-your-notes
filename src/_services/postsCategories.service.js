@@ -1,8 +1,8 @@
 import * as postsCategories from '_api/postsCategories.api'
 
 export const formatPostCategoryData = (data) => {
-    const { category_name, category_icon, category_id } = data;
-    const formattedResponse = { id: category_id, categoryName: category_name, categoryIcon: category_icon };
+    const { category_name, category_slug, category_icon, category_id } = data;
+    const formattedResponse = { id: category_id, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon };
     return formattedResponse;
 }
 
@@ -18,6 +18,13 @@ const getPostsCategories = async (data, config = {}) => {
     const { data: foldersData = [] } = response;
     const foldersFormatted = foldersData.map(formatPostCategoryData)
     return foldersFormatted || []
+}
+
+const getPostsCategoryBySlug = async (data, config = {}) => {
+    const response = await postsCategories.getPostsCategoryBySlug(data, config);
+    const { data: foldersData = [] } = response;
+    const foldersFormatted = formatPostCategoryData(foldersData);
+    return foldersFormatted || {}
 }
 
 
@@ -51,6 +58,7 @@ const deletePost = async (id, config = {}) => {
 export {
     getAuthPosts,
     getPostsCategories,
+    getPostsCategoryBySlug,
     savePost,
     updatePost,
     deletePost

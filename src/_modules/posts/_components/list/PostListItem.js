@@ -34,7 +34,7 @@ const PostListItem = (props) => {
                     <Typography type='h1' size='md' className='mb-2 w-full'>
                         {postTitle}
                         <span className="text-center ml-2 invisible group-hover-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-chevron-right"><circle cx="12" cy="12" r="10" /><path d="m10 8 4 4-4 4" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-chevron-right"><circle cx="12" cy="12" r="10" /><path d="m10 8 4 4-4 4" /></svg>
                         </span>
                     </Typography>
                     {/* <Typography variant='secondary' size='xs' textVariant='default'>

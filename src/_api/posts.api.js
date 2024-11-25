@@ -1,5 +1,6 @@
 import { BASE_URL } from "_constants";
 import { AccessAPI } from "_utils";
+import { constructUrl } from "_utils/AccessAPI";
 
 const getAuthPosts = async (data, config = {}) => {
     return new AccessAPI(BASE_URL + 'posts/my').get()
@@ -11,8 +12,8 @@ const getAuthPosts = async (data, config = {}) => {
 }
 
 const getPosts = async (data, config = {}) => {
-    const { page=1, limit=20 } = data || {};
-    return new AccessAPI(BASE_URL + `posts?page=${page}&limit=${limit}`).get()
+    const postsURL = constructUrl(BASE_URL + 'posts', data);
+    return new AccessAPI(postsURL).get()
     .then((res) => {
         return res
     }).catch((err) => {

@@ -7,16 +7,17 @@ const useUserPosts = ({ userName }) => {
     const [fetchStatus, setFetchStatus] = useState('none');
 
 
-    const fetchUsersPost = async () => {
+    const fetchUsersPost = async (filters) => {
         try{
             setFetchStatus('loading');
-            const usersPostData = await usersService.getUsersPost(userName);
+            const usersPostData = await usersService.getUsersPost(userName, filters);
             setUsersPostList(usersPostData);
             if(usersPostData.length === 0){
                 setFetchStatus('empty');
             }else{
                 setFetchStatus('success');
             }
+            return usersPostData;
         }catch(error){
             setFetchStatus('failure');
         }

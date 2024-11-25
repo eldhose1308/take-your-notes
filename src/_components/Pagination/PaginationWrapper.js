@@ -41,7 +41,7 @@ const PaginationWrapper = (props) => {
             {/* <div className="pagination-controls my-1 flex items-center">
 
                 <span className={`flex items-center mx-1 py-1 px-2 rounded-md cursor-pointer border bg-transparent ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover-accent hover-text-custom'}`} onClick={() => !(currentPage === 1) ? handlePageChange(currentPage - 1) : ()=>{}}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6" /></svg>
                     <span className="ml-2">Previous</span>
                 </span>
 
@@ -50,7 +50,7 @@ const PaginationWrapper = (props) => {
                 </span>
 
                 <span className="flex items-center mx-1 py-1 px-2 rounded-md bg-transparent " onClick={() => handlePageChange(currentPage + 1)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-ellipsis"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
                 </span></React.Fragment>}
 
                 {currentPage !== 1 && <span className={`flex items-center mx-1 py-1 px-3 rounded-md cursor-pointer border border-accent bg-transparents hover-accent hover-text-custom`} onClick={() => handlePageChange(currentPage - 1)}>
@@ -68,7 +68,7 @@ const PaginationWrapper = (props) => {
 
                 <span className={`flex items-center mx-1 py-1 px-2 rounded-md cursor-pointer border bg-transparent ${isAllDataFetched ? 'opacity-50 cursor-not-allowed' : 'hover-accent hover-text-custom'}`} onClick={() => !isAllDataFetched ? handlePageChange(currentPage + 1) : ()=>{}}>
                     <span className="mr-2">Next</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
                 </span>
             </div> */}
             </div>

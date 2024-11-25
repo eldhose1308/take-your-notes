@@ -1,5 +1,6 @@
 import { BASE_URL } from "_constants";
 import { AccessAPI } from "_utils";
+import { constructUrl } from "_utils/AccessAPI";
 
 const getUsers = async (data, config = {}) => {
     return new AccessAPI(BASE_URL + 'users').get()
@@ -28,8 +29,9 @@ const getMyUserDetail = async (userName, config = {}) => {
     })
 }
 
-const getUsersPost = async (userName, config = {}) => {
-    return new AccessAPI(BASE_URL + `users/${userName}/posts`).get()
+const getUsersPost = async (userName, data, config = {}) => {
+    const postsURL = constructUrl(BASE_URL + `users/${userName}/posts`, data);
+    return new AccessAPI(postsURL).get()
     .then((res) => {
         return res
     }).catch((err) => {
