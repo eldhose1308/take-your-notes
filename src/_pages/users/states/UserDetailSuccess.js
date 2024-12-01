@@ -18,11 +18,13 @@ const UserDetailSuccess = (props) => {
     const handleShare = async () => {
         const baseURL = getBaseURL();
         try {
-            await shareContent({ title: userName, text: fullName, url: `${baseURL}/}` });
-            toast({
-                heading: 'Link copied to clipboard!',
-                options: { position: 'top-center' }
-            }).success()
+            const shareType = await shareContent({ title: userName, text: fullName, url: `${baseURL}/}` });
+            if(shareType === 'clipboard'){
+                toast({
+                    heading: 'Link copied to clipboard!',
+                    options: { position: 'top-center' }
+                }).success()
+            }
         } catch (err) {
             toast({
                 heading: 'Oops! Unable to copy the link!',

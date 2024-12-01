@@ -11,14 +11,6 @@ import AdditionalCategories from "_modules/additionalContents/AdditionalCategori
 
 const PostsHome = () => {
 
-    // const { fetchStatus, postsList, fetchPostsData } = usePosts();
-    // const UsersPostComponentState = useComponentFetchState({
-    //     fetchStatus,
-    //     loading: <CardStencil count='3' />,
-    //     empty: <UsersPostEmpty />,
-    //     // success: <ShowMorePaginationWrapper initialData={postsList} fetchDataMethod={fetchPostsData} >{({ data }) => <PostsSuccess usersPostList={data} fetchDataMethod={fetchPostsData} />}</ShowMorePaginationWrapper>
-    // });
-
 
     return (
         <div className="text-default m-5">
@@ -26,9 +18,6 @@ const PostsHome = () => {
                 {/* <div className='flex content-start w-full'> */}
                 <div className="flex flex-col mx-2 grow-3 basis-0">
                     <PostsHomeList />
-                    {/* <PostFilters onChange={fetchPostsData} />
-                    <ShowMorePaginationWrapper initialData={postsList} fetchDataMethod={fetchPostsData} >{({ data }) => <PostsSuccess usersPostList={data} fetchDataMethod={fetchPostsData} />}</ShowMorePaginationWrapper> */}
-                    {/* {UsersPostComponentState} */}
                 </div>
 
                 <ResponsiveDrawer direction='right'>

@@ -4,7 +4,7 @@ export const shareContent = ({ title, text, url }) => {
         if (navigator.share) {
             navigator.share({ title, text, url })
                 .then(() => {
-                    resolve();
+                    resolve('share');
                 })
                 .catch(err => {
                     console.error('@unable to copy to clipboard', err);
@@ -13,7 +13,7 @@ export const shareContent = ({ title, text, url }) => {
         } else {
             navigator.clipboard.writeText(url)
                 .then(() => {
-                    resolve();
+                    resolve('clipboard');
                 })
                 .catch(err => {
                     reject()

@@ -28,11 +28,13 @@ const PostListItem = (props) => {
     const handleShare = async () => {
         const baseURL = getBaseURL();
         try{
-            await shareContent({ title: postTitle, text: content, url: `${baseURL}/#${postDetailRoute}` });
-            toast({
-                heading: 'Link copied to clipboard!',
-                options: { position: 'top-center' }
-            }).success()
+            const shareType = await shareContent({ title: postTitle, text: content, url: `${baseURL}/#${postDetailRoute}` });
+            if(shareType === 'clipboard'){
+                toast({
+                    heading: 'Link copied to clipboard!',
+                    options: { position: 'top-center' }
+                }).success()
+            }
         }catch(err){
             toast({
                 heading: 'Oops! Unable to copy the link!',

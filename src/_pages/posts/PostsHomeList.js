@@ -5,6 +5,7 @@ import ShowMorePaginationWrapper from "_components/Pagination/ShowMorePagination
 import PostFilters from "_modules/posts/_components/PostFilters";
 import usePosts from "_modules/posts/_hooks/usePosts";
 import useShowMorePagination from "_components/Pagination/_hooks/useShowMorePagination";
+import { stringifyJSON } from "_utils/json";
 
 
 const PostsHomeList = (props) => {
@@ -44,7 +45,7 @@ const PostsHomeList = (props) => {
     return (
         <React.Fragment>
             <PostFilters onChange={handleFiltersChange} />
-            <ShowMorePaginationWrapper initialFetchStatus={fetchStatus} currentPage={currentPage} fetchDataMethod={fetchPosts}>
+            <ShowMorePaginationWrapper key={`posts_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} fetchDataMethod={fetchPosts}>
                 <React.Fragment>
                     <PostsSuccess usersPostList={data} />
                 </React.Fragment>
