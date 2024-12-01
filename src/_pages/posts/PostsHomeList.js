@@ -8,17 +8,17 @@ import useShowMorePagination from "_components/Pagination/_hooks/useShowMorePagi
 
 
 const PostsHomeList = (props) => {
-    const { pageSize = 10, initialPage = 0, initialData = [], initialFilters=[] } = props;
+    const { pageSize = 10, initialPage = 0, initialData = [], initialFilters = [] } = props;
 
     const { currentPage, incrementPagination, resetPagination } = useShowMorePagination();
-    const { fetchStatus, postsList, fetchPostsData, setPostsList } = usePosts();
+    const { fetchStatus, fetchPostsData, setPostsList } = usePosts();
 
     const [filters, setFilters] = useState(initialFilters);
     const [data, setData] = useState(initialData || []);
 
 
     const handleFiltersChange = async (newFilters) => {
-        const postFilters = {...filters, ...newFilters};
+        const postFilters = { ...filters, ...newFilters };
         setFilters(postFilters);
         setData([]);
         const postsFilter = { page: 1, limit: pageSize, ...postFilters };
@@ -43,9 +43,9 @@ const PostsHomeList = (props) => {
 
     return (
         <React.Fragment>
+            <PostFilters onChange={handleFiltersChange} />
             <ShowMorePaginationWrapper initialFetchStatus={fetchStatus} currentPage={currentPage} fetchDataMethod={fetchPosts}>
                 <React.Fragment>
-                    <PostFilters onChange={handleFiltersChange} />
                     <PostsSuccess usersPostList={data} />
                 </React.Fragment>
             </ShowMorePaginationWrapper>

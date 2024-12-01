@@ -3,7 +3,8 @@ import { AccessAPI } from "_utils";
 import { constructUrl } from "_utils/AccessAPI";
 
 const getUsers = async (data, config = {}) => {
-    return new AccessAPI(BASE_URL + 'users').get()
+    const usersURL = constructUrl(BASE_URL + 'users', data);
+    return new AccessAPI(usersURL).get()
     .then((res) => {
         return res
     }).catch((err) => {

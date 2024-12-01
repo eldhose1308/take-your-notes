@@ -9,7 +9,9 @@ import CLIENT_ROUTES from "_routes/clientRoutes";
 import Separator from "_components/Misc/Separator/Separator";
 import UserProfileInfo from "_modules/users/_component/UserProfileInfo";
 import FormattedTimestamp from "../FormattedTimestamp";
-
+import { shareContent } from "_utils/shareContent";
+import { getBaseURL } from "_utils/helpers";
+import { useToast } from "_contexts/ToastProvider";
 
 const PostListItem = (props) => {
     const { postItem } = props;
@@ -17,9 +19,27 @@ const PostListItem = (props) => {
     const { categoryName } = category || {};
     const { userName, fullName, avatar } = user || {};
 
+    const { toast } = useToast()
+
     const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
     const postDetailRoute = routeBasedOnAuthorisation(userName, postSlug)
     const postEditRoute = CLIENT_ROUTES.POST_EDIT(postSlug);
+
+    const handleShare = async () => {
+        const baseURL = getBaseURL();
+        try{
+            await shareContent({ title: postTitle, text: content, url: `${baseURL}/#${postDetailRoute}` });
+            toast({
+                heading: 'Link copied to clipboard!',
+                options: { position: 'top-center' }
+            }).success()
+        }catch(err){
+            toast({
+                heading: 'Oops! Unable to copy the link!',
+                options: { position: 'top-center' }
+            }).error()
+        }
+    };
 
     return (
         <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-mds'>
@@ -67,7 +87,7 @@ const PostListItem = (props) => {
                                 </span>
                             </div>
 
-                            <div className="bg-custom text-accent hover-text-custom hover-accent text-xs my-2 mx-1 p-1 px-2 cursor-pointer rounded-md">
+                            <div onClick={handleShare} className="bg-custom text-accent hover-text-custom hover-accent text-xs my-2 mx-1 p-1 px-2 cursor-pointer rounded-md">
                                 <span className="flex">
                                     <span className="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-share-2"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /><line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></svg>

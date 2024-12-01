@@ -33,6 +33,14 @@ const PostsHome = () => {
 
                 <ResponsiveDrawer direction='right'>
                     <div className="flex flex-col grow-1 basis-0">
+
+                    <AdditionalContentSection
+                            heading="Followed Categories"
+                            renderFooter={() => <span className="flex w-full justify-center">See more</span>}
+                        >
+                        </AdditionalContentSection>
+
+
                         <AdditionalContentSection
                             heading='People You Might Like'
                             renderFooter={() => <span className="flex w-full justify-center">See more</span>}

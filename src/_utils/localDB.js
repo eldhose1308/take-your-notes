@@ -1,12 +1,4 @@
-const parseJSON = (jsonString) => {
-    try{
-        const json = JSON.parse(jsonString);
-        return json;
-    }catch(err){
-        console.warn('Could not parse JSON', err);
-        return {}
-    }
-}
+import { parseJSON } from "./json";
 
 const stringifyJSON = (json) => {
     const jsonString = JSON.stringify(json);
