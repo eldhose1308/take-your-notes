@@ -21,9 +21,9 @@ const usePosts = () => {
         }
     }
 
-    useEffect(() => {
-        fetchPostsData();
-    }, [])
+    // useEffect(() => {
+    //     fetchPostsData();
+    // }, [])
 
     return {
         postsList,

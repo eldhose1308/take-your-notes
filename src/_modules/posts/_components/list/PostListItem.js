@@ -25,7 +25,7 @@ const PostListItem = (props) => {
         <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-mds'>
             <CardHeader>
                 <Flex justifyContent='spaceBetween' alignItems='none' className=''>
-                    <UserProfileInfo userData={user} />
+                    <UserProfileInfo userData={user} hasFollowButton={false} />
                 </Flex>
             </CardHeader>
 

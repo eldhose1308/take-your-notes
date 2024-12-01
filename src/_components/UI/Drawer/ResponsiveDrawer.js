@@ -4,6 +4,11 @@ import Drawer from "./Drawer";
 
 import useDrawer from "_hooks/useDrawer";
 
+const openIcon = {
+    right: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevrons-left"><path d="m11 17-5-5 5-5"/><path d="m18 17-5-5 5-5"/></svg>,
+    left: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-right"><path d="m6 17 5-5-5-5"/><path d="m13 17 5-5-5-5"/></svg>
+}
+
 const ResponsiveDrawer = ({ children, ...props }) => {
     const { direction = 'right' } = props
 
@@ -37,9 +42,9 @@ const ResponsiveDrawer = ({ children, ...props }) => {
 
             {isHookVisible ? (
 
-                <div className='drawer-hook h-full absolute right-0  border border-light-gray'>
-                    <span onClick={openDrawer} className='absolute top-20 right-100 cursor-pointer bg-custom text-default border border-light-gray border-r-none p-1 rounded-x-md'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevrons-left"><path d="m11 17-5-5 5-5"/><path d="m18 17-5-5 5-5"/></svg>                    
+                <div className={`drawer-hook h-full absolute border border-light-gray ${direction === 'right' ? 'right-0' : 'left-0'}`}>
+                    <span onClick={openDrawer} className={`absolute top-20 cursor-pointer bg-custom text-default border border-light-gray p-1 ${direction === 'right' ? 'right-100 border-r-none rounded-x-md ' : 'left-100 border-l-none rounded-y-md '}`}>
+                        {openIcon[direction]}           
                     </span>
                 </div>
             ) : !isDrawerOpen ? (
@@ -48,7 +53,9 @@ const ResponsiveDrawer = ({ children, ...props }) => {
 
             {isDrawerOpen && (
                 <Drawer isActive={isDrawerOpen}  {...props} hide={closeDrawer}>
+                    <div className="h-screen overflow-scroll">
                     {children}
+                    </div>
                 </Drawer>
             )}
         </React.Fragment>

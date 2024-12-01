@@ -777,6 +777,10 @@ line-height: 1.5rem;
   border-radius: calc(var(--radius) - 2px) 0 0 calc(var(--radius) - 2px);
 }
 
+.rounded-y-md {
+  border-radius: 0 calc(var(--radius) - 2px) calc(var(--radius) - 2px) 0;
+}
+
 .rounded-full {
   border-radius: 100%;
 }
