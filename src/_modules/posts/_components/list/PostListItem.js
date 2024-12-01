@@ -38,6 +38,7 @@ const PostListItem = (props) => {
         }catch(err){
             toast({
                 heading: 'Oops! Unable to copy the link!',
+                description: err.toString(),
                 options: { position: 'top-center' }
             }).error()
         }

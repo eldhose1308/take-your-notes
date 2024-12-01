@@ -16,7 +16,7 @@ export const shareContent = ({ title, text, url }) => {
                     resolve('clipboard');
                 })
                 .catch(err => {
-                    reject()
+                    reject(err)
                     console.error('@unable to copy to clipboard', err);
                 });
         }
