@@ -563,7 +563,9 @@ line-height: 1.5rem;
 .items-start {
   align-items: start;
 }
-
+.content-center{
+  align-content: center;
+}
 .content-start	{
   align-content: flex-start;
 }

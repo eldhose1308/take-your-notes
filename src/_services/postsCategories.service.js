@@ -1,8 +1,9 @@
 import * as postsCategories from '_api/postsCategories.api'
+import { formatToLocalTime } from '_utils/timestampUtils';
 
 export const formatPostCategoryData = (data) => {
-    const { category_name, category_slug, category_icon, category_id } = data;
-    const formattedResponse = { id: category_id, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon };
+    const { category_name, category_slug, category_icon, posts_count, followers_count, created_at, category_id } = data;
+    const formattedResponse = { id: category_id, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon, followers: followers_count, posts: posts_count, createdAt: formatToLocalTime(created_at) };
     return formattedResponse;
 }
 

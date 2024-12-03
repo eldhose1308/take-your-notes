@@ -11,6 +11,7 @@ import usePostsCategories from "_modules/posts/_hooks/usePostsCategories";
 import UsersPostList from "_pages/users/UsersPostList";
 import PostsHomeList from "_pages/posts/PostsHomeList";
 import PostCategoryDetailCard from "_modules/posts/_components/PostCategoryDetailCard";
+import Typography from "_components/Misc/Typography/Typography";
 
 
 const PostsCategoriesPage = () => {

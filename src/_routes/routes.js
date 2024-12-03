@@ -23,6 +23,7 @@ import MyPostForm from '_pages/myPosts/form/MyPostForm'
 import MyPostList from '_pages/myPosts/list/MyPostList'
 import MyProfile from '_pages/myProfile/MyProfile'
 import PostsCategoriesPage from '_pages/postsCategories/PostsCategoriesPage'
+import PostsCategoriesListPage from '_pages/postsCategories/PostsCategoriesListPage'
 
 export const ROUTES = [
   {
@@ -169,6 +170,10 @@ export const ROUTES = [
       {
         path: "",
         element: <PostsHome />
+      },
+      {
+        path: "category",
+        element: <PostsCategoriesListPage />
       },
       {
         path: "category/:categoryName",

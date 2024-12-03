@@ -23,7 +23,7 @@ const filterQueryParamMappings = {
     random: { sort_by: 'random' },
 }
 
-const UserFilters = (props) => {
+const PostCategoryFilters = (props) => {
     const { onChange=()=>{}, resetPagination=()=>{} } = props;
 
     const handleFilterChange = (selectedFilter) => {
@@ -49,4 +49,4 @@ const UserFilters = (props) => {
     )
 }
 
-export default UserFilters;
+export default PostCategoryFilters;
