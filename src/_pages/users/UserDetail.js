@@ -37,7 +37,7 @@ const UserDetail = () => {
                 <div className="flex flex-col mx-2 grow-3 basis-0">
 
                     {UserDetailComponentState}
-                    <UsersPostList userName={userName} />
+                    <UsersPostList key={userName} userName={userName} />
 
 
                 </div>

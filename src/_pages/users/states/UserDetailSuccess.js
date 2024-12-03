@@ -7,6 +7,7 @@ import FollowButton from "_modules/users/_component/FollowButton";
 import { getBaseURL } from "_utils/helpers";
 import { shareContent } from "_utils/shareContent";
 import { useToast } from "_contexts/ToastProvider";
+import CLIENT_ROUTES from "_routes/clientRoutes";
 
 const UserDetailSuccess = (props) => {
     const { userData } = props;
@@ -17,8 +18,10 @@ const UserDetailSuccess = (props) => {
 
     const handleShare = async () => {
         const baseURL = getBaseURL();
+        const useDetailRoute = CLIENT_ROUTES.USER_DETAIL(userName);
+
         try {
-            const shareType = await shareContent({ title: userName, text: fullName, url: `${baseURL}/}` });
+            const shareType = await shareContent({ title: userName, text: fullName, url: `${baseURL}/#${useDetailRoute}` });
             if(shareType === 'clipboard'){
                 toast({
                     heading: 'Link copied to clipboard!',

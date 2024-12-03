@@ -10,27 +10,29 @@ import { stringifyJSON } from "_utils/json";
 import EmptyUserPosts from "_components/DisplayStates/Empty/EmptyUserPosts";
 
 
-const UsersPostList = (props) => {
-    const { pageSize = 10, initialPage = 0, initialData = [], userName } = props;
+const CategoriesPostList = (props) => {
+    const { pageSize = 10, initialPage = 0, initialData = [], userName, categoryName } = props;
 
     const { currentPage, incrementPagination, resetPagination } = useShowMorePagination();
-    const { fetchUsersPost, fetchStatus } = useUserPosts({ userName });
+    const { fetchPostsData, fetchStatus } = usePosts();
 
-    const [filters, setFilters] = useState();
-    const [data, setData] = useState(initialData || []);
+    const [filters, setFilters] = useState({ category: categoryName });
+    const [data, setData] = useState([]);
+    console.log('@data',data)
+
 
     const handleFiltersChange = async (filters) => {
         setFilters(filters);
         setData([]);
         const postsFilter = { page: 1, limit: pageSize, ...filters };
-        const posts = await fetchUsersPost(postsFilter);
+        const posts = await fetchPostsData(postsFilter);
         resetPagination();
         setData(posts);
     }
 
     const fetchPosts = async () => {
         const postsFilter = { page: currentPage + 1, limit: pageSize, ...filters };
-        const posts = await fetchUsersPost(postsFilter);
+        const posts = await fetchPostsData(postsFilter);
         setData((previousPosts) => [...previousPosts, ...posts]);
 
         incrementPagination();
@@ -45,7 +47,7 @@ const UsersPostList = (props) => {
     return (
         <React.Fragment>
             <PostFilters onChange={handleFiltersChange} />
-            <ShowMorePaginationWrapper key={`posts_${stringifyJSON(filters)}`} isEmpty={fetchStatus === 'empty'} initialFetchStatus={fetchStatus} currentPage={currentPage} fetchDataMethod={fetchPosts}>
+            <ShowMorePaginationWrapper key={`posts_${categoryName}_${stringifyJSON(filters)}`} isEmpty={fetchStatus === 'empty'} initialFetchStatus={fetchStatus} currentPage={currentPage} fetchDataMethod={fetchPosts}>
                 <React.Fragment>
                     {fetchStatus !== 'empty' ? (
                         <PostsSuccess usersPostList={data} />
@@ -58,4 +60,4 @@ const UsersPostList = (props) => {
     )
 }
 
-export default UsersPostList;
+export default CategoriesPostList;

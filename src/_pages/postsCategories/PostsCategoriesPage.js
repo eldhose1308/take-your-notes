@@ -12,6 +12,7 @@ import UsersPostList from "_pages/users/UsersPostList";
 import PostsHomeList from "_pages/posts/PostsHomeList";
 import PostCategoryDetailCard from "_modules/posts/_components/PostCategoryDetailCard";
 import Typography from "_components/Misc/Typography/Typography";
+import CategoriesPostList from "./CategoriesPostList";
 
 
 const PostsCategoriesPage = () => {
@@ -41,7 +42,8 @@ const PostsCategoriesPage = () => {
             <div className="flex flex-col mx-2 grow-3 basis-0">
 
                 {UserDetailComponentState}
-                <PostsHomeList key={categoryName} initialFilters={{ category: categoryName }} />
+                {/* <CategoriesPostList key={categoryName} initialFilters={{ category: categoryName }} /> */}
+                <CategoriesPostList key={categoryName} categoryName={categoryName} />
 
             </div>
 
