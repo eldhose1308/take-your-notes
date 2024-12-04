@@ -182,6 +182,11 @@ const MarkdownEditor = (props) => {
         setEditorMode(selectedMode);
     }
 
+    const handleTextFormatting = (textFormatAction) => {
+        // onChange(textFormatAction)
+    }
+
+
     useEffect(() => {
         focusToTextArea()
     }, []);
@@ -192,7 +197,7 @@ const MarkdownEditor = (props) => {
 
     return (
         <React.Fragment>
-            <Toolbar onEditorModeChange={handleEditorModeChange} onImageInsert={handleImageInsertClick} />
+            <Toolbar onTextFormat={handleTextFormatting} onEditorModeChange={handleEditorModeChange} onImageInsert={handleImageInsertClick} />
 
             {hasImageModal && (<ImageUploadModal pastedFiles={pastedFiles} onInsertFileToEditor={handleInsertFileToEditor} onClose={handleImageInsertClose} />)}
             

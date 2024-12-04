@@ -28,7 +28,7 @@ const PostListItem = (props) => {
     const handleShare = async () => {
         const baseURL = getBaseURL();
         try{
-            const shareType = await shareContent({ title: postTitle, text: content, url: `${baseURL}/#${postDetailRoute}` });
+            const shareType = await shareContent({ title: postTitle, text: `Checkout this post by ${userName} about ${postTitle}`, url: `${baseURL}/#${postDetailRoute}` });
             if(shareType === 'clipboard'){
                 toast({
                     heading: 'Link copied to clipboard!',
