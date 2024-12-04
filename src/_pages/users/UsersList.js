@@ -24,7 +24,7 @@ const UsersList = () => {
     const [data, setData] = useState([]);
 
     const { userName } = getUserDetailsOfCurrentUser();
-    const unAuthorisedForListing = !(filters.filters === 'following' || !!userName);
+    const unAuthorisedForListing = !(filters.filters === 'following' && !userName);
 
     const handleFiltersChange = async (newFilters) => {
         const userFilters = { ...filters, ...newFilters };
@@ -52,13 +52,15 @@ const UsersList = () => {
 
     return (
         <div className="text-default m-5">
-            <div className="flex justify-between mx-8">
-                <Typography size='lg' type='h2'>Users</Typography>
-                <div className="flex">
+            <div className="flex mx-8">
+                <div className="flex justify-between w-full mx-4">
+                    <Typography size='lg' type='h2'>Users</Typography>
                     <div className="content-center mx-2">
                         <FollowUnfollowToggler onChange={handleFiltersChange} isAuthenticated={!!userName} renderLabel />
                     </div>
+                </div>
 
+                <div className="flex justify-between w-full my-2">
                     {unAuthorisedForListing && (
                         <React.Fragment>
                             <UserFilters onChange={handleFiltersChange} />
