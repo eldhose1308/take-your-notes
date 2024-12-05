@@ -11,8 +11,8 @@ function convertMarkdownToHtml(markdown) {
     markdown = markdown.replace(/^#####\s(.*)$/gm, '<h5>$1</h5>'); 
     markdown = markdown.replace(/^######\s(.*)$/gm, '<h6>$1</h6>'); 
 
-    markdown = markdown.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); 
-    markdown = markdown.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    markdown = markdown.replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>'); 
+    markdown = markdown.replace(/\*([\s\S]*?)\*/g, '<em>$1</em>');
     
     // markdown = markdown.replace(/```([\s\S]*?)```/g, '<code>$1</code>'); 
     // markdown = markdown.replace(/```([\s\S]*?)```/g, `<div className='code-preview'><div className="code-header"><span>code</span><span className="code-copy">
