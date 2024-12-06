@@ -1,6 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
+import Separator from "_components/Misc/Separator/Separator";
+import Typography from "_components/Misc/Typography/Typography";
 import CardStencil from "_components/Loader/CardStencil";
 import ResponsiveDrawer from "_components/UI/Drawer/ResponsiveDrawer";
 import AdditionalContentSection from "_components/Misc/AdditionalContentSection";
@@ -37,6 +39,17 @@ const UserDetail = () => {
                 <div className="flex flex-col mx-2 grow-3 basis-0">
 
                     {UserDetailComponentState}
+                    <div className="flex flex-col mt-4 mx-1">
+                        <Separator />
+
+                        <Typography type='span' textVariant='default' className='my-2'>
+                            Collected Works of 
+                            <Typography type='span' className='ml-2 my-2'>{userName}</Typography>
+                        </Typography>
+
+                        <Separator />
+                    </div>
+
                     <UsersPostList key={userName} userName={userName} />
 
 

@@ -7,8 +7,8 @@ const FormattedTimestamp = ({ createdTime, updatedTime, hasEditInfo=true }) => {
 
     return (
         <span>
-            <p className="text-secondary px-3 space-y-1 text-xs">{createdTimestamp}</p>
-            {(hasEditInfo && !!updatedTimestamp) && <p className="text-secondary px-3 space-y-1 text-xxs">[Edited] {updatedTimestamp}</p>}
+            <p className="text-secondary pr-3 space-y-1 text-xs">{createdTimestamp}</p>
+            {(hasEditInfo && !!updatedTimestamp) && <p className="text-secondary pr-3 space-y-1 text-xxs">[Edited] {updatedTimestamp}</p>}
         </span>
     )
 }

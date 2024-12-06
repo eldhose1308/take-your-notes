@@ -1,17 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import { useToast } from "_contexts/ToastProvider";
 
 import Flex from '_components/Misc/Flex/Flex';
 import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card/Card";
 import Typography from '_components/Misc/Typography/Typography';
-import { isUserDataSameAsLoggedInUser, routeBasedOnAuthorisation } from "_utils/userAuth";
-import { Link } from "react-router-dom";
-import CLIENT_ROUTES from "_routes/clientRoutes";
 import Separator from "_components/Misc/Separator/Separator";
+import ShareButton from "_components/UI/ShareButton/ShareButton";
 import UserProfileInfo from "_modules/users/_component/UserProfileInfo";
+
+import { isUserDataSameAsLoggedInUser, routeBasedOnAuthorisation } from "_utils/userAuth";
 import FormattedTimestamp from "../FormattedTimestamp";
-import { shareContent } from "_utils/shareContent";
-import { getBaseURL } from "_utils/helpers";
-import { useToast } from "_contexts/ToastProvider";
+
+import CLIENT_ROUTES from "_routes/clientRoutes";
 
 const PostListItem = (props) => {
     const { postItem } = props;
@@ -19,30 +21,10 @@ const PostListItem = (props) => {
     const { categoryName } = category || {};
     const { userName, fullName, avatar } = user || {};
 
-    const { toast } = useToast()
-
     const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
     const postDetailRoute = routeBasedOnAuthorisation(userName, postSlug)
     const postEditRoute = CLIENT_ROUTES.POST_EDIT(postSlug);
 
-    const handleShare = async () => {
-        const baseURL = getBaseURL();
-        try{
-            const shareType = await shareContent({ title: postTitle, text: `Checkout this post by ${userName} about ${postTitle}`, url: `${baseURL}/#${postDetailRoute}` });
-            if(shareType === 'clipboard'){
-                toast({
-                    heading: 'Link copied to clipboard!',
-                    options: { position: 'top-center' }
-                }).success()
-            }
-        }catch(err){
-            toast({
-                heading: 'Oops! Unable to copy the link!',
-                description: err.toString(),
-                options: { position: 'top-center' }
-            }).error()
-        }
-    };
 
     return (
         <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-mds'>
@@ -72,35 +54,33 @@ const PostListItem = (props) => {
                     <div className="flex w-full justify-between">
 
                         <Flex justifyContent='none' alignItems='none' width='none'>
-                            <div className="bg-custom text-accent hover-text-custom hover-accent text-xs my-2 mx-1 py-1 px-2 cursor-pointer rounded-md">
+
+                            <div className="content-center border border-secondary text-accent text-xs my-2 mx-1 py-2 px-2 rounded-md">
                                 <span className="flex">
                                     <span className="flex items-center mr-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-thumbs-up"><path d="M7 10v12" /><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z" /></svg>
                                     </span>
-                                    130
+                                    130 likes
                                 </span>
                             </div>
 
-                            <div className="bg-custom text-accent hover-text-custom hover-accent text-xs my-2 mx-1 p-1 px-2 cursor-pointer rounded-md">
+
+                            <div className="content-center border border-secondary text-accent text-xs my-2 mx-1 py-2 px-2 rounded-md">
                                 <span className="flex">
                                     <span className="flex items-center mr-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-thumbs-up"><path d="M7 10v12" /><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z" /></svg>
                                     </span>
-                                    220
+                                    253 comments
                                 </span>
                             </div>
 
-                            <div onClick={handleShare} className="bg-custom text-accent hover-text-custom hover-accent text-xs my-2 mx-1 p-1 px-2 cursor-pointer rounded-md">
-                                <span className="flex">
-                                    <span className="flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-share-2"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /><line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></svg>
-                                    </span>
-                                </span>
-                            </div>
+                            <ShareButton
+                                shareDetails={{ title: postTitle, text: `Checkout this post by ${userName} about ${postTitle}`, urlRoute: postDetailRoute }}
+                            />
 
                         </Flex>
                         <Flex justifyContent='none' alignItems='none' width='none' className='mt-2'>
-                            <div className="bg-custom text-accent hover-text-custom hover-accent text-xs my-2 mx-1 p-1 px-2 cursor-pointer rounded-md">
+                            <div className="content-center border border-secondary text-accent hover-accent hover-text-custom text-xs my-2 mx-1 py-1 px-2 cursor-pointer rounded-md">
                                 <span className="flex">
                                     <span className="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-bookmark-plus"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" /><line x1="12" x2="12" y1="7" y2="13" /><line x1="15" x2="9" y1="10" y2="10" /></svg>
