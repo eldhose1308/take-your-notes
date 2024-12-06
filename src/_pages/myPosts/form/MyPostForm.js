@@ -149,7 +149,7 @@ const MyPostForm = () => {
                 </div>
                 <div className="editing-note py-2 bg-default shadow-xl rounded-lg">
                     <EditableText className="text-default text-lg mx-2" text={postTitle} onSave={handlePostTitleChange} />
-                    <div className="h-screen-1/2 overflow-scroll">
+                    <div className="h-screen-1/2s overflow-scrolls">
                         <MarkdownEditor content={markdownContent} onChange={handleMarkdownChange} isPreviewEnabled />
                     </div>
                 </div>

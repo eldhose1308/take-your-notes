@@ -10,6 +10,7 @@ import './MarkdownEditor.css'
 import ImageUploadModal from "./imageUpload/ImageUploadModal";
 import { formatFileToMarkdown } from "../_utils/editor";
 import { TOOLBAR_MODES } from "../_constants/toolbar";
+import { isSymbolOpen } from "../_utils/formatting";
 
 
 // Add strikethrough(~~)
@@ -19,7 +20,8 @@ const TOOLBAR_FORMATS_INFO = {
         value: 'bold',
         format: '**',
         // pattern: /\*\*([\s\S]*?)\*\*/g,
-        pattern: /^\*\*[\s\S]+\*\*$/g,
+        // pattern: /^\*\*[\s\S]+\*\*$/g,
+        pattern: /\*\*/g,
         // pattern: /^\*\*[\s\S]+\*\*$/g,
         hasNextLineSupport: false,
         isWrapped: true,
@@ -30,7 +32,8 @@ const TOOLBAR_FORMATS_INFO = {
         value: 'italic',
         format: '*',
         // pattern: /^\*(?!\*)([\s\S]*?)\*$/gm,
-        pattern: /^\*(?!\*)(.*?)\*$/g,
+        // pattern: /^\*(?!\*)(.*?)\*$/g,
+        pattern: /\*/g,
         hasNextLineSupport: false,
         isWrapped: true,
         icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-italic"><line x1="19" x2="10" y1="4" y2="4" /><line x1="14" x2="5" y1="20" y2="20" /><line x1="15" x2="9" y1="4" y2="20" /></svg>
@@ -212,6 +215,24 @@ const MarkdownEditor = (props) => {
             onSave()
         }
 
+        // validate and move to parent contant
+        const FORMAT_KEYS = {
+            b: 'bold',       
+            i: 'italic',   
+            s: 'strikethrough',
+            h: 'highlight', 
+            q: 'quote',
+            o: 'bulletedList',
+            n: 'numberedList',
+            c: 'checkbox',
+            '`': 'code',
+            // u: handleUnderline,  
+        };
+
+        if ((e.ctrlKey || e.metaKey) && FORMAT_KEYS[e.key]) {
+            e.preventDefault();
+            handleFormatting(FORMAT_KEYS[e.key]);
+        }
         if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
             e.preventDefault()
             handlePreview();
@@ -235,22 +256,29 @@ const MarkdownEditor = (props) => {
         const textBeforeCursor = value.substring(0, cursorPosition);
         const textAfterCursor = value.substring(cursorPosition);
 
-        // const lines = textBeforeCursor.split('\n');
         const allText = textBeforeCursor + textAfterCursor;
         const linesBeforeCursor = textBeforeCursor.split('\n');
+        const linesAfterCursor = textAfterCursor.split('\n');
 
         const newActiveTextFormats = Object.keys(TOOLBAR_FORMATS_INFO).reduce((accumulatedTextFormats, key) => {
-            const { pattern, isWrapped } = TOOLBAR_FORMATS_INFO[key] || {};
+            const { pattern, format, isWrapped } = TOOLBAR_FORMATS_INFO[key] || {};
             if(!isWrapped){
-                const linesBeforeCursor = textBeforeCursor.split('\n');
                 const currentLine = linesBeforeCursor[linesBeforeCursor.length - 1];
                 if(!currentLine.match(pattern)){
                     return { ...accumulatedTextFormats, [key]: false }
                 }
+
+                if(allText.match(pattern)){
+                    return { ...accumulatedTextFormats, [key]: true }
+                }
             }
-            if(allText.match(pattern)){
+
+            // check for formattings (bold, italic etc)
+            const isSymbolUnclosed = isSymbolOpen(linesBeforeCursor, linesAfterCursor, pattern);
+            if(isSymbolUnclosed){
                 return { ...accumulatedTextFormats, [key]: true }
             }
+            
             return { ...accumulatedTextFormats, [key]: false }
         }, {});
 
@@ -361,7 +389,7 @@ const MarkdownEditor = (props) => {
 
             {hasImageModal && (<ImageUploadModal pastedFiles={pastedFiles} onInsertFileToEditor={handleInsertFileToEditor} onClose={handleImageInsertClose} />)}
 
-            <div className="flex flex-nowrap">
+            <div className="flex flex-nowrap h-screen-1/2 overflow-scroll">
                 {editorMode !== TOOLBAR_MODES.PREVIEW && (
                     <div className={`px-3 my-3 ${editorMode === TOOLBAR_MODES.EDIT_PREVIEW ? 'w-half' : 'w-full'} space-y-1`}>
                         <textarea ref={textareaRef} onPaste={handlePaste} onScroll={handleScroll} className={`bg-default w-full text-default px-2 py-2 text-sm h-screen-75`} id="editor" onChange={handleChange} onKeyDown={handleKeyDown} value={markdownContent} />
