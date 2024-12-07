@@ -46,6 +46,7 @@ blockquote {
   border-radius: 3px;
   overflow-x: auto;
   margin-right: 3rem;
+  max-width: 75vw;
 }
 
 .code-header{
@@ -61,6 +62,7 @@ blockquote {
 
 .code-body {
   padding: 0 1rem 1rem 1rem;
+  overflow: scroll;
 }
 
 .code-copy{
