@@ -18,7 +18,7 @@ const pageSize = 30;
 
 const UsersList = () => {
     const { fetchUsersData, fetchStatus } = useUsers();
-    const { currentPage, incrementPagination, resetPagination } = useShowMorePagination();
+    const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize });
 
     const [filters, setFilters] = useState({ filters: 'following' });
     const [data, setData] = useState([]);
@@ -42,6 +42,7 @@ const UsersList = () => {
         setData((previousUsers) => [...previousUsers, ...users]);
 
         incrementPagination();
+        checkIfAllDataFetched(users);
         return users;
     }
 
@@ -71,7 +72,7 @@ const UsersList = () => {
             </div>
             <div className="flex my-2">
                 {unAuthorisedForListing ? (
-                    <ShowMorePaginationWrapper key={`users_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} fetchDataMethod={fetchUsers}>
+                    <ShowMorePaginationWrapper key={`users_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchUsers}>
                         <UsersListSuccess usersList={data} />
                     </ShowMorePaginationWrapper>
                 ) : (

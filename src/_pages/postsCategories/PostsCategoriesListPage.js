@@ -15,7 +15,7 @@ import FollowUnfollowToggler from "_modules/togglers/FollowUnfollowToggler";
 const pageSize = 30;
 const PostsCategoriesListPage = () => {
     const { fetchStatus, fetchPostCategories: fetchPostCategoriesData } = usePostsCategories();
-    const { currentPage, incrementPagination, resetPagination } = useShowMorePagination();
+    const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize });
 
     const [filters, setFilters] = useState();
     const [data, setData] = useState([]);
@@ -37,6 +37,7 @@ const PostsCategoriesListPage = () => {
         setData((previousUsers) => [...previousUsers, ...users]);
 
         incrementPagination();
+        checkIfAllDataFetched(users);
         return users;
     }
 
@@ -57,7 +58,7 @@ const PostsCategoriesListPage = () => {
                 </div>
             </div>
             <div className="flex my-2">
-                <ShowMorePaginationWrapper key={`users_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} fetchDataMethod={fetchUsers}>
+                <ShowMorePaginationWrapper key={`users_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchUsers}>
                     <PostCategoriesListSuccess categoriesList={data} />
                 </ShowMorePaginationWrapper>
             </div>

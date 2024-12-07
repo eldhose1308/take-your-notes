@@ -11,7 +11,7 @@ export const parseJSON = (jsonString) => {
 export const stringifyJSON = (json) => {
     try{
         const jsonString = JSON.stringify(json);
-        return jsonString;
+        return jsonString || '';
     }catch(err){
         console.warn('Could not stringify JSON', err);
         return ''

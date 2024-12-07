@@ -13,7 +13,7 @@ import EmptyUserPosts from "_components/DisplayStates/Empty/EmptyUserPosts";
 const CategoriesPostList = (props) => {
     const { pageSize = 10, initialPage = 0, initialData = [], userName, categoryName } = props;
 
-    const { currentPage, incrementPagination, resetPagination } = useShowMorePagination();
+    const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize });
     const { fetchPostsData, fetchStatus } = usePosts();
 
     const [filters, setFilters] = useState({ category: categoryName });
@@ -36,6 +36,7 @@ const CategoriesPostList = (props) => {
         setData((previousPosts) => [...previousPosts, ...posts]);
 
         incrementPagination();
+        checkIfAllDataFetched(posts);
         return posts;
     }
 
@@ -47,7 +48,7 @@ const CategoriesPostList = (props) => {
     return (
         <React.Fragment>
             <PostFilters onChange={handleFiltersChange} />
-            <ShowMorePaginationWrapper key={`posts_${categoryName}_${stringifyJSON(filters)}`} isEmpty={fetchStatus === 'empty'} initialFetchStatus={fetchStatus} currentPage={currentPage} fetchDataMethod={fetchPosts}>
+            <ShowMorePaginationWrapper key={`posts_${categoryName}_${stringifyJSON(filters)}`} isEmpty={fetchStatus === 'empty'} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchPosts}>
                 <React.Fragment>
                     {fetchStatus !== 'empty' ? (
                         <PostsSuccess usersPostList={data} />
