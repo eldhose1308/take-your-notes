@@ -23,7 +23,13 @@ function convertMarkdownToHtml(markdown) {
     // <div className="code-body">
     // <code>$1</code><div><div>`); 
 
-    markdown = markdown.replace(/```([\s\S]*?)```/g, `<div class='code-preview'><div class="code-header"><span>Code Snippet</span><span class="code-copy"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span class="code-copy-text">Copy code</span><span class="copied-message" style="display: none;">Copied!</span></span></div><div class="code-body"><code><pre>$1</pre></code></div> </div>`);
+    // markdown = markdown.replace(/```([\s\S]*?)```/g, `<div class='code-preview'><div class="code-header"><span>Code Snippet</span><span class="code-copy"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span class="code-copy-text">Copy code</span><span class="copied-message" style="display: none;">Copied!</span></span></div><div class="code-body"><code><pre>$1</pre></code></div> </div>`);
+    markdown = markdown.replace(/```(\[([a-zA-Z0-9]+)\])?\n([\s\S]*?)```/g, (match,fullMatch, lang, code) => {
+        const language = lang || 'plaintext'; 
+        return `<div class='code-preview'><div class="code-header"><span>Code Snippet [${language.toLowerCase()}]</span><span class="code-copy"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span class="code-copy-text">Copy code</span><span class="copied-message" style="display: none;">Copied!</span></span></div><div class="code-body"><code><pre>${code}</pre></code></div></div>`;
+    });
+    
+
     markdown = markdown.replace(/`(.*?)`/g, '<span class="highlighted-text">$1</span>');    
 
     // images
