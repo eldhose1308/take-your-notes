@@ -7,15 +7,14 @@ import usePosts from "_modules/posts/_hooks/usePosts";
 import useShowMorePagination from "_components/Pagination/_hooks/useShowMorePagination";
 import { stringifyJSON } from "_utils/json";
 
+const pageSize = 30;
 
-const PostsHomeList = (props) => {
-    const { pageSize = 10, initialPage = 0, initialData = [], initialFilters = [] } = props;
+const PostsHomeList = () => {
+    const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize });
+    const { fetchStatus, fetchPostsData } = usePosts();
 
-    const { currentPage, incrementPagination, resetPagination } = useShowMorePagination();
-    const { fetchStatus, fetchPostsData, setPostsList } = usePosts();
-
-    const [filters, setFilters] = useState(initialFilters);
-    const [data, setData] = useState(initialData || []);
+    const [filters, setFilters] = useState(null);
+    const [data, setData] = useState([]);
 
 
     const handleFiltersChange = async (newFilters) => {
@@ -25,6 +24,7 @@ const PostsHomeList = (props) => {
         const postsFilter = { page: 1, limit: pageSize, ...postFilters };
         const posts = await fetchPostsData(postsFilter);
         resetPagination();
+        checkIfAllDataFetched(posts);
         setData(posts);
     }
 
@@ -34,6 +34,7 @@ const PostsHomeList = (props) => {
         setData((previousPosts) => [...previousPosts, ...posts]);
 
         incrementPagination();
+        checkIfAllDataFetched(posts);
         return posts;
     }
 
@@ -45,7 +46,7 @@ const PostsHomeList = (props) => {
     return (
         <React.Fragment>
             <PostFilters onChange={handleFiltersChange} />
-            <ShowMorePaginationWrapper key={`posts_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} fetchDataMethod={fetchPosts}>
+            <ShowMorePaginationWrapper key={`posts_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchPosts}>
                 <React.Fragment>
                     <PostsSuccess usersPostList={data} />
                 </React.Fragment>

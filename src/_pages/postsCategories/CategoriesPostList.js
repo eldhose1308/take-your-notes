@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 
 import PostsSuccess from "_pages/posts/states/PostsSuccess";
+
 import ShowMorePaginationWrapper from "_components/Pagination/ShowMorePaginationWrapper";
 import PostFilters from "_modules/posts/_components/PostFilters";
-import usePosts from "_modules/posts/_hooks/usePosts";
-import useShowMorePagination from "_components/Pagination/_hooks/useShowMorePagination";
-import useUserPosts from "_modules/users/_hooks/useUserPosts";
-import { stringifyJSON } from "_utils/json";
 import EmptyUserPosts from "_components/DisplayStates/Empty/EmptyUserPosts";
 
+import usePosts from "_modules/posts/_hooks/usePosts";
+import useShowMorePagination from "_components/Pagination/_hooks/useShowMorePagination";
+
+import { stringifyJSON } from "_utils/json";
+
+const pageSize = 30;
 
 const CategoriesPostList = (props) => {
-    const { pageSize = 10, initialPage = 0, initialData = [], userName, categoryName } = props;
+    const { categoryName } = props;
 
     const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize });
     const { fetchPostsData, fetchStatus } = usePosts();

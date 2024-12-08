@@ -195,15 +195,15 @@ export const ROUTES = [
     children: [
       {
         path: "",
-        element: <UsersProvider><UsersList /></UsersProvider>
+        element: <UsersList />
       },
       {
         path: ":id",
-        element: <UsersProvider><UserDetail /></UsersProvider>
+        element: <UserDetail />
       },
       {
         path: ":id/posts",
-        element: <UsersProvider><UsersPostList /></UsersProvider>
+        element: <UsersPostList />
       },
       {
         path: ":userName/posts/:postSlug",

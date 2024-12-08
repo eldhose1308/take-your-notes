@@ -27,6 +27,7 @@ const PostsCategoriesListPage = () => {
         const usersFilter = { page: 1, limit: pageSize, filters: 'following', ...userFilters };
         const users = await fetchPostCategoriesData(usersFilter);
         resetPagination();
+        checkIfAllDataFetched(users);
         setData(users);
     }
 
