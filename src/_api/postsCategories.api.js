@@ -30,6 +30,24 @@ const getPostsCategoryBySlug = async (data, config = {}) => {
     })
 }
 
+const followCategory = async (categoryId, config = {}) => {
+    return new AccessAPI(BASE_URL + `postCategories/${categoryId}/follow`).post()
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err
+    })
+}
+
+const unFollowCategory = async (categoryId, config = {}) => {
+    return new AccessAPI(BASE_URL + `postCategories/${categoryId}/unfollow`).post()
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err
+    })
+}
+
 const savePost = async (data, config = {}) => {
     return new AccessAPI(BASE_URL + 'postCategories').post(data)
     .then((res) => {
@@ -61,6 +79,10 @@ export {
     getAuthPosts,
     getPostsCategories,
     getPostsCategoryBySlug,
+
+    followCategory,
+    unFollowCategory,
+
     savePost,
     updatePost,
     deletePost

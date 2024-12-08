@@ -38,15 +38,6 @@ const PostCategoryInfo = (props) => {
                     </div>
                 </div>
             </Link>
-            {hasFollowButton &&
-                <div onClick={() => { }} className="flex bg-custom text-accent hover-text-custom hover-accent text-xs my-2 mr-2 ml-4 p-2 px-2 cursor-pointer rounded-md">
-                    <span className="flex items-center">
-                        <span className="flex items-center mr-2">
-                            {/* {FOLLOW_STATE[isFollowing].icon} */}
-                        </span>
-                        {/* {FOLLOW_STATE[isFollowing].text} */}
-                    </span>
-                </div>}
         </React.Fragment>
     )
 }

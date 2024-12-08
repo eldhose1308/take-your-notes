@@ -1,21 +1,33 @@
+import React, { useState } from "react";
+
 import Separator from "_components/Misc/Separator/Separator";
 import Typography from "_components/Misc/Typography/Typography";
-import FollowButton from "_modules/users/_component/FollowButton";
-import React from "react";
+import ShareButton from "_components/UI/ShareButton/ShareButton";
+import FollowButton from "_modules/postCategories/_components/FollowButton";
 import PostCategoryInfo from "./PostCategoryInfo";
+import CLIENT_ROUTES from "_routes/clientRoutes";
 
 const PostCategoryDetailCard = (props) => {
 
     const { categoryData = {} } = props;
-    const { categorySlug, categoryName, bio, createdAt, posts, followers, rank, isFollowing } = categoryData;
+    const [categoryState, setCategoryState] = useState(categoryData);
+    const { id: categoryId, categorySlug, categoryName, bio, createdAt, posts, followers, rank, isFollowing } = categoryState;
 
 
     return (
         <div className="border bg-secondary p-4 rounded-md">
 
             <div className="flex justify-between">
-                <PostCategoryInfo categoryData={categoryData} />
-                {/* <FollowButtonCategory userId={userId} categorySlug={categorySlug} isFollowing={isFollowing} updateUser={setUserState} /> */}
+                <PostCategoryInfo categoryData={categoryState} />
+                <div className="flex">
+
+                    <ShareButton
+                        shareDetails={{ title: categorySlug, text: categoryName, urlRoute: CLIENT_ROUTES.CATEGORY_DETAIL(categorySlug) }}
+                        shareText='Share Category'
+                    />
+
+                    <FollowButton categoryId={categoryId} categorySlug={categorySlug} isFollowing={isFollowing} updateCategory={setCategoryState} />
+                </div>
             </div>
 
 

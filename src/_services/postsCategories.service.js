@@ -2,8 +2,8 @@ import * as postsCategories from '_api/postsCategories.api'
 import { formatToLocalTime } from '_utils/timestampUtils';
 
 export const formatPostCategoryData = (data) => {
-    const { category_name, category_slug, category_icon, posts_count, followers_count, created_at, category_id } = data;
-    const formattedResponse = { id: category_id, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon, followers: followers_count, posts: posts_count, createdAt: formatToLocalTime(created_at) };
+    const { category_name, category_slug, category_icon, posts_count, followers_count, created_at, category_id, is_following } = data;
+    const formattedResponse = { id: category_id, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon, followers: followers_count, posts: posts_count, createdAt: formatToLocalTime(created_at), isFollowing: !!is_following };
     return formattedResponse;
 }
 
@@ -26,6 +26,25 @@ const getPostsCategoryBySlug = async (data, config = {}) => {
     const { data: foldersData = [] } = response;
     const foldersFormatted = formatPostCategoryData(foldersData);
     return foldersFormatted || {}
+}
+
+
+const followCategory = async (data, config = {}) => {
+    try{
+        const response = await postsCategories.followCategory(data, config);
+        return true
+    }catch(err){
+        throw err;
+    }
+}
+
+const unFollowCategory = async (data, config = {}) => {
+    try{
+        const response = await postsCategories.unFollowCategory(data, config);
+        return true
+    }catch(err){
+        throw err;
+    }
 }
 
 
@@ -56,10 +75,15 @@ const deletePost = async (id, config = {}) => {
 
 
 
+
 export {
     getAuthPosts,
     getPostsCategories,
     getPostsCategoryBySlug,
+
+    followCategory,
+    unFollowCategory,
+
     savePost,
     updatePost,
     deletePost
