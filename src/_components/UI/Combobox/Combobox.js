@@ -122,15 +122,30 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], isFetchi
             )}
 
             {filteredItems.map((option, index) => {
-              const { [idKey]: id, [labelKey]: label, [idKey]: value } = option;
               return (
-                <span key={`combobox_item_${value}`} onClick={(e) => { onChange(id, option, e); hide(); }} className={`flex flex-nowrap justify-between items-center w-full py-1.5 mb-1 px-2 cursor-pointer rounded-md ${selectedValue === id ? 'bg-highlight' : 'hover-custom'} ${highlightedIndex === index ? 'bg-custom' : ''} text-secondary group-hover`}>
-                  <span className={`${renderItemAction ? 'w-60' : ''}`}>
-                    {highlightText(label, searchQuery)}
-                  </span>
-                  {renderItemAction && renderItemAction(id, option)}
-                </span>
+                <ComboboxItem 
+                  key={`combobox_item_${index}`} 
+                  index={index}
+                  idKey={idKey}
+                  labelKey={labelKey}
+                  onChange={onChange} 
+                  hide={hide} 
+                  renderItemAction={renderItemAction} 
+                  selectedValue={selectedValue} 
+                  highlightedIndex={highlightedIndex} 
+                  option={option}
+                  searchQuery={searchQuery}
+                />
               )
+              // const { [idKey]: id, [labelKey]: label, [idKey]: value } = option;
+              // return (
+              //   <span key={`combobox_item_${value}`} onClick={(e) => { onChange(id, option, e); hide(); }} className={`flex flex-nowrap justify-between items-center w-full py-1.5 mb-1 px-2 cursor-pointer rounded-md ${selectedValue === id ? 'bg-highlight' : 'hover-custom'} ${highlightedIndex === index ? 'bg-custom' : ''} text-secondary group-hover`}>
+              //     <span className={`${renderItemAction ? 'w-60' : ''}`}>
+              //       {highlightText(label, searchQuery)}
+              //     </span>
+              //     {renderItemAction && renderItemAction(id, option)}
+              //   </span>
+              // )
             })}
 
             {isFetching && <div className="w-full text-center"><Loader type='spinner' /></div>}
@@ -158,13 +173,22 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], isFetchi
   )
 }
 
-const ComboboxItem = ({ onChange, value, children, ...props }) => {
+const ComboboxItem = ({ option, index, onChange, hide, renderItemAction, selectedValue, searchQuery, idKey, labelKey, highlightedIndex, children, ...props }) => {
+  const { [idKey]: id, [labelKey]: label, [idKey]: value } = option;
 
   return (
-    <span className={`w-full py-1.5 px-2 cursor-pointer hover-custom`} {...props}>
-      {children}
+    <span key={`combobox_item_${value}`} onClick={(e) => { onChange(id, option, e); hide(); }} className={`flex flex-nowrap justify-between items-center w-full py-1.5 mb-1 px-2 cursor-pointer rounded-md ${selectedValue === id ? 'bg-highlight' : 'hover-custom'} ${highlightedIndex === index ? 'bg-custom' : ''} text-secondary group-hover`}>
+      <span className={`${renderItemAction ? 'w-60' : ''}`}>
+        {highlightText(label, searchQuery)}
+      </span>
+      {renderItemAction && renderItemAction(id, option)}
     </span>
   )
+  // return (
+  //   <span className={`w-full py-1.5 px-2 cursor-pointer hover-custom`} {...props}>
+  //     {children}
+  //   </span>
+  // )
 }
 
 
