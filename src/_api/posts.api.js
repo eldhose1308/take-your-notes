@@ -3,7 +3,8 @@ import { AccessAPI } from "_utils";
 import { constructUrl } from "_utils/AccessAPI";
 
 const getAuthPosts = async (data, config = {}) => {
-    return new AccessAPI(BASE_URL + 'posts/my').get()
+    const postsURL = constructUrl(BASE_URL + 'posts/my', data);
+    return new AccessAPI(postsURL).get()
     .then((res) => {
         return res
     }).catch((err) => {

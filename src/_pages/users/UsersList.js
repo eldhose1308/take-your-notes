@@ -30,9 +30,9 @@ const UsersList = () => {
         const userFilters = { ...filters, ...newFilters };
         setFilters(userFilters);
         setData([]);
+        resetPagination();
         const usersFilter = { page: 1, limit: pageSize, filters: 'following', ...userFilters };
         const users = await fetchUsersData(usersFilter);
-        resetPagination();
         checkIfAllDataFetched(users);
         setData(users);
     }

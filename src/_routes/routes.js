@@ -149,11 +149,11 @@ export const ROUTES = [
         children: [
           {
             path: "", 
-            element: <PostsProvider><MyPostList  /></PostsProvider>,
+            element: <MyPostList  />,
           },
           {
             path: "create", 
-            element: <PostsProvider><MyPostForm /></PostsProvider>,
+            element: <MyPostForm />,
           },
           {
             path: "edit/:id",

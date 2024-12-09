@@ -17,7 +17,7 @@ const getAuthPosts = async (data, config = {}) => {
 const getPostsCategories = async (data, config = {}) => {
     const response = await postsCategories.getPostsCategories(data, config);
     const { data: foldersData = [] } = response;
-    const foldersFormatted = foldersData.map(formatPostCategoryData)
+    const foldersFormatted = foldersData.map(formatPostCategoryData);
     return foldersFormatted || []
 }
 
@@ -54,11 +54,15 @@ const unFollowCategory = async (data, config = {}) => {
 // }
 
 
-const savePost = async (data, config = {}) => {
-    const response = await postsCategories.savePost(data, config);
-    const { data: folderData = [] } = response;
-    const formattedFolderData = formatPostCategoryData(folderData);
-    return formattedFolderData;
+const savePostCategory = async (data, config = {}) => {
+    try{
+        const response = await postsCategories.savePostCategory(data, config);
+        const { data: folderData = [] } = response;
+        const formattedFolderData = formatPostCategoryData(folderData);
+        return formattedFolderData;
+    }catch(err){
+        throw err;
+    }
 }
 
 
@@ -84,7 +88,7 @@ export {
     followCategory,
     unFollowCategory,
 
-    savePost,
+    savePostCategory,
     updatePost,
     deletePost
 }

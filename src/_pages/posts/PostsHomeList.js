@@ -21,9 +21,9 @@ const PostsHomeList = () => {
         const postFilters = { ...filters, ...newFilters };
         setFilters(postFilters);
         setData([]);
+        resetPagination();
         const postsFilter = { page: 1, limit: pageSize, ...postFilters };
         const posts = await fetchPostsData(postsFilter);
-        resetPagination();
         checkIfAllDataFetched(posts);
         setData(posts);
     }

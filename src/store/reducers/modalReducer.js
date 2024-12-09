@@ -2,6 +2,7 @@ const initialState = {
     deleteConfirmBox: { status: false },
     createFolderModal: { status: false },
     createFileModal: { status: false },
+    createCategoryModal: {status: false},
 };
 
 const modalReducer = (state = initialState, action={}) => {
@@ -13,6 +14,9 @@ const modalReducer = (state = initialState, action={}) => {
         case 'CREATE_FOLDER_MODAL':
             return { ...state, createFolderModal: payload };
 
+        case 'CREATE_CATEGORY_MODAL':
+            return { ...state, createCategoryModal: payload };
+    
         case 'CREATE_FILE_MODAL':
             return { ...state, createFileModal: payload };
 

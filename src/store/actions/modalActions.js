@@ -13,6 +13,11 @@ export const showFolderCreateModal = (payload) => async (dispatch) => {
 };
 
 
+export const showCategoryCreateModal = (payload) => async (dispatch) => {
+    dispatch({ type: 'CREATE_CATEGORY_MODAL', payload });
+};
+
+
 export const showFileCreateModal = (payload) => async (dispatch) => {
     dispatch({ type: 'CREATE_FILE_MODAL', payload });
 };

@@ -11,6 +11,7 @@ import usePostsNavigation from "_modules/posts/_hooks/usePostsNavigation";
 import useMyPosts from "_modules/posts/_hooks/useMyPosts";
 import { POST_ACTIONS } from "_modules/posts/_constants/postReducerActionTypes";
 import { Stencil } from "_components/Loader";
+import usePostsCategories from "_modules/posts/_hooks/usePostsCategories";
 
 const tagsSuggestions = [
     { id: 'JavaScript', text: 'JavaScript' },
@@ -54,7 +55,7 @@ const tagsSuggestions = [
 const MyPostForm = () => {
     const { navigateToList } = usePostsNavigation();
 
-    const { categories, postFormState, postFormDispatcher, savePost, fetchStatus } = useMyPosts();
+    const { postFormState, postFormDispatcher, savePost, fetchStatus } = useMyPosts();
 
     const { postTags, currentVisibilityMode, postCategory, postTitle, markdownContent } = postFormState;
     const { categoryName } = postCategory || {};
@@ -98,6 +99,7 @@ const MyPostForm = () => {
         postFormDispatcher({ type: POST_ACTIONS.SET_CATEGORY, payload: option });
     }
 
+
     if(fetchStatus === 'loading'){
         return <div className="m-5">
             <Stencil />
@@ -123,7 +125,7 @@ const MyPostForm = () => {
                         Go Back
                     </span>
                     <div className="flex text-sm p-2 bg-highlight rounded-md cursor-pointer mx-1">
-                        <PostCategory category={postCategory} categoryList={categories} onChange={handlePostCategoryChange} />
+                        <PostCategory category={postCategory} onChange={handlePostCategoryChange} />
                     </div>
                 </div>
                 <div className="flex justify-between w-full ">

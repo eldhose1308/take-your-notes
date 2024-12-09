@@ -22,9 +22,9 @@ const UsersPostList = (props) => {
     const handleFiltersChange = async (filters) => {
         setFilters(filters);
         setData([]);
+        resetPagination();
         const postsFilter = { page: 1, limit: pageSize, ...filters };
         const posts = await fetchUsersPost(postsFilter);
-        resetPagination();
         setData(posts);
     }
 

@@ -48,12 +48,12 @@ const unFollowCategory = async (categoryId, config = {}) => {
     })
 }
 
-const savePost = async (data, config = {}) => {
+const savePostCategory = async (data, config = {}) => {
     return new AccessAPI(BASE_URL + 'postCategories').post(data)
     .then((res) => {
         return res
     }).catch((err) => {
-        throw err.response
+        throw err
     })
 }
 
@@ -83,7 +83,7 @@ export {
     followCategory,
     unFollowCategory,
 
-    savePost,
+    savePostCategory,
     updatePost,
     deletePost
 }

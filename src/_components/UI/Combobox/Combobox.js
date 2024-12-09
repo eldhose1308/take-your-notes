@@ -2,6 +2,7 @@ import Separator from "_components/Misc/Separator/Separator";
 import { TextBox } from "_components/Form";
 import React, { useState, useRef, createContext, useContext, useMemo, useEffect } from "react";
 import { highlightText } from "./_utils/utils";
+import Loader from "_components/Loader/Loader";
 
 const ComboboxContext = createContext();
 
@@ -42,14 +43,14 @@ const ComboboxTrigger = ({ children }) => {
   )
 }
 
-const ComboboxContent = ({ heading = 'Heading', children, options = [], selectedValue, renderAdd, renderItemAction, onChange, onSearch, idKey='id', labelKey='label' }) => {
+const ComboboxContent = ({ heading = 'Heading', children, options = [], isFetching = false, isAllDataFetched = false, onNewOptions = () => { }, selectedValue, renderAdd, renderItemAction, onChange, onSearch, idKey = 'id', labelKey = 'label' }) => {
   const { isMenuOpen, hide, searchQuery, setSearchQuery } = useContext(ComboboxContext)
   // call debounced search func
   const [highlightedIndex, setHighlightedIndex] = useState(-1)
 
   const dropdownRef = useRef(null);
   const filteredItems = useMemo(() =>
-    options.filter(({ label = '' }) => label.toLowerCase().includes(searchQuery.toLowerCase())),
+    options.filter(({ [labelKey]: label = '' }) => label.toLowerCase().includes(searchQuery.toLowerCase())),
     [options, searchQuery]
   );
 
@@ -58,24 +59,24 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], selected
     setSearchQuery(value);
     onSearch && onSearch(value, e); // call debounced search func
   }
-  
+
 
   const handleKeyDown = (event) => {
     if (event.key === 'ArrowDown') {
-        setHighlightedIndex((prevIndex) => (prevIndex + 1) % filteredItems.length)
+      setHighlightedIndex((prevIndex) => (prevIndex + 1) % filteredItems.length)
     } else if (event.key === 'ArrowUp') {
-        setHighlightedIndex((prevIndex) => (prevIndex - 1 + filteredItems.length) % filteredItems.length)
+      setHighlightedIndex((prevIndex) => (prevIndex - 1 + filteredItems.length) % filteredItems.length)
     } else if (event.key === 'Enter') {
-        if (highlightedIndex >= 0 && highlightedIndex < filteredItems.length) {
-            const selectedSuggestion = filteredItems[highlightedIndex]
-            onChange(selectedSuggestion.id, selectedSuggestion, highlightedIndex)
-        }
-    } else 
-    if (event.key === 'Escape') {
+      if (highlightedIndex >= 0 && highlightedIndex < filteredItems.length) {
+        const selectedSuggestion = filteredItems[highlightedIndex]
+        onChange(selectedSuggestion.id, selectedSuggestion, highlightedIndex)
+      }
+    } else
+      if (event.key === 'Escape') {
         event.preventDefault();
         hide();
-    }
-}
+      }
+  }
 
   useEffect(() => {
 
@@ -116,7 +117,7 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], selected
           </div>
           <Separator className='w-full' />
           <div className="flex max-h-md overflow-y-scroll pr-1 my-1 w-full">
-            {!filteredItems.length && (
+            {!isFetching && !filteredItems.length && (
               <span className="py-2 px-2 flex items-center">No results found.</span>
             )}
 
@@ -131,6 +132,13 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], selected
                 </span>
               )
             })}
+
+            {isFetching && <div className="w-full text-center"><Loader type='spinner' /></div>}
+
+            {!isAllDataFetched && <span onClick={onNewOptions} className="w-full text-center hover-secondary py-2 rounded-md my-2">
+              Show more
+            </span>}
+
           </div>
 
           {renderAdd && (

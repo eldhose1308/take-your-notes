@@ -86,7 +86,6 @@ const KeyboardShortcuts = ({ isOpen, onClose = () => { } }) => {
     return (
         <Dialog isShown={isOpen} hasOverlay size='xl'>
             <div className="my-4">
-                <Separator className='my-2' />
                 <div className="flex justify-between">
 
                     <Typography textVariant='h3' size='lg' className='my-4 mx-4'>Keyboard Shortcuts</Typography>
