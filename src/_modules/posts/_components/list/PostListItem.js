@@ -18,16 +18,17 @@ import CLIENT_ROUTES from "_routes/clientRoutes";
 const PostListItem = (props) => {
     const { postItem } = props;
     const { postTitle, postSlug, id, content, category, user, createdAt, updatedAt } = postItem;
-    const { categoryName } = category || {};
+    const { categoryName, categorySlug } = category || {};
     const { userName, fullName, avatar } = user || {};
 
     const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
     const postDetailRoute = routeBasedOnAuthorisation(userName, postSlug)
     const postEditRoute = CLIENT_ROUTES.POST_EDIT(postSlug);
+    const categoryDetailRoute = CLIENT_ROUTES.CATEGORY_DETAIL(categorySlug);
 
 
     return (
-        <Card border='ghost' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-mds'>
+        <Card border='another' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-mds'>
             <CardHeader>
                 <Flex justifyContent='spaceBetween' alignItems='none' className=''>
                     <UserProfileInfo userData={user} hasFollowButton={false} />
@@ -42,10 +43,26 @@ const PostListItem = (props) => {
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-chevron-right"><circle cx="12" cy="12" r="10" /><path d="m10 8 4 4-4 4" /></svg>
                         </span>
                     </Typography>
-                    {/* <Typography variant='secondary' size='xs' textVariant='default'>
-                        {content}
-                    </Typography> */}
+                    {/* <Typography variant='secondary' size='xs' textVariant='default'> */}
+                    <span className="text-xs text-secondary">
+                        Read More
+                    </span>
+                    {/* </Typography> */}
                 </Link>
+
+
+
+                <div className="flex max-w-fit text-xs">
+                    <Link to={categoryDetailRoute} className='bg-secondary hover-custom rounded-md flex cursor-pointer p-1 mt-2'>
+                        <span className="flex items-center mr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-menu"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M7 8h10" /><path d="M7 12h10" /><path d="M7 16h10" /></svg>
+                        </span>
+                        <span className="flex items-center mr-2">
+                            {categoryName}
+                        </span>
+                    </Link>
+                </div>
+
             </CardContent>
 
 
