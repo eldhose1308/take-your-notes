@@ -1,3 +1,5 @@
+import Typography from "_components/Misc/Typography/Typography";
+import PostCategoryBadge from "_modules/postCategories/_components/PostCategoryBadge";
 import CLIENT_ROUTES from "_routes/clientRoutes";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -11,11 +13,8 @@ const MiniPostCategoryList = (props) => {
                 const { categoryName, categorySlug } = category;
                 const categoryDetailRoute = CLIENT_ROUTES.CATEGORY_DETAIL(categorySlug);
 
-                return (<Link key={categorySlug} to={categoryDetailRoute}>
-                    <div className="flex flex-col my-3 p-1 border-b border-custom hover-custom rounded-md">
-                        <span className="text-bold my-1">{categoryName}</span>
-                    </div>
-                </Link>)
+                return (
+                    <PostCategoryBadge categoryName={categoryName} linkUrl={categoryDetailRoute} />)
 
             })}
         </React.Fragment>

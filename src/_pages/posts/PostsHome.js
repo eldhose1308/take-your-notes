@@ -30,12 +30,8 @@ const PostsHome = () => {
                         </AdditionalContentSection>
 
 
-                        <AdditionalContentSection
-                            heading='People You Might Like'
-                            renderFooter={() => <span className="flex w-full justify-center">See more</span>}
-                        >
-                            <AdditionalUsers />
-                        </AdditionalContentSection>
+                      
+                        <AdditionalUsers />
 
                         <AdditionalContentSection
                             heading="Series's You Might Like"
@@ -43,12 +39,8 @@ const PostsHome = () => {
                         >
                         </AdditionalContentSection>
 
-                        <AdditionalContentSection
-                            heading='Categories You Might Like'
-                            renderFooter={() => <span className="flex w-full justify-center">See more</span>}
-                        >
-                            <AdditionalCategories />
-                        </AdditionalContentSection>
+                       
+                        <AdditionalCategories />
 
                         <AdditionalContentSection
                             heading='Tags You Might Like'

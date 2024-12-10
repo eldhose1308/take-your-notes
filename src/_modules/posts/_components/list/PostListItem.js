@@ -14,6 +14,7 @@ import { isUserDataSameAsLoggedInUser, routeBasedOnAuthorisation } from "_utils/
 import FormattedTimestamp from "../FormattedTimestamp";
 
 import CLIENT_ROUTES from "_routes/clientRoutes";
+import PostCategoryBadge from "_modules/postCategories/_components/PostCategoryBadge";
 
 const PostListItem = (props) => {
     const { postItem } = props;
@@ -44,23 +45,16 @@ const PostListItem = (props) => {
                         </span>
                     </Typography>
                     {/* <Typography variant='secondary' size='xs' textVariant='default'> */}
-                    <span className="text-xs text-secondary">
+                    {/* <span className="text-xs text-secondary">
                         Read More
-                    </span>
+                    </span> */}
                     {/* </Typography> */}
                 </Link>
 
 
 
                 <div className="flex max-w-fit text-xs">
-                    <Link to={categoryDetailRoute} className='bg-secondary hover-custom rounded-md flex cursor-pointer p-1 mt-2'>
-                        <span className="flex items-center mr-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-menu"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M7 8h10" /><path d="M7 12h10" /><path d="M7 16h10" /></svg>
-                        </span>
-                        <span className="flex items-center mr-2">
-                            {categoryName}
-                        </span>
-                    </Link>
+                    <PostCategoryBadge categoryName={categoryName} linkUrl={categoryDetailRoute} />
                 </div>
 
             </CardContent>
@@ -68,11 +62,11 @@ const PostListItem = (props) => {
 
             <CardFooter className='p-0'>
                 <div className="flex flex-col w-full">
-                    <div className="flex w-full justify-between">
+                    {/* <div className="flex w-full justify-between"> */}
 
-                        <Flex justifyContent='none' alignItems='none' width='none'>
+                    {/* <Flex justifyContent='none' alignItems='none' width='none'> */}
 
-                            <div className="content-center border border-secondary text-accent text-xs my-2 mx-1 py-2 px-2 rounded-md">
+                    {/* <div className="content-center border border-secondary text-accent text-xs my-2 mx-1 py-2 px-2 rounded-md">
                                 <span className="flex">
                                     <span className="flex items-center mr-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-thumbs-up"><path d="M7 10v12" /><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z" /></svg>
@@ -89,14 +83,14 @@ const PostListItem = (props) => {
                                     </span>
                                     253 comments
                                 </span>
-                            </div>
+                            </div> */}
 
-                            <ShareButton
+                    {/* <ShareButton
                                 shareDetails={{ title: postTitle, text: `Checkout this post by ${userName} about ${postTitle}`, urlRoute: postDetailRoute }}
-                            />
+                            /> */}
 
-                        </Flex>
-                        <Flex justifyContent='none' alignItems='none' width='none' className='mt-2'>
+                    {/* </Flex> */}
+                    {/* <Flex justifyContent='none' alignItems='none' width='none' className='mt-2'>
                             <div className="content-center border border-secondary text-accent hover-accent hover-text-custom text-xs my-2 mx-1 py-1 px-2 cursor-pointer rounded-md">
                                 <span className="flex">
                                     <span className="flex items-center">
@@ -104,11 +98,11 @@ const PostListItem = (props) => {
                                     </span>
                                 </span>
                             </div>
-                        </Flex>
-                    </div>
+                        </Flex> */}
+                    {/* </div> */}
                     <Separator variant='custom' className='my-2' />
 
-                    <FormattedTimestamp createdTime={createdAt} updatedTime={updatedAt} />
+                    <FormattedTimestamp createdTime={createdAt} updatedTime={updatedAt} hasEditInfo={false} />
 
                     {isCurrentUserDetail ? (
                         <React.Fragment>

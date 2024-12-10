@@ -57,12 +57,8 @@ const UserDetail = () => {
 
                 <ResponsiveDrawer direction='right'>
                     <div className="flex flex-col grow-1 basis-0">
-                        <AdditionalContentSection
-                            heading='People You Might Like'
-                            renderFooter={() => <span className="flex w-full justify-center">See more</span>}
-                        >
-                            <AdditionalUsers />
-                        </AdditionalContentSection>
+                        
+                        <AdditionalUsers />
 
                         <AdditionalContentSection
                             heading='Posts You Might Like'

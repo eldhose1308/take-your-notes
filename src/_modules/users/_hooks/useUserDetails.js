@@ -11,7 +11,7 @@ const useUserDetails = ({ userName }) => {
             return;
         }
 
-        const fetchUsersPost = async () => {
+        const fetchUsersDetails = async () => {
             try{
                 setFetchStatus('loading');
                 const userDetailsRespnse = await usersService.getUserDetail(userName);
@@ -22,7 +22,7 @@ const useUserDetails = ({ userName }) => {
             }
         }
 
-        fetchUsersPost();
+        fetchUsersDetails();
     }, [userName]);
 
     return {

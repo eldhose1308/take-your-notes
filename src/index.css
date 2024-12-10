@@ -37,7 +37,7 @@
 
 :root {
   /* --bg-default: #fff; */
-  --bg-default: #fbfbfb;
+  --bg-default: #f5f5f5;
   --bg-secondary: #18181b;
   --bg-another: #202022;
   --bg-custom: #1d283a;
@@ -85,7 +85,7 @@
 @media (prefers-color-scheme: light) {
   body.light,
   body.system {
-    --bg-default: #fff;
+    --bg-default: #f5f5f5;
     --bg-secondary: #e9ebf0;
     --bg-another: #e5e7eb;
     --bg-custom: #e2e3f3;
@@ -124,7 +124,7 @@ body.dark{
    
 }
 body.light{
-  --bg-default: #fff;
+  --bg-default: #f5f5f5;
   --bg-secondary: #e9ebf0;
   --bg-another: #e5e7eb;
   --bg-custom: #e2e3f3;

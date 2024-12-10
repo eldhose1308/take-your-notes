@@ -157,7 +157,7 @@ export const ROUTES = [
           },
           {
             path: "edit/:id",
-            element: <PostsProvider><MyPostForm /></PostsProvider>,
+            element: <MyPostForm />,
           },
         ]
       }

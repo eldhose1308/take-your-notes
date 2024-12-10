@@ -4,6 +4,11 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import MiniPostCategoryList from "./_components/MiniPostCategoryList";
 import { Stencil } from "_components/Loader";
+import AdditionalContentSection from "_components/Misc/AdditionalContentSection";
+import SeeMoreButton from "_components/Misc/SeeMoreButton";
+import CLIENT_ROUTES from "_routes/clientRoutes";
+
+const categoryListRoute = CLIENT_ROUTES.CATEGORY_LIST;
 
 const AdditionalCategories = () => {
 
@@ -15,15 +20,20 @@ const AdditionalCategories = () => {
     });
 
     useEffect(() => {
-        const filters = { page: 1, limit: 7 };
+        const filters = { page: 1, limit: 6 };
         fetchPostCategories(filters);
-    },[])
+    }, [])
 
     return (
         <React.Fragment>
-            <div className="border-b border-custom">
-                {CategoriesComponentState}
-            </div>
+            <AdditionalContentSection
+                heading='Categories You Might Like'
+                renderFooter={() => <SeeMoreButton linkUrl={categoryListRoute} />}
+            >
+                <div className="border-b border-custom">
+                    {CategoriesComponentState}
+                </div>
+            </AdditionalContentSection>
         </React.Fragment>
     )
 }
