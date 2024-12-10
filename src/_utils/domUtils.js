@@ -3,6 +3,8 @@ export const toggleColorScheme = (newTheme) => {
     const classToReplace = newTheme === 'light' ? 'dark' : 'light';
 
     body.classList.remove('system');
+    body.classList.remove('light');
+    body.classList.remove('dark');
     if (body.classList.contains(classToReplace)) {
         body.classList.remove(classToReplace);
         body.classList.add(newTheme);

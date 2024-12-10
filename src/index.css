@@ -10,7 +10,6 @@
   --gray: #f8f9fa;
 
   --lightest-gray: #dde1e3;
-  /* --light-gray: rgb(144, 144, 144); */
   --light-gray: #b0b0b0;
   --medium-gray: #555;
   
@@ -58,7 +57,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  body.dark,
+  body.system {
     /* --bg-default: #09090b; */
     --bg-default: #292a2e;
     --bg-secondary: #18181b;
@@ -81,6 +81,48 @@
   }
 }
 
+
+@media (prefers-color-scheme: light) {
+  body.light,
+  body.system {
+    --bg-default: #fff;
+    --bg-secondary: #e9ebf0;
+    --bg-another: #e5e7eb;
+    --bg-custom: #e2e3f3;
+    --bg-accent: #09090b;
+  
+    --custom: #fafafa;
+    --default: #09090b;
+    --secondary: #606064;
+    --destructive: #fa4d56;
+    --highlight: #d8faee;
+    --bg-light: #fbfbfb;
+  
+    --overlay-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+body.dark{
+     /* --bg-default: #09090b; */
+     --bg-default: #292a2e;
+     --bg-secondary: #18181b;
+     --bg-another: #202022;
+     --bg-custom: #202022;
+     /* --bg-custom: #1d283a; */
+     --bg-accent: #fafafa;
+   
+     --custom: #1d283a;
+     --default: #fafafa;
+     --secondary: #a1a1aa;
+     --destructive: #fa4d56;
+     --highlight: #273d39;
+     --bg-light: #222326;
+ 
+     --overlay-color: rgba(0, 0, 0, 0.2);
+ 
+     --radius: 0.5rem;
+   
+}
 body.light{
   --bg-default: #fff;
   --bg-secondary: #e9ebf0;
