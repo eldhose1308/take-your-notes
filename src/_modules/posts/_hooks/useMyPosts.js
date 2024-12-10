@@ -34,6 +34,7 @@ const useMyPosts = () => {
             return postsData;
         }catch(error){
             setFetchStatus('failure');
+            throw error;
         }
     }
 

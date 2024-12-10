@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Combobox, { ComboboxContent, ComboboxTrigger } from "_components/UI/Combobox/Combobox";
 import usePostsCategories from "../_hooks/usePostsCategories";
 import CategoryCreateModal from "_modules/modals/CategoryCreateModal";
+import useDebounce from "_hooks/useDebounce";
 
 const pageSize = 30;
 
@@ -13,6 +14,7 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { } }) => {
     const [filters, setFilters] = useState({ limit: pageSize, page: 1 });
 
     const [newCategoryModalData, setNewCategoryModalData] = useState(null);
+    const debounce = useDebounce();
 
     const handleFetchPostCategories = async (newFilters=[]) => {
         const usersFilter = { ...filters, ...newFilters };
@@ -70,12 +72,12 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { } }) => {
                     isFetching={categoryFetchStatus === 'loading'}
                     isAllDataFetched={isAllDataFetched}
                     onNewOptions={handleFetchPostCategories}
-                    onSearch={handleSearchQuery}
+                    onSearch={debounce(handleSearchQuery, 500)}
                     renderAdd={(searchQuery) => {
                         if(!searchQuery){
                             return;
                         }
-                        return <span onClick={() => handleOpenCategoryCreateModal(searchQuery)}>Create new "{searchQuery}"</span>
+                        return <span className="block w-full" onClick={() => handleOpenCategoryCreateModal(searchQuery)}>Create new "{searchQuery}"</span>
                     }}
                     selectedValue={id}
                     idKey='id'

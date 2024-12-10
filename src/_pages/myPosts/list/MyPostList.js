@@ -36,19 +36,27 @@ const MyPostList = (props) => {
         setData([]);
         resetPagination();
         const postsFilter = { page: 1, limit: pageSize, ...postFilters };
-        const posts = await fetchMyPostsData(postsFilter);
-        checkIfAllDataFetched(posts);
-        setData(posts);
+        try{
+            const posts = await fetchMyPostsData(postsFilter);
+            checkIfAllDataFetched(posts);
+            setData(posts);
+        }catch(err){
+            console.log(err);
+        }
     }
 
     const fetchMyPosts = async () => {
         const postsFilter = { page: currentPage + 1, limit: pageSize, ...filters };
-        const posts = await fetchMyPostsData(postsFilter);
-        setData((previousPosts) => [...previousPosts, ...posts]);
 
-        incrementPagination();
-        checkIfAllDataFetched(posts);
-        return posts;
+        try{
+            const posts = await fetchMyPostsData(postsFilter);
+            setData((previousPosts) => [...previousPosts, ...posts]);   
+            incrementPagination();
+            checkIfAllDataFetched(posts);
+            return posts;
+        }catch(err){
+            console.log(err);
+        }
     }
 
 
@@ -103,7 +111,7 @@ const MyPostList = (props) => {
 
                 <ShowMorePaginationWrapper key={`posts_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchMyPosts}>
 
-                    {fetchStatus !== 'empty' ? (
+                    {(fetchStatus !== 'empty' || 'failure') ? (
                         <div className='flex content-start w-full'>
                             <React.Fragment>
                                 {data.map(postItem => <PostListItem key={postItem.id} postItem={postItem} onEdit={navigateToEdit} hasFollowButton={hasFollowButton} />)}
