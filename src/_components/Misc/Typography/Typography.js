@@ -39,6 +39,8 @@ const typographyVariants = cva(
             textVariant: {
                 default: "",
                 bold: "font-bold",
+                normal: "font-normal",
+                light: "font-light",
             }
         },
         defaultVariants: {
