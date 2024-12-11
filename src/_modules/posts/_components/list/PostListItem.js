@@ -25,7 +25,6 @@ const PostListItem = (props) => {
     const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
     const postDetailRoute = routeBasedOnAuthorisation(userName, postSlug)
     const postEditRoute = CLIENT_ROUTES.POST_EDIT(postSlug);
-    const categoryDetailRoute = CLIENT_ROUTES.CATEGORY_DETAIL(categorySlug);
 
 
     return (
@@ -54,7 +53,7 @@ const PostListItem = (props) => {
 
 
                 <div className="flex max-w-fit text-xs">
-                    <PostCategoryBadge categoryName={categoryName} linkUrl={categoryDetailRoute} />
+                    <PostCategoryBadge categoryName={categoryName} categorySlug={categorySlug} />
                 </div>
 
             </CardContent>

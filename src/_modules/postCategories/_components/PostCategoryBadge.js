@@ -2,12 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Typography from "_components/Misc/Typography/Typography";
+import CLIENT_ROUTES from "_routes/clientRoutes";
 
 const PostCategoryBadge = (props) => {
-    const { categoryName, linkUrl } = props;
+    const { categoryName, categorySlug } = props;
+    const categoryDetailRoute = CLIENT_ROUTES.CATEGORY_DETAIL(categorySlug);
 
     return (
-        <Link to={linkUrl} className='bg-custom hover-custom rounded-md flex cursor-pointer p-2 mt-2'>
+        <Link to={categoryDetailRoute} className='bg-custom hover-custom rounded-md flex cursor-pointer p-2 mt-2'>
             <div className="flex items-center mr-2">
 
                 <span className="flex items-center mr-2">
