@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/take-your-notes/static/css/main.28d49720.css",
+    "main.css": "/take-your-notes/static/css/main.ddc58c7f.css",
     "main.js": "/take-your-notes/static/js/main.183aa05a.js",
     "static/js/787.629edcd6.chunk.js": "/take-your-notes/static/js/787.629edcd6.chunk.js",
     "static/media/lato-regular.ttf": "/take-your-notes/static/media/lato-regular.79164ee524feb6583a94.ttf",
     "index.html": "/take-your-notes/index.html",
-    "main.28d49720.css.map": "/take-your-notes/static/css/main.28d49720.css.map",
+    "main.ddc58c7f.css.map": "/take-your-notes/static/css/main.ddc58c7f.css.map",
     "main.183aa05a.js.map": "/take-your-notes/static/js/main.183aa05a.js.map",
     "787.629edcd6.chunk.js.map": "/take-your-notes/static/js/787.629edcd6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.28d49720.css",
+    "static/css/main.ddc58c7f.css",
     "static/js/main.183aa05a.js"
   ]
 }
