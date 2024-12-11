@@ -100,13 +100,13 @@ const PostListItem = (props) => {
                             </div>
                         </Flex> */}
                     {/* </div> */}
-                    <Separator variant='custom' className='my-2' />
+                    <Separator variant='another' className='my-2' />
 
                     <FormattedTimestamp createdTime={createdAt} updatedTime={updatedAt} hasEditInfo={false} />
 
                     {isCurrentUserDetail ? (
                         <React.Fragment>
-                            <Separator variant='custom' className='my-2' />
+                            <Separator variant='another' className='my-2' />
                             <div className="flex text-xs">
                                 <Link to={postEditRoute} className='cursor-pointer'>
                                     <span className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-primary rounded-md cursor-pointer' onClick={() => { }}>

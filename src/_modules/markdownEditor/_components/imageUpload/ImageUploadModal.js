@@ -61,7 +61,7 @@ const ImageUploadModal = (props) => {
     return (
         <Drawer isActive={true} hide={onClose}>
             <Flex justifyContent='none' className='my-2 text-sm'>
-                <Separator variant='custom' className='w-full' />
+                <Separator variant='another' className='w-full' />
                 <div className="flex my-3 w-full">
                     <div className="flex flex-col w-full px-2 py-2 mx-2">
 
@@ -81,7 +81,7 @@ const ImageUploadModal = (props) => {
                     </div>
 
                 </div>
-                <Separator variant='custom' className='w-full' />
+                <Separator variant='another' className='w-full' />
 
                 <UploadedImages uploadedFiles={uploadedFiles} onCopy={handleCopyFilePath} setUploadedFiles={setUploadedFiles} />
 

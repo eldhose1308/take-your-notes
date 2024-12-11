@@ -46,7 +46,7 @@ const SettingsDrawer = () => {
     return (
         <Drawer isActive={true} hide={closeDrawer}>
             <Flex justifyContent='none' className='my-2 text-sm'>
-                <Separator variant='custom' className='w-full' />
+                <Separator variant='another' className='w-full' />
                 <div className="flex my-3 w-full">
                     <span className="text-xs text-secondary m-2">Show 'i' on all to give a small description</span>
                     <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
@@ -93,7 +93,7 @@ const SettingsDrawer = () => {
                     </div>
 
                 </div>
-                <Separator variant='custom' className='w-full' />
+                <Separator variant='another' className='w-full' />
 
                 <div className="flex my-3 w-full">
                     <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
@@ -109,7 +109,7 @@ const SettingsDrawer = () => {
                     </div>
                 </div>
 
-                <Separator variant='custom' className='w-full' />
+                <Separator variant='another' className='w-full' />
 
                 <div className="flex w-full my-3">
                     <ThemeToggler />
@@ -129,7 +129,7 @@ const SettingsDrawer = () => {
                 </div>
 
 
-                <Separator variant='custom' className='w-full' />
+                <Separator variant='another' className='w-full' />
 
                 <div className="flex my-3 w-full">
                     <div onClick={logout} className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">

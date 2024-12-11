@@ -28,7 +28,7 @@ const Template = ({ children, ...props }) => {
             <div className="grid-container">
                 <Header isSidebarNeeded={isSidebarNeeded} />
                 <Sidebar />
-                <main className="main overflow-scroll">
+                <main className="main overflow-scroll bg-secondary">
                     {children}
                 </main>
                 {/* <footer className="footer">

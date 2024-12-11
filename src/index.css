@@ -59,16 +59,18 @@
 @media (prefers-color-scheme: dark) {
   body.dark,
   body.system {
-    /* --bg-default: #09090b; */
-    --bg-default: #292a2e;
-    --bg-secondary: #18181b;
+    --bg-default: #010409;
+    /* --bg-default: #292a2e; */
+    /* --bg-secondary: #18181b; */
+    --bg-secondary: #0d1117;
     --bg-another: #202022;
-    --bg-custom: #202022;
-    /* --bg-custom: #1d283a; */
+    /* --bg-another: #bcbfc3; */
+    /* --bg-custom: #202022; */
+    --bg-custom: #212529;
     --bg-accent: #fafafa;
   
     --custom: #1d283a;
-    --default: #fafafa;
+    --default: #f0f6fc;
     --secondary: #a1a1aa;
     --destructive: #fa4d56;
     --highlight: #273d39;
@@ -104,8 +106,8 @@
 
 body.dark{
      /* --bg-default: #09090b; */
-     --bg-default: #292a2e;
-     --bg-secondary: #18181b;
+     --bg-default: #111727;
+     --bg-secondary: #202938;
      --bg-another: #202022;
      --bg-custom: #202022;
      /* --bg-custom: #1d283a; */

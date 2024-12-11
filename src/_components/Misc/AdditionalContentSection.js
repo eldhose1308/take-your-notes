@@ -14,7 +14,7 @@ const AdditionalContentSection = ({ children, ...props }) => {
                 {headerContent && <React.Fragment><CardHeader>
                     {headerContent}
                 </CardHeader>
-                    <Separator variant='custom' /></React.Fragment>}
+                    <Separator variant='another' /></React.Fragment>}
                 <CardContent>
                     {children}
                 </CardContent>

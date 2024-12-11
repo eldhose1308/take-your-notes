@@ -25,7 +25,7 @@ const IdentityForm = (props) => {
         <React.Fragment>
 
             <Typography variant='secondary' size='sm' textVariant='default'>This section requires current password to update.</Typography>
-            <Separator variant='custom' className='my-3' />
+            <Separator variant='another' className='my-3' />
 
             <div className="my-3">
                 <TextBox

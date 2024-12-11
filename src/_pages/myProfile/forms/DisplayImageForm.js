@@ -79,7 +79,7 @@ const DisplayImageForm = (props) => {
     return (
         <div>
             <Typography variant='secondary' size='sm' textVariant='default'>Change your display picture here.</Typography>
-            <Separator variant='custom' className='my-3' />
+            <Separator variant='another' className='my-3' />
 
             {imageUrl ?
                 (

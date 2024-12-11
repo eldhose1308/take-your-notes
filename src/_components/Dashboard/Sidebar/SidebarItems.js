@@ -11,7 +11,7 @@ const SidebarItems = (props) => {
 
     return (
         <Link to={allowRoute ? route : '/signin'}>
-            <div key={id} onClick={toggleSidebar} className={`flex py-2 px-3 text-sm rounded-md ${isActive ? 'bg-highlight' : 'hover-secondary'} ${!allowRoute ? 'opacity-50' : ''}`}>
+            <div key={id} onClick={toggleSidebar} className={`flex py-2 px-3 text-sm rounded-md ${isActive ? 'bg-highlight' : 'hover-accent hover-text-custom text-default'} ${!allowRoute ? 'opacity-50' : ''}`}>
                 <span className="">
                     {svg}
                 </span>

@@ -7,7 +7,7 @@ const PostCategoryBadge = (props) => {
     const { categoryName, linkUrl } = props;
 
     return (
-        <Link to={linkUrl} className='bg-secondary hover-custom rounded-md flex cursor-pointer p-2 mt-2'>
+        <Link to={linkUrl} className='bg-custom hover-custom rounded-md flex cursor-pointer p-2 mt-2'>
             <div className="flex items-center mr-2">
 
                 <span className="flex items-center mr-2">

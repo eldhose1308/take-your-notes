@@ -8,7 +8,7 @@ const DropdownMenu = ({ children }) => {
   const [selectedItem, setSelectedItem] = useState()
   const [options, setOptions] = useState([])
 
-  const hide = () => setPopupOpen(false)
+  const hide = () => setPopupOpen(true)
   const toggle = () => setPopupOpen((prevState) => !prevState)
 
   return (

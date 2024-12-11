@@ -58,7 +58,7 @@ export default function SignIn() {
     return (
         <React.Fragment>
             <Template isRightbarNeeded={false} isSidebarNeeded={false} >
-                <Flex direction='column' className='bg-default h-full'>
+                <Flex direction='column' className='bg-secondary h-full'>
                     <Card size='sm' rounded='lg' className='animate-zoom-in-out'>
                         <CardHeader>
                             <CardTitle>

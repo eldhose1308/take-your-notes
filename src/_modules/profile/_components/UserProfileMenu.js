@@ -14,7 +14,7 @@ const UserProfileMenu = () => {
     return (
         <React.Fragment>
             <Flex justifyContent='none' className='my-5'>
-                <Separator variant='custom' className='w-full' />
+                <Separator variant='another' className='w-full' />
 
                 <UserProfileItems text='View Profile' icon={profileIcons.profile} />
                 <UserProfileItems text='Availability Status' icon={profileIcons.status} />

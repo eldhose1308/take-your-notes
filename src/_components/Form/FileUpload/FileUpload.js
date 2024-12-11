@@ -156,11 +156,11 @@ const FileUpload = (props) => {
                 {!!fileData.length && (
                     <React.Fragment>
 
-                        <Separator variant='custom' className='w-full my-3' />
+                        <Separator variant='another' className='w-full my-3' />
 
                         <UploadedFilePreview fileData={fileData} fileUploadStatus={fileUploadStatus} onRemoveFile={handleRemoveFile} />
 
-                        <Separator variant='custom' className='w-full mt-3' />
+                        <Separator variant='another' className='w-full mt-3' />
                     </React.Fragment>
                 )}
 

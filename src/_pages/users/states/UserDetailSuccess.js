@@ -16,7 +16,7 @@ const UserDetailSuccess = (props) => {
 
 
     return (
-        <div className="border bg-secondary p-4 rounded-md">
+        <div className="border bg-default p-4 rounded-md">
 
             <div className="flex justify-between">
 
