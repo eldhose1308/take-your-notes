@@ -55,14 +55,8 @@ const PostItem = () => {
                         <div className="">
                             {UserDetailComponentState}
                         </div>
-                        <AdditionalContentSection
-                            renderHeader={() => <span className="flex">More from <Link to='sdf' className="text-bold mx-2">{fullName}</Link></span>}
-                            renderFooter={() => <span className="flex w-full justify-center">See more</span>}
-                        >
-                            {/* <div className="flex flex-nowrap flex-col h-screen-1/2 overflow-scroll"> */}
-                                <AdditionalUsersPosts userName={userNameOfPost} />
-                            {/* </div> */}
-                        </AdditionalContentSection>
+                            
+                        <AdditionalUsersPosts userName={userNameOfPost} fullName={fullName} />
 
                     </div>
                 </ResponsiveDrawer>

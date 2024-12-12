@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 
 import { Stencil } from "_components/Loader";
 import AdditionalContentSection from "_components/Misc/AdditionalContentSection";
-import UserInfo from "_modules/users/_component/UserInfo";
+import MiniUsersList from "./_components/MiniUsersList";
+import SeeMoreButton from "_components/Misc/SeeMoreButton";
+
 import useUsers from "_modules/users/_hooks/useUsers";
 import useComponentFetchState from "_hooks/useComponentFetchState";
-import MiniUsersList from "./_components/MiniUsersList";
-import { Link } from "react-router-dom";
+
 import CLIENT_ROUTES from "_routes/clientRoutes";
-import SeeMoreButton from "_components/Misc/SeeMoreButton";
 
 
 const pageSize = 6;

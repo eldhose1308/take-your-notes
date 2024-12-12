@@ -3,39 +3,34 @@ import { Link } from "react-router-dom";
 
 import { Stencil } from "_components/Loader";
 
-import { routeBasedOnAuthorisation } from "_utils/userAuth";
 import useUserPosts from "_modules/users/_hooks/useUserPosts";
 import useComponentFetchState from "_hooks/useComponentFetchState";
+import AdditionalContentSection from "_components/Misc/AdditionalContentSection";
+import MiniUserPostsList from "./_components/MiniUserPostsList";
+import CLIENT_ROUTES from "_routes/clientRoutes";
+import SeeMoreButton from "_components/Misc/SeeMoreButton";
 
 const AdditionalUsersPosts = (props) => {
-    const { userName } = props;
+    const { userName, fullName } = props;
     const { usersPostList, fetchStatus } = useUserPosts({ userName });
 
+    const userDetailRoute = CLIENT_ROUTES.USER_DETAIL(userName);
+    
     const UserDetailComponentState = useComponentFetchState({
         fetchStatus,
         loading: <Stencil />,
-        success: <React.Fragment>
-        {usersPostList.map((userPosts) => {
-            const { postTitle, postSlug, user, category } = userPosts;
-            const { userName } = user;
-            const { categoryName } = category;
-            const postDetailRoute = routeBasedOnAuthorisation(userName, postSlug)
-            return (
-                <Link to={postDetailRoute}>
-                    <div className="flex flex-col my-3 p-1 border-b border-custom hover-custom rounded-md">
-                        <span className="text-bold my-1">{postTitle}</span>
-                        <span className="max-w-fit text-xs p-1 my-1 bg-highlight rounded-md">{categoryName}</span>
-                    </div>
-                </Link>
-            )
-        })}
-    </React.Fragment>
+        success: <MiniUserPostsList usersPostList={usersPostList} />
     });
 
 
     return (
         <React.Fragment>
-            {UserDetailComponentState}
+            <AdditionalContentSection
+                renderHeader={() => <span className="flex">More from <Link to={userDetailRoute} className="text-bold mx-2">{fullName}</Link></span>}
+                renderFooter={() => <SeeMoreButton linkUrl={userDetailRoute} />}
+            >
+                {UserDetailComponentState}
+            </AdditionalContentSection>
         </React.Fragment>
     )
 }

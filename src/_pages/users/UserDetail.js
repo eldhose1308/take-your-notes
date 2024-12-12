@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import TabPanel from "_components/Misc/TabPanel/TabPanel";
 import CardStencil from "_components/Loader/CardStencil";
 import ResponsiveDrawer from "_components/UI/Drawer/ResponsiveDrawer";
-import AdditionalContentSection from "_components/Misc/AdditionalContentSection";
 import AdditionalUsersPosts from "_modules/additionalContents/AdditionalUsersPosts";
 import AdditionalUsers from "_modules/additionalContents/AdditionalUsers";
 import UserDetailSuccess from "./states/UserDetailSuccess";
@@ -55,12 +54,7 @@ const UserDetail = () => {
 
                         <AdditionalUsers />
 
-                        <AdditionalContentSection
-                            heading='Posts You Might Like'
-                            renderFooter={() => <span className="flex w-full justify-center">See more</span>}
-                        >
-                            <AdditionalUsersPosts userName={userName} />
-                        </AdditionalContentSection>
+                        <AdditionalUsersPosts userName={userName} fullName='Show suggestions' />
 
                     </div>
                 </ResponsiveDrawer>
