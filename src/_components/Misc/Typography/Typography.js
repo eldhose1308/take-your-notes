@@ -17,7 +17,7 @@ const variantsMapping = {
 
 
 const typographyVariants = cva(
-    'mt-1',
+    '',
     {
         variants: {
             variant: {

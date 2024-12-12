@@ -50,13 +50,26 @@ const Header = (props) => {
                 </div>
 
                 {isSidebarNeeded && <div className="flex justify-center items-center">
+                    <Link to={isAuthenticated ? CLIENT_ROUTES.POST_CREATE : CLIENT_ROUTES.SIGNIN} className="flex mr-2">
+                        <span title="Signin to start writing" className={`text-center border border-another text-accent hover-accent hover-text-custom text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md ${isAuthenticated ? '' : 'opacity-50'}`}>
+                            <span className="flex items-center">
+                                Start Writing
+                                <span className="flex items-center ml-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-plus"><circle cx="12" cy="12" r="10" /><path d="M8 12h8" /><path d="M12 8v8" /></svg>
+                                </span>
+                            </span>
+                        </span>
+                    </Link>
+
                     {isAuthenticated ? (
-                        <Link to={CLIENT_ROUTES.PROFILE} >
-                            <Avatar key={avatar} src={`${USER_AVATAR_URL}${avatar}`} name={fullName} size='xs' />
-                        </Link>
+                        <React.Fragment>
+                            <Link to={CLIENT_ROUTES.PROFILE} >
+                                <Avatar key={avatar} src={`${USER_AVATAR_URL}${avatar}`} name={fullName} size='xs' />
+                            </Link>
+                        </React.Fragment>
                     ) : (
-                        <Link to={CLIENT_ROUTES.SIGNIN} >
-                            <span className="flex text-sm p-2 bg-default hover-accent hover-text-custom rounded-md cursor-pointer mx-1">
+                        <Link to={CLIENT_ROUTES.SIGNIN} className="flex">
+                            <span className="bg-custom text-accent hover-text-custom hover-accent text-center text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md">
                                 <span className="flex items-center pr-2">
                                     Sign In
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M10 11V8L15 12L10 16V13H1V11H10ZM2.4578 15H4.58152C5.76829 17.9318 8.64262 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C8.64262 4 5.76829 6.06817 4.58152 9H2.4578C3.73207 4.94289 7.52236 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C7.52236 22 3.73207 19.0571 2.4578 15Z"></path></svg>

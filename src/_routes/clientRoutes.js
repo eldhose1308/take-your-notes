@@ -2,6 +2,7 @@ const CLIENT_ROUTES = {
     SIGNIN: '/signin',
     SIGNUP: '/signup',
     PROFILE: '/my/profile',
+    POST_CREATE: `/my/posts/create`,
     POST_EDIT: (postSlug) => `/my/posts/edit/${postSlug}`,
     USER_POSTS: (userName) => `/users/${userName}/posts`,
     POST_DETAIL: (userName, postSlug) => `/users/${userName}/posts/${postSlug}`,
