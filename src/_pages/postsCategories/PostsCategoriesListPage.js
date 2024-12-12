@@ -75,7 +75,7 @@ const PostsCategoriesListPage = () => {
                             <SearchBar size='sm' textBoxProps={{
                                 placeholder: 'Search Users',
                                 placeholderFocus: 'default',
-                                isFocused: true
+                                // isFocused: true
                             }}
                                 buttonProps={{
                                     size: 'xs'

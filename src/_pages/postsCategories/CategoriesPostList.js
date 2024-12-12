@@ -21,7 +21,6 @@ const CategoriesPostList = (props) => {
 
     const [filters, setFilters] = useState({ category: categoryName });
     const [data, setData] = useState([]);
-    console.log('@data',data)
 
 
     const handleFiltersChange = async (filters) => {
