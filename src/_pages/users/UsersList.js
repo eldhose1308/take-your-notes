@@ -12,6 +12,7 @@ import useShowMorePagination from "_components/Pagination/_hooks/useShowMorePagi
 import { stringifyJSON } from "_utils/json";
 import FollowUnfollowToggler from "_modules/togglers/FollowUnfollowToggler";
 import { getUserDetailsOfCurrentUser } from "_utils/userAuth";
+import SearchBar from "_components/UI/SearchBar/SearchBar";
 
 
 const pageSize = 30;
@@ -35,6 +36,10 @@ const UsersList = () => {
         const users = await fetchUsersData(usersFilter);
         checkIfAllDataFetched(users);
         setData(users);
+    }
+
+    const handleSearchUsers = (searchQuery) => {
+        handleFiltersChange({ search: searchQuery });
     }
 
     const fetchUsers = async () => {
@@ -66,7 +71,17 @@ const UsersList = () => {
                     {unAuthorisedForListing && (
                         <React.Fragment>
                             <UserFilters onChange={handleFiltersChange} />
-                            <span>Search</span>
+                            <SearchBar size='sm' textBoxProps={{
+                                placeholder: 'Search Users',
+                                placeholderFocus: 'default',
+                                isFocused: true
+                            }}
+                                buttonProps={{
+                                    size: 'xs'
+                                }}
+                                hasSearchIcon={false}
+                                onSearch={handleSearchUsers}
+                                />
                         </React.Fragment>
                     )}
                 </div>

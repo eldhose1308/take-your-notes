@@ -49,9 +49,13 @@ const UsersPostList = (props) => {
                 <React.Fragment>
                     <PostFilters onChange={handleFiltersChange} />
                     <ShowMorePaginationWrapper key={`posts_${stringifyJSON(filters)}`} isEmpty={fetchStatus === 'empty'} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchPosts}>
-                        <React.Fragment>
+                    <React.Fragment>
+                        {fetchStatus !== 'empty' ? (
                             <PostsSuccess usersPostList={data} />
-                        </React.Fragment>
+                        ) : (
+                            <EmptyUserPosts />
+                        )}
+                    </React.Fragment>
                     </ShowMorePaginationWrapper>
                 </React.Fragment>
             ) : (

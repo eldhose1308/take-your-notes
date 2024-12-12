@@ -9,10 +9,16 @@ const usePosts = () => {
         try{
             setFetchStatus('loading');
             const postsData = await postsService.getPosts(filters);
-            setFetchStatus('success');
-            setTimeout(() => {
-                setFetchStatus('none');
-            }, 1000);
+            // setFetchStatus('success');
+            if(postsData.length === 0){
+                setFetchStatus('empty');
+            }else{
+                setFetchStatus('success');
+                setTimeout(() => {
+                    setFetchStatus('none');
+                }, 1000);
+            }
+            
             return postsData;
         }catch(error){
             setFetchStatus('failure');
