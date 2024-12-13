@@ -9,6 +9,8 @@ import PostsHomeList from "./PostsHomeList";
 import AdditionalCategories from "_modules/additionalContents/AdditionalCategories";
 
 import WelcomeCard from "_modules/posts/_components/WelcomeCard";
+import AdditionalSeries from "_modules/additionalContents/AdditionalSeries";
+import AdditionalRecentSearch from "_modules/additionalContents/AdditionalRecentSearch";
 
 
 const PostsHome = () => {
@@ -32,39 +34,15 @@ const PostsHome = () => {
                 <ResponsiveDrawer direction='right'>
                     <div className="flex flex-col grow-1 basis-0">
 
-                        <AdditionalContentSection
-                            heading="Followed Categories"
-                            renderFooter={() => <span className="flex w-full justify-center">See more</span>}
-                        >
-                        </AdditionalContentSection>
-
-
+                        <AdditionalCategories type='followed' />
 
                         <AdditionalUsers />
 
-                        <AdditionalContentSection
-                            heading="Series's You Might Like"
-                            renderFooter={() => <span className="flex w-full justify-center">See more</span>}
-                        >
-                        </AdditionalContentSection>
+                        <AdditionalSeries />
 
+                        <AdditionalCategories type='latest' />
 
-                        <AdditionalCategories />
-
-                        <AdditionalContentSection
-                            heading='Tags You Might Like'
-                            renderFooter={() => <span className="flex w-full justify-center">See more</span>}
-                        >
-                        </AdditionalContentSection>
-
-
-                        <AdditionalContentSection
-                            heading='Recently searched by others'
-                            renderFooter={() => <span className="flex w-full justify-center">See more</span>}
-                        >
-                        </AdditionalContentSection>
-
-
+                        <AdditionalRecentSearch />
 
                     </div>
                 </ResponsiveDrawer>

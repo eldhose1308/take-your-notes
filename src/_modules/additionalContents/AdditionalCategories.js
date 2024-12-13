@@ -1,7 +1,8 @@
+import React, { useEffect } from "react";
+
 import useComponentFetchState from "_hooks/useComponentFetchState";
 import usePostsCategories from "_modules/posts/_hooks/usePostsCategories";
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import MiniPostCategoryList from "./_components/MiniPostCategoryList";
 import { Stencil } from "_components/Loader";
 import AdditionalContentSection from "_components/Misc/AdditionalContentSection";
@@ -10,7 +11,15 @@ import CLIENT_ROUTES from "_routes/clientRoutes";
 
 const categoryListRoute = CLIENT_ROUTES.CATEGORY_LIST;
 
-const AdditionalCategories = () => {
+const headingMap = {
+    followed: "Categories You Follow",
+    recommended: "Categories You Might Like",
+    latest: "Just Added Categories",
+    random: "Random Categories",
+};
+
+const AdditionalCategories = (props) => {
+    const { type='recommended' } = props;
 
     const { categories, fetchStatus, fetchPostCategories } = usePostsCategories();
     const CategoriesComponentState = useComponentFetchState({
@@ -20,14 +29,14 @@ const AdditionalCategories = () => {
     });
 
     useEffect(() => {
-        const filters = { page: 1, limit: 6 };
+        const filters = { page: 1, limit: 6, type };
         fetchPostCategories(filters);
-    }, [])
+    }, [type]);
 
     return (
         <React.Fragment>
             <AdditionalContentSection
-                heading='Categories You Might Like'
+                heading={headingMap[type] || ''}
                 renderFooter={() => <SeeMoreButton linkUrl={categoryListRoute} />}
             >
                 <div className="border-b border-custom">

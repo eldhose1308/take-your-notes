@@ -11,5 +11,5 @@ export const followStatusModes = [
 
 export const filterQueryParamMappings = {
     following: { filters: 'following' },
-    explore: { filters: 'non_following' },
+    explore: { filters: 'explore' },
 }

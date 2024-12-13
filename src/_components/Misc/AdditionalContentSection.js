@@ -4,7 +4,7 @@ import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card
 import Separator from "_components/Misc/Separator/Separator";
 
 const AdditionalContentSection = ({ children, ...props }) => {
-    const { heading, footer, renderHeader, renderFooter } = props;
+    const { heading, footer, renderHeader=()=>{}, renderFooter=()=>{} } = props;
     const headerContent = heading || renderHeader();
     const footerContent = footer || renderFooter();
 

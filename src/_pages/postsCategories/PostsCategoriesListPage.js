@@ -19,7 +19,7 @@ const PostsCategoriesListPage = () => {
     const { fetchStatus, fetchPostCategories: fetchPostCategoriesData } = usePostsCategories();
     const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize });
 
-    const [filters, setFilters] = useState({ filters: 'following' });
+    const [filters, setFilters] = useState({ filters: 'explore' });
     const [data, setData] = useState([]);
 
     const { userName } = getUserDetailsOfCurrentUser();
@@ -30,7 +30,7 @@ const PostsCategoriesListPage = () => {
         setFilters(userFilters);
         setData([]);
         resetPagination();
-        const usersFilter = { page: 1, limit: pageSize, filters: 'following', ...userFilters };
+        const usersFilter = { page: 1, limit: pageSize, filters:  filters.filters, ...userFilters };
         const users = await fetchPostCategoriesData(usersFilter);
         checkIfAllDataFetched(users);
         setData(users);
@@ -38,7 +38,7 @@ const PostsCategoriesListPage = () => {
 
 
     const fetchUsers = async () => {
-        const usersFilter = { page: currentPage + 1, limit: pageSize, filters: 'following', ...filters };
+        const usersFilter = { page: currentPage + 1, limit: pageSize, filters:  filters.filters, ...filters };
         const users = await fetchPostCategoriesData(usersFilter);
         setData((previousUsers) => [...previousUsers, ...users]);
 
@@ -73,7 +73,7 @@ const PostsCategoriesListPage = () => {
                         <React.Fragment>
                             <PostCategoryFilters onChange={handleFiltersChange} />
                             <SearchBar size='sm' textBoxProps={{
-                                placeholder: 'Search Users',
+                                placeholder: 'Search Categories',
                                 placeholderFocus: 'default',
                                 // isFocused: true
                             }}

@@ -21,7 +21,7 @@ const UsersList = () => {
     const { fetchUsersData, fetchStatus } = useUsers();
     const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize });
 
-    const [filters, setFilters] = useState({ filters: 'following' });
+    const [filters, setFilters] = useState({ filters: 'explore' });
     const [data, setData] = useState([]);
 
     const { userName } = getUserDetailsOfCurrentUser();
@@ -32,7 +32,7 @@ const UsersList = () => {
         setFilters(userFilters);
         setData([]);
         resetPagination();
-        const usersFilter = { page: 1, limit: pageSize, filters: 'following', ...userFilters };
+        const usersFilter = { page: 1, limit: pageSize, filters: filters.filters, ...userFilters };
         const users = await fetchUsersData(usersFilter);
         checkIfAllDataFetched(users);
         setData(users);
@@ -43,7 +43,7 @@ const UsersList = () => {
     }
 
     const fetchUsers = async () => {
-        const usersFilter = { page: currentPage + 1, limit: pageSize, filters: 'following', ...filters };
+        const usersFilter = { page: currentPage + 1, limit: pageSize, filters: filters.filters, ...filters };
         const users = await fetchUsersData(usersFilter);
         setData((previousUsers) => [...previousUsers, ...users]);
 

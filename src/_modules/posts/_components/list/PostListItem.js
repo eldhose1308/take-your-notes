@@ -22,6 +22,8 @@ const PostListItem = (props) => {
     const { categoryName, categorySlug } = category || {};
     const { userName, fullName, avatar } = user || {};
 
+    // const { isAuthenticated } = useAuth();
+
     const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
     const postDetailRoute = routeBasedOnAuthorisation(userName, postSlug)
     const postEditRoute = CLIENT_ROUTES.POST_EDIT(postSlug);

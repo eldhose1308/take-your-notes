@@ -40,7 +40,7 @@ const AdditionalUsers = () => {
     return (
         <React.Fragment>
             <AdditionalContentSection
-                heading='People You Might Like'
+                heading='Fresh Faces in the Community'
                 renderFooter={() => <SeeMoreButton linkUrl={usersListRoute} />}
             >
 
