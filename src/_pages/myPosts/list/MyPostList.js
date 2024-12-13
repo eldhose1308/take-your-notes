@@ -23,7 +23,7 @@ const MyPostList = (props) => {
     const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize });
     const { fetchStatus, fetchMyPostsData } = useMyPosts();
 
-    const [filters, setFilters] = useState(null);
+    const [filters, setFilters] = useState({ visibility: 'public' });
     const [data, setData] = useState([]);
 
     const { hasFollowButton = true, onEdit } = props;

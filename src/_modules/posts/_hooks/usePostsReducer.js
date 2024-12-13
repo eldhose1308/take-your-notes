@@ -3,7 +3,7 @@ import { POST_ACTIONS } from "../_constants/postReducerActionTypes";
 
 export const initialState = {
     postTags: [],
-    currentVisibilityMode: VISIBILITY_MODES.private,
+    currentVisibilityMode: VISIBILITY_MODES.public,
     postTitle: EMPTY_POST_TITLE,
     postCategory: null,
     markdownContent: '',
