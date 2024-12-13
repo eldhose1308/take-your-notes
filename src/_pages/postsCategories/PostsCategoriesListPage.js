@@ -30,7 +30,7 @@ const PostsCategoriesListPage = () => {
         setFilters(userFilters);
         setData([]);
         resetPagination();
-        const usersFilter = { page: 1, limit: pageSize, filters:  filters.filters, ...userFilters };
+        const usersFilter = { page: 1, limit: pageSize, ...userFilters };
         const users = await fetchPostCategoriesData(usersFilter);
         checkIfAllDataFetched(users);
         setData(users);
@@ -38,7 +38,7 @@ const PostsCategoriesListPage = () => {
 
 
     const fetchUsers = async () => {
-        const usersFilter = { page: currentPage + 1, limit: pageSize, filters:  filters.filters, ...filters };
+        const usersFilter = { page: currentPage + 1, limit: pageSize, ...filters };
         const users = await fetchPostCategoriesData(usersFilter);
         setData((previousUsers) => [...previousUsers, ...users]);
 

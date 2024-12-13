@@ -32,7 +32,7 @@ const UsersList = () => {
         setFilters(userFilters);
         setData([]);
         resetPagination();
-        const usersFilter = { page: 1, limit: pageSize, filters: filters.filters, ...userFilters };
+        const usersFilter = { page: 1, limit: pageSize, ...userFilters };
         const users = await fetchUsersData(usersFilter);
         checkIfAllDataFetched(users);
         setData(users);
@@ -43,7 +43,7 @@ const UsersList = () => {
     }
 
     const fetchUsers = async () => {
-        const usersFilter = { page: currentPage + 1, limit: pageSize, filters: filters.filters, ...filters };
+        const usersFilter = { page: currentPage + 1, limit: pageSize,  ...filters };
         const users = await fetchUsersData(usersFilter);
         setData((previousUsers) => [...previousUsers, ...users]);
 
