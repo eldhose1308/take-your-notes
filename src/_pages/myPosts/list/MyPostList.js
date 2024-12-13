@@ -36,11 +36,11 @@ const MyPostList = (props) => {
         setData([]);
         resetPagination();
         const postsFilter = { page: 1, limit: pageSize, ...postFilters };
-        try{
+        try {
             const posts = await fetchMyPostsData(postsFilter);
             checkIfAllDataFetched(posts);
             setData(posts);
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
     }
@@ -48,13 +48,13 @@ const MyPostList = (props) => {
     const fetchMyPosts = async () => {
         const postsFilter = { page: currentPage + 1, limit: pageSize, ...filters };
 
-        try{
+        try {
             const posts = await fetchMyPostsData(postsFilter);
-            setData((previousPosts) => [...previousPosts, ...posts]);   
+            setData((previousPosts) => [...previousPosts, ...posts]);
             incrementPagination();
             checkIfAllDataFetched(posts);
             return posts;
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
     }
@@ -72,46 +72,55 @@ const MyPostList = (props) => {
 
     const handleVisibilityModeChange = (newMode) => {
         setCurrentVisibilityMode(newMode);
+        handleFiltersChange({ visibility: newMode });
     }
-    const handlePostCategoryChange = (id, option) => {
-        // setSelectedCategory(option);
+    const handlePostCategoryChange = (id, option, categoryValue) => {
+        handleFiltersChange({ category: categoryValue });
     }
 
 
     return (
         <React.Fragment>
             <div className="text-default m-5">
-                <div className='flex justify-between'>
-                    <div className="flex flex-col mx-2 my-2">
-                        <Typography size='lg' type='h2'>Your Posts</Typography>
-                        <Typography variant='secondary' size='sm' textVariant='default'>
-                            List of all the posts published by you
-                        </Typography>
-                    </div>
-                    <div className="flex flex-col my-2">
-                        <CreatePostButton onCreate={handleCreate} />
+                <div className="flex">
+                    <div className='flex justify-between w-full'>
+                        <div className="flex flex-col mx-2 my-2">
+                            <Typography size='lg' type='h2'>Your Posts</Typography>
+                            <Typography variant='secondary' size='sm' textVariant='default'>
+                                List of all the posts published by you
+                            </Typography>
+                        </div>
+                        <div className="flex flex-col my-2">
+                            <CreatePostButton onCreate={handleCreate} />
+                        </div>
                     </div>
                 </div>
 
                 <div className='flex'>
-                    <div className='content-center mx-2'>
-                        <PostVisibilitySelector onChange={handleVisibilityModeChange} currentMode={currentVisibilityMode} />
+                    <div className='flex justify-between w-full'>
+                        <div className='flex my-2'>
+
+                            <PostFilters onChange={handleFiltersChange} />
+                            <div className='content-center'>
+                                <PostCategory onChange={handlePostCategoryChange} hasAddOption={false} />
+                            </div>
+                        </div>
+
+
+                        <div className='m-2'>
+                            <div className='content-center mx-2'>
+                                <PostVisibilitySelector onChange={handleVisibilityModeChange} currentMode={currentVisibilityMode} />
+                            </div>
+                        </div>
                     </div>
 
-                    {/* <div className='mx-2'>
-                        <div className="flex text-sm p-2 bg-highlight rounded-md cursor-pointer mx-1">
-                            <PostCategory category={selectedCategory} categoryList={categories} onChange={handlePostCategoryChange} />
-                        </div>
-                    </div> */}
-
-                    <PostFilters onChange={handleFiltersChange} />
 
 
                 </div>
 
-                <ShowMorePaginationWrapper key={`posts_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchMyPosts}>
+                <ShowMorePaginationWrapper key={`posts_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} isEmpty={fetchStatus === 'empty'} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchMyPosts}>
 
-                    {(fetchStatus !== 'empty' || 'failure') ? (
+                    {(fetchStatus !== 'empty') ? (
                         <div className='flex content-start w-full'>
                             <React.Fragment>
                                 {data.map(postItem => <PostListItem key={postItem.id} postItem={postItem} onEdit={navigateToEdit} hasFollowButton={hasFollowButton} />)}

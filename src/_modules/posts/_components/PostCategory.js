@@ -7,14 +7,22 @@ import useDebounce from "_hooks/useDebounce";
 
 const pageSize = 30;
 
-const PostCategory = ({ category, categoryList_arg, onChange = () => { } }) => {
-    const { id, categoryName: label = 'Select a category' } = useMemo(() => category || {}, [category]);
+const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAddOption=true }) => {
     const { savePostCategory, fetchPostCategories, fetchStatus: categoryFetchStatus, isAllDataFetched, categories: categoryList } = usePostsCategories();
-
+    
     const [filters, setFilters] = useState({ limit: pageSize, page: 1 });
+    const [selectedCategory, setSelectedCategory] = useState(category);
+
+    const { id, categoryName: label = 'Select a category' } = useMemo(() => selectedCategory || {}, [selectedCategory]);
 
     const [newCategoryModalData, setNewCategoryModalData] = useState(null);
     const debounce = useDebounce();
+
+    const handlePostCategoryChange = (id, category) => {
+        const { categorySlug } = category || {};
+        setSelectedCategory(category);
+        onChange(id, category, categorySlug);
+    }
 
     const handleFetchPostCategories = async (newFilters=[]) => {
         const usersFilter = { ...filters, ...newFilters };
@@ -68,17 +76,17 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { } }) => {
                 <ComboboxContent
                     heading='Select a category'
                     options={categoryList}
-                    onChange={onChange}
+                    onChange={handlePostCategoryChange}
                     isFetching={categoryFetchStatus === 'loading'}
                     isAllDataFetched={isAllDataFetched}
                     onNewOptions={handleFetchPostCategories}
                     onSearch={debounce(handleSearchQuery, 500)}
-                    renderAdd={(searchQuery) => {
+                    renderAdd={hasAddOption ? (searchQuery) => {
                         if(!searchQuery){
                             return;
                         }
                         return <span className="block w-full" onClick={() => handleOpenCategoryCreateModal(searchQuery)}>Create new "{searchQuery}"</span>
-                    }}
+                    } : () => {}}
                     selectedValue={id}
                     idKey='id'
                     labelKey='categoryName'

@@ -17,8 +17,6 @@ const PostItemSuccess = (props) => {
     const { categoryName, categorySlug } = category || {};
     const markdownInHTML = convertToHTML(content)
 
-    const categoryDetailRoute = CLIENT_ROUTES.CATEGORY_DETAIL(categorySlug);
-
     return (
         <React.Fragment>
             <div className="flex">

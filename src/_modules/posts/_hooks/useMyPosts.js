@@ -27,10 +27,14 @@ const useMyPosts = () => {
         try{
             setFetchStatus('loading');
             const postsData = await postsService.getAuthPosts(filters);
-            setFetchStatus('success');
-            setTimeout(() => {
-                setFetchStatus('none');
-            }, 1000);
+            if(postsData.length === 0){
+                setFetchStatus('empty');
+            }else{
+                setFetchStatus('success');
+                setTimeout(() => {
+                    setFetchStatus('none');
+                }, 1000);
+            }
             return postsData;
         }catch(error){
             setFetchStatus('failure');
@@ -112,6 +116,9 @@ const useMyPosts = () => {
         if (!postCategory) {
             return [true, 'Category is missing'];
         }
+        if (!currentVisibilityMode) {
+            return [true, 'Post Visibility Mode is missing'];
+        }
         if (!postTitle) {
             return [true, 'Post Title is missing'];
         }
@@ -141,7 +148,8 @@ const useMyPosts = () => {
         const postPayload = {
             category: postCategory.id,
             content: markdownContent,
-            post_title: postTitle
+            post_title: postTitle,
+            visibility: currentVisibilityMode
         }
         return postSlug ? updatePost(postPayload, postId) : createPost(postPayload);
     }
