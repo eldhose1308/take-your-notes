@@ -7,9 +7,9 @@ import useDebounce from "_hooks/useDebounce";
 
 const pageSize = 30;
 
-const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAddOption=true }) => {
+const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAddOption = true }) => {
     const { savePostCategory, fetchPostCategories, fetchStatus: categoryFetchStatus, isAllDataFetched, categories: categoryList } = usePostsCategories();
-    
+
     const [filters, setFilters] = useState({ limit: pageSize, page: 1 });
     const [selectedCategory, setSelectedCategory] = useState(category);
 
@@ -19,12 +19,12 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
     const debounce = useDebounce();
 
     const handlePostCategoryChange = (id, category) => {
-        const { categorySlug } = category || {};
+        const { categorySlug='' } = category || {};
         setSelectedCategory(category);
         onChange(id, category, categorySlug);
     }
 
-    const handleFetchPostCategories = async (newFilters=[]) => {
+    const handleFetchPostCategories = async (newFilters = []) => {
         const usersFilter = { ...filters, ...newFilters };
         const users = await fetchPostCategories(usersFilter);
         setFilters((previousFilters) => ({ ...previousFilters, page: previousFilters.page + 1 }));
@@ -60,8 +60,8 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
 
     return (
         <React.Fragment>
-        <Combobox key={`${id}_${label}`} >
-            {/* {categoryFetchStatus === 'loading' ? (
+            <Combobox key={`${id}_${label}`} >
+                {/* {categoryFetchStatus === 'loading' ? (
                 <span>Loading...</span>
             ) : ( */}
                 <ComboboxTrigger>
@@ -70,9 +70,9 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18 9 12 3 6 9H18ZM18 15 12 21 6 15H18Z"></path></svg>
                     </span>
                 </ComboboxTrigger>
-            {/* )} */}
+                {/* )} */}
 
-            {/* {categoryFetchStatus === 'success' && ( */}
+                {/* {categoryFetchStatus === 'success' && ( */}
                 <ComboboxContent
                     heading='Select a category'
                     options={categoryList}
@@ -82,21 +82,24 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
                     onNewOptions={handleFetchPostCategories}
                     onSearch={debounce(handleSearchQuery, 500)}
                     renderAdd={hasAddOption ? (searchQuery) => {
-                        if(!searchQuery){
+                        if (!searchQuery) {
                             return;
                         }
                         return <span className="block w-full" onClick={() => handleOpenCategoryCreateModal(searchQuery)}>Create new "{searchQuery}"</span>
-                    } : () => {}}
+                    } : () => { }}
                     selectedValue={id}
                     idKey='id'
                     labelKey='categoryName'
                 />
-            {/* )} */}
-        </Combobox>
+                {!!id && <span className="flex items-center text-bold rounded-md cursor-pointer px-1 hover-text-destructive" onClick={() => handlePostCategoryChange('',)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-delete"><path d="M20 5H9l-7 7 7 7h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z" /><line x1="18" x2="12" y1="9" y2="15" /><line x1="12" x2="18" y1="9" y2="15" /></svg>
+                </span>}
+                {/* )} */}
+            </Combobox>
 
             {!!newCategoryModalData && <CategoryCreateModal onClose={handleCloseCategoryModal} categoryModalData={newCategoryModalData} />}
         </React.Fragment>
-        )
+    )
 }
 
 export default PostCategory;
