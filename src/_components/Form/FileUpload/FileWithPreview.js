@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const FileWithPreview = ({ preview, format }) => {
+const FileWithPreview = ({ preview, format='image/' }) => {
     const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
     const handleOpenPreview = (e) => {

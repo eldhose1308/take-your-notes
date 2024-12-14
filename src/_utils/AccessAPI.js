@@ -29,7 +29,8 @@ export default function AccessAPI(url){
                     if (xhr.status === 200 || xhr.status === 201 || xhr.status === 204) { 
                         resolve(xhr.response)
                     } else { 
-                        reject(xhr.response)
+                        const xhrError = { ...xhr.response, statusCode: xhr.status };
+                        reject(xhrError)
                     }
                 };
 

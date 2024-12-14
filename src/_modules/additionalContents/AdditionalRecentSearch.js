@@ -11,7 +11,7 @@ const AdditionalRecentSearch = (props) => {
                 <AdditionalContentSection
                     heading='Recently searched by others'
                 >
-                    <NotAvailable />
+                    <NotAvailable size='sm' />
                 </AdditionalContentSection>
             </div>
         </React.Fragment>

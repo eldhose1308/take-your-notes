@@ -25,7 +25,7 @@ const UsersList = () => {
     const [data, setData] = useState([]);
 
     const { userName } = getUserDetailsOfCurrentUser();
-    const unAuthorisedForListing = !(filters.filters === 'following' && !userName);
+    const authorisedForListing = !(filters.filters === 'following' && !userName) && fetchStatus !== 'unauthorised';
 
     const handleFiltersChange = async (newFilters) => {
         const userFilters = { ...filters, ...newFilters };
@@ -33,9 +33,13 @@ const UsersList = () => {
         setData([]);
         resetPagination();
         const usersFilter = { page: 1, limit: pageSize, ...userFilters };
-        const users = await fetchUsersData(usersFilter);
-        checkIfAllDataFetched(users);
-        setData(users);
+        try{
+            const users = await fetchUsersData(usersFilter);
+            checkIfAllDataFetched(users);
+            setData(users);
+        }catch(err){
+            console.error(err);
+        }
     }
 
     const handleSearchUsers = (searchQuery) => {
@@ -44,12 +48,17 @@ const UsersList = () => {
 
     const fetchUsers = async () => {
         const usersFilter = { page: currentPage + 1, limit: pageSize,  ...filters };
-        const users = await fetchUsersData(usersFilter);
-        setData((previousUsers) => [...previousUsers, ...users]);
+        try{
 
-        incrementPagination();
-        checkIfAllDataFetched(users);
-        return users;
+            const users = await fetchUsersData(usersFilter);
+            setData((previousUsers) => [...previousUsers, ...users]);
+            
+            incrementPagination();
+            checkIfAllDataFetched(users);
+            return users;
+        }catch(err){
+            console.error(err);
+        }
     }
 
     useEffect(() => {
@@ -68,7 +77,7 @@ const UsersList = () => {
                 </div>
 
                 <div className="flex justify-between w-full my-2">
-                    {unAuthorisedForListing && (
+                    {authorisedForListing && (
                         <React.Fragment>
                             <UserFilters onChange={handleFiltersChange} />
                             <SearchBar size='sm' textBoxProps={{
@@ -87,7 +96,7 @@ const UsersList = () => {
                 </div>
             </div>
             <div className="flex my-2">
-                {unAuthorisedForListing ? (
+                {authorisedForListing ? (
                     <ShowMorePaginationWrapper key={`users_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchUsers}>
                         <UsersListSuccess usersList={data} />
                     </ShowMorePaginationWrapper>

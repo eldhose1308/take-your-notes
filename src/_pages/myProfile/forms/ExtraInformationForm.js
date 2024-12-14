@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, TextBox } from "_components/Form";
+import { Button, TextBox, TextArea } from "_components/Form";
 import Separator from "_components/Misc/Separator/Separator";
 import Typography from "_components/Misc/Typography/Typography";
 import useForm from "_hooks/useForm";
@@ -14,8 +14,13 @@ const ExtraInformationForm = (props) => {
     const { register, submit, errors, isSubmitting } = useForm({ schema: ExtraInformationSchema, initialValues });
 
     const handleSave = async (formData) => {
+        const { websiteLink: website_link, bio  } = formData;
+        const formPayload = {
+            website_link,
+            bio
+        };
         try{
-            await onSave(formData);
+            await onSave({ extraInfo: formPayload });
         }catch(err){
             console.log(err)
         }
@@ -47,6 +52,15 @@ const ExtraInformationForm = (props) => {
                     // value={phone}
                     validationMsg={errors.phone}
                     {...register('phone')}
+                />
+            </div>
+
+            <div className="my-3">
+                <TextArea 
+                    labelName='Bio'
+                    placeHolder="Enter a small summary about yourself"
+                    validationMsg={errors.bio}
+                    {...register('bio')}
                 />
             </div>
 

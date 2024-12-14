@@ -8,6 +8,8 @@ import { Stencil } from "_components/Loader";
 import AdditionalContentSection from "_components/Misc/AdditionalContentSection";
 import SeeMoreButton from "_components/Misc/SeeMoreButton";
 import CLIENT_ROUTES from "_routes/clientRoutes";
+import CategoryFollowingsUnAuthorised from "_components/DisplayStates/Error/CategoryFollowingsUnAuthorised";
+import EmptyFollowingCategories from "_components/DisplayStates/Empty/EmptyFollowingCategories";
 
 const categoryListRoute = CLIENT_ROUTES.CATEGORY_LIST;
 
@@ -25,6 +27,8 @@ const AdditionalCategories = (props) => {
     const CategoriesComponentState = useComponentFetchState({
         fetchStatus,
         loading: <Stencil />,
+        empty: <EmptyFollowingCategories size='sm' />,
+        unauthorised: <CategoryFollowingsUnAuthorised size='sm' />,
         success: <MiniPostCategoryList categoriesList={categories} />
     });
 

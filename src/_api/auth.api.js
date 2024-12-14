@@ -38,9 +38,19 @@ const signup = (payload) => {
         })
 } 
 
+const signout = (payload) => {
+    return new AccessAPI(BASE_URL + 'auth/logout').post(payload)
+        .then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+} 
+
 export {
     login,
     signin,
-    signup
+    signup,
+    signout
 }
 

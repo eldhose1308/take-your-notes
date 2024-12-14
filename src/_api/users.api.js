@@ -8,7 +8,7 @@ const getUsers = async (data, config = {}) => {
     .then((res) => {
         return res
     }).catch((err) => {
-        throw err.response
+        throw err
     })
 }
 
@@ -33,6 +33,26 @@ const getMyUserDetail = async (userName, config = {}) => {
 const getUsersPost = async (userName, data, config = {}) => {
     const postsURL = constructUrl(BASE_URL + `users/${userName}/posts`, data);
     return new AccessAPI(postsURL).get()
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err.response
+    })
+}
+
+
+const updateBasicInfo = async (data, config = {}) => {
+    return new AccessAPI(BASE_URL + `users/my/basic-info`).put(data)
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err.response
+    })
+}
+
+
+const updateExtraInfo = async (data, config = {}) => {
+    return new AccessAPI(BASE_URL + `users/my/extra-info`).put(data)
     .then((res) => {
         return res
     }).catch((err) => {
@@ -91,5 +111,8 @@ export {
     getUsersPost,
 
     uploadUserAvatar,
-    removeUserAvatar
+    removeUserAvatar,
+
+    updateBasicInfo,
+    updateExtraInfo
 }

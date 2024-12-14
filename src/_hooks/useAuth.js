@@ -40,14 +40,23 @@ const useAuth = () => {
         }
     }
 
-    const logout = () => {
+    const logout = async () => {
         // call server api here
-        logoutClient()
+        try{
+            const userData = await authModel.logout();
+            // const { data } = userData;
+            logoutClient()
+            return userData
+        }catch(err){
+            throw err;
+        }finally{
+            hideTopLoader()
+        }
     }
 
     const updateUserData = async (formData) => {
         try{
-            const { avatar, removeAvatar } = formData || {};
+            const { avatar, removeAvatar, basicInfo, extraInfo } = formData || {};
             if(avatar){
                 const userData = await userModel.uploadUserAvatar(formData);
                 updateUser(userData);
@@ -56,6 +65,17 @@ const useAuth = () => {
 
             if(removeAvatar){
                 const userData = await userModel.removeUserAvatar(formData);
+                updateUser(userData);
+                return userData;
+            }
+
+            if(basicInfo){
+                const userData = await userModel.updateBasicInfo(basicInfo);
+                updateUser(userData);
+                return userData;
+            }
+            if(extraInfo){
+                const userData = await userModel.updateExtraInfo(extraInfo);
                 updateUser(userData);
                 return userData;
             }

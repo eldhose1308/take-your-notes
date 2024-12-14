@@ -30,11 +30,23 @@ const usePostsCategories = () => {
             setFetchStatus('loading');
             const categoriesData = await postsCategoriesService.getPostsCategories(filters);
             setCategories((previousData) => [...previousData, ...categoriesData]);
-            setFetchStatus('success');
             checkIfAllDataFetched(categoriesData, limit);
+            if(categoriesData.length === 0){
+                setFetchStatus('empty');
+            }else{
+                setFetchStatus('success');
+                setTimeout(() => {
+                    // setFetchStatus('none');
+                }, 1000);
+            }
             return categoriesData;
         }catch(error){
-            setFetchStatus('failure');
+            const { statusCode } = error || {};
+            if(statusCode === 401){
+                setFetchStatus('unauthorised');
+            }else{
+                setFetchStatus('failure');
+            }
         }
     }
 

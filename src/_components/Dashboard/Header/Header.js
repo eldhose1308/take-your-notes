@@ -64,7 +64,7 @@ const Header = (props) => {
                     {isAuthenticated ? (
                         <React.Fragment>
                             <Link to={CLIENT_ROUTES.PROFILE} >
-                                <Avatar key={avatar} src={`${USER_AVATAR_URL}${avatar}`} name={fullName} size='xs' />
+                                <Avatar key={avatar} src={avatar} name={fullName} size='sm' hasPreview={false} />
                             </Link>
                         </React.Fragment>
                     ) : (

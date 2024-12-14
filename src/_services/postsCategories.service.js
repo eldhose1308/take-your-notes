@@ -15,10 +15,15 @@ const getAuthPosts = async (data, config = {}) => {
 }
 
 const getPostsCategories = async (data, config = {}) => {
-    const response = await postsCategories.getPostsCategories(data, config);
-    const { data: foldersData = [] } = response;
-    const foldersFormatted = foldersData.map(formatPostCategoryData);
-    return foldersFormatted || []
+    try{
+
+        const response = await postsCategories.getPostsCategories(data, config);
+        const { data: foldersData = [] } = response;
+        const foldersFormatted = foldersData.map(formatPostCategoryData);
+        return foldersFormatted || []
+    }catch(err){
+        throw err;
+    }
 }
 
 const getPostsCategoryBySlug = async (data, config = {}) => {

@@ -1,31 +1,31 @@
 import VALIDATION_MSG, { formatString } from "./messages";
 
-export const isRequired = (value, fieldName = null) => {
+export const isRequired = (value='', fieldName = null) => {
     if(!value.length) 
         return formatString(VALIDATION_MSG.REQUIRED, fieldName)
     
     return false;
 }
 
-export const isExact = (value, exact, fieldName = null) => {
+export const isExact = (value='', exact, fieldName = null) => {
     if(!value.length) return false;
 
     return value.length !== exact ? formatString(VALIDATION_MSG.EXACT ,fieldName, exact) : false
 }
 
-export const isMin = (value, min, fieldName = null) => {
+export const isMin = (value='', min, fieldName = null) => {
     if(!value.length) return false;
 
     return value.length < min ? formatString(VALIDATION_MSG.MIN ,fieldName, min) : false
 }
 
-export const isMax = (value, max, fieldName = null) => {
+export const isMax = (value='', max, fieldName = null) => {
     if(!value.length) return false;
 
     return value.length > max ? formatString(VALIDATION_MSG.MAX ,fieldName, max) : false    
 } 
 
-export const isAValidEmail = (value, fieldName = null) => {
+export const isAValidEmail = (value='', fieldName = null) => {
     if(!value.length) return false;
 
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;;
@@ -34,7 +34,7 @@ export const isAValidEmail = (value, fieldName = null) => {
 
 
 
-export const isNotAValidPassword = (value, fieldName = null) => {
+export const isNotAValidPassword = (value='', fieldName = null) => {
     if(!value.length) return false;
     
     const regexLowerCase = /[a-z]/;

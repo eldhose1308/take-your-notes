@@ -10,10 +10,14 @@ export const formatUserData = (data) => {
 }
 
 const getUsers = async (data, config = {}) => {
-    const response = await users.getUsers(data, config);
-    const { data: usersData = [] } = response;
-    const usersFormatted = usersData.map(formatUserData)
-    return usersFormatted || []
+    try{
+        const response = await users.getUsers(data, config);
+        const { data: usersData = [] } = response;
+        const usersFormatted = usersData.map(formatUserData)
+        return usersFormatted || []
+    }catch(err){
+        throw err;
+    }
 }
 
 const getUserDetail = async (data, config = {}) => {
@@ -39,6 +43,29 @@ const getUsersPost = async (userName, data, config = {}) => {
     const { data: usersPostData = [] } = response;
     const usersPostFormatted = usersPostData.map(formatPostData)
     return usersPostFormatted || []
+}
+
+
+const updateBasicInfo = async (data, config = {}) => {
+    try{
+        const response = await users.updateBasicInfo(data, config);
+        const { data: userData = [] } = response;
+        const userDataFormatted = formatUserData(userData);
+        return userDataFormatted || {}
+    }catch(err){
+        throw err;
+    }
+}
+
+const updateExtraInfo = async (data, config = {}) => {
+    try{
+        const response = await users.updateExtraInfo(data, config);
+        const { data: userData = [] } = response;
+        const userDataFormatted = formatUserData(userData);
+        return userDataFormatted || {}
+    }catch(err){
+        throw err;
+    }
 }
 
 
@@ -97,5 +124,8 @@ export {
     getUsersPost,
 
     uploadUserAvatar,
-    removeUserAvatar
+    removeUserAvatar,
+
+    updateBasicInfo,
+    updateExtraInfo
 }

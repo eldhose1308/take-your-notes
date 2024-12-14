@@ -24,7 +24,18 @@ const register = async (data, config = {}) => {
     }
 }
 
+
+const logout = async (data, config = {}) => {
+    try {
+        const response = await auth.signout(data, config);
+        return response;
+    } catch (err) {
+        throw err;
+    }
+}
+
 export {
     login,
-    register
+    register,
+    logout
 }

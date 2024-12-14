@@ -11,7 +11,7 @@ const AdditionalSeries = (props) => {
                 <AdditionalContentSection
                     heading='Series You Might Like'
                 >
-                    <NotAvailable />
+                    <NotAvailable size='sm' />
                 </AdditionalContentSection>
             </div>
         </React.Fragment>

@@ -9,13 +9,18 @@ import { IdentitySchema } from "./_utils/validation-rules";
 const IdentityForm = (props) => {
     const { identityData, onSave = () => { } } = props;
     const { avatar, userName, fullName, email, bio, joinedAt, websiteLink, phone, postCounts, followers, following, rank } = identityData;
-    const initialValues = { userName, fullName, email };
+    const initialValues = { userName, fullName };
 
     const { register, submit, errors, isSubmitting } = useForm({ schema: IdentitySchema, initialValues });
 
     const handleSave = async (formData) => {
+        const { fullName: full_name, userName: user_name  } = formData;
+        const formPayload = {
+            full_name,
+            user_name
+        };
         try{
-            await onSave(formData);
+            await onSave({ basicInfo: formPayload });
         }catch(err){
             console.log(err)
         }
@@ -27,7 +32,7 @@ const IdentityForm = (props) => {
             <Typography variant='secondary' size='sm' textVariant='default'>This section requires current password to update.</Typography>
             <Separator variant='another' className='my-3' />
 
-            <div className="my-3">
+            {/* <div className="my-3">
                 <TextBox
                     type='text'
                     labelName='Email'
@@ -35,7 +40,7 @@ const IdentityForm = (props) => {
                     validationMsg={errors.email}
                     {...register('email')}
                 />
-            </div>
+            </div> */}
 
 
             <div className="my-3">

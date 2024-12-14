@@ -12,7 +12,12 @@ const useUsers = () => {
             setFetchStatus('success');
             return usersData;
         }catch(error){
-            setFetchStatus('failure');
+            const { statusCode } = error || {};
+            if(statusCode === 401){
+                setFetchStatus('unauthorised');
+            }else{
+                setFetchStatus('failure');
+            }
         }
     };
 
