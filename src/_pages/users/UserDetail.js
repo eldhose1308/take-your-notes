@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
+import Separator from "_components/Misc/Separator/Separator";
 import TabPanel from "_components/Misc/TabPanel/TabPanel";
 import CardStencil from "_components/Loader/CardStencil";
 import ResponsiveDrawer from "_components/UI/Drawer/ResponsiveDrawer";
@@ -44,6 +45,8 @@ const UserDetail = () => {
                     {UserDetailComponentState}
 
                     <div className="flex flex-col my-4 grow-2 basis-auto">
+                        <Separator className='my-3' />
+
                         <TabPanel tabItems={tabItems} renderForm={renderForm} additionalProps={{ userName, userDetail }} />
                     </div>
 

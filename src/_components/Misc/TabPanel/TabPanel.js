@@ -4,12 +4,12 @@ import Separator from "_components/Misc/Separator/Separator";
 import TabPanelItems from "./TabPanelItems";
 
 const TabPanel = (props) => {
-    const { tabItems, renderForm, additionalProps } = props;
-    const [selectedTab, setSelectedTab] = useState('posts');
+    const { tabItems, renderForm, additionalProps, initialTab } = props;
+    const [selectedTab, setSelectedTab] = useState(initialTab || tabItems[0].id);
 
     return (
         <React.Fragment>
-            <Separator className='my-3' />
+            {/* <Separator className='my-3' /> */}
             
             <TabPanelItems
                 tabItems={tabItems}
