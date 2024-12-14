@@ -10,7 +10,7 @@ const UserCard = ({ userData }) => {
         <Card size='sm' rounded='lg' className='border hover-border-highlight mx-4 my-2 group-hover'>
             <CardContent>
                 <Flex direction='' alignItems='none' justifyContent='spaceBetween'>
-                    <UserProfileInfo userData={userData} hasFollowers />
+                    <UserProfileInfo userData={userData} hasFollowers hasFollowButton={false} />
                 </Flex>
             </CardContent>
         </Card>
