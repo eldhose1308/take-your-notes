@@ -13,6 +13,9 @@ import { stringifyJSON } from "_utils/json";
 import FollowUnfollowToggler from "_modules/togglers/FollowUnfollowToggler";
 import { getUserDetailsOfCurrentUser } from "_utils/userAuth";
 import SearchBar from "_components/UI/SearchBar/SearchBar";
+import useComponentFetchState from "_hooks/useComponentFetchState";
+import { Stencil } from "_components/Loader";
+import EmptyFollowingUsers from "_components/DisplayStates/Empty/EmptyFollowingUsers";
 
 
 const pageSize = 30;
@@ -23,6 +26,15 @@ const UsersList = () => {
 
     const [filters, setFilters] = useState({ filters: 'explore' });
     const [data, setData] = useState([]);
+
+    const CategoriesComponentState = useComponentFetchState({
+        fetchStatus,
+        loading: <Stencil />,
+        empty: <EmptyFollowingUsers />,
+        unauthorised: <FollowersUnAuthorised />,
+        success: <UsersListSuccess usersList={data} />
+    });
+
 
     const { userName } = getUserDetailsOfCurrentUser();
     const authorisedForListing = !(filters.filters === 'following' && !userName) && fetchStatus !== 'unauthorised';
@@ -96,13 +108,13 @@ const UsersList = () => {
                 </div>
             </div>
             <div className="flex my-2">
-                {authorisedForListing ? (
-                    <ShowMorePaginationWrapper key={`users_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchUsers}>
-                        <UsersListSuccess usersList={data} />
+                {/* {authorisedForListing ? ( */}
+                    <ShowMorePaginationWrapper key={`users_${stringifyJSON(filters)}`} isEmpty={fetchStatus !== 'success'} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchUsers}>
+                        {CategoriesComponentState}
                     </ShowMorePaginationWrapper>
-                ) : (
+                {/* ) : (
                     <FollowersUnAuthorised />
-                )}
+                )} */}
             </div>
         </div>
     )

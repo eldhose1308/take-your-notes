@@ -9,7 +9,12 @@ const useUsers = () => {
         try{
             setFetchStatus('loading');
             const usersData = await usersService.getUsers(filters);
-            setFetchStatus('success');
+            // setFetchStatus('success');
+            if(usersData.length === 0){
+                setFetchStatus('empty');
+            }else{
+                setFetchStatus('success');
+            }
             return usersData;
         }catch(error){
             const { statusCode } = error || {};
