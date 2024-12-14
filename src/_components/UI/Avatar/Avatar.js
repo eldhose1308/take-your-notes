@@ -22,7 +22,7 @@ const buttonVariants = cva(
     }
 )
 
-const Avatar = ({ src, name = '', alt = 'Avatar', size, hasPreview=true, className, ...props }) => {
+const Avatar = ({ src, name = '', alt = 'Avatar', size, hasPreview=true, hasZoom=true, className, ...props }) => {
     const [imageError, setImageError] = useState(false);
     const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
@@ -55,15 +55,15 @@ const Avatar = ({ src, name = '', alt = 'Avatar', size, hasPreview=true, classNa
     return (
         <React.Fragment>
             <span className={classNames} {...props}>
-                {src && !imageError ? <img onClick={handleImageClick} onError={handleError} alt={name || alt} className="flex object-cover w-full h-full transition-opacity duration-500 border-2 scale-150" src={src} /> :
+                {src && !imageError ? <img onClick={handleImageClick} onError={handleError} alt={name || alt} className={`flex object-cover w-full h-full transition-opacity duration-500 border-2 ${hasZoom ? 'scale-150' : ''}`} src={src} /> :
                     <div>{nameImg}</div>}
             </span>
             {isPreviewOpen && (<div className="flex items-center justify-center overlay overlay-semi z-50">
-                <div className="relative">
+                <div onClick={handleImageClose} className="relative flex w-full h-full items-center justify-center">
                     <img src={src} alt="Full Preview" className="h-48 w-48 object-cover" />
 
-                    <span onClick={handleImageClose} className="absolute border text-destructive rounded-full p-2 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-badge-x"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><line x1="15" x2="9" y1="9" y2="15" /><line x1="9" x2="15" y1="9" y2="15" /></svg>
+                    <span onClick={handleImageClose} className="absolute top-0 right-0 border hover-text-destructive rounded-full p-2 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-x"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
                     </span>
                 </div>
             </div>)}
