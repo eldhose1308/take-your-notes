@@ -34,7 +34,7 @@ const PostsHome = () => {
                 <ResponsiveDrawer direction='right'>
                     <div className="flex flex-col grow-1 basis-0">
 
-                        <AdditionalCategories type='followed' />
+                        <AdditionalCategories type='following' />
 
                         <AdditionalUsers />
 

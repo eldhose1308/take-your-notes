@@ -12,7 +12,7 @@ import CLIENT_ROUTES from "_routes/clientRoutes";
 const categoryListRoute = CLIENT_ROUTES.CATEGORY_LIST;
 
 const headingMap = {
-    followed: "Categories You Follow",
+    following: "Categories You Follow",
     recommended: "Categories You Might Like",
     latest: "Just Added Categories",
     random: "Random Categories",
@@ -29,7 +29,7 @@ const AdditionalCategories = (props) => {
     });
 
     useEffect(() => {
-        const filters = { page: 1, limit: 6, type };
+        const filters = { page: 1, limit: 6, filters: type };
         fetchPostCategories(filters);
     }, [type]);
 
