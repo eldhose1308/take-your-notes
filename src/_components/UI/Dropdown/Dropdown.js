@@ -14,7 +14,7 @@ const DropdownMenu = ({ children }) => {
   return (
     <DropdownContext.Provider value={{ isPopupOpen, toggle, hide, setSelectedItem, setOptions, selectedItem }}>
       <div
-        className="dropdown mx-2 my-2 inline-flex"
+        className="dropdown mx-2 my-2 inline-flex relative"
         tabIndex={0}
         onBlur={hide}
       >
@@ -53,7 +53,7 @@ const DropdownMenuContent = ({ children }) => {
   return (
     <React.Fragment>
       {isPopupOpen && <div onClick={hide} className="overlay overlay-transparent z-50"></div>}
-      <div className={`dropdown-box z-50 border border-another min-w-xs rounded-md mt-9 bg-default fixed ${isPopupOpen ? '' : 'hidden'}`}>
+      <div className={`dropdown-box z-50 border border-another min-w-xs rounded-md mt-9 bg-default absolute ${isPopupOpen ? '' : 'hidden'}`}>
         <div className="flex flex-col my-1 p-1 text-sm">
           {children}
         </div>
