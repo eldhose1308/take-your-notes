@@ -24,6 +24,7 @@ import MyPostList from '_pages/myPosts/list/MyPostList'
 import MyProfile from '_pages/myProfile/MyProfile'
 import PostsCategoriesPage from '_pages/postsCategories/PostsCategoriesPage'
 import PostsCategoriesListPage from '_pages/postsCategories/PostsCategoriesListPage'
+import FeedbacksPage from '_pages/feedbacks/FeedbacksPage'
 
 export const ROUTES = [
   {
@@ -33,6 +34,10 @@ export const ROUTES = [
       {
         path: "/",
         element: <PostsHome />,
+      },
+      {
+        path: "/feedbacks",
+        element: <FeedbacksPage />,
       }
     ],
     errorElement: <div>Error</div>

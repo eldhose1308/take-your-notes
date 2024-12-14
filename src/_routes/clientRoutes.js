@@ -1,6 +1,7 @@
 const CLIENT_ROUTES = {
     SIGNIN: '/signin',
     SIGNUP: '/signup',
+    FEEDBACKS: '/feedbacks',
     PROFILE: '/my/profile',
     MY_POST: `/my/posts`,
     POST_CREATE: `/my/posts/create`,

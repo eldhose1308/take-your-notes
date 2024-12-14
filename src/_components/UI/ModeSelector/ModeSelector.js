@@ -9,7 +9,6 @@ const activeClass = ' bg-accent text-highlight'
 const ModeSelector = (props) => {
     const { modes = [], selectedValue, onChange, renderLabel } = props;
     const { id: firstMode } = modes[0] || {};
-
     const [activeMode, setActiveMode] = useState(selectedValue || firstMode);
 
     const handleModeChange = (id, selectedMode, e) => {
