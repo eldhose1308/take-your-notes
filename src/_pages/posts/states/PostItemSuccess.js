@@ -71,7 +71,7 @@ const PostItemSuccess = (props) => {
 
 
             </div>
-            <Separator variant='accent' />
+            {/* <Separator variant='accent' /> */}
 
             <div className="preview pl-4 text-default border-l border-custom my-3 overflow-scrolls h-screen-75s" dangerouslySetInnerHTML={{ __html: markdownInHTML }} />
         </React.Fragment>

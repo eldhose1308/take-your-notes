@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import Avatar from "_components/UI/Avatar/Avatar";
 import CLIENT_ROUTES from "_routes/clientRoutes";
-import { USER_AVATAR_URL } from "_constants/API";
 
 const UserInfo = (props) => {
     const { userData, hasFollowers = false } = props;
@@ -15,7 +14,7 @@ const UserInfo = (props) => {
         <Link to={userDetailRoute} className='cursor-pointer group-hover'>
             <div className="flex items-center mb-2">
             <div className="flex">
-                <Avatar key={avatar} name={fullName} src={`${avatar ? `${USER_AVATAR_URL}${avatar}` : '' }`} />
+                <Avatar key={avatar} name={fullName} src={avatar} />
                 </div>
                 <div className="flex flex-col">
                     <div className="flex items-center">

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import Avatar from "_components/UI/Avatar/Avatar";
 import CLIENT_ROUTES from "_routes/clientRoutes";
-import { CATEGORY_ICON_URL, USER_AVATAR_URL } from "_constants/API";
+import { CATEGORY_ICON_URL } from "_constants/API";
 import FollowButton from "_modules/users/_component/FollowButton";
 
 

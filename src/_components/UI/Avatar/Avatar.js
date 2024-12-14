@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 
 import cva from '_utils/createVariantClassNames';
-import { USER_AVATAR_URL } from "_constants/API";
 
 const buttonVariants = cva(
     'avatar flex justify-center items-center overflow-hidden outline-none text-sm bg-another text-default-foreground rounded-full',
