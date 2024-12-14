@@ -9,7 +9,8 @@ import CLIENT_ROUTES from "_routes/clientRoutes";
 import useAuth from "_hooks/useAuth";
 
 const WelcomeCard = () => {
-    const { isAuthenticated } = useAuth()
+    const { isAuthenticated, user } = useAuth()
+    const { fullName='Unknown' } = user || {};
 
     return (
         <Card size='sm' rounded='lg' className='border hover-border-highlight mx-4 my-2'>
@@ -48,7 +49,7 @@ const WelcomeCard = () => {
                 <CardContent>
                     <div className="p-2">
                         <Typography type='h3' size='lg' className='my-2'>Welcome to MakeMyBlogs</Typography>
-                        <Typography type='h5' textVariant='normal' size='sm' className='my-2'>Hi Eldhose, ready to blog today?</Typography>
+                        <Typography type='h5' textVariant='normal' size='sm' className='my-2'>Hi {fullName}, ready to blog today?</Typography>
                         {/* Blogging: Because yelling your thoughts out the window isn’t effective. */}
                         <Typography textVariant='light' size='xs' className='my-2'>
                             Your blog is waiting, and so is your audience. Ready to share your next big idea?
