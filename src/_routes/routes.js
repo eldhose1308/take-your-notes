@@ -1,3 +1,5 @@
+import React, { Suspense, lazy } from 'react';
+
 import Home from '_pages/home/Home/Home'
 import { SignIn, SignUp } from '_pages/auth'
 import PostPage from '_pages/home/PostPage/PostPage'
@@ -14,17 +16,40 @@ import Publish from '_pages/publish/Publish'
 import { PostsProvider } from '_contexts/PostsContext'
 import { UsersProvider } from '_contexts/UsersContext'
 
-import UsersList from '_pages/users/UsersList'
-import UsersPostList from '_pages/users/UsersPostList'
-import PostItem from '_pages/posts/PostItem'
-import PostsHome from '_pages/posts/PostsHome'
-import UserDetail from '_pages/users/UserDetail'
-import MyPostForm from '_pages/myPosts/form/MyPostForm'
-import MyPostList from '_pages/myPosts/list/MyPostList'
-import MyProfile from '_pages/myProfile/MyProfile'
-import PostsCategoriesPage from '_pages/postsCategories/PostsCategoriesPage'
-import PostsCategoriesListPage from '_pages/postsCategories/PostsCategoriesListPage'
-import FeedbacksPage from '_pages/feedbacks/FeedbacksPage'
+// import UsersList from '_pages/users/UsersList'
+// import UsersPostList from '_pages/users/UsersPostList'
+// import PostItem from '_pages/posts/PostItem'
+// import PostsHome from '_pages/posts/PostsHome'
+// import UserDetail from '_pages/users/UserDetail'
+// import MyPostForm from '_pages/myPosts/form/MyPostForm'
+// import MyPostList from '_pages/myPosts/list/MyPostList'
+// import MyProfile from '_pages/myProfile/MyProfile'
+// import PostsCategoriesPage from '_pages/postsCategories/PostsCategoriesPage'
+// import PostsCategoriesListPage from '_pages/postsCategories/PostsCategoriesListPage'
+// import FeedbacksPage from '_pages/feedbacks/FeedbacksPage'
+
+const lazyLoadWithDelay = (importFunction) => {
+  return React.lazy(() => delayForTesting(importFunction()))
+}
+
+const UsersList = lazyLoadWithDelay(() => import('_pages/users/UsersList'));
+const UsersPostList = lazyLoadWithDelay(() => import('_pages/users/UsersPostList'));
+const PostItem = lazyLoadWithDelay(() => import('_pages/posts/PostItem'));
+const PostsHome = lazyLoadWithDelay(() => import('_pages/posts/PostsHome'));
+const UserDetail = lazyLoadWithDelay(() => import('_pages/users/UserDetail'));
+const MyPostForm = lazyLoadWithDelay(() => import('_pages/myPosts/form/MyPostForm'));
+const MyPostList = lazyLoadWithDelay(() => import('_pages/myPosts/list/MyPostList'));
+const MyProfile = lazyLoadWithDelay(() => import('_pages/myProfile/MyProfile'));
+const PostsCategoriesPage = lazyLoadWithDelay(() => import('_pages/postsCategories/PostsCategoriesPage'));
+const PostsCategoriesListPage = lazyLoadWithDelay(() => import('_pages/postsCategories/PostsCategoriesListPage'));
+const FeedbacksPage = lazyLoadWithDelay(() => import('_pages/feedbacks/FeedbacksPage'));
+
+
+function delayForTesting(promise) {
+  return new Promise(resolve => {
+    setTimeout(resolve, 500);
+  }).then(() => promise);
+}
 
 export const ROUTES = [
   {
@@ -33,11 +58,18 @@ export const ROUTES = [
     children: [
       {
         path: "/",
-        element: <PostsHome />,
+        element: (
+            <PostsHome />
+          // </Suspense>
+        ),
       },
       {
         path: "/feedbacks",
-        element: <FeedbacksPage />,
+        element: (
+          // <Suspense fallback={<div>Loading...</div>}>
+            <FeedbacksPage />
+          // </Suspense>
+        ),
       }
     ],
     errorElement: <div>Error</div>
@@ -66,68 +98,10 @@ export const ROUTES = [
         path: PATHS.home,
         element: <div>Home page</div>,
       },
-      // {
-      //   path: PATHS.notes,
-      //   element: <Home />,
-      // },
-      // {
-      //   path: PATHS.posts,
-      //   // element: <PostsProvider>,
-      //   children: [
-      //     {
-      //       path: "", // Default to listing posts
-      //       element: <PostsProvider><PostList something='sdkfhdsk' /></PostsProvider>,
-      //     },
-      //     {
-      //       path: "create", // Create post
-      //       element: <PostsProvider><PostForm /></PostsProvider>,
-      //     },
-      //     {
-      //       path: "edit/:id", // Edit post
-      //       element: <PostsProvider><PostForm /></PostsProvider>,
-      //     },
-      //   ],
-      // },
-      // {
-      //   path: PATHS.tasks,
-      //   element: <div>Tasks page</div>,
-      // },
       {
         path: PATHS.publish,
         element: <Publish />,
       },
-      // {
-      //   path: PATHS.sample,
-      //   element: <Sample />,
-      // },
-      // {
-      //   path: PATHS.popular,
-      //   element: <Popular />,
-      // },
-      // {
-      //   path: PATHS.tags,
-      //   element: <Tags />,
-      // },
-      // {
-      //   path: PATHS.profile,
-      //   element: <UserProfile />,
-      // },
-      // {
-      //   path: "/user/posts/:id",
-      //   element: <PostPage />,
-      // },
-      // {
-      //   path: PATHS.communities,
-      //   element: <Communities />,
-      // },
-      // {
-      //   path: PATHS.seeLater,
-      //   element: <SeeLater />,
-      // },
-      // {
-      //   path: "/user/search",
-      //   element: <Search />,
-      // },
       {
         path: "/user/settings",
         element: <div>settings</div>,
@@ -188,10 +162,6 @@ export const ROUTES = [
         path: ":id/posts",
         element: <PostsProvider><UsersPostList /></PostsProvider>
       },
-      // {
-      //   path: ":userName/posts/:postSlug",
-      //   element: <PostsProvider><PostItem /></PostsProvider>
-      // }
     ]
   },
   {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import {
   createHashRouter,
   RouterProvider,
@@ -15,10 +15,16 @@ import { ROUTES } from "_routes/routes";
 import useUser from "_hooks/useUser";
 import setTheme from "_utils/setTheme";
 import { toggleFont } from "_utils/domUtils";
+import FullPageSkeleton from "FullPageSkeleton";
 
 
 const router = createHashRouter(ROUTES);
 
+const AppLoader = () => (
+  <div className="flex justify-center items-center h-screen w-full">
+    <div className="loader"></div>
+  </div>
+);
 
 // make it a class component!!
 function App() {
@@ -26,27 +32,29 @@ function App() {
 
   useEffect(() => {
     const { theme, fontMode } = getUserPreferences();
-    
+
     setTheme(theme);
     toggleFont(fontMode);
-  },[])
+  }, [])
 
   return (
     <React.Fragment>
       <div className="app-root">
 
-      <Provider store={store}>
+        <Provider store={store}>
 
-        <ToastProvider>
-          <TopLoaderProvider>
+          <ToastProvider>
+            <TopLoaderProvider>
 
-            <AuthProvider>
-              <RouterProvider router={router} />
-            </AuthProvider>
+              <AuthProvider>
+                <Suspense fallback={<FullPageSkeleton />}>
+                  <RouterProvider router={router} />
+                </Suspense>
+              </AuthProvider>
 
-          </TopLoaderProvider>
-        </ToastProvider>
-      </Provider>
+            </TopLoaderProvider>
+          </ToastProvider>
+        </Provider>
       </div>
 
     </React.Fragment>
