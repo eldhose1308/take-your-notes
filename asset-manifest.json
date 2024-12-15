@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/take-your-notes/static/css/main.949cdf31.css",
-    "main.js": "/take-your-notes/static/js/main.7f490cc9.js",
+    "main.js": "/take-your-notes/static/js/main.2364935e.js",
     "static/js/655.36e9a354.chunk.js": "/take-your-notes/static/js/655.36e9a354.chunk.js",
     "static/js/614.ed3a5ab4.chunk.js": "/take-your-notes/static/js/614.ed3a5ab4.chunk.js",
     "static/js/578.ec8dc116.chunk.js": "/take-your-notes/static/js/578.ec8dc116.chunk.js",
@@ -20,7 +20,7 @@
     "static/media/lato-regular.ttf": "/take-your-notes/static/media/lato-regular.79164ee524feb6583a94.ttf",
     "index.html": "/take-your-notes/index.html",
     "main.949cdf31.css.map": "/take-your-notes/static/css/main.949cdf31.css.map",
-    "main.7f490cc9.js.map": "/take-your-notes/static/js/main.7f490cc9.js.map",
+    "main.2364935e.js.map": "/take-your-notes/static/js/main.2364935e.js.map",
     "655.36e9a354.chunk.js.map": "/take-your-notes/static/js/655.36e9a354.chunk.js.map",
     "614.ed3a5ab4.chunk.js.map": "/take-your-notes/static/js/614.ed3a5ab4.chunk.js.map",
     "578.ec8dc116.chunk.js.map": "/take-your-notes/static/js/578.ec8dc116.chunk.js.map",
@@ -39,6 +39,6 @@
   },
   "entrypoints": [
     "static/css/main.949cdf31.css",
-    "static/js/main.7f490cc9.js"
+    "static/js/main.2364935e.js"
   ]
 }
