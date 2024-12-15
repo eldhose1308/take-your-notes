@@ -2,13 +2,14 @@ import { useState } from "react";
 
 import * as usersService from '_services/users.service';
 
-const useUsers = () => {
+const useUserConnections = (props) => {
+    const { userId, type='followers' } = props;
     const [fetchStatus, setFetchStatus] = useState('none');
 
     const fetchUsersData = async (filters) => {
         try{
             setFetchStatus('loading');
-            const usersData = await usersService.getUsers(filters);
+            const usersData = (type === 'followers') ? await usersService.getUserFollowers(userId, filters) :  await usersService.getUserFollowings(userId, filters);
             if(usersData.length === 0){
                 setFetchStatus('empty');
             }else{
@@ -19,6 +20,7 @@ const useUsers = () => {
             const { statusCode } = error || {};
             if(statusCode === 401){
                 setFetchStatus('unauthorised');
+                throw error;
             }else{
                 setFetchStatus('failure');
             }
@@ -32,4 +34,4 @@ const useUsers = () => {
     }
 }
 
-export default useUsers;
+export default useUserConnections;

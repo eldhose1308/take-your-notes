@@ -54,10 +54,6 @@ const UsersList = () => {
         }
     }
 
-    const handleSearchUsers = (searchQuery) => {
-        handleFiltersChange({ search: searchQuery });
-    }
-
     const fetchUsers = async () => {
         const usersFilter = { page: currentPage + 1, limit: pageSize,  ...filters };
         try{
@@ -92,17 +88,6 @@ const UsersList = () => {
                     {authorisedForListing && (
                         <React.Fragment>
                             <UserFilters onChange={handleFiltersChange} />
-                            <SearchBar size='sm' textBoxProps={{
-                                placeholder: 'Search Users',
-                                placeholderFocus: 'default',
-                                // isFocused: true
-                            }}
-                                buttonProps={{
-                                    size: 'xs'
-                                }}
-                                hasSearchIcon={false}
-                                onSearch={handleSearchUsers}
-                                />
                         </React.Fragment>
                     )}
                 </div>

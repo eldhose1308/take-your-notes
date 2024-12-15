@@ -11,7 +11,7 @@ import usePostsCategories from "_modules/posts/_hooks/usePostsCategories";
 import PostCategoriesListSuccess from "./states/PostCategoriesListSuccess";
 import Typography from "_components/Misc/Typography/Typography";
 import FollowUnfollowToggler from "_modules/togglers/FollowUnfollowToggler";
-import SearchBar from "_components/UI/SearchBar/SearchBar";
+
 import { getUserDetailsOfCurrentUser } from "_utils/userAuth";
 import { Stencil } from "_components/Loader";
 import EmptyFollowingCategories from "_components/DisplayStates/Empty/EmptyFollowingCategories";
@@ -68,10 +68,7 @@ const PostsCategoriesListPage = () => {
         }
     }
 
-    const handleSearchUsers = (searchQuery) => {
-        handleFiltersChange({ search: searchQuery });
-    }
-
+   
     useEffect(() => {
         fetchUsers();
     }, [])
@@ -93,17 +90,6 @@ const PostsCategoriesListPage = () => {
                     {authorisedForListing && (
                         <React.Fragment>
                             <PostCategoryFilters onChange={handleFiltersChange} />
-                            <SearchBar size='sm' textBoxProps={{
-                                placeholder: 'Search Categories',
-                                placeholderFocus: 'default',
-                                // isFocused: true
-                            }}
-                                buttonProps={{
-                                    size: 'xs'
-                                }}
-                                hasSearchIcon={false}
-                                onSearch={handleSearchUsers}
-                            />
                         </React.Fragment>
                     )}
                 </div>

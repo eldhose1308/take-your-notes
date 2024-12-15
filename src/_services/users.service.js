@@ -113,6 +113,29 @@ const unFollowUser = async (data, config = {}) => {
 
 
 
+const getUserFollowers = async (userId, data, config = {}) => {
+    try{
+        const response = await users.getUserFollowers(userId, data, config);
+        const { data: usersData = [] } = response;
+        const usersFormatted = usersData.map(formatUserData)
+        return usersFormatted || []
+    }catch(err){
+        throw err;
+    }
+}
+
+
+const getUserFollowings = async (userId, data, config = {}) => {
+    try{
+        const response = await users.getUserFollowings(userId, data, config);
+        const { data: usersData = [] } = response;
+        const usersFormatted = usersData.map(formatUserData)
+        return usersFormatted || []
+    }catch(err){
+        throw err;
+    }
+}
+
 export {
     getUsers,
     getUserDetail,
@@ -127,5 +150,8 @@ export {
     removeUserAvatar,
 
     updateBasicInfo,
-    updateExtraInfo
+    updateExtraInfo,
+
+    getUserFollowers,
+    getUserFollowings
 }

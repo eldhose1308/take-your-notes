@@ -100,6 +100,28 @@ const unFollowUser = async (userId, config = {}) => {
 }
 
 
+const getUserFollowers = async (userId, data, config = {}) => {
+    const usersURL = constructUrl(BASE_URL + `users/${userId}/followers`, data);
+    return new AccessAPI(usersURL).get()
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err
+    })
+}
+
+
+const getUserFollowings = async (userId, data, config = {}) => {
+    const usersURL = constructUrl(BASE_URL + `users/${userId}/followings`, data);
+    return new AccessAPI(usersURL).get()
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err
+    })
+}
+
+
 export {
     getUsers,
     getUserDetail,
@@ -114,5 +136,8 @@ export {
     removeUserAvatar,
 
     updateBasicInfo,
-    updateExtraInfo
+    updateExtraInfo,
+
+    getUserFollowers,
+    getUserFollowings
 }

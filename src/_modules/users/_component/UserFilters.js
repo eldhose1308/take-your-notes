@@ -1,9 +1,10 @@
 import React from "react";
 
 import Filter from "_modules/filters/_components/Filter";
+import SearchBar from "_components/UI/SearchBar/SearchBar";
 
 const filterOptions = [
-    {id: 'none', text: 'None'},
+    { id: 'none', text: 'None' },
     { id: 'recent', text: 'Most Recent' }, // sort_by: desc
     { id: 'oldest', text: 'Oldest' }, // sort_by: asc
     { id: 'most_posts', text: 'Most Posts' }, // sort_by: likes
@@ -24,7 +25,7 @@ const filterQueryParamMappings = {
 }
 
 const UserFilters = (props) => {
-    const { onChange=()=>{}, resetPagination=()=>{} } = props;
+    const { onChange = () => { }, resetPagination = () => { } } = props;
 
     const handleFilterChange = (selectedFilter) => {
         const { id } = selectedFilter;
@@ -33,19 +34,38 @@ const UserFilters = (props) => {
         onChange(filterQueryParams);
     }
 
-    return (
-        <div className="flex">
-            <Filter
-                label='Filter by'
-                onSelect={handleFilterChange}
-                options={filterOptions}
-            />
+    const handleSearchUsers = (searchQuery) => {
+        onChange({ search: searchQuery });
+    }
 
-            {/* <Filter
+    return (
+        <React.Fragment>
+            <div className="flex">
+                <Filter
+                    label='Filter by'
+                    onSelect={handleFilterChange}
+                    options={filterOptions}
+                />
+
+                {/* <Filter
                 label='Category'
                 onSelect={() => { }}
             /> */}
-        </div>
+            </div>
+
+            <SearchBar size='sm' textBoxProps={{
+                placeholder: 'Search Users',
+                placeholderFocus: 'default',
+                // isFocused: true
+            }}
+                buttonProps={{
+                    size: 'xs'
+                }}
+                hasSearchIcon={false}
+                onSearch={handleSearchUsers}
+            />
+
+        </React.Fragment>
     )
 }
 
