@@ -11,14 +11,14 @@ import { useClientAuth } from "_contexts/AuthProvider";
 const { top, middle, bottom } = MENU_ITEMS
 
 const Sidebar = (props) => {
-    const { isSidebarOpen, toggleSidebar } = useTemplateProvider()
+    const { isSidebarOpen, toggleSidebar, hideSidebar } = useTemplateProvider()
     const { pathname } = useLocation();
     const { isAuthenticated } = useClientAuth()
 
 
     return (
         <React.Fragment>
-            {/* {isSidebarOpen ? <div className="overlay z-10 xl:hidden"></div> : null} */}
+            {isSidebarOpen ? <div onClick={hideSidebar} className="overlay z-10"></div> : null}
 
             <aside className={`aside bg-default text-default ${isSidebarOpen ? 'active' : ''}`}>
                 <div className="flex justify-between px-4 py-4">
