@@ -40,14 +40,6 @@ const AllFeedbacks = () => {
         }
     }
 
-    const handleFeedbackTypeChange = (id) => {
-        setFeedbackType(id);
-    }
-
-    const handleAnonymousChange = (anonymousFlag) => {
-        setIsAnonymous(anonymousFlag);
-    }
-
     return (
         <div className="text-default m-5">
             <h1>All Feedback List</h1>

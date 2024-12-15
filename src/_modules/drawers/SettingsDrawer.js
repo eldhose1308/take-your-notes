@@ -104,7 +104,7 @@ const SettingsDrawer = () => {
                         </span>
                     </div>
 
-                    <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
+                    <div onClick={closeDrawer} className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
                         <Link to={CLIENT_ROUTES.FEEDBACKS} className="w-full">
                             <span>
                                 Send Feedback

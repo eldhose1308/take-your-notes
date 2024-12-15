@@ -23,13 +23,14 @@ const Header = (props) => {
 
     const { isSidebarNeeded = true } = props;
 
-    const { toggleSidebar } = useTemplateProvider(null)
+    const { toggleSidebar, hideSidebar } = useTemplateProvider(null)
     const { isDrawerOpen, closeDrawer, openDrawer } = useDrawer()
     const { isAuthenticated, user } = useAuth()
     const { userName, fullName, avatar } = user || {};
 
     const handleSettingsClick = () => {
         dispatch(openSettingsDrawer());
+        hideSidebar();
     }
 
     // if (!isSidebarNeeded) {
@@ -51,7 +52,7 @@ const Header = (props) => {
 
                 {isSidebarNeeded && <div className="flex justify-center items-center">
                     <Link to={isAuthenticated ? CLIENT_ROUTES.POST_CREATE : CLIENT_ROUTES.SIGNIN} className="flex mr-2">
-                        <span title="Signin to start writing" className={`text-center border border-another text-accent hover-accent hover-text-custom text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md ${isAuthenticated ? '' : 'opacity-50'}`}>
+                        <span onClick={hideSidebar} title="Signin to start writing" className={`text-center border border-another text-accent hover-accent hover-text-custom text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md ${isAuthenticated ? '' : 'opacity-50'}`}>
                             <span className="flex items-center">
                                 Start Writing
                                 <span className="flex items-center ml-2">
@@ -63,7 +64,7 @@ const Header = (props) => {
 
                     {isAuthenticated ? (
                         <React.Fragment>
-                            <Link to={CLIENT_ROUTES.PROFILE} >
+                            <Link onClick={hideSidebar} to={CLIENT_ROUTES.PROFILE} >
                                 <Avatar key={avatar} src={avatar} name={fullName} size='sm' hasPreview={false} hasZoom={false} />
                             </Link>
                         </React.Fragment>

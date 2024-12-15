@@ -8,12 +8,17 @@ import ModeSelector from "_components/UI/ModeSelector/ModeSelector";
 import { useToast } from "_contexts/ToastProvider";
 
 import * as feedbacks from "_services/feedbacks.service";
+import FeedbackTypeSelector from "./FeedbackTypeSelector";
+import { getUserDetailsOfCurrentUser } from "_utils/userAuth";
+import FeedbackUnAuthorised from "_components/DisplayStates/Error/FeedbackUnAuthorised";
 
 const FeedbackForm = () => {
     const { register, submit, errors, isSubmitting } = useForm({ schema: FeedbackFormSchema });
     const [feedbackType, setFeedbackType] = useState('complaint');
     const [isAnonymous, setIsAnonymous] = useState(false);
     const { toast } = useToast()
+
+    const { userName } = getUserDetailsOfCurrentUser();
 
     const handleSave = async (formData) => {
         const { feedback } = formData;
@@ -40,7 +45,7 @@ const FeedbackForm = () => {
         }
     }
 
-    const handleFeedbackTypeChange = (id) => {
+    const handleFeedbackTypeChange = (queryMap, id) => {
         setFeedbackType(id);
     }
 
@@ -48,10 +53,17 @@ const FeedbackForm = () => {
         setIsAnonymous(anonymousFlag);
     }
 
+    if(!userName){
+        return (
+            <FeedbackUnAuthorised />
+        )
+    }
+
     return (
             <div className="flex flex-col">
                 <div className="flex my-4 mx-2 text-xs">
-                    <ModeSelector
+                    <FeedbackTypeSelector selectedValue={feedbackType} onChange={handleFeedbackTypeChange} />
+                    {/* <ModeSelector
                         modes={
                             [
                                 { id: 'complaint', label: 'Complaint', modeElement: 'Complaint' },
@@ -61,7 +73,7 @@ const FeedbackForm = () => {
                         }
                         selectedValue={feedbackType}
                         onChange={handleFeedbackTypeChange}
-                    />
+                    /> */}
                 </div>
 
                 <div className="my-3">

@@ -28,7 +28,7 @@
   left: -240px;
   overflow-y: auto;
   transition: left 0.3s;
-  z-index: 3;
+  z-index: 200;
 }
 
 .main {

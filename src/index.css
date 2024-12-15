@@ -1586,6 +1586,9 @@ textarea::placeholder {
 .z-50 {
   z-index: 50;
 }
+.z-200{
+  z-index: 200;
+}
 
 .z-60 {
   z-index: 60;
