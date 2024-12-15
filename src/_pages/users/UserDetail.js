@@ -40,7 +40,7 @@ const UserDetail = () => {
     return (
         <div className="text-default m-5">
             <div className="flex">
-                <div className="flex flex-col mx-2 grow-3 basis-0">
+                <div key={userName} className="flex flex-col mx-2 grow-3 basis-0">
 
                     {UserDetailComponentState}
 

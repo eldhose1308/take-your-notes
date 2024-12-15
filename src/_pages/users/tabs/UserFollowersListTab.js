@@ -23,7 +23,7 @@ const UserFollowersListTab = (props) => {
                 <Separator />
             </div>
 
-            <UserConnections userName={userName} userDetail={userDetail} />
+            <UserConnections key={`user_connections_${userName}`} userName={userName} userDetail={userDetail} />
 
         </div>
     )

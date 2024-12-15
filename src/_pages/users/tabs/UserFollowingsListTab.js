@@ -24,7 +24,7 @@ const UserFollowingsListTab = (props) => {
                 <Separator />
             </div>
 
-            <UserConnections userName={userName} userDetail={userDetail} type='followings' />
+            <UserConnections key={`user_connections_${userName}`} userName={userName} userDetail={userDetail} type='followings' />
 
         </div>
     )
