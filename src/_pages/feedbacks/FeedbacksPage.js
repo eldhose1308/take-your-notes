@@ -14,7 +14,7 @@ const FeedbacksPage = () => {
 
     return (
         <div className="text-default m-5">
-            <Typography type='h3' size='xl' className='my-4 mx-2'>Feedbacks Page</Typography>
+            <Typography type='h2' size='lg' className='my-4 mx-2'>Feedbacks Page</Typography>
 
             <div className="bg-default p-1 text-sm rounded-md">
                 {!userName ? (

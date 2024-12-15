@@ -57,7 +57,7 @@ const UserDetail = () => {
 
                         <AdditionalUsers />
 
-                        <AdditionalUsersPosts userName={userName} fullName='Show suggestions' />
+                        {/* <AdditionalUsersPosts userName={userName} fullName='Show suggestions' /> */}
 
                     </div>
                 </ResponsiveDrawer>

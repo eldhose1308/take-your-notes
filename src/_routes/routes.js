@@ -11,7 +11,7 @@ import Communities from '_pages/home/Communities'
 import { PATHS } from './paths'
 import SeeLater from '_pages/home/SeeLater'
 import Sample from '_pages/home/Sample/Sample'
-import Publish from '_pages/publish/Publish'
+import PublishPage from '_pages/publish/PublishPage'
 
 import { PostsProvider } from '_contexts/PostsContext'
 import { UsersProvider } from '_contexts/UsersContext'
@@ -100,7 +100,7 @@ export const ROUTES = [
       },
       {
         path: PATHS.publish,
-        element: <Publish />,
+        element: <PublishPage />,
       },
       {
         path: "/user/settings",

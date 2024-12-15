@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 
 const validationStateReducer = (state, action) => {
     const { type, data={} } = action;
@@ -62,7 +62,9 @@ const useForm = ({ schema, initialValues={} }) => {
     }
 
     const reset = () => {
-        // setFormFields({})
+        setFormFields(initialValues)
+        setValidations({ type: 'RESET_ALL' })
+        setIsSubmitting(false);
     }
 
     return {

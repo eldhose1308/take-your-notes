@@ -1,10 +1,12 @@
 import validators, { isAValidEmail } from "./validators";
 
 const createSchema = (formSchema) => {
-    const rules = {}
+    const rules = {};
+    const allFieldIds = [];
     for(const field in formSchema){
         const fieldProperties = formSchema[field] || {};
         rules[field] = fieldProperties
+        allFieldIds.push(field);
     }
     
     // needs revamping and error handling fallbacks
@@ -59,7 +61,8 @@ const createSchema = (formSchema) => {
                 }
             }
             return errors;
-        }
+        },
+        allFieldIds
     }
 
     return validateObj;

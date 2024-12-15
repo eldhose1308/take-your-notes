@@ -4,7 +4,6 @@ import { Button, Checkbox, TextArea } from "_components/Form";
 
 import useForm from "_hooks/useForm";
 import { FeedbackFormSchema } from "../_utils/validation-rules";
-import ModeSelector from "_components/UI/ModeSelector/ModeSelector";
 import { useToast } from "_contexts/ToastProvider";
 
 import * as feedbacks from "_services/feedbacks.service";
@@ -63,17 +62,6 @@ const FeedbackForm = () => {
             <div className="flex flex-col">
                 <div className="flex my-4 mx-2 text-xs">
                     <FeedbackTypeSelector selectedValue={feedbackType} onChange={handleFeedbackTypeChange} />
-                    {/* <ModeSelector
-                        modes={
-                            [
-                                { id: 'complaint', label: 'Complaint', modeElement: 'Complaint' },
-                                { id: 'suggestion', label: 'Suggestion', modeElement: 'Suggestion' },
-                                { id: 'enquiry', label: 'Enquiry', modeElement: 'Enquiry' },
-                            ]
-                        }
-                        selectedValue={feedbackType}
-                        onChange={handleFeedbackTypeChange}
-                    /> */}
                 </div>
 
                 <div className="my-3">
