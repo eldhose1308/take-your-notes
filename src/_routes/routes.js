@@ -47,7 +47,7 @@ const FeedbacksPage = lazyLoadWithDelay(() => import('_pages/feedbacks/Feedbacks
 
 function delayForTesting(promise) {
   return new Promise(resolve => {
-    setTimeout(resolve, 500);
+    setTimeout(resolve, 200);
   }).then(() => promise);
 }
 
