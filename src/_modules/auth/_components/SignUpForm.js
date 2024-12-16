@@ -8,6 +8,7 @@ import Flex from "_components/Misc/Flex/Flex";
 import useForm from "_hooks/useForm";
 
 import { SignUpSchema } from "../_utils/validation-rules";
+import { Link } from "react-router-dom";
 
 const SignUpForm = (props) => {
     const { onSubmit, buttonStatus, buttonStatusText } = props;
@@ -85,6 +86,14 @@ const SignUpForm = (props) => {
                     onSuccess={(credentialResponse) => { console.log(credentialResponse) }}
                     onError={() => { alert('Error') }}
                 />
+
+<Link to={'/'} className="w-full mt-4">
+                    <div className="bg-custom text-default hover-text-custom hover-accent text-center text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md">
+                        <span className="">
+                            Continue as Guest
+                        </span>
+                    </div>
+                </Link>
 
             </Flex>
 

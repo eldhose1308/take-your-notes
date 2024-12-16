@@ -10,6 +10,7 @@ import useForm from "_hooks/useForm";
 import { SignInSchema } from "../_utils/validation-rules";
 import useButtonStatus from "_hooks/useButtonStatus";
 import buttonStates from "_constants/buttonStates";
+import { Link } from "react-router-dom";
 
 const SignInForm = (props) => {
     const { onSubmit, buttonStatus, buttonStatusText } = props;
@@ -42,10 +43,10 @@ const SignInForm = (props) => {
             </div>
 
             <Button variant='accent' buttonStatus={buttonStatus} disabled={isSubmitting} onClick={submit(onSubmit)}>
-            <span className="flex items-center">
-                {buttonStatusText}
-                <span className="flex ml-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-move-right animate-bounce-x"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
+                <span className="flex items-center">
+                    {buttonStatusText}
+                    <span className="flex ml-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-move-right animate-bounce-x"><path d="M18 8L22 12L18 16" /><path d="M2 12H22" /></svg>
                     </span>
                 </span>
             </Button>
@@ -64,8 +65,15 @@ const SignInForm = (props) => {
                     onError={() => { alert('Error') }}
                 />
 
+                <Link to={'/'} className="w-full mt-4">
+                    <div className="bg-custom text-default hover-text-custom hover-accent text-center text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md">
+                        <span className="">
+                            Continue as Guest
+                        </span>
+                    </div>
+                </Link>
             </Flex>
-{/* 
+            {/* 
             <Typography variant='secondary' className='my-2'>
                 By clicking continue, you agree to our Terms of Service and Privacy Policy.
             </Typography> */}
