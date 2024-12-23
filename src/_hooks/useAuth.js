@@ -40,6 +40,21 @@ const useAuth = () => {
         }
     }
 
+    const googleAuth = async (formData) => {
+        showTopLoader()
+        
+        try{
+            const userData = await authModel.googleAuth(formData, { setProgress });
+            // const { data } = userData;
+            loginClient(userData)
+            return userData
+        }catch(err){
+            throw err;
+        }finally{
+            hideTopLoader()
+        }
+    }
+
     const logout = async () => {
         // call server api here
         try{
@@ -95,7 +110,9 @@ const useAuth = () => {
         isAuthenticated,
         login,
         signup,
-        logout
+        logout,
+
+        googleAuth
     }
 }
 

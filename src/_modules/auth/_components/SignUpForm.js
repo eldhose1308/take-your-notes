@@ -11,7 +11,7 @@ import { SignUpSchema } from "../_utils/validation-rules";
 import { Link } from "react-router-dom";
 
 const SignUpForm = (props) => {
-    const { onSubmit, buttonStatus, buttonStatusText } = props;
+    const { onSubmit, onGoogleSubmit, buttonStatus, buttonStatusText } = props;
 
     const { register, submit, errors, isSubmitting } = useForm({ schema: SignUpSchema })
 
@@ -68,7 +68,7 @@ const SignUpForm = (props) => {
                 <span className="flex items-center">
                     Sign Up with Email
                     <span className="flex items-end ml-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-move-right animate-bounce-x"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-move-right animate-bounce-x"><path d="M18 8L22 12L18 16" /><path d="M2 12H22" /></svg>
                     </span>
                 </span>
             </Button>
@@ -82,12 +82,14 @@ const SignUpForm = (props) => {
             <Flex direction='column' className='mb-4'>
 
                 <GoogleLogin
+                    flow='auth-code'
                     text="signup_with"
-                    onSuccess={(credentialResponse) => { console.log(credentialResponse) }}
+                    redirect_uri='https://notes.nexcode.in/api/auth/googleSignupCallback'
+                    onSuccess={onGoogleSubmit}
                     onError={() => { alert('Error') }}
                 />
 
-<Link to={'/'} className="w-full mt-4">
+                <Link to={'/'} className="w-full mt-4">
                     <div className="bg-custom text-default hover-text-custom hover-accent text-center text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md">
                         <span className="">
                             Continue as Guest

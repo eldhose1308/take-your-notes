@@ -5,7 +5,7 @@ import { USER_AVATAR_URL } from '_constants/API';
 
 export const formatUserData = (data) => {
     const { user_id, user_name, full_name, avatar, user_email, created_at, bio, website_link, phone, followers_count, following_count, posts_count, is_following } = data;
-    const formattedResponse = { id: user_id, userName: user_name, fullName: full_name, avatar: `${USER_AVATAR_URL}${avatar}`, userAvatarBaseURL: USER_AVATAR_URL, email: user_email, joinedAt: formatToLocalTime(created_at), bio, websiteLink: website_link, phone, followers: followers_count, following: following_count, posts: posts_count, isFollowing: !!is_following };
+    const formattedResponse = { id: user_id, userName: user_name, fullName: full_name, avatar , userAvatarBaseURL: USER_AVATAR_URL, email: user_email, joinedAt: formatToLocalTime(created_at), bio, websiteLink: website_link, phone, followers: followers_count, following: following_count, posts: posts_count, isFollowing: !!is_following };
     return formattedResponse;
 }
 

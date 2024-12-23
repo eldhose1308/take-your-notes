@@ -8,7 +8,7 @@ const getAuthPosts = async (data, config = {}) => {
     .then((res) => {
         return res
     }).catch((err) => {
-        throw err.response
+        throw err
     })
 }
 

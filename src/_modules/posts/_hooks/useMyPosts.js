@@ -11,12 +11,14 @@ import { PostsContext } from "_contexts/PostsContext";
 import { POST_ACTIONS } from "../_constants/postReducerActionTypes";
 import { useToast } from "_contexts/ToastProvider";
 import { getUserDetailsOfCurrentUser } from "_utils/userAuth";
+import useAuth from "_hooks/useAuth";
 
 const useMyPosts = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const { id: postSlug } = useParams();
     // const { postDetails, postsList, categoriesList: postsCategoriesList, selectedCategory, setSelectedCategory, setPostsList } = useContext(PostsContext);
     const { toast } = useToast()
+    const { logout } = useAuth();
 
     // const selectedCategory = searchParams.get('category');
     const [postFormState, postFormDispatcher] = useReducer(postFormReducer, { ...initialState });
@@ -37,6 +39,10 @@ const useMyPosts = () => {
             }
             return postsData;
         }catch(error){
+            const { statusCode } = error;
+            if(statusCode === 401){
+                logout()
+            }
             setFetchStatus('failure');
             throw error;
         }
@@ -69,7 +75,10 @@ const useMyPosts = () => {
             }).success()
             return postsResponse;
         } catch (error) {
-            const { message } = error;
+            const { message, statusCode } = error;
+            if(statusCode === 401){
+                logout()
+            }
             toast({
                 heading: 'Oops! There was an error creating your post.',
                 description: message,

@@ -40,6 +40,15 @@ const signup = (payload) => {
 
 const signout = (payload) => {
     return new AccessAPI(BASE_URL + 'auth/logout').post(payload)
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err
+    })
+}
+
+const googleAuth = (payload) => {
+    return new AccessAPI(BASE_URL + 'auth/googleSignup').post(payload)
         .then((res) => {
             return res
         }).catch((err) => {
@@ -51,6 +60,8 @@ export {
     login,
     signin,
     signup,
-    signout
+    signout,
+
+    googleAuth
 }
 

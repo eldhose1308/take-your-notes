@@ -19,8 +19,34 @@ import buttonStates from "_constants/buttonStates";
 
 export default function SignUp() {
     const { toast } = useToast()
-    const { signup, isAuthenticated } = useAuth()
+    const { signup, googleAuth } = useAuth()
     const [buttonStatus, buttonStatusText, setButtonStatus] = useButtonStatus(buttonStates.signup);
+
+    const handleGoogleSubmit = async (response) => {
+        setButtonStatus('loading');
+        try {
+            const userData = await googleAuth(response);
+            const { message } = userData;
+
+            setButtonStatus('completed');
+            toast({
+                heading: message,
+                description: 'You will be redirected in any moment now',
+                options: { position: 'top-right' }
+            }).success()
+        } catch (error) {
+            setButtonStatus('failure');
+            const { message } = error;
+            toast({
+                heading: message,
+                options: { position: 'top-right' }
+            }).error()
+        } finally {
+            setTimeout(() => {
+                setButtonStatus('none');
+            }, 1000)
+        }
+    }
 
     const handleSubmit = async (formData) => {
         setButtonStatus('loading');
@@ -61,7 +87,7 @@ export default function SignUp() {
                         </CardHeader>
 
                         <CardContent>
-                            <SignUpForm onSubmit={handleSubmit} buttonStatus={buttonStatus} buttonStatusText={buttonStatusText} />
+                            <SignUpForm onSubmit={handleSubmit} onGoogleSubmit={handleGoogleSubmit} buttonStatus={buttonStatus} buttonStatusText={buttonStatusText} />
                         </CardContent>
 
                         {/* <Separator className="my-3" />

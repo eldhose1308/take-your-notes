@@ -1,3 +1,5 @@
+import { BASE_URL } from "_constants";
+
 export const constructUrl = (baseUrl, data = {}) => {
     const queryParams = Object.entries(data)
         .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
@@ -6,36 +8,68 @@ export const constructUrl = (baseUrl, data = {}) => {
     return `${baseUrl}?${queryParams}`;
 };
 
+const refreshAccessToken = async () => {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', `${BASE_URL}auth/refresh`, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.withCredentials = true;
+        xhr.responseType = 'json';
 
-export default function AccessAPI(url){
+        xhr.send(null);
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                resolve()
+            } else {
+                // const xhrError = { ...xhr.response, statusCode: xhr.status };
+                reject(xhr)
+            }
+        }
+    });
+}
+
+export default function AccessAPI(url) {
     const api = {
-         ajax(method, url, args, payload = {}, onSuccess, onFailure, onProgress){
+        ajax(method, url, args, payload = {}, onSuccess, onFailure, onProgress) {
             const promise = new Promise((resolve, reject) => {
                 const xhr = new XMLHttpRequest();
                 xhr.open(method, url);
                 // xhr.setRequestHeader('Authorization', `Bearer ${token}`);
                 xhr.withCredentials = true;
                 xhr.responseType = 'json';
-                
+
 
                 if (payload instanceof FormData) {
                     xhr.send(payload);
-                }else{
+                } else {
                     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
                     xhr.send(JSON.stringify((payload)));
                 }
 
-                xhr.onload = function() {
-                    if (xhr.status === 200 || xhr.status === 201 || xhr.status === 204) { 
+                xhr.onload = function () {
+                    if (xhr.status === 200 || xhr.status === 201 || xhr.status === 204) {
                         resolve(xhr.response)
-                    } else { 
+                    } if (xhr.status === 401) {
+                        refreshAccessToken().then(() => {
+                            api.ajax(method, url, args, payload, onSuccess, onFailure, onProgress).then((res) => {
+                                resolve(res)
+                            }).catch(() => {
+                                const xhrError = { ...xhr.response, statusCode: xhr.status };
+                                reject(xhrError)
+                            })
+                        }).catch(() => {
+                            const xhrError = { ...xhr.response, statusCode: xhr.status };
+                            reject(xhrError)
+                        });
+                    } else {
                         const xhrError = { ...xhr.response, statusCode: xhr.status };
                         reject(xhrError)
                     }
                 };
 
 
-                xhr.onprogress = function(event) {
+                xhr.onprogress = function (event) {
                     if (event.lengthComputable) {
                         const percentComplete = (event.loaded / event.total) * 100;
                         // console.log(`Received ${event.loaded} bytes`); 
@@ -43,10 +77,10 @@ export default function AccessAPI(url){
                         const percentComplete = (event.loaded / event.total) * 100;
                         // console.log(`Received ${event.loaded} bytes`); 
                     }
-                
+
                 };
-                
-                xhr.onerror = function() {
+
+                xhr.onerror = function () {
                     // onFailure && onFailure();
                     reject(new Error('Something went wrong'))
                     // alert("Request failed");
@@ -59,22 +93,22 @@ export default function AccessAPI(url){
             return promise
         }
 
-    } 
+    }
 
     return {
-        get(args = {}, onSuccess, onFailure){
+        get(args = {}, onSuccess, onFailure) {
             return api.ajax('GET', url, args, {}, onSuccess, onFailure)
         },
-        
-        post(payload = {}, onProgress, onSuccess, onFailure){
+
+        post(payload = {}, onProgress, onSuccess, onFailure) {
             return api.ajax('POST', url, null, payload, {}, onSuccess, onFailure, onProgress)
         },
 
-        put(payload = {}, onProgress, onSuccess, onFailure){
+        put(payload = {}, onProgress, onSuccess, onFailure) {
             return api.ajax('PUT', url, null, payload, {}, onSuccess, onFailure, onProgress)
         },
 
-        delete(payload = {}, onProgress, onSuccess, onFailure){
+        delete(payload = {}, onProgress, onSuccess, onFailure) {
             return api.ajax('DELETE', url, null, payload, {}, onSuccess, onFailure, onProgress)
         }
     }

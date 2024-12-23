@@ -25,17 +25,31 @@ const register = async (data, config = {}) => {
 }
 
 
-const logout = async (data, config = {}) => {
+const googleAuth = async (data, config = {}) => {
     try {
-        const response = await auth.signout(data, config);
-        return response;
+        const response = await auth.googleAuth(data, config);
+        const { data: userData = [] } = response;
+        const formattedUserData = formatUserData(userData);
+        return formattedUserData;
     } catch (err) {
         throw err;
     }
 }
 
+const logout = async (data, config = {}) => {
+    try {
+        const response = await auth.signout(data, config);
+        return response;
+    }catch (err) {
+        throw err;
+    }
+
+}
+
 export {
     login,
     register,
-    logout
+    logout,
+
+    googleAuth
 }

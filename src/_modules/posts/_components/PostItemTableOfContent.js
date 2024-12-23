@@ -30,7 +30,7 @@ const PostItemTableOfContent = ({ tableOfContents = [] }) => {
     if (tableOfContents.length === 0) return null;
 
     return (
-        <div className="border border-another rounded-md">
+        <div className="border border-custom rounded-md">
             <Typography className='my-2 mx-4'>Table of Contents</Typography>
             <div className="flex flex-col text-sm text-secondary">
                 {tableOfContents.map(tableOfContent => <PostItemRowContent key={tableOfContent.id} tableOfContent={tableOfContent} />)}

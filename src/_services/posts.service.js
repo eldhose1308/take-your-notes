@@ -4,16 +4,20 @@ import { USER_AVATAR_URL } from '_constants/API';
 export const formatPostData = (data) => {
     const { post_title, post_slug, content, category, category_name, category_icon, category_slug, post_id, user_name, full_name, avatar, created_at, updated_at } = data;
     const categoryDetails = { categoryId: category, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon };
-    const userDetails = { userName: user_name, fullName: full_name, avatar: `${USER_AVATAR_URL}${avatar}`, userAvatarBaseURL: USER_AVATAR_URL };
+    const userDetails = { userName: user_name, fullName: full_name, avatar, userAvatarBaseURL: USER_AVATAR_URL };
     const formattedResponse = { id: post_id,  postTitle: post_title, postSlug: post_slug, content, user: userDetails, category: categoryDetails, createdAt: created_at, updatedAt: updated_at };
     return formattedResponse;
 }
 
 const getAuthPosts = async (data, config = {}) => {
-    const response = await posts.getAuthPosts(data, config);
-    const { data: foldersData = [] } = response;
-    const foldersFormatted = foldersData.map(formatPostData)
-    return foldersFormatted || []
+    try{
+        const response = await posts.getAuthPosts(data, config);
+        const { data: foldersData = [] } = response;
+        const foldersFormatted = foldersData.map(formatPostData)
+        return foldersFormatted || []
+    }catch(err){
+        throw err;
+    }
 }
 
 const getPosts = async (data, config = {}) => {
