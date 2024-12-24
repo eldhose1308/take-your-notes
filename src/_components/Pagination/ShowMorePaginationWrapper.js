@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 
+import Failure from "_components/State/Failure";
+import UnAuthorised from "_components/State/UnAuthorised";
+import Empty from "_components/State/Empty";
+
 
 const buttonStateValues = {
-    none: 'Show More', 
-    loading: 'Fetching data', 
-    failure: 'Failed to fetch', 
-    success: 'Show More', 
+    none: 'Show More',
+    loading: 'Fetching data',
+    failure: 'Failed to fetch',
+    success: 'Show More',
 }
 
 const ShowMorePaginationWrapper = (props) => {
-    const { fetchDataMethod, initialFetchStatus='none', pageSize = 10, isEmpty=false, currentPage = 1, isAllDataFetched=false, initialData = [], children } = props;
+    const { UnauthorisedState=UnAuthorised, EmptyState=Empty, FailureState=Failure, fetchDataMethod, initialFetchStatus = 'none', pageSize = 10, isEmpty = false, currentPage = 1, isAllDataFetched = false, initialData = [], children } = props;
 
     // const [currentPage, setCurrentPage] = useState(initialPage);
     // const [data, setData] = useState(initialData || []);
@@ -44,6 +48,29 @@ const ShowMorePaginationWrapper = (props) => {
         fetchData(currentPage + 1);
     }
 
+    if (fetchStatus === 'unauthorised') {
+        return (
+            <React.Fragment>
+                {UnauthorisedState && <UnauthorisedState />}
+            </React.Fragment>
+        )
+    }
+
+    if (fetchStatus === 'empty') {
+        return (
+            <React.Fragment>
+                {EmptyState && <EmptyState />}
+            </React.Fragment>
+        )
+    }
+
+    if (fetchStatus === 'failure') {
+        return (
+            <React.Fragment>
+                {FailureState && <FailureState />}
+            </React.Fragment>
+        )
+    }
 
     return (
         <React.Fragment>

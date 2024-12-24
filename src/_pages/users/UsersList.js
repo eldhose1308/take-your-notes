@@ -27,13 +27,11 @@ const UsersList = () => {
     const [filters, setFilters] = useState({ filters: 'explore' });
     const [data, setData] = useState([]);
 
-    const CategoriesComponentState = useComponentFetchState({
-        fetchStatus,
-        loading: <Stencil />,
-        empty: <EmptyFollowingUsers />,
-        unauthorised: <FollowersUnAuthorised />,
-        success: <UsersListSuccess usersList={data} />
-    });
+    // const CategoriesComponentState = useComponentFetchState({
+    //     fetchStatus,
+    //     empty: <EmptyFollowingUsers />,
+    //     unauthorised: <FollowersUnAuthorised />,
+    // });
 
 
     const { userName } = getUserDetailsOfCurrentUser();
@@ -93,10 +91,10 @@ const UsersList = () => {
                 </div>
             </div>
             <div className="flex my-2">
-                {!(fetchStatus === 'success' || fetchStatus === 'none') && (CategoriesComponentState)}
+                {/* {!(fetchStatus === 'loading' || fetchStatus === 'success'|| fetchStatus === 'none') && (CategoriesComponentState)} */}
 
                 {/* {authorisedForListing ? ( */}
-                    <ShowMorePaginationWrapper key={`users_${stringifyJSON(filters)}`} isEmpty={fetchStatus !== 'success'} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchUsers}>
+                    <ShowMorePaginationWrapper EmptyState={EmptyFollowingUsers} UnauthorisedState={FollowersUnAuthorised} key={`users_${stringifyJSON(filters)}`} isEmpty={fetchStatus !== 'success'} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchUsers}>
                         {/* {CategoriesComponentState} */}
                         <UsersListSuccess usersList={data} />
                     </ShowMorePaginationWrapper>

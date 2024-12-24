@@ -9,7 +9,7 @@ const UnAuthorised = () => {
             <div className="flex flex-col items-center my-4 text-center">
                 <Typography size='lg' type='h2'>Oops!</Typography>
                 <Typography variant='secondary' size='sm' textVariant='default'>It looks like you're not logged in yet.</Typography>
-                <Typography variant='secondary' size='sm' textVariant='default'>Log in to see your followers and grow your community!!</Typography>
+                {/* <Typography variant='secondary' size='sm' textVariant='default'>Log in to see your followers and grow your community!!</Typography> */}
             </div>
         </div>
     )

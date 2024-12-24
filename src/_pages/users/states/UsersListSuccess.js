@@ -9,7 +9,8 @@ const UsersListSuccess = ({ usersList=[] }) => {
         <div className="w-full px-2 my-4 rounded-md overflow-scroll">
             <Flex justifyContent='none' alignItems='none' className='mb-3'>
                 {usersList.map((userData, index) => {
-                    return (<div className="min-w-sm"><UserCard key={index} userData={userData} /></div>)
+                    const { userName } = userData;
+                    return (<div key={`userCard_${userName}`} className="min-w-sm"><UserCard userData={userData} /></div>)
                 })}
             </Flex>
         </div>
