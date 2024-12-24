@@ -10,8 +10,9 @@ const pageSize = 30;
 const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAddOption = true }) => {
     const { savePostCategory, fetchPostCategories, fetchStatus: categoryFetchStatus, isAllDataFetched, categories: categoryList } = usePostsCategories();
 
-    const [filters, setFilters] = useState({ limit: pageSize, page: 1 });
+    const [filters, setFilters] = useState({ filters: 'explore', limit: pageSize, page: 1 });
     const [selectedCategory, setSelectedCategory] = useState(category);
+    const [data, setData] = useState([]);
 
     const { id, categoryName: label = 'Select a category' } = useMemo(() => selectedCategory || {}, [selectedCategory]);
 
@@ -27,6 +28,7 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
     const handleFetchPostCategories = async (newFilters = []) => {
         const usersFilter = { ...filters, ...newFilters };
         const users = await fetchPostCategories(usersFilter);
+        setData((previousUsers) => [...previousUsers, ...users]);
         setFilters((previousFilters) => ({ ...previousFilters, page: previousFilters.page + 1 }));
     }
 
@@ -35,8 +37,14 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
         onChange(newCategoryData.id, newCategoryData);
     }
 
-    const handleSearchQuery = (value) => {
-        handleFetchPostCategories({ search: value });
+    const handleSearchQuery = async (value) => {
+        // setFilters({ ...filters, page: 1 });
+        const usersFilter = { ...filters, ...{ search: value, page: 1 } };
+        const users = await fetchPostCategories(usersFilter);
+        setData(users);
+        setFilters((previousFilters) => ({ ...previousFilters, page: 2 }));
+
+        // handleFetchPostCategories({ search: value, page: 1 });
     }
 
     const handleOpenCategoryCreateModal = (categoryNameInput) => {
@@ -75,7 +83,7 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
                 {/* {categoryFetchStatus === 'success' && ( */}
                 <ComboboxContent
                     heading='Select a category'
-                    options={categoryList}
+                    options={data}
                     onChange={handlePostCategoryChange}
                     isFetching={categoryFetchStatus === 'loading'}
                     isAllDataFetched={isAllDataFetched}

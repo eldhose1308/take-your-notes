@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import useComponentFetchState from "_hooks/useComponentFetchState";
 import usePostsCategories from "_modules/posts/_hooks/usePostsCategories";
@@ -21,7 +21,9 @@ const headingMap = {
 };
 
 const AdditionalCategories = (props) => {
-    const { type='recommended' } = props;
+    const { type = 'recommended' } = props;
+
+    const [data, setData] = useState([]);
 
     const { categories, fetchStatus, fetchPostCategories } = usePostsCategories();
     const CategoriesComponentState = useComponentFetchState({
@@ -29,12 +31,23 @@ const AdditionalCategories = (props) => {
         loading: <Stencil />,
         empty: <EmptyFollowingCategories size='sm' />,
         unauthorised: <CategoryFollowingsUnAuthorised size='sm' />,
-        success: <MiniPostCategoryList categoriesList={categories} />
+        success: <MiniPostCategoryList categoriesList={data} />
     });
 
     useEffect(() => {
-        const filters = { page: 1, limit: 6, filters: type };
-        fetchPostCategories(filters);
+
+        const fetchCategories = async () => {
+            const filters = { page: 1, limit: 6, filters: type };
+            try {
+                const categories = await fetchPostCategories(filters);
+                setData(categories);
+            } catch (err) {
+                console.error(err);
+                throw err;
+            }
+        }
+       
+        fetchCategories();
     }, [type]);
 
     return (

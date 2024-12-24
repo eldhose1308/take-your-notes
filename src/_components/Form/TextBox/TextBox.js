@@ -83,6 +83,7 @@ const TextBox = ({ labelName, validationMsg = {}, variant, width, size, placehol
         <div className="flex flex-col">
             <div className="inline-flex relative">
                 <input
+                    dataId={`data-${labelName}`}
                     className={inputClassNames}
                     {...propsTextBox}
                     onChange={handleChange}

@@ -12,7 +12,7 @@ import useShowMorePagination from "_components/Pagination/_hooks/useShowMorePagi
 import { stringifyJSON } from "_utils/json";
 import FollowUnfollowToggler from "_modules/togglers/FollowUnfollowToggler";
 import { getUserDetailsOfCurrentUser } from "_utils/userAuth";
-import SearchBar from "_components/UI/SearchBar/SearchBar";
+
 import useComponentFetchState from "_hooks/useComponentFetchState";
 import { Stencil } from "_components/Loader";
 import EmptyFollowingUsers from "_components/DisplayStates/Empty/EmptyFollowingUsers";
@@ -93,9 +93,12 @@ const UsersList = () => {
                 </div>
             </div>
             <div className="flex my-2">
+                {!(fetchStatus === 'success' || fetchStatus === 'none') && (CategoriesComponentState)}
+
                 {/* {authorisedForListing ? ( */}
                     <ShowMorePaginationWrapper key={`users_${stringifyJSON(filters)}`} isEmpty={fetchStatus !== 'success'} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchUsers}>
-                        {CategoriesComponentState}
+                        {/* {CategoriesComponentState} */}
+                        <UsersListSuccess usersList={data} />
                     </ShowMorePaginationWrapper>
                 {/* ) : (
                     <FollowersUnAuthorised />

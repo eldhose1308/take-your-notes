@@ -150,7 +150,7 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], isFetchi
 
             {isFetching && <div className="w-full text-center"><Loader type='spinner' /></div>}
 
-            {!isAllDataFetched && <span onClick={onNewOptions} className="w-full text-center hover-secondary py-2 rounded-md my-2 cursor-pointer">
+            {!isAllDataFetched && <span onClick={() => onNewOptions()} className="w-full text-center hover-secondary py-2 rounded-md my-2 cursor-pointer">
               Show more
             </span>}
 

@@ -161,7 +161,8 @@ body {
 }
 
 .modern-font {
-  font-family: "Shantell Sans", cursive;
+  font-family: "Jost",Open Sans, sans-serif;
+  /* font-family: "Shantell Sans", cursive; */
 }
 .classic-font {
   font-family: "JetBrains Mono", monospace;

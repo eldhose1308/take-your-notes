@@ -57,7 +57,7 @@ const PostsCategoriesListPage = () => {
         const usersFilter = { page: currentPage + 1, limit: pageSize, ...filters };
         try{
 
-            const users = await fetchPostCategoriesData(usersFilter);
+            const users = await fetchPostCategoriesData(usersFilter) || [];
             setData((previousUsers) => [...previousUsers, ...users]);
             
             incrementPagination();
@@ -65,6 +65,7 @@ const PostsCategoriesListPage = () => {
             return users;
         }catch(err){
             console.error(err);
+            throw err;
         }
     }
 
@@ -97,9 +98,10 @@ const PostsCategoriesListPage = () => {
             </div>
             <div className="flex my-2">
                 {/* {authorisedForListing ? ( */}
-                    <ShowMorePaginationWrapper key={`postCategories_${stringifyJSON(filters)}`} isEmpty={fetchStatus !== 'success'} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchUsers}>
+                    <ShowMorePaginationWrapper isEmpty={fetchStatus !== 'success'} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchUsers}>
                         {/* <PostCategoriesListSuccess categoriesList={data} /> */}
-                        {CategoriesComponentState}
+                        {/* {CategoriesComponentState} */}
+                        <PostCategoriesListSuccess categoriesList={data} />
                     </ShowMorePaginationWrapper>
                 {/* ) : (
                     <CategoryFollowingsUnAuthorised />

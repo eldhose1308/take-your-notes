@@ -29,7 +29,7 @@ const usePostsCategories = () => {
         try{
             setFetchStatus('loading');
             const categoriesData = await postsCategoriesService.getPostsCategories(filters);
-            setCategories((previousData) => [...previousData, ...categoriesData]);
+            // setCategories((previousData) => [...previousData, ...categoriesData]);
             checkIfAllDataFetched(categoriesData, limit);
             if(categoriesData.length === 0){
                 setFetchStatus('empty');
@@ -66,7 +66,7 @@ const usePostsCategories = () => {
                 description: 'Your post Category is now in review, but will be approved by admin soon!',
                 options: { position: 'top-right' }
             }).success()
-            setCategories((previousData) => [postsResponse, ...previousData]);
+            // setCategories((previousData) => [postsResponse, ...previousData]);
             return postsResponse;
         } catch (error) {
             const { message='Something went wrong' } = error || {};

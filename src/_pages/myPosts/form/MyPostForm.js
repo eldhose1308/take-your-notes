@@ -133,9 +133,9 @@ const MyPostForm = () => {
                         <div>
                             <BreadCrumbs items={[categoryName, postTitle]} />
                         </div>
-                        <div className="flex">
+                        {/*<div className="flex">
                             <Tags textBoxFieldProps={{ size: 'sm', placeholder: 'Choose tags (press Enter to add)' }} tags={postTags} onChange={handleSelectTags} onCreate={handleTagCreate} suggestions={tagsSuggestions} />
-                        </div>
+                        </div>*/}
                     </div>
                     <div className="flex flex-col">
                         <div className="">
