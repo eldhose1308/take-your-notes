@@ -26,7 +26,7 @@ const TOOLBAR_FORMATS_INFO = {
         pattern: /^#\s.*$/g,
         hasNextLineSupport: false,
         isWrapped: false,
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heading-1"><path d="M4 12h8" /><path d="M4 18V6" /><path d="M12 18V6" /><path d="m17 12 3-2v8" /></svg>
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-heading-1"><path d="M4 12h8" /><path d="M4 18V6" /><path d="M12 18V6" /><path d="m17 12 3-2v8" /></svg>
     },
     h2: {
         title: 'Heading 2',
@@ -36,7 +36,7 @@ const TOOLBAR_FORMATS_INFO = {
         pattern: /^##\s.*/g,
         hasNextLineSupport: false,
         isWrapped: false,
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heading-2"><path d="M4 12h8" /><path d="M4 18V6" /><path d="M12 18V6" /><path d="M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-4-1" /></svg>
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-heading-2"><path d="M4 12h8" /><path d="M4 18V6" /><path d="M12 18V6" /><path d="M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-4-1" /></svg>
     },
     h3: {
         title: 'Heading 3',
@@ -46,7 +46,7 @@ const TOOLBAR_FORMATS_INFO = {
         pattern: /^###\s.*$/g,
         hasNextLineSupport: false,
         isWrapped: false,
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heading-3"><path d="M4 12h8" /><path d="M4 18V6" /><path d="M12 18V6" /><path d="M17.5 10.5c1.7-1 3.5 0 3.5 1.5a2 2 0 0 1-2 2" /><path d="M17 17.5c2 1.5 4 .3 4-1.5a2 2 0 0 0-2-2" /></svg>
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-heading-3"><path d="M4 12h8" /><path d="M4 18V6" /><path d="M12 18V6" /><path d="M17.5 10.5c1.7-1 3.5 0 3.5 1.5a2 2 0 0 1-2 2" /><path d="M17 17.5c2 1.5 4 .3 4-1.5a2 2 0 0 0-2-2" /></svg>
     },
     h4: {
         title: 'Heading 4',
@@ -56,7 +56,7 @@ const TOOLBAR_FORMATS_INFO = {
         pattern: /^####\s.*$/g,
         hasNextLineSupport: false,
         isWrapped: false,
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heading-4"><path d="M12 18V6" /><path d="M17 10v3a1 1 0 0 0 1 1h3" /><path d="M21 10v8" /><path d="M4 12h8" /><path d="M4 18V6" /></svg>
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-heading-4"><path d="M12 18V6" /><path d="M17 10v3a1 1 0 0 0 1 1h3" /><path d="M21 10v8" /><path d="M4 12h8" /><path d="M4 18V6" /></svg>
     },
     h5: {
         title: 'Heading 5',
@@ -66,7 +66,7 @@ const TOOLBAR_FORMATS_INFO = {
         pattern: /^#####\s.*$/g,
         hasNextLineSupport: false,
         isWrapped: false,
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heading-5"><path d="M4 12h8" /><path d="M4 18V6" /><path d="M12 18V6" /><path d="M17 13v-3h4" /><path d="M17 17.7c.4.2.8.3 1.3.3 1.5 0 2.7-1.1 2.7-2.5S19.8 13 18.3 13H17" /></svg>
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-heading-5"><path d="M4 12h8" /><path d="M4 18V6" /><path d="M12 18V6" /><path d="M17 13v-3h4" /><path d="M17 17.7c.4.2.8.3 1.3.3 1.5 0 2.7-1.1 2.7-2.5S19.8 13 18.3 13H17" /></svg>
     },
     h6: {
         title: 'Heading 6',
@@ -76,7 +76,7 @@ const TOOLBAR_FORMATS_INFO = {
         pattern: /^######\s.*$/g,
         hasNextLineSupport: false,
         isWrapped: false,
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heading-6"><path d="M4 12h8" /><path d="M4 18V6" /><path d="M12 18V6" /><circle cx="19" cy="16" r="2" /><path d="M20 10c-2 2-3 3.5-3 6" /></svg>
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-heading-6"><path d="M4 12h8" /><path d="M4 18V6" /><path d="M12 18V6" /><circle cx="19" cy="16" r="2" /><path d="M20 10c-2 2-3 3.5-3 6" /></svg>
     },
     bold: {
         title: 'Bold',
@@ -106,7 +106,7 @@ const TOOLBAR_FORMATS_INFO = {
         pattern: /\>/g,
         hasNextLineSupport: false,
         isWrapped: false,
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square-quote"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /><path d="M8 12a2 2 0 0 0 2-2V8H8" /><path d="M14 12a2 2 0 0 0 2-2V8h-2" /></svg>
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-message-square-quote"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /><path d="M8 12a2 2 0 0 0 2-2V8H8" /><path d="M14 12a2 2 0 0 0 2-2V8h-2" /></svg>
     },
     link: {
         title: 'Link',
@@ -117,7 +117,7 @@ const TOOLBAR_FORMATS_INFO = {
         hasNextLineSupport: false,
         isWrapped: false,
         isWholeLine: true,
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
     },
     numberedList: {
         title: 'Numbered List',
