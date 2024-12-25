@@ -39,6 +39,7 @@ const PostsHome = lazyLoadWithDelay(() => import('_pages/posts/PostsHome'));
 const UserDetail = lazyLoadWithDelay(() => import('_pages/users/UserDetail'));
 const MyPostForm = lazyLoadWithDelay(() => import('_pages/myPosts/form/MyPostForm'));
 const MyPostList = lazyLoadWithDelay(() => import('_pages/myPosts/list/MyPostList'));
+const MyCategoriesList = lazyLoadWithDelay(() => import('_pages/myCategories/list/MyCategoriesList'));
 const MyProfile = lazyLoadWithDelay(() => import('_pages/myProfile/MyProfile'));
 const PostsCategoriesPage = lazyLoadWithDelay(() => import('_pages/postsCategories/PostsCategoriesPage'));
 const PostsCategoriesListPage = lazyLoadWithDelay(() => import('_pages/postsCategories/PostsCategoriesListPage'));
@@ -138,6 +139,29 @@ export const ROUTES = [
             path: "edit/:id",
             element: <MyPostForm />,
           },
+        ]
+      }
+    ]
+  },
+  {
+    path: "/my/categories",
+    element: <WithDashboardLayout />,
+    children: [
+      {
+        path: PATHS.myCategories,
+        children: [
+          {
+            path: "", 
+            element: <MyCategoriesList  />,
+          },
+          // {
+          //   path: "create", 
+          //   element: <MyPostForm />,
+          // },
+          // {
+          //   path: "edit/:id",
+          //   element: <MyPostForm />,
+          // },
         ]
       }
     ]

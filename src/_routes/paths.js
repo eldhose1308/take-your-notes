@@ -8,6 +8,7 @@ export const PATHS = {
     notes: '/user/notes',
     tasks: '/user/tasks',
     posts: '/my/posts',
+    myCategories: '/my/categories',
     users: '/users',
     publish: '/user/publish',
     popular: '/user/popular',
