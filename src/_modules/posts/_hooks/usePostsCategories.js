@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import * as postsCategoriesService from "_services/postsCategories.service";
 import { useToast } from "_contexts/ToastProvider";
+import useAuth from "_hooks/useAuth";
 
 const usePostsCategories = () => {
     const [categories, setCategories] = useState([]);
@@ -10,6 +11,7 @@ const usePostsCategories = () => {
     const [isAllDataFetched, setAllDataFetched] = useState(false);
 
     const { toast } = useToast()
+    const { logout } = useAuth();
 
     const fetchPostCategoryByName = async (categorySlug) => {
         try{
@@ -47,6 +49,32 @@ const usePostsCategories = () => {
             }else{
                 setFetchStatus('failure');
             }
+        }
+    }
+
+
+    const fetchMyPostCategories = async (filters) => {
+        const { limit } = filters || {};
+        try{
+            setFetchStatus('loading');
+            const categoriesData = await postsCategoriesService.getAuthPostsCategories(filters);
+            // setCategories((previousData) => [...previousData, ...categoriesData]);
+            checkIfAllDataFetched(categoriesData, limit);
+            if(categoriesData.length === 0){
+                setFetchStatus('empty');
+            }else{
+                setFetchStatus('success');
+                setTimeout(() => {
+                    // setFetchStatus('none');
+                }, 1000);
+            }
+            return categoriesData;
+        }catch(error){
+            const { statusCode } = error || {};
+            if(statusCode === 401){
+                logout()
+            }
+            setFetchStatus('failure');
         }
     }
 
@@ -88,6 +116,7 @@ const usePostsCategories = () => {
         categories,
         fetchStatus,
 
+        fetchMyPostCategories,
         fetchPostCategories,
         fetchPostCategoryByName,
         savePostCategory

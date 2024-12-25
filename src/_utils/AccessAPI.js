@@ -2,7 +2,7 @@ import { BASE_URL } from "_constants";
 
 export const constructUrl = (baseUrl, data = {}) => {
     const queryParams = Object.entries(data)
-        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(typeof value === 'string' ? value.trim() : value)}`)
         .join('&');
 
     return `${baseUrl}?${queryParams}`;

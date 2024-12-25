@@ -23,19 +23,29 @@ const PostsHomeList = () => {
         setData([]);
         resetPagination();
         const postsFilter = { page: 1, limit: pageSize, ...postFilters };
-        const posts = await fetchPostsData(postsFilter);
-        checkIfAllDataFetched(posts);
-        setData(posts);
+        try{
+            const posts = await fetchPostsData(postsFilter);
+            checkIfAllDataFetched(posts);
+            setData(posts);
+        }catch(e){
+            console.log(e);
+        }
     }
 
     const fetchPosts = async () => {
         const postsFilter = { page: currentPage + 1, limit: pageSize, ...filters };
-        const posts = await fetchPostsData(postsFilter);
-        setData((previousPosts) => [...previousPosts, ...posts]);
 
-        incrementPagination();
-        checkIfAllDataFetched(posts);
-        return posts;
+        try{
+
+            const posts = await fetchPostsData(postsFilter);
+            setData((previousPosts) => [...previousPosts, ...posts]);
+            
+            incrementPagination();
+            checkIfAllDataFetched(posts);
+            return posts;
+        }catch(e){
+            console.log(e);
+        }
     }
 
 

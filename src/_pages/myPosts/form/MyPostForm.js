@@ -131,7 +131,7 @@ const MyPostForm = () => {
                 <div className="flex justify-between w-full ">
                     <div className="flex flex-col w-3/4">
                         <div>
-                            <BreadCrumbs items={[categoryName, postTitle]} />
+                            <BreadCrumbs items={[categoryName || 'Select a category', postTitle]} />
                         </div>
                         {/*<div className="flex">
                             <Tags textBoxFieldProps={{ size: 'sm', placeholder: 'Choose tags (press Enter to add)' }} tags={postTags} onChange={handleSelectTags} onCreate={handleTagCreate} suggestions={tagsSuggestions} />

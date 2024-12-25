@@ -43,14 +43,14 @@ const ComboboxTrigger = ({ children }) => {
   )
 }
 
-const ComboboxContent = ({ heading = 'Heading', children, options = [], isFetching = false, isAllDataFetched = false, onNewOptions = () => { }, selectedValue, renderAdd, renderItemAction, onChange, onSearch, idKey = 'id', labelKey = 'label' }) => {
+const ComboboxContent = ({ heading = 'Heading', children, options = [], isFetching = false, isAllDataFetched = false, onNewOptions = () => { }, selectedValue, renderAdd, renderItemAction, onChange, onSearch, idKey = 'id', labelKey = 'label', isSpecialKey = 'isSpecial' }) => {
   const { isMenuOpen, hide, searchQuery, setSearchQuery } = useContext(ComboboxContext)
   // call debounced search func
   const [highlightedIndex, setHighlightedIndex] = useState(-1)
 
   const dropdownRef = useRef(null);
   const filteredItems = useMemo(() =>
-    options.filter(({ [labelKey]: label = '' }) => label.toLowerCase().includes(searchQuery.toLowerCase())),
+    options.filter(({ [labelKey]: label = '' }) => label.toLowerCase().includes(searchQuery.trim().toLowerCase())),
     [options, searchQuery]
   );
 
@@ -128,6 +128,7 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], isFetchi
                   index={index}
                   idKey={idKey}
                   labelKey={labelKey}
+                  isSpecialKey={isSpecialKey}
                   onChange={onChange} 
                   hide={hide} 
                   renderItemAction={renderItemAction} 
@@ -173,11 +174,11 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], isFetchi
   )
 }
 
-const ComboboxItem = ({ option, index, onChange, hide, renderItemAction, selectedValue, searchQuery, idKey, labelKey, highlightedIndex, children, ...props }) => {
-  const { [idKey]: id, [labelKey]: label, [idKey]: value } = option;
+const ComboboxItem = ({ option, index, onChange, hide, renderItemAction, selectedValue, searchQuery, idKey, labelKey, isSpecialKey, highlightedIndex, children, ...props }) => {
+  const { [idKey]: id, [labelKey]: label, [idKey]: value, [isSpecialKey]: isSpecial } = option;
 
   return (
-    <span key={`combobox_item_${value}`} onClick={(e) => { onChange(id, option, e); hide(); }} className={`flex flex-nowrap justify-between items-center w-full py-1.5 mb-1 px-2 cursor-pointer rounded-md ${selectedValue === id ? 'bg-highlight' : 'hover-custom'} ${highlightedIndex === index ? 'bg-custom' : ''} text-secondary group-hover`}>
+    <span key={`combobox_item_${value}`} onClick={(e) => { onChange(id, option, e); hide(); }} className={`flex flex-nowrap justify-between items-center w-full py-1.5 mb-1 px-2 cursor-pointer rounded-md ${selectedValue === id ? 'bg-highlight' : 'hover-custom'} ${highlightedIndex === index ? 'bg-custom' : ''} text-secondary group-hover ${isSpecial ? '' : 'opacity-50'}`}>
       <span className={`${renderItemAction ? 'w-60' : ''}`}>
         {highlightText(label, searchQuery)}
       </span>

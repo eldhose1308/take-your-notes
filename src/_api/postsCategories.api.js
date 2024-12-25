@@ -2,8 +2,9 @@ import { BASE_URL } from "_constants";
 import { AccessAPI } from "_utils";
 import { constructUrl } from "_utils/AccessAPI";
 
-const getAuthPosts = async (data, config = {}) => {
-    return new AccessAPI(BASE_URL + 'postCategories/my').get()
+const getAuthPostsCategories = async (data, config = {}) => {
+    const postsURL = constructUrl(BASE_URL + 'postCategories/my', data);
+    return new AccessAPI(postsURL).get()
     .then((res) => {
         return res
     }).catch((err) => {
@@ -76,7 +77,7 @@ const deletePost = async (folderId, config = {}) => {
 }
 
 export {
-    getAuthPosts,
+    getAuthPostsCategories,
     getPostsCategories,
     getPostsCategoryBySlug,
 

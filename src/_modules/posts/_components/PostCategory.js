@@ -8,9 +8,9 @@ import useDebounce from "_hooks/useDebounce";
 const pageSize = 30;
 
 const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAddOption = true }) => {
-    const { savePostCategory, fetchPostCategories, fetchStatus: categoryFetchStatus, isAllDataFetched, categories: categoryList } = usePostsCategories();
+    const { savePostCategory, fetchMyPostCategories, fetchStatus: categoryFetchStatus, isAllDataFetched, categories: categoryList } = usePostsCategories();
 
-    const [filters, setFilters] = useState({ filters: 'explore', limit: pageSize, page: 1 });
+    const [filters, setFilters] = useState({ filters: 'explore', verified: 'all', limit: pageSize, page: 1 });
     const [selectedCategory, setSelectedCategory] = useState(category);
     const [data, setData] = useState([]);
 
@@ -27,20 +27,22 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
 
     const handleFetchPostCategories = async (newFilters = []) => {
         const usersFilter = { ...filters, ...newFilters };
-        const users = await fetchPostCategories(usersFilter);
+        const users = await fetchMyPostCategories(usersFilter);
         setData((previousUsers) => [...previousUsers, ...users]);
         setFilters((previousFilters) => ({ ...previousFilters, page: previousFilters.page + 1 }));
     }
 
     const handleSavePostCategory = async (categoryData) => {
         const newCategoryData = await savePostCategory(categoryData);
+        setData((previousUsers) => [...previousUsers, newCategoryData]);
+        setSelectedCategory(newCategoryData);
         onChange(newCategoryData.id, newCategoryData);
     }
 
     const handleSearchQuery = async (value) => {
         // setFilters({ ...filters, page: 1 });
         const usersFilter = { ...filters, ...{ search: value, page: 1 } };
-        const users = await fetchPostCategories(usersFilter);
+        const users = await fetchMyPostCategories(usersFilter);
         setData(users);
         setFilters((previousFilters) => ({ ...previousFilters, page: 2 }));
 
@@ -98,6 +100,7 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
                     selectedValue={id}
                     idKey='id'
                     labelKey='categoryName'
+                    isSpecialKey='isVerified'
                 />
                 {!!id && <span className="flex items-center text-bold rounded-md cursor-pointer px-1 hover-text-destructive" onClick={() => handlePostCategoryChange('',)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-delete"><path d="M20 5H9l-7 7 7 7h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z" /><line x1="18" x2="12" y1="9" y2="15" /><line x1="12" x2="18" y1="9" y2="15" /></svg>

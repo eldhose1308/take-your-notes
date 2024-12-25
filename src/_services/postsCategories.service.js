@@ -2,13 +2,13 @@ import * as postsCategories from '_api/postsCategories.api'
 import { formatToLocalTime } from '_utils/timestampUtils';
 
 export const formatPostCategoryData = (data) => {
-    const { category_name, category_slug, category_icon, posts_count, followers_count, created_at, category_id, is_following } = data;
-    const formattedResponse = { id: category_id, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon, followers: followers_count, posts: posts_count, createdAt: formatToLocalTime(created_at), isFollowing: !!is_following };
+    const { category_name, category_slug, category_icon, posts_count, followers_count, created_at, category_id, is_following, verified } = data;
+    const formattedResponse = { id: category_id, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon, followers: followers_count, posts: posts_count, createdAt: formatToLocalTime(created_at), isFollowing: !!is_following, isVerified: !!Number(verified) };
     return formattedResponse;
 }
 
-const getAuthPosts = async (data, config = {}) => {
-    const response = await postsCategories.getAuthPosts(data, config);
+const getAuthPostsCategories = async (data, config = {}) => {
+    const response = await postsCategories.getAuthPostsCategories(data, config);
     const { data: foldersData = [] } = response;
     const foldersFormatted = foldersData.map(formatPostCategoryData)
     return foldersFormatted || []
@@ -86,7 +86,7 @@ const deletePost = async (id, config = {}) => {
 
 
 export {
-    getAuthPosts,
+    getAuthPostsCategories,
     getPostsCategories,
     getPostsCategoryBySlug,
 
