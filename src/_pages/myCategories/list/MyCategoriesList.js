@@ -21,7 +21,7 @@ const MyCategoriesList = () => {
     const { fetchStatus, fetchMyPostCategories, savePostCategory } = usePostsCategories();
     const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize });
 
-    const [filters, setFilters] = useState({ verified: 'verified' });
+    const [filters, setFilters] = useState({ verified: 'unverified' });
     const [data, setData] = useState([]);
 
     const [newCategoryModalData, setNewCategoryModalData] = useState(null);
