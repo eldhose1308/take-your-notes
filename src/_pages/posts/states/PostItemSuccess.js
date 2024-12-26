@@ -23,14 +23,14 @@ const PostItemSuccess = (props) => {
     return (
         <React.Fragment>
 
-            <div className="flex">
+            {/* <div className="flex">
                 <span onClick={() => { }} className="flex text-sm p-2 bg-default hover-accent hover-text-custom rounded-md cursor-pointer mx-1">
                     <span className="flex items-center pr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-chevron-left"><circle cx="12" cy="12" r="10" /><path d="m14 16-4-4 4-4" /></svg>
                     </span>
                     Go Back
                 </span>
-            </div>
+            </div> */}
 
             <BreadCrumbs items={[categoryName, postTitle]} />
 
