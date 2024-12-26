@@ -44,7 +44,7 @@ const MyProfile = lazyLoadWithDelay(() => import('_pages/myProfile/MyProfile'));
 const PostsCategoriesPage = lazyLoadWithDelay(() => import('_pages/postsCategories/PostsCategoriesPage'));
 const PostsCategoriesListPage = lazyLoadWithDelay(() => import('_pages/postsCategories/PostsCategoriesListPage'));
 const FeedbacksPage = lazyLoadWithDelay(() => import('_pages/feedbacks/FeedbacksPage'));
-
+const MyCategoriesForm = lazyLoadWithDelay(() => import('_pages/myCategories/form/MyCategoriesForm'));
 
 function delayForTesting(promise) {
   return new Promise(resolve => {
@@ -158,10 +158,10 @@ export const ROUTES = [
           //   path: "create", 
           //   element: <MyPostForm />,
           // },
-          // {
-          //   path: "edit/:id",
-          //   element: <MyPostForm />,
-          // },
+          {
+            path: "edit/:id",
+            element: <MyCategoriesForm />,
+          },
         ]
       }
     ]

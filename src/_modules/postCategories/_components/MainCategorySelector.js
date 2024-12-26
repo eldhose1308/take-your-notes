@@ -58,7 +58,7 @@ const MainCategorySelector = (props) => {
     return (
         <React.Fragment>
             <div>
-            <div className={`flex max-w-mds justify-ends ${className}`}>
+            <div className={`flex max-w-mds justify-ends text-default  ${className}`}>
                 {mainCategories.map((tag, index) => {
                     const { mainCategoryName: tagItem } = tag;
                     return (

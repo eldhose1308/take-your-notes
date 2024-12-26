@@ -68,7 +68,7 @@ const TextBoxWithSuggestions = (props) => {
     }, [textBoxValue])
 
     return (
-        <div className="flex flex-col relative max-w-md" onKeyDown={handleKeyDown}>
+        <div className="flex flex-col relative max-w-md text-default " onKeyDown={handleKeyDown}>
             {/* <div className="flex"> */}
                 {/* <div className="grow-3"> */}
                     <TextBox placeholder='Enter new tags here...' placeholderFocus='default' {...textBoxProps} {...textBoxFieldProps} isFocused={false} onFocus={handleFocus} disabled={isMaxSuggestionsReached} validationMsg={maxSuggestionMessage} />

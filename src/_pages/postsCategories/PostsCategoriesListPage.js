@@ -25,13 +25,6 @@ const PostsCategoriesListPage = () => {
     const [filters, setFilters] = useState({ filters: 'explore' });
     const [data, setData] = useState([]);
 
-    const CategoriesComponentState = useComponentFetchState({
-        fetchStatus,
-        loading: <Stencil />,
-        empty: <EmptyFollowingCategories />,
-        unauthorised: <CategoryFollowingsUnAuthorised />,
-        success: <PostCategoriesListSuccess categoriesList={data} />
-    });
 
     const { userName } = getUserDetailsOfCurrentUser();
     const authorisedForListing = !(filters.filters === 'following' && !userName) && fetchStatus !== 'unauthorised';
@@ -99,8 +92,6 @@ const PostsCategoriesListPage = () => {
             <div className="flex my-2">
                 {/* {authorisedForListing ? ( */}
                     <ShowMorePaginationWrapper isEmpty={fetchStatus !== 'success'} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchUsers}>
-                        {/* <PostCategoriesListSuccess categoriesList={data} /> */}
-                        {/* {CategoriesComponentState} */}
                         <PostCategoriesListSuccess categoriesList={data} />
                     </ShowMorePaginationWrapper>
                 {/* ) : (

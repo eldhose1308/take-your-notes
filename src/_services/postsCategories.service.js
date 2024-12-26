@@ -14,10 +14,26 @@ export const formatPostMainCategoryData = (data) => {
 }
 
 
+export const formatPostMainCategoryAndCategoryData = (data) => {
+    const { main_categories, ...categoryData } = data;
+    const categoryDataFormatted = formatPostCategoryData(categoryData);
+    const mainCategoryDataFormatted = main_categories.map(formatPostMainCategoryData);
+    const formattedResponse = { ...categoryDataFormatted, mainCategories: mainCategoryDataFormatted };
+    return formattedResponse;
+}
+
+
 const getAuthPostsCategories = async (data, config = {}) => {
     const response = await postsCategories.getAuthPostsCategories(data, config);
     const { data: foldersData = [] } = response;
     const foldersFormatted = foldersData.map(formatPostCategoryData)
+    return foldersFormatted || []
+}
+
+const getAuthPostsCategoriesBySlug = async (data, config = {}) => {
+    const response = await postsCategories.getAuthPostsCategoryBySlug(data, config);
+    const { data: foldersData = [] } = response;
+    const foldersFormatted = formatPostMainCategoryAndCategoryData(foldersData);
     return foldersFormatted || []
 }
 
@@ -89,8 +105,8 @@ const savePostCategory = async (data, config = {}) => {
 }
 
 
-const updatePost = async (data, id, config = {}) => {
-    const response = await postsCategories.updatePost(data, id, config);
+const updatePostCategory = async (data, id, config = {}) => {
+    const response = await postsCategories.updatePostCategory(data, id, config);
     const { data: folderData = [] } = response;
     return formatPostCategoryData(folderData);
 }
@@ -106,6 +122,7 @@ const deletePost = async (id, config = {}) => {
 export {
     getMainPostsCategories,
 
+    getAuthPostsCategoriesBySlug,
     getAuthPostsCategories,
     getPostsCategories,
     getPostsCategoryBySlug,
@@ -114,6 +131,6 @@ export {
     unFollowCategory,
 
     savePostCategory,
-    updatePost,
+    updatePostCategory,
     deletePost
 }

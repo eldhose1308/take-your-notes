@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 
-import Dialog from "_components/UI/Dialog/Dialog";
 import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card/Card";
 import Typography from "_components/Misc/Typography/Typography";
 import { Button, TextBox } from "_components/Form";
-import Tags from "_components/UI/Tags/Tags";
+import MainCategorySelector from "_modules/postCategories/_components/MainCategorySelector";
 
 import * as postsCategoriesService from "_services/postsCategories.service";
-import MainCategorySelector from "_modules/postCategories/_components/MainCategorySelector";
+import { useParams } from "react-router-dom";
+
 
 const buttonCreateStateValues = {
     none: 'Create',
@@ -23,32 +23,28 @@ const buttonUpdateStateValues = {
     completed: 'Updated',
 }
 
-const CategoryCreateModal = (props) => {
-    const { categoryModalData, onClose = () => { } } = props;
-    const { status, data = {}, onClick } = categoryModalData || {};
-    const { id, categoryName = '' } = data;
+const MyCategoriesForm = (props) => {
+    const { id: categorySlug } = useParams();
 
-    const buttonStateValues = id ? buttonUpdateStateValues : buttonCreateStateValues;
-    const heading = `${id ? 'Update Category' : 'Create Category'}`;
-    const subHeading = `Are you sure you want to ${id ? `update the category` : 'create a new category'}?`;
+    const { categoryModalData, onClose = () => { } } = props;
+    const { data = {}, onClick } = categoryModalData || {};
+    const { categoryName = '' } = data;
+
+    const buttonStateValues = categorySlug ? buttonUpdateStateValues : buttonCreateStateValues;
+    const heading = `${categorySlug ? 'Update Category' : 'Create Category'}`;
+    const subHeading = `Are you sure you want to ${categorySlug ? `update the category` : 'create a new category'}?`;
 
     const [selectedMainCategories, setSelectedMainCategories] = useState([]);
     const [mainCategories, setMainCategories] = useState([]);
 
+    const [categoryId, setCategoryId] = useState();
     const [newFolderName, setNewFolderName] = useState(categoryName);
     const [buttonStatus, setButtonStatus] = useState('none');
+    const [fetchStatus, setFetchStatus] = useState('none');
 
     const [errorMessage, setErrorMessage] = useState('');
 
-    const closeModal = () => {
-        onClose();
-        setNewFolderName('');
-    }
-
-    const handleCancelClick = () => {
-        closeModal();
-    }
-
+   
     const validatePostCategory = (categoryName) => {
         if (!categoryName) {
             setErrorMessage('Please enter a category name');
@@ -72,14 +68,13 @@ const CategoryCreateModal = (props) => {
         if (!isValid) {
             return
         }
-        if (onClick) {
+
+        if (categorySlug) {
             setButtonStatus('loading');
             try {
-                await onClick(newCategoryPayload, id);
-                setButtonStatus('completed');
-                setTimeout(() => {
-                    closeModal();
-                }, 1000);
+                const postsResponse = await postsCategoriesService.updatePostCategory(newCategoryPayload, categoryId);
+                // await onClick(newCategoryPayload, categorySlug);
+                setButtonStatus('completed');               
             } catch (err) {
                 setButtonStatus('failure');
                 setErrorMessage(err);
@@ -90,7 +85,6 @@ const CategoryCreateModal = (props) => {
             }
             return;
         }
-        closeModal();
     }
 
     useEffect(() => {
@@ -112,21 +106,48 @@ const CategoryCreateModal = (props) => {
     }, [])
 
 
+    useEffect(() => {
+        if (!categorySlug) {
+            return
+        }
 
-    if (!status) {
-        return null;
-    }
+        const fetchUsersPostItem = async () => {
+            try {
+                setFetchStatus('loading');
+                const postCategoryData = await postsCategoriesService.getAuthPostsCategoriesBySlug(categorySlug);
+                const { id: categoryId, mainCategories, categoryName } = postCategoryData || {};
+               
+                setCategoryId(categoryId);
+                setNewFolderName(categoryName);
+                setSelectedMainCategories(mainCategories);
+
+                setFetchStatus('success');
+            } catch (error) {
+                setFetchStatus('failure');
+            }
+        }
+
+        fetchUsersPostItem();
+    }, [categorySlug])
+
 
     return (
-        <Dialog isShown hasOverlay size='lg' >
-            <Card variant='ghost' rounded='lg'>
-                <CardHeader>
+        <React.Fragment>
+            <div className="flex flex-col">
+
+            {/* <Card variant='ghost' rounded='lg'>
+                <CardHeader> */}
+                <div className="flex flex-col px-3 py-2">
+
                     <Typography size='lg'>{heading}</Typography>
                     <Typography size='xs' textVariant='default'>{subHeading}</Typography>
-                    {id ? <Typography size='xs' textVariant='bold'>{categoryName}</Typography> : null}
-                </CardHeader>
+                    {categorySlug ? <Typography size='xs' textVariant='bold'>{categoryName}</Typography> : null}
+                </div>
+                {/* </CardHeader>
 
-                <CardContent>
+                <CardContent> */}
+                <div className="flex flex-col mx-3 px-3 py-2 bg-default">
+                <div className="my-3">
                     <TextBox
                         type='text'
                         labelName='New category name'
@@ -140,23 +161,30 @@ const CategoryCreateModal = (props) => {
                             messages: [errorMessage]
                         }}
                     />
+                    </div>
 
                     <div className="my-3">
                         <MainCategorySelector mainCategories={selectedMainCategories} onChange={handleMainCategorySelect} suggestions={mainCategories} />
                         {/* <Tags textBoxFieldProps={{ size: 'sm', placeholder: 'Choose tags (press Enter to add)' }} tags={[]} onChange={()=>{}} suggestions={mainCategories} /> */}
                     </div>
+</div>
 
-                </CardContent>
+                {/* </CardContent>
 
-                <CardFooter className='p-0 flex justify-between'>
-                    <Button size='xs' width='none' variant='custom' onClick={handleCancelClick}>Cancel</Button>
+                <CardFooter className='p-0 flex justify-between'> */}
+                <div className="items-center px-2 py-4 flex justify-between">
+
+                    <Button size='xs' width='none' variant='custom' onClick={()=>{}}>Cancel</Button>
                     <Button size='xs' width='none' variant='accent' onClick={handleSubmitClick} buttonStatus={buttonStatus}>
                         {buttonStateValues[buttonStatus]}
                     </Button>
-                </CardFooter>
-            </Card>
-        </Dialog>
+                </div>
+                {/* </CardFooter>
+            </Card> */}
+            </div>
+
+        </React.Fragment>
     )
 }
 
-export default CategoryCreateModal;
+export default MyCategoriesForm;

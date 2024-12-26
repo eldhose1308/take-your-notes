@@ -5,6 +5,7 @@ const CLIENT_ROUTES = {
     PROFILE: '/my/profile',
     MY_POST: `/my/posts`,
     POST_CREATE: `/my/posts/create`,
+    CATEGORY_EDIT: (categorySlug) =>  `/my/categories/edit/${categorySlug}`,
     POST_EDIT: (postSlug) => `/my/posts/edit/${postSlug}`,
     USER_POSTS: (userName) => `/users/${userName}/posts`,
     POST_DETAIL: (userName, postSlug) => `/users/${userName}/posts/${postSlug}`,
