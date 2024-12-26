@@ -6,12 +6,30 @@ export const formatPostCategoryData = (data) => {
     const formattedResponse = { id: category_id, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon, followers: followers_count, posts: posts_count, createdAt: formatToLocalTime(created_at), isFollowing: !!is_following, isVerified: !!Number(verified) };
     return formattedResponse;
 }
+    
+export const formatPostMainCategoryData = (data) => {
+    const { main_category_name, main_category_slug, created_at, main_category_id } = data;
+    const formattedResponse = { id: main_category_id, mainCategoryName: main_category_name, mainCategorySlug: main_category_slug, createdAt: formatToLocalTime(created_at) };
+    return formattedResponse;
+}
+
 
 const getAuthPostsCategories = async (data, config = {}) => {
     const response = await postsCategories.getAuthPostsCategories(data, config);
     const { data: foldersData = [] } = response;
     const foldersFormatted = foldersData.map(formatPostCategoryData)
     return foldersFormatted || []
+}
+
+const getMainPostsCategories = async (data, config = {}) => {
+    try{
+        const response = await postsCategories.getMainPostsCategories(data, config);
+        const { data: foldersData = [] } = response;
+        const foldersFormatted = foldersData.map(formatPostMainCategoryData);
+        return foldersFormatted || []
+    }catch(err){
+        throw err;
+    }
 }
 
 const getPostsCategories = async (data, config = {}) => {
@@ -86,6 +104,8 @@ const deletePost = async (id, config = {}) => {
 
 
 export {
+    getMainPostsCategories,
+
     getAuthPostsCategories,
     getPostsCategories,
     getPostsCategoryBySlug,

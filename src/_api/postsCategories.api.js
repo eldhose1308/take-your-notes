@@ -12,6 +12,17 @@ const getAuthPostsCategories = async (data, config = {}) => {
     })
 }
 
+const getMainPostsCategories = async (data, config = {}) => {
+    const postsURL = constructUrl(BASE_URL + 'postMainCategories', data);
+    return new AccessAPI(postsURL).get()
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err
+    })
+}
+
+
 const getPostsCategories = async (data, config = {}) => {
     const postsURL = constructUrl(BASE_URL + 'postCategories', data);
     return new AccessAPI(postsURL).get()
@@ -77,6 +88,8 @@ const deletePost = async (folderId, config = {}) => {
 }
 
 export {
+    getMainPostsCategories,
+
     getAuthPostsCategories,
     getPostsCategories,
     getPostsCategoryBySlug,

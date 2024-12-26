@@ -102,10 +102,7 @@ const usePostsCategories = () => {
         }
     };
 
-    const savePostCategory = async (categoryName) => {
-        const postCategoryPayload = {
-            category_name: categoryName
-        }
+    const savePostCategory = async (postCategoryPayload) => {
         return createPostCategory(postCategoryPayload);
     }
 

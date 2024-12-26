@@ -4,29 +4,36 @@ import Dialog from "_components/UI/Dialog/Dialog";
 import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card/Card";
 import Typography from "_components/Misc/Typography/Typography";
 import { Button, TextBox } from "_components/Form";
+import Tags from "_components/UI/Tags/Tags";
+
+import * as postsCategoriesService from "_services/postsCategories.service";
+import MainCategorySelector from "_modules/postCategories/_components/MainCategorySelector";
 
 const buttonCreateStateValues = {
-    none: 'Create', 
-    loading: 'Creating', 
-    failure: 'Failed', 
-    completed: 'Created', 
+    none: 'Create',
+    loading: 'Creating',
+    failure: 'Failed',
+    completed: 'Created',
 }
 
 const buttonUpdateStateValues = {
-    none: 'Update', 
-    loading: 'Updating', 
-    failure: 'Failed', 
-    completed: 'Updated', 
+    none: 'Update',
+    loading: 'Updating',
+    failure: 'Failed',
+    completed: 'Updated',
 }
 
 const CategoryCreateModal = (props) => {
-    const { categoryModalData, onClose=()=>{} } = props;
-    const { status, data={}, onClick } = categoryModalData || {};
-    const { id, categoryName='' } = data;
+    const { categoryModalData, onClose = () => { } } = props;
+    const { status, data = {}, onClick } = categoryModalData || {};
+    const { id, categoryName = '' } = data;
 
     const buttonStateValues = id ? buttonUpdateStateValues : buttonCreateStateValues;
     const heading = `${id ? 'Update Category' : 'Create Category'}`;
     const subHeading = `Are you sure you want to ${id ? `update the category` : 'create a new category'}?`;
+
+    const [selectedMainCategories, setSelectedMainCategories] = useState([]);
+    const [mainCategories, setMainCategories] = useState([]);
 
     const [newFolderName, setNewFolderName] = useState(categoryName);
     const [buttonStatus, setButtonStatus] = useState('none');
@@ -43,7 +50,7 @@ const CategoryCreateModal = (props) => {
     }
 
     const validatePostCategory = (categoryName) => {
-        if(!categoryName){
+        if (!categoryName) {
             setErrorMessage('Please enter a category name');
             return false;
         }
@@ -51,23 +58,32 @@ const CategoryCreateModal = (props) => {
         return true;
     }
 
+    const handleMainCategorySelect = (selectedMainCategory) => {
+        setSelectedMainCategories(selectedMainCategory);
+    }
+
     const handleSubmitClick = async () => {
+        const selectedMainCategoriesIds = selectedMainCategories.map((category) => category.id);
         const isValid = validatePostCategory(newFolderName);
-        if(!isValid){
-            return 
+        const newCategoryPayload = {
+            category_name: newFolderName,
+            main_categories: selectedMainCategoriesIds
+        };
+        if (!isValid) {
+            return
         }
-        if(onClick){
+        if (onClick) {
             setButtonStatus('loading');
-            try{
-                await onClick(newFolderName, id);
+            try {
+                await onClick(newCategoryPayload, id);
                 setButtonStatus('completed');
                 setTimeout(() => {
                     closeModal();
                 }, 1000);
-            }catch(err){
+            } catch (err) {
                 setButtonStatus('failure');
                 setErrorMessage(err);
-            }finally{
+            } finally {
                 setTimeout(() => {
                     setButtonStatus('none');
                 }, 1000)
@@ -81,43 +97,65 @@ const CategoryCreateModal = (props) => {
         setNewFolderName(categoryName)
     }, [categoryName])
 
-    if(!status){
+
+    useEffect(() => {
+        const fetchMainCategories = async () => {
+            try {
+                const mainCategoriesData = await postsCategoriesService.getMainPostsCategories();
+                setMainCategories(mainCategoriesData);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        fetchMainCategories();
+    }, [])
+
+
+
+    if (!status) {
         return null;
     }
 
     return (
-        <Dialog isShown hasOverlay >
-                <Card variant='ghost' rounded='lg'>
-                    <CardHeader>
-                        <Typography size='lg'>{heading}</Typography>
-                        <Typography size='xs' textVariant='default'>{subHeading}</Typography>
-                        {id ? <Typography size='xs' textVariant='bold'>{categoryName}</Typography> : null}
-                    </CardHeader>
+        <Dialog isShown hasOverlay size='lg' >
+            <Card variant='ghost' rounded='lg'>
+                <CardHeader>
+                    <Typography size='lg'>{heading}</Typography>
+                    <Typography size='xs' textVariant='default'>{subHeading}</Typography>
+                    {id ? <Typography size='xs' textVariant='bold'>{categoryName}</Typography> : null}
+                </CardHeader>
 
-                    <CardContent>
-                        <TextBox
-                            type='text'
-                            labelName='New category name'
-                            placeholder="Enter category name"
-                            value={newFolderName}
-                            onChange={setNewFolderName}
-                            size='sm'
-                            isFocused
-                            validationMsg={{
-                                type: 'error',
-                                messages: [errorMessage]
-                            }}
-                        />
-                    </CardContent>
+                <CardContent>
+                    <TextBox
+                        type='text'
+                        labelName='New category name'
+                        placeholder="Enter category name"
+                        value={newFolderName}
+                        onChange={setNewFolderName}
+                        size='sm'
+                        isFocused
+                        validationMsg={{
+                            type: 'error',
+                            messages: [errorMessage]
+                        }}
+                    />
 
-                    <CardFooter className='p-0 flex justify-between'>
-                        <Button size='xs' width='none' variant='custom' onClick={handleCancelClick}>Cancel</Button>
-                        <Button size='xs' width='none' variant='accent' onClick={handleSubmitClick} buttonStatus={buttonStatus}>
-                            {buttonStateValues[buttonStatus]}
-                        </Button>
-                    </CardFooter>
-                </Card>
-            </Dialog>
+                    <div className="my-3">
+                        <MainCategorySelector mainCategories={selectedMainCategories} onChange={handleMainCategorySelect} suggestions={mainCategories} />
+                        {/* <Tags textBoxFieldProps={{ size: 'sm', placeholder: 'Choose tags (press Enter to add)' }} tags={[]} onChange={()=>{}} suggestions={mainCategories} /> */}
+                    </div>
+
+                </CardContent>
+
+                <CardFooter className='p-0 flex justify-between'>
+                    <Button size='xs' width='none' variant='custom' onClick={handleCancelClick}>Cancel</Button>
+                    <Button size='xs' width='none' variant='accent' onClick={handleSubmitClick} buttonStatus={buttonStatus}>
+                        {buttonStateValues[buttonStatus]}
+                    </Button>
+                </CardFooter>
+            </Card>
+        </Dialog>
     )
 }
 
