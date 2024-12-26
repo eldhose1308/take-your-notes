@@ -45,6 +45,7 @@ const PostsHomeList = () => {
             return posts;
         }catch(e){
             console.log(e);
+            throw e;
         }
     }
 

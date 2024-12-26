@@ -11,7 +11,7 @@ import EmptyUserPosts from "_components/DisplayStates/Empty/EmptyUserPosts";
 
 
 const UsersPostList = (props) => {
-    const { pageSize = 10, initialPage = 0, initialData = [], userName } = props;
+    const { pageSize = 30, initialPage = 0, initialData = [], userName } = props;
 
     const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize });
     const { fetchUsersPost, fetchStatus } = useUserPosts({ userName });
@@ -25,6 +25,7 @@ const UsersPostList = (props) => {
         resetPagination();
         const postsFilter = { page: 1, limit: pageSize, ...filters };
         const posts = await fetchUsersPost(postsFilter);
+        checkIfAllDataFetched(posts);
         setData(posts);
     }
 

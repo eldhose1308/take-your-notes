@@ -22,24 +22,34 @@ const CategoriesPostList = (props) => {
     const [filters, setFilters] = useState({ category: categoryName });
     const [data, setData] = useState([]);
 
-
-    const handleFiltersChange = async (filters) => {
-        setFilters(filters);
+    const handleFiltersChange = async (newFilters) => {
+        const categoryPostFilters = { ...filters, ...newFilters };
+        setFilters(categoryPostFilters);
         setData([]);
         resetPagination();
-        const postsFilter = { page: 1, limit: pageSize, ...filters };
-        const posts = await fetchPostsData(postsFilter);
-        setData(posts);
+        const postsFilter = { page: 1, limit: pageSize, ...categoryPostFilters };
+        try{
+            const posts = await fetchPostsData(postsFilter);
+            checkIfAllDataFetched(posts);
+            setData(posts);
+        }catch(e){
+            console.log(e);
+        }
     }
 
     const fetchPosts = async () => {
         const postsFilter = { page: currentPage + 1, limit: pageSize, ...filters };
-        const posts = await fetchPostsData(postsFilter);
-        setData((previousPosts) => [...previousPosts, ...posts]);
-
-        incrementPagination();
-        checkIfAllDataFetched(posts);
-        return posts;
+        try{
+            const posts = await fetchPostsData(postsFilter);
+            setData((previousPosts) => [...previousPosts, ...posts]);
+            
+            incrementPagination();
+            checkIfAllDataFetched(posts);
+            return posts;
+        }catch(e){
+            console.log(e);
+            throw e;
+        }
     }
 
 
@@ -50,13 +60,9 @@ const CategoriesPostList = (props) => {
     return (
         <React.Fragment>
             <PostFilters onChange={handleFiltersChange} />
-            <ShowMorePaginationWrapper key={`posts_${categoryName}_${stringifyJSON(filters)}`} isEmpty={fetchStatus === 'empty'} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchPosts}>
+            <ShowMorePaginationWrapper EmptyState={EmptyUserPosts} key={`posts_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchPosts}>
                 <React.Fragment>
-                    {fetchStatus !== 'empty' ? (
-                        <PostsSuccess usersPostList={data} />
-                    ) : (
-                        <EmptyUserPosts />
-                    )}
+                    <PostsSuccess usersPostList={data} />
                 </React.Fragment>
             </ShowMorePaginationWrapper>
         </React.Fragment>

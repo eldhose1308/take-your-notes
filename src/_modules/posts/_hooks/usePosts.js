@@ -14,9 +14,9 @@ const usePosts = () => {
                 setFetchStatus('empty');
             }else{
                 setFetchStatus('success');
-                setTimeout(() => {
-                    setFetchStatus('none');
-                }, 1000);
+                // setTimeout(() => {
+                //     setFetchStatus('none');
+                // }, 1000);
             }
             
             return postsData;
