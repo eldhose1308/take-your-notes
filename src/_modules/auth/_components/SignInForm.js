@@ -13,7 +13,7 @@ import buttonStates from "_constants/buttonStates";
 import { Link } from "react-router-dom";
 
 const SignInForm = (props) => {
-    const { onSubmit, buttonStatus, buttonStatusText } = props;
+    const { onSubmit, onGoogleSubmit, buttonStatus, buttonStatusText } = props;
 
     const { register, submit, errors, isSubmitting } = useForm({ schema: SignInSchema })
 
@@ -59,9 +59,10 @@ const SignInForm = (props) => {
 
             <Flex direction='column' className='mb-4'>
 
-                <GoogleLogin
+                 <GoogleLogin
+                    flow='auth-code'
                     text="signup_with"
-                    onSuccess={(credentialResponse) => { console.log(credentialResponse) }}
+                    onSuccess={onGoogleSubmit}
                     onError={() => { alert('Error') }}
                 />
 
