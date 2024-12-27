@@ -5,7 +5,8 @@ import TextBoxWithSuggestions from "_components/UI/TextBoxWithSuggestions/TextBo
 const MainCategorySelector = (props) => {
     const { mainCategories = [], suggestions=[], onChange = () => { }, onCreate = () => { }, className, ...textBoxProps } = props;
     const extraProps = {
-        placeholder: 'Type and press Enter'
+        placeholder: 'Type and press Enter to select',
+        labelName: 'Related Tags',
     }
 
     const [value, setValue] = useState('')
