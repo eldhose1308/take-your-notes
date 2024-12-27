@@ -927,6 +927,7 @@ line-height: 1.5rem;
 .border-another {
   border-color: var(--bg-another);
 }
+
 .border-success {
   border-color: var(--success);
 }

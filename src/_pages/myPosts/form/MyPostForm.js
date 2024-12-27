@@ -12,6 +12,11 @@ import useMyPosts from "_modules/posts/_hooks/useMyPosts";
 import { POST_ACTIONS } from "_modules/posts/_constants/postReducerActionTypes";
 import { Stencil } from "_components/Loader";
 import usePostsCategories from "_modules/posts/_hooks/usePostsCategories";
+import { Alerts } from "_components/UI";
+import Typography from "_components/Misc/Typography/Typography";
+import { Link } from "react-router-dom";
+import CLIENT_ROUTES from "_routes/clientRoutes";
+import MyPostsHelp from "_modules/help/MyPostsHelp";
 
 const tagsSuggestions = [
     { id: 'JavaScript', text: 'JavaScript' },
@@ -66,7 +71,7 @@ const MyPostForm = () => {
 
     const handleSave = async () => {
         const postResponse = await savePost();
-        if(postResponse){
+        if (postResponse) {
             setTimeout(() => {
                 navigateToList();
             }, 1300);
@@ -100,7 +105,7 @@ const MyPostForm = () => {
     }
 
 
-    if(fetchStatus === 'loading'){
+    if (fetchStatus === 'loading') {
         return <div className="m-5">
             <Stencil />
             <Stencil />
@@ -110,20 +115,24 @@ const MyPostForm = () => {
         </div>
     }
 
-    if(fetchStatus === 'failure'){
+    if (fetchStatus === 'failure') {
         return <div>Failed</div>
     }
 
     return (
         <React.Fragment>
             <div className="text-default m-5">
-                <div className="flex my-2">
-                    <span onClick={handleCancel} className="flex text-sm p-2 bg-default hover-accent hover-text-custom rounded-md cursor-pointer mx-1">
+
+                <div className="flex items-center my-2">
+                <Typography size='lg' type='h2' className='flex mr-3'>Post page
+                              <MyPostsHelp />
+                            </Typography>
+                    {/* <span onClick={handleCancel} className="flex text-sm p-2 bg-default hover-accent hover-text-custom rounded-md cursor-pointer mx-1">
                         <span className="flex items-center pr-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-chevron-left"><circle cx="12" cy="12" r="10" /><path d="m14 16-4-4 4-4" /></svg>
                         </span>
                         Go Back
-                    </span>
+                    </span> */}
                     <div className="flex text-sm p-2 bg-highlight rounded-md cursor-pointer mx-1">
                         <PostCategory category={postCategory} onChange={handlePostCategoryChange} />
                     </div>

@@ -2,8 +2,8 @@ import * as posts from '_api/posts.api'
 import { USER_AVATAR_URL } from '_constants/API';
 
 export const formatPostData = (data) => {
-    const { post_title, post_slug, content, category, category_name, category_icon, category_slug, post_id, user_name, full_name, avatar, created_at, updated_at } = data;
-    const categoryDetails = { categoryId: category, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon };
+    const { post_title, post_slug, content, category, category_name, category_icon, category_slug, verified, post_id, user_name, full_name, avatar, created_at, updated_at } = data;
+    const categoryDetails = { categoryId: category, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon, isVerified: !!Number(verified) };
     const userDetails = { userName: user_name, fullName: full_name, avatar, userAvatarBaseURL: USER_AVATAR_URL };
     const formattedResponse = { id: post_id,  postTitle: post_title, postSlug: post_slug, content, user: userDetails, category: categoryDetails, createdAt: created_at, updatedAt: updated_at };
     return formattedResponse;

@@ -28,7 +28,7 @@ const useUserPosts = ({ userName }) => {
             return;
         }
 
-        fetchUsersPost();
+        // fetchUsersPost();
     }, [userName]);
 
     return {

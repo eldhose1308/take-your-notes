@@ -13,10 +13,13 @@ import ShowMorePaginationWrapper from '_components/Pagination/ShowMorePagination
 import { stringifyJSON } from '_utils/json';
 import PostFilters from '_modules/posts/_components/PostFilters';
 import EmptyAuthUserPosts from '_components/DisplayStates/Empty/EmptyAuthUserPosts';
+import { Link } from 'react-router-dom';
+import CLIENT_ROUTES from '_routes/clientRoutes';
+import { Alerts } from '_components/UI';
+import MyPostsHelp from '_modules/help/MyPostsHelp';
 
 const pageSize = 30;
 
-const categories = [];
 const MyPostList = (props) => {
     const { navigateToCreate, navigateToEdit } = usePostsNavigation();
 
@@ -82,10 +85,13 @@ const MyPostList = (props) => {
     return (
         <React.Fragment>
             <div className="text-default m-5">
+
                 <div className="flex">
                     <div className='flex justify-between w-full'>
                         <div className="flex flex-col mx-2 my-2">
-                            <Typography size='lg' type='h2'>Your Posts</Typography>
+                        <Typography size='lg' type='h2' className='flex'>Your Posts
+                              <MyPostsHelp />
+                            </Typography>
                             <Typography variant='secondary' size='sm' textVariant='default'>
                                 List of all the posts published by you
                             </Typography>

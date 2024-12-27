@@ -15,6 +15,7 @@ import VerifiedNonVerifiedToggler from "_modules/togglers/VerifiedNonVerifiedTog
 import * as postsCategoriesService from "_services/postsCategories.service";
 import MainCategoriesInCard from "_modules/postCategories/_components/MainCategoriesInCard";
 import CategoryCreateModal from "_modules/modals/CategoryCreateModal";
+import MyCategoryHelp from "_modules/help/MyCategoryHelp";
 
 const pageSize = 30;
 const MyCategoriesList = () => {
@@ -88,12 +89,16 @@ const MyCategoriesList = () => {
 
     return (
         <React.Fragment>
+
             <div className="text-default m-5">
+
                 <div className="flex">
 
                     <div className="flex justify-between w-full">
                         <div className="flex flex-col mx-2 my-2">
-                            <Typography size='lg' type='h2'>Your Categories</Typography>
+                            <Typography size='lg' type='h2' className='flex'>Your Categories
+                              <MyCategoryHelp />
+                            </Typography>
                             <Typography variant='secondary' size='sm' textVariant='default'>
                                 List of all the categories published by you (Verified/Pending/Rejected)
                             </Typography>

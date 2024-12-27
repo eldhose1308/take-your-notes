@@ -19,7 +19,7 @@ import PostCategoryBadge from "_modules/postCategories/_components/PostCategoryB
 const PostListItem = (props) => {
     const { postItem } = props;
     const { postTitle, postSlug, id, content, category, user, createdAt, updatedAt } = postItem;
-    const { categoryName, categorySlug } = category || {};
+    const { categoryName, categorySlug, isVerified } = category || {};
     const { userName, fullName, avatar } = user || {};
 
     // const { isAuthenticated } = useAuth();
@@ -30,10 +30,13 @@ const PostListItem = (props) => {
 
 
     return (
-        <Card border='another' variant='default' rounded='md' className='border hover-border-highlight my-2 w-full max-h-mds'>
+        <Card border='another' variant='default' rounded='md' className={`border hover-border-highlight my-2 w-full max-h-mds ${isVerified ? '' : 'opacity-50'}`}>
             <CardHeader>
                 <Flex justifyContent='spaceBetween' alignItems='none' className=''>
                     <UserProfileInfo userData={user} hasFollowButton={false} />
+                    {!isVerified && <span className="cursor-pointer" title="This category is not verified">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock-alert"><path d="M12 6v6l4 2"/><path d="M16 21.16a10 10 0 1 1 5-13.516"/><path d="M20 11.5v6"/><path d="M20 21.5h.01"/></svg>
+                        </span>}
                 </Flex>
             </CardHeader>
 

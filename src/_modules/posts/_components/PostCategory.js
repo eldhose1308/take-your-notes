@@ -20,31 +20,45 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
     const debounce = useDebounce();
 
     const handlePostCategoryChange = (id, category) => {
-        const { categorySlug='' } = category || {};
+        const { categorySlug = '' } = category || {};
         setSelectedCategory(category);
         onChange(id, category, categorySlug);
     }
 
     const handleFetchPostCategories = async (newFilters = []) => {
         const usersFilter = { ...filters, ...newFilters };
-        const users = await fetchMyPostCategories(usersFilter);
-        setData((previousUsers) => [...previousUsers, ...users]);
-        setFilters((previousFilters) => ({ ...previousFilters, page: previousFilters.page + 1 }));
+        try {
+            const users = await fetchMyPostCategories(usersFilter);
+            setData((previousUsers) => [...previousUsers, ...users]);
+            setFilters((previousFilters) => ({ ...previousFilters, page: previousFilters.page + 1 }));
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     const handleSavePostCategory = async (categoryData) => {
+        try {
         const newCategoryData = await savePostCategory(categoryData);
         setData((previousUsers) => [...previousUsers, newCategoryData]);
         setSelectedCategory(newCategoryData);
         onChange(newCategoryData.id, newCategoryData);
+        }catch (err) {
+            console.error(err);
+            throw err;
+        }
     }
 
     const handleSearchQuery = async (value) => {
         // setFilters({ ...filters, page: 1 });
         const usersFilter = { ...filters, ...{ search: value, page: 1 } };
-        const users = await fetchMyPostCategories(usersFilter);
-        setData(users);
-        setFilters((previousFilters) => ({ ...previousFilters, page: 2 }));
+        try{
+
+            const users = await fetchMyPostCategories(usersFilter);
+            setData(users);
+            setFilters((previousFilters) => ({ ...previousFilters, page: 2 }));
+        }catch(err){
+            console.error(err);
+        }
 
         // handleFetchPostCategories({ search: value, page: 1 });
     }
