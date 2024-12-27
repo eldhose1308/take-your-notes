@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const BreadCrumbs = ({ items = [] }) => {
+const BreadCrumbs = ({ items = [], links = [] }) => {
     const itemsLength = items.length - 1;
 
     return (
@@ -9,10 +10,13 @@ const BreadCrumbs = ({ items = [] }) => {
                 const isLastItem = index === itemsLength;
                 return (
                     <React.Fragment>
-                        <span className={`${!isLastItem ? '' : 'text-default'}`}>{item}</span>
+                        {links[index] ? <Link to={links[index]}>
+                            <span className={`${!isLastItem ? '' : 'text-default'}`}>{item}</span>
+                        </Link> : <span className={`${!isLastItem ? '' : 'text-default'}`}>{item}</span>}
                         {!isLastItem && (<span className="flex items-center text-default mx-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                        </span>)}
+                        </span>
+                        )}
                     </React.Fragment>
                 )
             })}

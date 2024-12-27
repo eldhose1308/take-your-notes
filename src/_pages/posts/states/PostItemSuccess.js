@@ -19,6 +19,8 @@ const PostItemSuccess = (props) => {
     const markdownInHTML = useMemo(() => convertToHTML(content),[content])
     const tableOfContents = useMemo(() => getTableOfContents(markdownInHTML),[markdownInHTML]);
 
+    const categoryDetailRoute = CLIENT_ROUTES.CATEGORY_DETAIL(categorySlug);
+
     console.log('@tableOfContents', tableOfContents);
     return (
         <React.Fragment>
@@ -32,7 +34,7 @@ const PostItemSuccess = (props) => {
                 </span>
             </div> */}
 
-            <BreadCrumbs items={[categoryName, postTitle]} />
+            <BreadCrumbs items={[categoryName, postTitle]} links={[categoryDetailRoute]} />
 
             <div className="flex  flex-col pl-4 my-4">
                 <Typography type='h1' size='none' className=''>{postTitle}</Typography>
