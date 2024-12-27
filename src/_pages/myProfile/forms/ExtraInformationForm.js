@@ -5,23 +5,24 @@ import Separator from "_components/Misc/Separator/Separator";
 import Typography from "_components/Misc/Typography/Typography";
 import useForm from "_hooks/useForm";
 import { ExtraInformationSchema } from "./_utils/validation-rules";
+import { Alerts } from "_components/UI";
 
 const ExtraInformationForm = (props) => {
     const { identityData, onSave = () => { } } = props;
     const { avatar, userName, fullName, email, bio, joinedAt, websiteLink, phone, postCounts, followers, following, rank } = identityData;
     const initialValues = { websiteLink, phone, bio };
-    
+
     const { register, submit, errors, isSubmitting } = useForm({ schema: ExtraInformationSchema, initialValues });
 
     const handleSave = async (formData) => {
-        const { websiteLink: website_link, bio  } = formData;
+        const { websiteLink: website_link, bio } = formData;
         const formPayload = {
             website_link,
             bio
         };
-        try{
+        try {
             await onSave({ extraInfo: formPayload });
-        }catch(err){
+        } catch (err) {
             console.log(err)
         }
     }
@@ -29,7 +30,10 @@ const ExtraInformationForm = (props) => {
     return (
         <React.Fragment>
 
-            <Typography variant='secondary' size='sm' textVariant='default'>You can directly update these information.</Typography>
+            <Alerts type='info'>
+                <Typography textVariant='light' size='xs'>You can directly update these information without password.</Typography>
+            </Alerts>
+
             <Separator variant='another' className='my-3' />
 
             <div className="my-3">
@@ -56,7 +60,7 @@ const ExtraInformationForm = (props) => {
             </div>
 
             <div className="my-3">
-                <TextArea 
+                <TextArea
                     labelName='Bio'
                     placeHolder="Enter a small summary about yourself"
                     validationMsg={errors.bio}

@@ -97,6 +97,11 @@ const useAuth = () => {
             // const { data } = userData;
             // updateUser();
         }catch(err){
+            const { statusCode } = err;
+            if(statusCode === 401){
+                logout();
+                return;
+            }
             throw err;
         }
         // finally{

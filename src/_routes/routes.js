@@ -36,7 +36,7 @@ const UsersList = lazyLoadWithDelay(() => import('_pages/users/UsersList'));
 const UsersPostList = lazyLoadWithDelay(() => import('_pages/users/UsersPostList'));
 const PostItem = lazyLoadWithDelay(() => import('_pages/posts/PostItem'));
 const PostsHome = lazyLoadWithDelay(() => import('_pages/posts/PostsHome'));
-const UserDetail = lazyLoadWithDelay(() => import('_pages/users/UserDetail'));
+const UserDetailPage = lazyLoadWithDelay(() => import('_pages/users/UserDetailPage'));
 const MyPostForm = lazyLoadWithDelay(() => import('_pages/myPosts/form/MyPostForm'));
 const MyPostList = lazyLoadWithDelay(() => import('_pages/myPosts/list/MyPostList'));
 const MyCategoriesList = lazyLoadWithDelay(() => import('_pages/myCategories/list/MyCategoriesList'));
@@ -198,7 +198,7 @@ export const ROUTES = [
       },
       {
         path: ":id",
-        element: <UserDetail />
+        element: <UserDetailPage />
       },
       {
         path: ":id/posts",

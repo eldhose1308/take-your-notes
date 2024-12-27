@@ -36,7 +36,7 @@ const getUsersPost = async (userName, data, config = {}) => {
     .then((res) => {
         return res
     }).catch((err) => {
-        throw err.response
+        throw err
     })
 }
 
@@ -46,7 +46,7 @@ const updateBasicInfo = async (data, config = {}) => {
     .then((res) => {
         return res
     }).catch((err) => {
-        throw err.response
+        throw err
     })
 }
 
@@ -56,7 +56,7 @@ const updateExtraInfo = async (data, config = {}) => {
     .then((res) => {
         return res
     }).catch((err) => {
-        throw err.response
+        throw err
     })
 }
 
@@ -66,7 +66,7 @@ const uploadUserAvatar = async (data, config = {}) => {
     .then((res) => {
         return res
     }).catch((err) => {
-        throw err.response
+        throw err
     })
 }
 
@@ -76,7 +76,7 @@ const removeUserAvatar = async (data, config = {}) => {
     .then((res) => {
         return res
     }).catch((err) => {
-        throw err.response
+        throw err
     })
 }
 

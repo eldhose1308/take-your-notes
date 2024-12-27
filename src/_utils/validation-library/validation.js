@@ -12,7 +12,8 @@ const createSchema = (formSchema) => {
     // needs revamping and error handling fallbacks
     const validateObj = {
         rules: rules,
-        validateField: (field, value='') => {
+        validateField: (field, formValue='') => {
+            const value = formValue || '';
             const errors = [];
             const validator = validators(field)
 

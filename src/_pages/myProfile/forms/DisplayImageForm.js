@@ -5,6 +5,7 @@ import Typography from "_components/Misc/Typography/Typography";
 import Separator from "_components/Misc/Separator/Separator";
 import ImageCropper from "./ImageCropper";
 import { USER_AVATAR_URL } from "_constants/API";
+import { Alerts } from "_components/UI";
 
 
 const buttonStateValues = {
@@ -78,7 +79,11 @@ const DisplayImageForm = (props) => {
 
     return (
         <div>
-            <Typography variant='secondary' size='sm' textVariant='default'>Change your display picture here.</Typography>
+             <Alerts type='info'>
+                <Typography textVariant='light' size='xs'>Upload a new avatar.</Typography>
+                <Typography textVariant='light' size='xs'>You can crop as you wish.</Typography>
+            </Alerts>
+
             <Separator variant='another' className='my-3' />
 
             {imageUrl ?

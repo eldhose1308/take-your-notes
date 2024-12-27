@@ -17,12 +17,12 @@ const useMyUserDetails = () => {
                 setFetchStatus('success');
             }catch(error){
                 const { statusCode } = error || {};
-                // if(statusCode === 401){
-                //     logout();
-                //     // setFetchStatus('empty');
-                //     return;
-                // }
-                alert(JSON.stringify(error))
+                if(statusCode === 401){
+                    logout();
+                    // setFetchStatus('empty');
+                    return;
+                }
+                // alert(JSON.stringify(error))
                 setFetchStatus('failure');
             }
         }

@@ -4,8 +4,10 @@ import Separator from "_components/Misc/Separator/Separator";
 import TabPanelItems from "./TabPanelItems";
 
 const TabPanel = (props) => {
-    const { tabItems, renderForm, additionalProps, initialTab } = props;
+    const { fetchStatus, tabItems, renderForm, additionalProps, initialTab } = props;
     const [selectedTab, setSelectedTab] = useState(initialTab || tabItems[0].id);
+
+    console.log('@fetchStatus', fetchStatus);
 
     return (
         <React.Fragment>

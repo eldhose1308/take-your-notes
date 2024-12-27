@@ -5,31 +5,41 @@ import Separator from "_components/Misc/Separator/Separator";
 import Typography from "_components/Misc/Typography/Typography";
 import useForm from "_hooks/useForm";
 import { IdentitySchema } from "./_utils/validation-rules";
+import { Alerts } from "_components/UI";
+
+const messages = {
+    success: { heading: 'Profile Updated', description: 'Your profile has been updated successfully' },
+    error: { heading: 'Profile Update Failed', description: 'There was an error updating your profile' }
+};
 
 const IdentityForm = (props) => {
     const { identityData, onSave = () => { } } = props;
     const { avatar, userName, fullName, email, bio, joinedAt, websiteLink, phone, postCounts, followers, following, rank } = identityData;
     const initialValues = { userName, fullName };
 
-    const { register, submit, errors, isSubmitting } = useForm({ schema: IdentitySchema, initialValues });
+    const { register, submit, errors, errorMessages, isSubmitting } = useForm({ schema: IdentitySchema, initialValues, messages });
 
     const handleSave = async (formData) => {
-        const { fullName: full_name, userName: user_name  } = formData;
+        const { fullName: full_name, userName: user_name, password } = formData;
         const formPayload = {
             full_name,
-            user_name
+            user_name,
+            password
         };
-        try{
+        try {
             await onSave({ basicInfo: formPayload });
-        }catch(err){
-            console.log(err)
+        } catch (err) {
+            throw err;
         }
     }
 
     return (
         <React.Fragment>
 
-            <Typography variant='secondary' size='sm' textVariant='default'>This section requires current password to update.</Typography>
+            <Alerts type='info'>
+                <Typography textVariant='light' size='xs'>This section requires current password to update.</Typography>
+            </Alerts>
+
             <Separator variant='another' className='my-3' />
 
             {/* <div className="my-3">

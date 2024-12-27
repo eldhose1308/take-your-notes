@@ -1,3 +1,4 @@
+import { useToast } from "_contexts/ToastProvider";
 import { useState, useReducer, useEffect } from "react";
 
 const validationStateReducer = (state, action) => {
@@ -17,13 +18,21 @@ const validationStateReducer = (state, action) => {
     }
 }
 
-const useForm = ({ schema, initialValues={} }) => {
+const useForm = ({ schema, initialValues={}, messages={} }) => {
+    const { success, error } = messages || {};
+    const { heading: successHeading='The request is submitted succesfully', description: successDescription } = success || {};
+    const { heading: errorHeading='The request is not submitted succesfully', description: errorDescription } = error || {};
+
+    const { toast } = useToast()
+
     // rename error variable into formState which holds messages and message types
     const [ validations, setValidations ] = useReducer(validationStateReducer, {})
 
     const [ formFields, setFormFields ] = useState(initialValues)
 
     const [ isSubmitting, setIsSubmitting ] = useState(false)
+
+    const [ errorMessages, setErrorMessages ] = useState([]);
 
     const register = (fieldName) => {
         return {
@@ -42,6 +51,7 @@ const useForm = ({ schema, initialValues={} }) => {
 
     const submit = (submitCallback) => {
         return async () => {
+            setErrorMessages([]);
             const validationObj = schema.validate(formFields)
             if(Object.keys(validationObj).length === 0){
                 setValidations({ type: 'RESET_ALL' })
@@ -49,8 +59,18 @@ const useForm = ({ schema, initialValues={} }) => {
                 setIsSubmitting(true)
                 try{
                     await submitCallback(formFields)
+                    toast({
+                        heading: successHeading,
+                        description: successDescription,
+                        options: { position: 'top-right' }
+                    }).success()
                 }catch(err){
-                    throw err;
+                    const { message } = err;
+                    toast({
+                        heading: errorHeading,
+                        description: message,
+                        options: { position: 'top-right' }
+                    }).error()
                 }finally{
                     setIsSubmitting(false)
                 }
@@ -65,6 +85,7 @@ const useForm = ({ schema, initialValues={} }) => {
         setFormFields(initialValues)
         setValidations({ type: 'RESET_ALL' })
         setIsSubmitting(false);
+        setErrorMessages([]);
     }
 
     return {
@@ -72,6 +93,7 @@ const useForm = ({ schema, initialValues={} }) => {
         reset,
         register,
         errors: validations,
+        errorMessages,
         formFields,
         isSubmitting
     }

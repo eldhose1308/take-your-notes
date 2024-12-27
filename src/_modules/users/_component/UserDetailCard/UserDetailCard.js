@@ -9,7 +9,7 @@ import FollowButton from "_modules/users/_component/FollowButton";
 
 import CLIENT_ROUTES from "_routes/clientRoutes";
 
-const UserDetailSuccess = (props) => {
+const UserDetailCard = (props) => {
     const { userData } = props;
     const [userState, setUserState] = useState(userData);
     const { avatar, id: userId, userName, fullName, bio, joinedAt, websiteLink, posts, followers, following, rank, isFollowing } = userState;
@@ -77,4 +77,4 @@ const UserDetailSuccess = (props) => {
     )
 }
 
-export default UserDetailSuccess;
+export default UserDetailCard;

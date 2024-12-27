@@ -1,32 +1,20 @@
 import React from "react";
 
-import UserDetailSuccess from "_pages/users/states/UserDetailSuccess";
-
 import useAuth from "_hooks/useAuth";
 import useMyUserDetails from "_modules/users/_hooks/useMyUserDetails";
-import CardStencil from "_components/Loader/CardStencil";
-import useComponentFetchState from "_hooks/useComponentFetchState";
 import TabPanel from "_components/Misc/TabPanel/TabPanel";
 
 import renderForm from "./_utils/formRenderer";
 import tabItems from "./_constants/tabItems";
+import UserOverviewTabs from "_modules/users/_component/UserOverviewTabs/UserOverviewTabs";
+import Separator from "_components/Misc/Separator/Separator";
+import ResponsiveDrawer from "_components/UI/Drawer/ResponsiveDrawer";
+import UserProfileCard from "_modules/users/_component/UserProfileCard";
 
 
 const MyProfile = () => {
     const { updateUserData } = useAuth()
     const { userDetail, fetchStatus } = useMyUserDetails();
-
-    const UserDetailComponentState = useComponentFetchState({
-        fetchStatus,
-        loading: <CardStencil />,
-        messages: {
-            failure: {
-                heading: 'Looks like this user is removed or no such user existed',
-                description: 'Please recheck the url'
-            }
-        },
-        success: <UserDetailSuccess userData={userDetail} />
-    });
 
     const handleUpdateProfileDetails = async (data) => {
         try {
@@ -41,7 +29,16 @@ const MyProfile = () => {
             <div className="flex">
 
                 <div className="flex flex-col mr-2 my-4 grow-2 basis-0">
-                    {UserDetailComponentState}
+                    
+                    <UserProfileCard userDetail={userDetail} fetchStatus={fetchStatus} />
+                    <Separator className='my-3' />
+
+                    <ResponsiveDrawer direction='right'>
+                        <div className="flex mx-4">
+                            {fetchStatus === 'success' && <UserOverviewTabs initialTabIndex={2} userDetail={userDetail} />}
+                        </div>
+                    </ResponsiveDrawer>
+                    
                 </div>
 
                 <div className="flex flex-col my-4 grow-2 basis-auto">

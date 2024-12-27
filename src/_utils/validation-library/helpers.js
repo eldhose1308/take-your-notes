@@ -1,7 +1,7 @@
 import VALIDATION_MSG, { formatString } from "./messages";
 
 export const isRequired = (value='', fieldName = null) => {
-    if(!value.length) 
+    if(!value || !value.length) 
         return formatString(VALIDATION_MSG.REQUIRED, fieldName)
     
     return false;
