@@ -175,11 +175,11 @@ const useMyPosts = () => {
 
                 setFetchStatus('loading');
                 const usersPostData = await postsService.getPostBySlug({ userName, postSlug });
-                const { id: postId, category, content, postTitle, user } = usersPostData || {};
+                const { id: postId, category, content, postTitle, visibility, user } = usersPostData || {};
                 const { categoryId, categoryName } = category || {};
                 const { fullName, avatar } = user || {};
 
-                const payload = { postId, markdownContent: content, postTitle, postCategory: { id: categoryId, categoryName, value: categoryId } };
+                const payload = { postId, markdownContent: content, postTitle, currentVisibilityMode: visibility, postCategory: { id: categoryId, categoryName, value: categoryId } };
 
                 postFormDispatcher({ type: POST_ACTIONS.SET_FIELDS, payload });
 
