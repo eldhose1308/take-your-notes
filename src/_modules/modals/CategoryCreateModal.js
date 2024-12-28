@@ -8,6 +8,7 @@ import Tags from "_components/UI/Tags/Tags";
 
 import * as postsCategoriesService from "_services/postsCategories.service";
 import MainCategorySelector from "_modules/postCategories/_components/MainCategorySelector";
+import { Alerts } from "_components/UI";
 
 const buttonCreateStateValues = {
     none: 'Create',
@@ -146,6 +147,12 @@ const CategoryCreateModal = (props) => {
                         {/* <Tags textBoxFieldProps={{ size: 'sm', placeholder: 'Choose tags (press Enter to add)' }} tags={[]} onChange={()=>{}} suggestions={mainCategories} /> */}
                     </div>
 
+                    <Alerts type='info'>
+                    <Typography textVariant='light' size='xs'>- While creating a new category, please verify the main categories/tags below.</Typography>
+                    <Typography textVariant='light' size='xs'>- This ensures your category and posts can be easily found in user suggestions and properly grouped for processing.</Typography>
+                    
+                        </Alerts>
+                   
                 </CardContent>
 
                 <CardFooter className='p-0 flex justify-between'>

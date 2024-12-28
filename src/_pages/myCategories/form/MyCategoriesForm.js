@@ -4,6 +4,7 @@ import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card
 import Typography from "_components/Misc/Typography/Typography";
 import { Button, TextBox } from "_components/Form";
 import MainCategorySelector from "_modules/postCategories/_components/MainCategorySelector";
+import { Alerts } from "_components/UI";
 
 import * as postsCategoriesService from "_services/postsCategories.service";
 import { useParams } from "react-router-dom";
@@ -167,6 +168,14 @@ const MyCategoriesForm = (props) => {
                         <MainCategorySelector mainCategories={selectedMainCategories} onChange={handleMainCategorySelect} suggestions={mainCategories} />
                         {/* <Tags textBoxFieldProps={{ size: 'sm', placeholder: 'Choose tags (press Enter to add)' }} tags={[]} onChange={()=>{}} suggestions={mainCategories} /> */}
                     </div>
+
+
+                    <Alerts type='info'>
+                    <Typography textVariant='light' size='xs'>- While creating a new category, please verify the main categories/tags below.</Typography>
+                    <Typography textVariant='light' size='xs'>- This ensures your category and posts can be easily found in user suggestions and properly grouped for processing.</Typography>
+                    
+                        </Alerts>
+                   
 </div>
 
                 {/* </CardContent>
