@@ -33,13 +33,13 @@ const MainCategoriesInCard = (props) => {
                 <span onClick={renderMainCategories} className="flex items-center mx-1 py-1 px-3 rounded-md cursor-pointer border border-another text-accent bg-another hover-default hover-border-accent hover-text-default">
                     <span className="flex">
                         {fetchStatus === 'loading' ? <svg className="lucide lucide-loader-circle mx-2 animate-spin" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg> :
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-chevron-down"><circle cx="12" cy="12" r="10" /><path d="m16 10-4 4-4-4" /></svg>}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-chevron-down"><circle cx="12" cy="12" r="10" /><path d="m16 10-4 4-4-4" /></svg>}
                     </span>
                 </span>
             </div> : <div className="flex w-full justify-center text-xs my-1 mb-2 mx-2">
                 <span onClick={() => setIsMainCategorisShown(false)} className="flex items-center mx-1 py-1 px-3 rounded-md cursor-pointer border border-another text-accent bg-another hover-default hover-border-accent hover-text-default">
                     <span className="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-chevron-up"><circle cx="12" cy="12" r="10" /><path d="m8 14 4-4 4 4" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-chevron-up"><circle cx="12" cy="12" r="10" /><path d="m8 14 4-4 4 4" /></svg>
                     </span>
                 </span>
             </div>}

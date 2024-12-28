@@ -7,7 +7,6 @@ const TabPanel = (props) => {
     const { fetchStatus, tabItems, renderForm, additionalProps, initialTab } = props;
     const [selectedTab, setSelectedTab] = useState(initialTab || tabItems[0].id);
 
-    console.log('@fetchStatus', fetchStatus);
 
     return (
         <React.Fragment>

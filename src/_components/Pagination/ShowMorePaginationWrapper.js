@@ -21,7 +21,6 @@ const ShowMorePaginationWrapper = (props) => {
 
     const [fetchStatus, setFetchStatus] = useState(initialFetchStatus);
     // use lru for caching the results so that memory doesnt become full
-    console.log('@fetchStatus', fetchStatus)
 
     useEffect(() => {
         setFetchStatus(initialFetchStatus);
