@@ -51,7 +51,7 @@ const Header = (props) => {
                 </div>
 
                 {isSidebarNeeded && <div className="flex justify-center items-center">
-                    <Link to={isAuthenticated ? CLIENT_ROUTES.POST_CREATE : CLIENT_ROUTES.SIGNIN} className="flex mr-2">
+                    <Link to={isAuthenticated ? CLIENT_ROUTES.POST_CREATE : CLIENT_ROUTES.SIGNIN} className="flex mr-2 sm:hidden">
                         <span onClick={hideSidebar} title="Signin to start writing" className={`text-center border border-another text-accent hover-accent hover-text-custom text-xs my-2 mx-1 p-2 px-2 cursor-pointer rounded-md ${isAuthenticated ? '' : 'opacity-50'}`}>
                             <span className="flex items-center">
                                 Start Writing
