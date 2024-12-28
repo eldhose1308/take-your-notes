@@ -24,10 +24,14 @@ export const formatPostMainCategoryAndCategoryData = (data) => {
 
 
 const getAuthPostsCategories = async (data, config = {}) => {
-    const response = await postsCategories.getAuthPostsCategories(data, config);
-    const { data: foldersData = [] } = response;
-    const foldersFormatted = foldersData.map(formatPostCategoryData)
-    return foldersFormatted || []
+    try{
+        const response = await postsCategories.getAuthPostsCategories(data, config);
+        const { data: foldersData = [] } = response;
+        const foldersFormatted = foldersData.map(formatPostCategoryData)
+        return foldersFormatted || []
+    }catch(err){
+        throw err;
+    }
 }
 
 const getAuthPostsCategoriesBySlug = async (data, config = {}) => {

@@ -72,7 +72,8 @@ const usePostsCategories = () => {
         }catch(error){
             const { statusCode } = error || {};
             if(statusCode === 401){
-                logout()
+                logout();
+                return;
             }
             setFetchStatus('failure');
         }

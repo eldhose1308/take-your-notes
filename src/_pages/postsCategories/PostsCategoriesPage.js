@@ -12,6 +12,7 @@ import UsersPostList from "_pages/users/UsersPostList";
 import PostCategoryDetailCard from "_modules/posts/_components/PostCategoryDetailCard";
 import Typography from "_components/Misc/Typography/Typography";
 import CategoriesPostList from "./CategoriesPostList";
+import AdditionalCategories from "_modules/additionalContents/AdditionalCategories";
 
 
 const PostsCategoriesPage = () => {
@@ -48,6 +49,8 @@ const PostsCategoriesPage = () => {
             <ResponsiveDrawer direction='right'>
                 <div className="flex flex-col grow-1 basis-0">
                    
+                    <AdditionalCategories type='related' categorySlug={categoryName} />
+
                     <AdditionalUsers />
 
                     <AdditionalContentSection

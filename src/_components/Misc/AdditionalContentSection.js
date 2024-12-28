@@ -10,7 +10,7 @@ const AdditionalContentSection = ({ children, ...props }) => {
 
     return (
         <div>
-            <Card size='sm' rounded='lg' className='border hover-border-highlight mx-4 my-2'>
+            <Card size='sm' rounded='lg' className='border hover-border-highlight mx-4 my-2 text-sm'>
                 {headerContent && <React.Fragment><CardHeader>
                     {headerContent}
                 </CardHeader>
