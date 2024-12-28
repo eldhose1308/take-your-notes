@@ -157,7 +157,7 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], isFetchi
 
           </div>
 
-          {renderAdd && (
+          {(renderAdd && searchQuery) && (
             <React.Fragment>
               <Separator className='w-full' />
 
