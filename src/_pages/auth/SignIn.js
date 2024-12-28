@@ -50,29 +50,19 @@ export default function SignIn() {
 
     const handleSubmit = async (formData) => {
         setButtonStatus('loading');
+        const { email } = formData;
+        toast({
+            heading: 'Checking your credentials',
+            description: `Please wait while we cross check the given password for ${email}`,
+            options: { position: 'top-right' }
+        }).loading()
+        
         try {
-            const { email } = formData;
-            toast({
-                heading: 'Checking your credentials',
-                description: `Please wait while we cross check the given password for ${email}`,
-                options: { position: 'top-right' }
-            }).loading()
-
-            const userData = await login(formData);
-            const { message } = userData;
+            await login(formData);
             setButtonStatus('completed');
-            toast({
-                heading: message,
-                description: 'You will be redirected in any moment now',
-                options: { position: 'top-right' }
-            }).success()
         } catch (error) {
             setButtonStatus('failure');
-            const { message } = error;
-            toast({
-                heading: message,
-                options: { position: 'top-right' }
-            }).error()
+            throw error;
         } finally {
             setTimeout(() => {
                 setButtonStatus('none');

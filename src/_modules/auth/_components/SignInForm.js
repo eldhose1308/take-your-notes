@@ -12,10 +12,16 @@ import useButtonStatus from "_hooks/useButtonStatus";
 import buttonStates from "_constants/buttonStates";
 import { Link } from "react-router-dom";
 
+
+const messages = {
+    success: { heading: 'You are authenticated', description: 'You will be redirected in any moment now' },
+    error: { heading: 'Your credentials doesnt match' }
+};
+
 const SignInForm = (props) => {
     const { onSubmit, onGoogleSubmit, buttonStatus, buttonStatusText } = props;
 
-    const { register, submit, errors, isSubmitting } = useForm({ schema: SignInSchema })
+    const { register, submit, errors, isSubmitting } = useForm({ schema: SignInSchema, messages })
 
 
     return (

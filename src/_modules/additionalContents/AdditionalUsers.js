@@ -14,7 +14,18 @@ import CLIENT_ROUTES from "_routes/clientRoutes";
 const pageSize = 6;
 const usersListRoute = CLIENT_ROUTES.USER_LIST;
 
-const AdditionalUsers = () => {
+
+const headingMap = {
+    following: "Users You Follow",
+    related: "Related Users",
+    recommended: "Users You Might Like",
+    latest: "Fresh Faces in the Community",
+    random: "Random Users",
+};
+
+const AdditionalUsers = (props) => {
+    const { type = 'latest', userName } = props;
+
     const [usersData, setUsersData] = useState();
     const { fetchStatus, fetchUsersData } = useUsers();
     const UsersListComponentState = useComponentFetchState({
@@ -25,6 +36,13 @@ const AdditionalUsers = () => {
 
     const fetchUsers = async () => {
         const filters = { page: 1, limit: pageSize };
+        if(type === 'related') {
+            if(!userName){
+                return;
+            }
+            filters.related = userName;
+        }
+
         try {
             const usersList = await fetchUsersData(filters);
             setUsersData(usersList);
@@ -40,7 +58,7 @@ const AdditionalUsers = () => {
     return (
         <React.Fragment>
             <AdditionalContentSection
-                heading='Fresh Faces in the Community'
+                heading={headingMap[type] || ''}
                 renderFooter={() => <SeeMoreButton linkUrl={usersListRoute} />}
             >
 

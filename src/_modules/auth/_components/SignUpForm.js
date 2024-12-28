@@ -10,10 +10,16 @@ import useForm from "_hooks/useForm";
 import { SignUpSchema } from "../_utils/validation-rules";
 import { Link } from "react-router-dom";
 
+
+const messages = {
+    success: { heading: 'Your account is created', description: 'You will be redirected in any moment now' },
+    error: { heading: 'Your account could not be created' }
+};
+
 const SignUpForm = (props) => {
     const { onSubmit, onGoogleSubmit, buttonStatus, buttonStatusText } = props;
 
-    const { register, submit, errors, isSubmitting } = useForm({ schema: SignUpSchema })
+    const { register, submit, errors, isSubmitting } = useForm({ schema: SignUpSchema, messages })
 
 
     return (

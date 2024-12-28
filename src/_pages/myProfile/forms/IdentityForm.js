@@ -38,6 +38,7 @@ const IdentityForm = (props) => {
 
             <Alerts type='info'>
                 <Typography textVariant='light' size='xs'>This section requires current password to update.</Typography>
+                <Typography textVariant='light' size='xs'>If you logged in with google, then password is not needed.</Typography>
             </Alerts>
 
             <Separator variant='another' className='my-3' />

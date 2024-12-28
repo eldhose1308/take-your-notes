@@ -38,7 +38,10 @@ const UserDetailPage = () => {
                 <ResponsiveDrawer direction='right'>
                     <div className="flex flex-col grow-1 basis-0">
 
+                    {fetchStatus === 'success' && <AdditionalUsers type='related' userName={userName} /> }
+
                     {fetchStatus === 'success' && <AdditionalUsers /> }
+
 
                         {/* <AdditionalUsersPosts userName={userName} fullName='Show suggestions' /> */}
 

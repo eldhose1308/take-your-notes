@@ -16,7 +16,7 @@ const useAuth = () => {
             // const { data } = userData;
             setTimeout(() => {
                 loginClient(userData)
-            }, 1500)
+            }, 1000)
             return userData
         }catch(err){
             throw err;

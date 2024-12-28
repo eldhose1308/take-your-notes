@@ -3,7 +3,7 @@ import { createSchema, defineRule } from "_utils/validation-library";
 
 export const IdentitySchema = createSchema({
     // email: defineRule().required().email().min(8).max(32).build(),
-    password: defineRule().required().password().min(8).max(32).build(),
+    password: defineRule().password().min(8).max(32).build(),
     fullName: defineRule().required().min(3).max(32).build(),
     userName: defineRule().required().min(3).max(32).build(),
 })
