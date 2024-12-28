@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useRef } from "react";
 
 import Toast from "_components/UI/Toast/Toast";
 
@@ -9,6 +9,8 @@ const ToastProvider = ({ children }) => {
     const [message, setMessage] = useState({})
     const [options, setOptions] = useState({})
     const [type, setType] = useState('')
+
+    const timeoutRef = useRef(null);
 
     const [progress, setProgress] = useState(0)
 
@@ -27,13 +29,24 @@ const ToastProvider = ({ children }) => {
         setType(type)
         setOptions(options)
 
-        setTimeout(() => {
+        timeoutRef.current = setTimeout(() => {
             if(type !== 'loading'){
                 hideToast();
             }
-        }, 2000)
+        }, 5000)
     }
 
+    const handleHover = () => {
+        clearTimeout(timeoutRef.current);
+    }
+
+    const handleUnHover = () => {
+        timeoutRef.current = setTimeout(() => {
+            if (type !== 'loading') {
+                hideToast();
+            }
+        }, 1000);
+    }
 
     // info: (heading, { autoHide, position, className }) => {
 
@@ -65,7 +78,7 @@ const ToastProvider = ({ children }) => {
 
     return (
         <ToastContext.Provider value={{ toast, hideToast, setProgress }}>
-            <Toast isShown={isShown} type={type} options={options} message={message} progress={progress} />
+            <Toast isShown={isShown} type={type} options={options} message={message} progress={progress} onHovered={handleHover} onUnHovered={handleUnHover} />
             {children}
         </ToastContext.Provider>
     )

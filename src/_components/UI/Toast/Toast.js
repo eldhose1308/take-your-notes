@@ -15,7 +15,7 @@ const ToastIcons = {
 
 // create a key so that the toast re-mounts after every call
 const Toast = (props) => {
-    const { isShown = false, type: defaultType = 'default', options = {}, message = {}, progress } = props;
+    const { isShown = false, type: defaultType = 'default', options = {}, message = {}, progress, onHovered, onUnHovered } = props;
     const { heading = 'Your request is processing', description = 'Please wait for some moment.' } = message;
     const { position = 'top-right', } = options;
 
@@ -33,7 +33,7 @@ const Toast = (props) => {
 
     return (
         <div className="flex flex-col">
-            <div className={`dialog dialog-${positionX} dialog-${positionY} z-60 fixed flex items-center justify-end animate-slide-in-y`}>
+            <div onMouseEnter={onHovered} onMouseLeave={onUnHovered} className={`dialog dialog-${positionX} dialog-${positionY} z-60 fixed flex items-center justify-end animate-slide-in-y`}>
                 <div className="max-w-sm min-w-sm">
                     <div className={`card border  border-custom bg-default rounded-lg m-3`}>
 
