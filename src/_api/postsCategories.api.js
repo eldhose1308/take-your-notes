@@ -88,12 +88,21 @@ const updatePostCategory = async (data, id, config = {}) => {
     })
 }
 
-const deletePost = async (folderId, config = {}) => {
-    return new AccessAPI(BASE_URL + `postCategories/${folderId}`).delete()
+const deletePostCategory = async (postCategoryId, config = {}) => {
+    return new AccessAPI(BASE_URL + `postCategories/${postCategoryId}`).delete()
     .then((res) => {
         return res
     }).catch((err) => {
-        throw err.response
+        throw err
+    })
+}
+
+const restorePostCategory = async (postCategoryId, config = {}) => {
+    return new AccessAPI(BASE_URL + `postCategories/${postCategoryId}/restore`).post()
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err
     })
 }
 
@@ -110,5 +119,6 @@ export {
 
     savePostCategory,
     updatePostCategory,
-    deletePost
+    deletePostCategory,
+    restorePostCategory
 }

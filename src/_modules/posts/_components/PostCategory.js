@@ -14,7 +14,8 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
     const [selectedCategory, setSelectedCategory] = useState(category);
     const [data, setData] = useState([]);
 
-    const { id, categoryName: label = 'Select a category' } = useMemo(() => selectedCategory || {}, [selectedCategory]);
+    const { id, categorySlug, categoryName: label = 'Select a category' } = useMemo(() => selectedCategory || {}, [selectedCategory]);
+    const { id: value } = useMemo(() => data.find((dataItem) => dataItem.categorySlug === categorySlug) || {}, [data, categorySlug]);
 
     const [newCategoryModalData, setNewCategoryModalData] = useState(null);
     const debounce = useDebounce();
@@ -111,7 +112,7 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
                         }
                         return <span className="block w-full" onClick={() => handleOpenCategoryCreateModal(searchQuery)}>Create new "{searchQuery}"</span>
                     } : () => { }}
-                    selectedValue={id}
+                    selectedValue={value}
                     idKey='id'
                     labelKey='categoryName'
                     isSpecialKey='isVerified'

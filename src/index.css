@@ -978,6 +978,10 @@ line-height: 1.5rem;
   color: var(--secondary);
 }
 
+.sm\:display{
+  display: none;
+}
+
 @media only screen and (max-width: 640px) {
   .sm\:display{
       display: block !important;

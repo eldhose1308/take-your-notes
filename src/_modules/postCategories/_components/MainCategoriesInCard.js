@@ -4,10 +4,17 @@ import * as postsCategoriesService from "_services/postsCategories.service";
 import { Link } from "react-router-dom";
 import Separator from "_components/Misc/Separator/Separator";
 import CLIENT_ROUTES from "_routes/clientRoutes";
+import usePostsCategories from "_modules/posts/_hooks/usePostsCategories";
+import { useConfirmDeleteDialog } from "_contexts/ConfirmDeleteDialogProvider";
 
 const MainCategoriesInCard = (props) => {
     const { categoryData } = props;
-    const { categorySlug } = categoryData;
+    const { id, categorySlug } = categoryData;
+
+    const { deletePostCategory, restorePostCategory } = usePostsCategories();
+    const { confirmDelete } = useConfirmDeleteDialog();
+
+    const [isDeleted, setIsDeleted] = useState(false);
 
     const [mainCategories, setMainCategories] = useState([]);
     const [isMainCategorisShown, setIsMainCategorisShown] = useState(false);
@@ -15,6 +22,30 @@ const MainCategoriesInCard = (props) => {
 
     const categoryEditRoute = CLIENT_ROUTES.CATEGORY_EDIT(categorySlug);
 
+
+
+    const handleUndoDelete = async () => {
+        try {
+            await restorePostCategory(id);
+            setIsDeleted(false);
+        } catch {
+            console.log('Failed to restore post category');
+        }
+    }
+
+    const handleDelete = async () => {
+        const isConfirmed = await confirmDelete(() => deletePostCategory(id));
+
+        if (isConfirmed) {
+            try {
+                setIsDeleted(true);
+                return true;
+            } catch {
+                return false;
+            }
+        }
+        return false;
+    }
 
     const renderMainCategories = async () => {
         const { categorySlug } = categoryData;
@@ -67,12 +98,19 @@ const MainCategoriesInCard = (props) => {
                         </span>
                     </Link>
 
-                    <span className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-destructive rounded-md cursor-pointer' onClick={() => { }}>
+                    {isDeleted ? (
+                        <span onClick={handleUndoDelete} className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-info rounded-md cursor-pointer'>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-undo"><path d="M3 7v6h6" /><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13" /></svg>
+                            <span className='pl-1'>
+                                Undo Delete
+                            </span>
+                        </span>
+                    ) : (<span onClick={handleDelete} className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-destructive rounded-md cursor-pointer'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
                         <span className='pl-1'>
                             Delete
                         </span>
-                    </span>
+                    </span>)}
                 </div>
             </React.Fragment>
         </div>

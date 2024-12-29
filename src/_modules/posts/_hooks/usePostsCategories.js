@@ -14,13 +14,13 @@ const usePostsCategories = () => {
     const { logout } = useAuth();
 
     const fetchPostCategoryByName = async (categorySlug) => {
-        try{
+        try {
             setFetchStatus('loading');
             const categoryInfo = await postsCategoriesService.getPostsCategoryBySlug(categorySlug);
             setCategoryData(categoryInfo);
             setFetchStatus('success');
             return categoryInfo;
-        }catch(error){
+        } catch (error) {
             setFetchStatus('failure');
         }
     }
@@ -28,25 +28,25 @@ const usePostsCategories = () => {
 
     const fetchPostCategories = async (filters) => {
         const { limit } = filters || {};
-        try{
+        try {
             setFetchStatus('loading');
             const categoriesData = await postsCategoriesService.getPostsCategories(filters);
             // setCategories((previousData) => [...previousData, ...categoriesData]);
             checkIfAllDataFetched(categoriesData, limit);
-            if(categoriesData.length === 0){
+            if (categoriesData.length === 0) {
                 setFetchStatus('empty');
-            }else{
+            } else {
                 setFetchStatus('success');
                 setTimeout(() => {
                     // setFetchStatus('none');
                 }, 1000);
             }
             return categoriesData;
-        }catch(error){
+        } catch (error) {
             const { statusCode } = error || {};
-            if(statusCode === 401){
+            if (statusCode === 401) {
                 setFetchStatus('unauthorised');
-            }else{
+            } else {
                 setFetchStatus('failure');
             }
         }
@@ -55,23 +55,23 @@ const usePostsCategories = () => {
 
     const fetchMyPostCategories = async (filters) => {
         const { limit } = filters || {};
-        try{
+        try {
             setFetchStatus('loading');
             const categoriesData = await postsCategoriesService.getAuthPostsCategories(filters);
             // setCategories((previousData) => [...previousData, ...categoriesData]);
             checkIfAllDataFetched(categoriesData, limit);
-            if(categoriesData.length === 0){
+            if (categoriesData.length === 0) {
                 setFetchStatus('empty');
-            }else{
+            } else {
                 setFetchStatus('success');
                 setTimeout(() => {
                     // setFetchStatus('none');
                 }, 1000);
             }
             return categoriesData;
-        }catch(error){
+        } catch (error) {
             const { statusCode } = error || {};
-            if(statusCode === 401){
+            if (statusCode === 401) {
                 logout();
                 return;
             }
@@ -80,7 +80,7 @@ const usePostsCategories = () => {
     }
 
     const checkIfAllDataFetched = (data, pageSize) => {
-        if(pageSize){
+        if (pageSize) {
             setAllDataFetched(data.length === 0 || data.length % pageSize !== 0);
         }
     }
@@ -98,7 +98,7 @@ const usePostsCategories = () => {
             // setCategories((previousData) => [postsResponse, ...previousData]);
             return postsResponse;
         } catch (error) {
-            const { message='Something went wrong' } = error || {};
+            const { message = 'Something went wrong' } = error || {};
             throw message;
         }
     };
@@ -106,6 +106,51 @@ const usePostsCategories = () => {
     const savePostCategory = async (postCategoryPayload) => {
         return createPostCategory(postCategoryPayload);
     }
+
+    const deletePostCategory = async (id) => {
+        try {
+            const postsResponse = await postsCategoriesService.deletePostCategory(id);
+            toast({
+                heading: 'Post Category deleted successfully!',
+                description: 'Your post category has been successfully deleted!',
+                options: { position: 'top-right' }
+            }).success()
+            return postsResponse;
+        } catch (error) {
+            const { message, statusCode } = error;
+            if (statusCode === 401) {
+                logout()
+            }
+            toast({
+                heading: 'Oops! There was an error deleting your post category.',
+                description: message,
+                options: { position: 'top-right' }
+            }).error()
+            throw error;
+            // return false;
+        }
+    };
+
+    const restorePostCategory = async (id) => {
+        try {
+            const postsResponse = await postsCategoriesService.restorePostCategory(id);
+            toast({
+                heading: 'Post Category restored successfully!',
+                description: 'Your post category has been successfully restored!',
+                options: { position: 'top-right' }
+            }).success()
+            return postsResponse;
+        } catch (error) {
+            const { message } = error;
+            toast({
+                heading: 'Oops! There was an error restoring your post category.',
+                description: message,
+                options: { position: 'top-right' }
+            }).error()
+            throw error;
+            // return false;
+        }
+    };
 
     return {
         categoryData,
@@ -117,7 +162,10 @@ const usePostsCategories = () => {
         fetchMyPostCategories,
         fetchPostCategories,
         fetchPostCategoryByName,
-        savePostCategory
+        savePostCategory,
+
+        deletePostCategory,
+        restorePostCategory
     }
 }
 

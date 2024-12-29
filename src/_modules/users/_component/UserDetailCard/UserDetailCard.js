@@ -8,6 +8,7 @@ import UserInfo from "_modules/users/_component/UserInfo";
 import FollowButton from "_modules/users/_component/FollowButton";
 
 import CLIENT_ROUTES from "_routes/clientRoutes";
+import { Link } from "react-router-dom";
 
 const UserDetailCard = (props) => {
     const { userData } = props;
@@ -62,7 +63,7 @@ const UserDetailCard = (props) => {
 
                         <Separator orientation='vertical' />
                         <div>
-                            <Typography textVariant='none'>Website : <Typography type='span'>{websiteLink}</Typography></Typography>
+                            <Typography textVariant='none'>Website : <Typography type='span'><Link target="_blank" to={websiteLink}>{websiteLink}</Link></Typography></Typography>
                         </div>
                     </React.Fragment>
                 }

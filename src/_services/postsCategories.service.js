@@ -2,8 +2,8 @@ import * as postsCategories from '_api/postsCategories.api'
 import { formatToLocalTime } from '_utils/timestampUtils';
 
 export const formatPostCategoryData = (data) => {
-    const { category_name, category_slug, category_icon, posts_count, followers_count, created_at, category_id, is_following, verified } = data;
-    const formattedResponse = { id: category_id, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon, followers: followers_count, posts: posts_count, createdAt: formatToLocalTime(created_at), isFollowing: !!is_following, isVerified: !!Number(verified) };
+    const { category_name, category_slug, category_icon, posts_count, followers_count, created_at, full_name: created_by='Admin', user_name: createdUserName, category_id, is_following, verified } = data;
+    const formattedResponse = { id: category_id, categoryName: category_name, categorySlug: category_slug, categoryIcon: category_icon, followers: followers_count, posts: posts_count, createdUser: created_by, createdUserName, createdAt: formatToLocalTime(created_at), isFollowing: !!is_following, isVerified: !!Number(verified) };
     return formattedResponse;
 }
     
@@ -110,16 +110,34 @@ const savePostCategory = async (data, config = {}) => {
 
 
 const updatePostCategory = async (data, id, config = {}) => {
-    const response = await postsCategories.updatePostCategory(data, id, config);
-    const { data: folderData = [] } = response;
-    return formatPostCategoryData(folderData);
+    try{
+        const response = await postsCategories.updatePostCategory(data, id, config);
+        const { data: folderData = [] } = response;
+        return formatPostCategoryData(folderData);
+    }catch(err){
+        throw err;
+    }
 }
 
-const deletePost = async (id, config = {}) => {
-    const response = await postsCategories.deletePost(id, config)
-    return response
+
+const deletePostCategory = async (id, config = {}) => {
+    try{
+        const response = await postsCategories.deletePostCategory(id, config)
+        return response;
+    }catch(err){
+        throw err;
+    }  
 }
 
+
+const restorePostCategory = async (id, config = {}) => {
+    try{
+        const response = await postsCategories.restorePostCategory(id, config)
+        return response;
+    }catch(err){
+        throw err;
+    }  
+}
 
 
 
@@ -136,5 +154,6 @@ export {
 
     savePostCategory,
     updatePostCategory,
-    deletePost
+    deletePostCategory,
+    restorePostCategory
 }

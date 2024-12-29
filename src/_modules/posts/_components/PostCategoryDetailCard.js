@@ -6,12 +6,13 @@ import ShareButton from "_components/UI/ShareButton/ShareButton";
 import FollowButton from "_modules/postCategories/_components/FollowButton";
 import PostCategoryInfo from "./PostCategoryInfo";
 import CLIENT_ROUTES from "_routes/clientRoutes";
+import { Link } from "react-router-dom";
 
 const PostCategoryDetailCard = (props) => {
 
     const { categoryData = {} } = props;
     const [categoryState, setCategoryState] = useState(categoryData);
-    const { id: categoryId, categorySlug, categoryName, bio, createdAt, posts, followers, rank, isFollowing } = categoryState;
+    const { id: categoryId, categorySlug, categoryName, bio, createdAt, createdUser, createdUserName, posts, followers, rank, isFollowing } = categoryState;
 
 
     return (
@@ -49,6 +50,7 @@ const PostCategoryDetailCard = (props) => {
             <div className="flex my-2">
                 <div>
                     <Typography textVariant='none'>Created at <Typography type='span'>{createdAt}</Typography></Typography>
+                    <Typography textVariant='none'>Added by <Typography type='span'><Link to={CLIENT_ROUTES.USER_DETAIL(createdUserName)}>{createdUser}</Link></Typography></Typography>
                 </div>
             </div>
 

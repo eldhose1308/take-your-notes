@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useToast } from "_contexts/ToastProvider";
@@ -15,6 +15,8 @@ import FormattedTimestamp from "../FormattedTimestamp";
 
 import CLIENT_ROUTES from "_routes/clientRoutes";
 import PostCategoryBadge from "_modules/postCategories/_components/PostCategoryBadge";
+import { useConfirmDeleteDialog } from "_contexts/ConfirmDeleteDialogProvider";
+import useMyPosts from "_modules/posts/_hooks/useMyPosts";
 
 const PostListItem = (props) => {
     const { postItem } = props;
@@ -22,21 +24,51 @@ const PostListItem = (props) => {
     const { categoryName, categorySlug, isVerified } = category || {};
     const { userName, fullName, avatar } = user || {};
 
+    const [isDeleted, setIsDeleted] = useState(false);
+
+    const { deletePost, restorePost } = useMyPosts();
     // const { isAuthenticated } = useAuth();
+    const { confirmDelete } = useConfirmDeleteDialog();
 
     const isCurrentUserDetail = isUserDataSameAsLoggedInUser(userName);
     const postDetailRoute = routeBasedOnAuthorisation(userName, postSlug)
     const postEditRoute = CLIENT_ROUTES.POST_EDIT(postSlug);
 
 
+    const handleUndoDelete = async () => {
+        try{
+            await restorePost(id);
+            setIsDeleted(false);
+        }catch {
+            console.log('Failed to restore post');
+        }
+    }
+
+    const handleDelete = async () => {
+        const isConfirmed = await confirmDelete(() => deletePost(id));
+
+        if (isConfirmed) {
+            try {
+                setIsDeleted(true);
+                return true;
+            } catch {
+                return false;
+            }
+        }
+        return false;
+    }
+
     return (
-        <Card border='another' variant='default' rounded='md' className={`border hover-border-highlight my-2 w-full max-h-mds ${isVerified ? '' : 'opacity-50'}`}>
+        <Card border='another' variant='default' rounded='md' className={`border hover-border-highlight my-2 w-full max-h-mds ${isVerified ? '' : 'opacity-50'} ${isDeleted ? 'opacity-50' : ''}`}>
             <CardHeader>
                 <Flex justifyContent='spaceBetween' alignItems='none' className=''>
                     <UserProfileInfo userData={user} hasFollowButton={false} />
                     {!isVerified && <span className="cursor-pointer" title="This category is not verified">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock-alert"><path d="M12 6v6l4 2"/><path d="M16 21.16a10 10 0 1 1 5-13.516"/><path d="M20 11.5v6"/><path d="M20 21.5h.01"/></svg>
                         </span>}
+                    {isDeleted && <span className="cursor-pointer" title="This post is deleted">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                        </span>}    
                 </Flex>
             </CardHeader>
 
@@ -121,12 +153,19 @@ const PostListItem = (props) => {
                                     </span>
                                 </Link>
 
-                                <span className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-destructive rounded-md cursor-pointer' onClick={() => { }}>
+                                {isDeleted ? (
+                                    <span onClick={handleUndoDelete} className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-info rounded-md cursor-pointer'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-undo"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+                                    <span className='pl-1'>
+                                        Undo Delete
+                                    </span>
+                                </span>
+                                ) : (<span onClick={handleDelete} className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-destructive rounded-md cursor-pointer'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
                                     <span className='pl-1'>
                                         Delete
                                     </span>
-                                </span>
+                                </span>)}
                             </div>
                         </React.Fragment>
 

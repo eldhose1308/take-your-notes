@@ -65,9 +65,24 @@ const updatePost = async (data, id, config = {}) => {
 }
 
 const deletePost = async (id, config = {}) => {
+    try{
     const response = await posts.deletePost(id, config)
-    return response
+    return response;
+    }catch(err){
+        throw err;
+    }  
 }
+
+
+const restorePost = async (id, config = {}) => {
+    try{
+    const response = await posts.restorePost(id, config)
+    return response;
+    }catch(err){
+        throw err;
+    }  
+}
+
 
 
 
@@ -77,5 +92,6 @@ export {
     getPostBySlug,
     savePost,
     updatePost,
-    deletePost
+    deletePost,
+    restorePost
 }

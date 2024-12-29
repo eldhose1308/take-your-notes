@@ -49,12 +49,21 @@ const updatePost = async (data, id, config = {}) => {
     })
 }
 
-const deletePost = async (folderId, config = {}) => {
-    return new AccessAPI(BASE_URL + `posts/${folderId}`).delete()
+const deletePost = async (postId, config = {}) => {
+    return new AccessAPI(BASE_URL + `posts/${postId}`).delete()
     .then((res) => {
         return res
     }).catch((err) => {
-        throw err.response
+        throw err
+    })
+}
+
+const restorePost = async (postId, config = {}) => {
+    return new AccessAPI(BASE_URL + `posts/${postId}/restore`).post()
+    .then((res) => {
+        return res
+    }).catch((err) => {
+        throw err
     })
 }
 
@@ -64,5 +73,6 @@ export {
     getPostsBySlug,
     savePost,
     updatePost,
-    deletePost
+    deletePost,
+    restorePost
 }

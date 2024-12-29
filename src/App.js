@@ -16,6 +16,7 @@ import useUser from "_hooks/useUser";
 import setTheme from "_utils/setTheme";
 import { toggleFont } from "_utils/domUtils";
 import FullPageSkeleton from "FullPageSkeleton";
+import ConfirmDeleteDialogProvider from "_contexts/ConfirmDeleteDialogProvider";
 
 
 const router = createHashRouter(ROUTES);
@@ -45,13 +46,13 @@ function App() {
 
           <ToastProvider>
             <TopLoaderProvider>
-
-              <AuthProvider>
-                <Suspense fallback={<FullPageSkeleton />}>
-                  <RouterProvider router={router} />
-                </Suspense>
-              </AuthProvider>
-
+              <ConfirmDeleteDialogProvider>
+                <AuthProvider>
+                  <Suspense fallback={<FullPageSkeleton />}>
+                    <RouterProvider router={router} />
+                  </Suspense>
+                </AuthProvider>
+              </ConfirmDeleteDialogProvider>
             </TopLoaderProvider>
           </ToastProvider>
         </Provider>

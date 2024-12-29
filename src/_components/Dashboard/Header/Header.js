@@ -46,8 +46,9 @@ const Header = (props) => {
                     {isSidebarNeeded && <div className="menu-icon" onClick={toggleSidebar}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-align-left"><line x1="21" x2="3" y1="6" y2="6" /><line x1="15" x2="3" y1="12" y2="12" /><line x1="17" x2="3" y1="18" y2="18" /></svg>
                     </div>}
-
-                    {/* <div className="header_search">Search...</div> */}
+                    <Link to={CLIENT_ROUTES.HOME} className="flex ml-8 sm:display">
+                        <span className="small-logo">Home</span>
+                    </Link>
                 </div>
 
                 {isSidebarNeeded && <div className="flex justify-center items-center">

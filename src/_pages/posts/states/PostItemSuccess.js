@@ -42,7 +42,7 @@ const PostItemSuccess = (props) => {
                 <Separator className='my-2' />
 
                 <div className="flex">
-                    <UserProfileInfo userData={user} hasFollowers hasFollowButton={true} />
+                    <UserProfileInfo userData={user} hasFollowers hasFollowButton={false} />
                 </div>
 
                 <div className="flex my-1"></div>

@@ -116,7 +116,48 @@ const useMyPosts = () => {
     }, []);
 
     const deletePost = useCallback(async (id) => {
-        // yet to implement
+        try {
+            const postsResponse = await posts.deletePost(id);
+            toast({
+                heading: 'Post deleted successfully!',
+                description: 'Your post has been successfully deleted!',
+                options: { position: 'top-right' }
+            }).success()
+            return postsResponse;
+        } catch (error) {
+            const { message, statusCode } = error;
+            if(statusCode === 401){
+                logout()
+            }
+            toast({
+                heading: 'Oops! There was an error deleting your post.',
+                description: message,
+                options: { position: 'top-right' }
+            }).error()
+            throw error;
+            // return false;
+        }
+    }, []);
+
+    const restorePost = useCallback(async (id) => {
+        try {
+            const postsResponse = await posts.restorePost(id);
+            toast({
+                heading: 'Post restored successfully!',
+                description: 'Your post has been successfully restored!',
+                options: { position: 'top-right' }
+            }).success()
+            return postsResponse;
+        } catch (error) {
+            const { message } = error;
+            toast({
+                heading: 'Oops! There was an error restoring your post.',
+                description: message,
+                options: { position: 'top-right' }
+            }).error()
+            throw error;
+            // return false;
+        }
     }, []);
 
 
@@ -163,33 +204,33 @@ const useMyPosts = () => {
         return postSlug ? updatePost(postPayload, postId) : createPost(postPayload);
     }
 
+    const fetchUsersPostItem = async () => {
+        const { userName } = getUserDetailsOfCurrentUser();
+        try {
+
+            setFetchStatus('loading');
+            const usersPostData = await postsService.getPostBySlug({ userName, postSlug });
+            const { id: postId, category, content, postTitle, visibility, user } = usersPostData || {};
+            const { categoryId, categoryName, categorySlug } = category || {};
+            const { fullName, avatar } = user || {};
+
+            const payload = { postId, markdownContent: content, postTitle, currentVisibilityMode: visibility, postCategory: { id: categoryId, categoryName, categorySlug, value: categorySlug } };
+
+            postFormDispatcher({ type: POST_ACTIONS.SET_FIELDS, payload });
+
+            setFetchStatus('success');
+        } catch (error) {
+            setFetchStatus('failure');
+        }
+    }
 
     useEffect(() => {
         if (!postSlug) {
             return
         }
 
-        const fetchUsersPostItem = async () => {
-            const { userName } = getUserDetailsOfCurrentUser();
-            try {
 
-                setFetchStatus('loading');
-                const usersPostData = await postsService.getPostBySlug({ userName, postSlug });
-                const { id: postId, category, content, postTitle, visibility, user } = usersPostData || {};
-                const { categoryId, categoryName } = category || {};
-                const { fullName, avatar } = user || {};
-
-                const payload = { postId, markdownContent: content, postTitle, currentVisibilityMode: visibility, postCategory: { id: categoryId, categoryName, value: categoryId } };
-
-                postFormDispatcher({ type: POST_ACTIONS.SET_FIELDS, payload });
-
-                setFetchStatus('success');
-            } catch (error) {
-                setFetchStatus('failure');
-            }
-        }
-
-        fetchUsersPostItem();
+        // fetchUsersPostItem();
     }, [postSlug])
 
     return {
@@ -200,9 +241,11 @@ const useMyPosts = () => {
         // categories: postsCategoriesList,
         fetchCategoriesData,
         fetchMyPostsData,
+        fetchUsersPostItem,
 
         savePost,
         deletePost,
+        restorePost,
         
         postFormState,
         postFormDispatcher,

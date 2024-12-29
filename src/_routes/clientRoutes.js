@@ -1,4 +1,5 @@
 const CLIENT_ROUTES = {
+    HOME: '/',
     SIGNIN: '/signin',
     SIGNUP: '/signup',
     FEEDBACKS: '/feedbacks',

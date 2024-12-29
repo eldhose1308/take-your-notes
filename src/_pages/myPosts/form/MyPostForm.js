@@ -60,7 +60,7 @@ const tagsSuggestions = [
 const MyPostForm = () => {
     const { navigateToList } = usePostsNavigation();
 
-    const { postFormState, postFormDispatcher, savePost, fetchStatus } = useMyPosts();
+    const { postFormState, fetchUsersPostItem, postFormDispatcher, savePost, fetchStatus } = useMyPosts();
 
     const { postTags, currentVisibilityMode, postCategory, postTitle, markdownContent } = postFormState;
     const { categoryName } = postCategory || {};
@@ -104,6 +104,10 @@ const MyPostForm = () => {
         postFormDispatcher({ type: POST_ACTIONS.SET_CATEGORY, payload: option });
     }
 
+
+    useEffect(() => {
+        fetchUsersPostItem();
+    }, [])
 
     if (fetchStatus === 'loading') {
         return <div className="m-5">
