@@ -205,6 +205,10 @@ const useMyPosts = () => {
     }
 
     const fetchUsersPostItem = async () => {
+        if (!postSlug) {
+            return
+        }
+        
         const { userName } = getUserDetailsOfCurrentUser();
         try {
 
@@ -225,9 +229,6 @@ const useMyPosts = () => {
     }
 
     useEffect(() => {
-        if (!postSlug) {
-            return
-        }
 
 
         // fetchUsersPostItem();
