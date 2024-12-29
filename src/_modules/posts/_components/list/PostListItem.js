@@ -18,6 +18,15 @@ import PostCategoryBadge from "_modules/postCategories/_components/PostCategoryB
 import { useConfirmDeleteDialog } from "_contexts/ConfirmDeleteDialogProvider";
 import useMyPosts from "_modules/posts/_hooks/useMyPosts";
 
+
+
+const buttonStateValues = {
+    none: 'Undo Delete',
+    loading: 'Restoring...',
+    failure: 'Failed to Restore',
+    completed: 'Restored',
+}
+
 const PostListItem = (props) => {
     const { postItem } = props;
     const { postTitle, postSlug, id, content, category, user, createdAt, updatedAt } = postItem;
@@ -25,6 +34,7 @@ const PostListItem = (props) => {
     const { userName, fullName, avatar } = user || {};
 
     const [isDeleted, setIsDeleted] = useState(false);
+    const [buttonStatus, setButtonStatus] = useState('none');
 
     const { deletePost, restorePost } = useMyPosts();
     // const { isAuthenticated } = useAuth();
@@ -36,11 +46,19 @@ const PostListItem = (props) => {
 
 
     const handleUndoDelete = async () => {
-        try{
+        setButtonStatus('loading');
+
+        try {
             await restorePost(id);
             setIsDeleted(false);
-        }catch {
+            setButtonStatus('success');
+        } catch {
             console.log('Failed to restore post');
+            setButtonStatus('failure');
+        } finally {
+            setTimeout(() => {
+                setButtonStatus('none');
+            }, 1000);
         }
     }
 
@@ -64,11 +82,11 @@ const PostListItem = (props) => {
                 <Flex justifyContent='spaceBetween' alignItems='none' className=''>
                     <UserProfileInfo userData={user} hasFollowButton={false} />
                     {!isVerified && <span className="cursor-pointer" title="This category is not verified">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock-alert"><path d="M12 6v6l4 2"/><path d="M16 21.16a10 10 0 1 1 5-13.516"/><path d="M20 11.5v6"/><path d="M20 21.5h.01"/></svg>
-                        </span>}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock-alert"><path d="M12 6v6l4 2" /><path d="M16 21.16a10 10 0 1 1 5-13.516" /><path d="M20 11.5v6" /><path d="M20 21.5h.01" /></svg>
+                    </span>}
                     {isDeleted && <span className="cursor-pointer" title="This post is deleted">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-                        </span>}    
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash-2"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /><line x1="10" x2="10" y1="11" y2="17" /><line x1="14" x2="14" y1="11" y2="17" /></svg>
+                    </span>}
                 </Flex>
             </CardHeader>
 
@@ -154,12 +172,12 @@ const PostListItem = (props) => {
                                 </Link>
 
                                 {isDeleted ? (
-                                    <span onClick={handleUndoDelete} className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-info rounded-md cursor-pointer'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-undo"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
-                                    <span className='pl-1'>
-                                        Undo Delete
+                                    <span onClick={buttonStatus === 'loading' ? ()=>{} : handleUndoDelete} className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-info rounded-md cursor-pointer'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-undo"><path d="M3 7v6h6" /><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13" /></svg>
+                                        <span className='pl-1'>
+                                            {buttonStateValues[buttonStatus]}
+                                        </span>
                                     </span>
-                                </span>
                                 ) : (<span onClick={handleDelete} className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-destructive rounded-md cursor-pointer'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
                                     <span className='pl-1'>

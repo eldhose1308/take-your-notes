@@ -7,6 +7,14 @@ import CLIENT_ROUTES from "_routes/clientRoutes";
 import usePostsCategories from "_modules/posts/_hooks/usePostsCategories";
 import { useConfirmDeleteDialog } from "_contexts/ConfirmDeleteDialogProvider";
 
+
+const buttonStateValues = {
+    none: 'Undo Delete',
+    loading: 'Restoring...',
+    failure: 'Failed to Restore',
+    completed: 'Restored',
+}
+
 const MainCategoriesInCard = (props) => {
     const { categoryData } = props;
     const { id, categorySlug } = categoryData;
@@ -15,6 +23,7 @@ const MainCategoriesInCard = (props) => {
     const { confirmDelete } = useConfirmDeleteDialog();
 
     const [isDeleted, setIsDeleted] = useState(false);
+    const [buttonStatus, setButtonStatus] = useState('none');
 
     const [mainCategories, setMainCategories] = useState([]);
     const [isMainCategorisShown, setIsMainCategorisShown] = useState(false);
@@ -23,13 +32,20 @@ const MainCategoriesInCard = (props) => {
     const categoryEditRoute = CLIENT_ROUTES.CATEGORY_EDIT(categorySlug);
 
 
-
     const handleUndoDelete = async () => {
+        setButtonStatus('loading');
+
         try {
             await restorePostCategory(id);
             setIsDeleted(false);
+            setButtonStatus('success');
         } catch {
             console.log('Failed to restore post category');
+            setButtonStatus('failure');
+        } finally {
+            setTimeout(() => {
+                setButtonStatus('none');
+            }, 1000);
         }
     }
 
@@ -99,10 +115,10 @@ const MainCategoriesInCard = (props) => {
                     </Link>
 
                     {isDeleted ? (
-                        <span onClick={handleUndoDelete} className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-info rounded-md cursor-pointer'>
+                        <span onClick={buttonStatus === 'loading' ? ()=>{} : handleUndoDelete} className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-info rounded-md cursor-pointer'>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-undo"><path d="M3 7v6h6" /><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13" /></svg>
                             <span className='pl-1'>
-                                Undo Delete
+                            {buttonStateValues[buttonStatus]}
                             </span>
                         </span>
                     ) : (<span onClick={handleDelete} className='flex items-center px-2 py-1 mx-2 hover-custom hover-text-destructive rounded-md cursor-pointer'>
