@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/take-your-notes/static/css/main.033d58f4.css",
-    "main.js": "/take-your-notes/static/js/main.66d4b616.js",
+    "main.js": "/take-your-notes/static/js/main.8ed4554b.js",
     "static/js/655.9721270d.chunk.js": "/take-your-notes/static/js/655.9721270d.chunk.js",
     "static/js/614.48b3325c.chunk.js": "/take-your-notes/static/js/614.48b3325c.chunk.js",
     "static/js/659.6c1e1ae5.chunk.js": "/take-your-notes/static/js/659.6c1e1ae5.chunk.js",
@@ -22,15 +22,15 @@
     "static/js/355.e7b857a7.chunk.js": "/take-your-notes/static/js/355.e7b857a7.chunk.js",
     "static/js/787.629edcd6.chunk.js": "/take-your-notes/static/js/787.629edcd6.chunk.js",
     "static/js/83.e51586bd.chunk.js": "/take-your-notes/static/js/83.e51586bd.chunk.js",
-    "static/js/994.c026bb44.chunk.js": "/take-your-notes/static/js/994.c026bb44.chunk.js",
+    "static/js/994.2022c0e5.chunk.js": "/take-your-notes/static/js/994.2022c0e5.chunk.js",
     "static/js/590.4feca565.chunk.js": "/take-your-notes/static/js/590.4feca565.chunk.js",
     "static/js/361.3b75bd28.chunk.js": "/take-your-notes/static/js/361.3b75bd28.chunk.js",
+    "static/js/323.1523f775.chunk.js": "/take-your-notes/static/js/323.1523f775.chunk.js",
     "static/js/212.654a5141.chunk.js": "/take-your-notes/static/js/212.654a5141.chunk.js",
-    "static/js/323.d30b6cec.chunk.js": "/take-your-notes/static/js/323.d30b6cec.chunk.js",
     "static/media/lato-regular.ttf": "/take-your-notes/static/media/lato-regular.79164ee524feb6583a94.ttf",
     "index.html": "/take-your-notes/index.html",
     "main.033d58f4.css.map": "/take-your-notes/static/css/main.033d58f4.css.map",
-    "main.66d4b616.js.map": "/take-your-notes/static/js/main.66d4b616.js.map",
+    "main.8ed4554b.js.map": "/take-your-notes/static/js/main.8ed4554b.js.map",
     "655.9721270d.chunk.js.map": "/take-your-notes/static/js/655.9721270d.chunk.js.map",
     "614.48b3325c.chunk.js.map": "/take-your-notes/static/js/614.48b3325c.chunk.js.map",
     "659.6c1e1ae5.chunk.js.map": "/take-your-notes/static/js/659.6c1e1ae5.chunk.js.map",
@@ -51,14 +51,14 @@
     "355.e7b857a7.chunk.js.map": "/take-your-notes/static/js/355.e7b857a7.chunk.js.map",
     "787.629edcd6.chunk.js.map": "/take-your-notes/static/js/787.629edcd6.chunk.js.map",
     "83.e51586bd.chunk.js.map": "/take-your-notes/static/js/83.e51586bd.chunk.js.map",
-    "994.c026bb44.chunk.js.map": "/take-your-notes/static/js/994.c026bb44.chunk.js.map",
+    "994.2022c0e5.chunk.js.map": "/take-your-notes/static/js/994.2022c0e5.chunk.js.map",
     "590.4feca565.chunk.js.map": "/take-your-notes/static/js/590.4feca565.chunk.js.map",
     "361.3b75bd28.chunk.js.map": "/take-your-notes/static/js/361.3b75bd28.chunk.js.map",
-    "212.654a5141.chunk.js.map": "/take-your-notes/static/js/212.654a5141.chunk.js.map",
-    "323.d30b6cec.chunk.js.map": "/take-your-notes/static/js/323.d30b6cec.chunk.js.map"
+    "323.1523f775.chunk.js.map": "/take-your-notes/static/js/323.1523f775.chunk.js.map",
+    "212.654a5141.chunk.js.map": "/take-your-notes/static/js/212.654a5141.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.033d58f4.css",
-    "static/js/main.66d4b616.js"
+    "static/js/main.8ed4554b.js"
   ]
 }
