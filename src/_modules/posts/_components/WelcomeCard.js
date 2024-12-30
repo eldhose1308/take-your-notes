@@ -13,7 +13,7 @@ const WelcomeCard = () => {
     const { fullName='Unknown' } = user || {};
 
     return (
-        <Card size='sm' rounded='lg' className='border hover-border-highlight mx-4 my-2'>
+        <Card size='sm' rounded='lg' className='border hover-border-highlight mx-4 my-2 min-w-sm'>
             {!isAuthenticated ? (<CardContent>
                 <div className="p-2">
                     <Typography type='h3' size='lg' className='my-2'>Welcome to MakeMyBlogs</Typography>

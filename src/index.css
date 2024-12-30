@@ -1085,7 +1085,7 @@ textarea::placeholder {
 /* Adjust value for medium screens */
 @media (max-width: 768px) { /* Adjust the max-width as needed */
   .min-w-sm {
-    min-width: 10rem; /* Intermediate value for medium screens */
+    min-width: 11rem; /* Intermediate value for medium screens */
   }
 }
 
