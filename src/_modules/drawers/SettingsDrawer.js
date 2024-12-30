@@ -12,6 +12,7 @@ import { setUserFont } from "store/actions/uiActions";
 import useUser from "_hooks/useUser";
 import { Link } from "react-router-dom";
 import CLIENT_ROUTES from "_routes/clientRoutes";
+import { useToast } from "_contexts/ToastProvider";
 
 const SettingsDrawer = () => {
     const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const SettingsDrawer = () => {
     const { fontMode: currentFont } = getUserPreferences();
 
     const status = useSelector(state => state.drawers.settingsDrawer);
+    const { toast } = useToast();
 
     const closeDrawer = () => {
         dispatch(openSettingsDrawer(false));
@@ -40,6 +42,13 @@ const SettingsDrawer = () => {
         dispatch(setUserFont(mode));
     }
 
+    const showLaterImplementationToast = () => {
+        toast({
+            heading: "This feature is coming soon!",
+            description: "We haven't started yet, but this section will be available in the future. Stay tuned!",
+            options: { position: 'top-right' }
+        }).info()
+    }
 
     if (!status) {
         return null;
@@ -50,49 +59,43 @@ const SettingsDrawer = () => {
             <Flex justifyContent='none' className='my-2 text-sm'>
                 <Separator variant='another' className='w-full' />
                 <div className="flex my-3 w-full">
-                    <span className="text-xs text-secondary m-2">Show 'i' on all to give a small description</span>
-                    <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
+                    <div onClick={closeDrawer} className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
+                        <Link to={CLIENT_ROUTES.PROFILE} className="w-full">
+                            <span>
+                                My Profile
+                            </span>
+                        </Link>
+                    </div>
+                </div>
+                <Separator variant='another' className='w-full' />
+                <div className="flex my-3 w-full opacity-50">
+                    <span className="text-xs text-secondary m-2">Based on your activity</span>
+                    <div onClick={showLaterImplementationToast} className="flex justify-between w-full items-center border-another hover-custom text-default hover-text-info px-2 py-2 mx-1 rounded-md cursor-pointer">
                         <span>
-                            Open
+                            Categories you may like
                         </span>
-                        <span className="flex items-center text-secondary text-xs p-1 rounded-md cursor-pointer">
-                            Cmnd + O
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-flask-conical"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" /><path d="M6.453 15h11.094" /><path d="M8.5 2h7" /></svg>
                         </span>
                     </div>
-                    <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
+                    <div onClick={showLaterImplementationToast} className="flex justify-between w-full items-center border-another hover-custom text-default hover-text-info px-2 py-2 mx-1 rounded-md cursor-pointer">
                         <span>
-                            Save
+                            Users you may like
                         </span>
-                        <span className="flex items-center text-secondary text-xs p-1 rounded-md cursor-pointer">
-                            Cmnd + S
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-flask-conical"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" /><path d="M6.453 15h11.094" /><path d="M8.5 2h7" /></svg>
                         </span>
                     </div>
-                    <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
+                    <div onClick={showLaterImplementationToast} className="flex justify-between w-full items-center border-another hover-custom text-default hover-text-info px-2 py-2 mx-1 rounded-md cursor-pointer">
                         <span>
-                            Save to
+                            Contents you may like
                         </span>
-                        <span className="flex items-center text-secondary text-xs p-1 rounded-md cursor-pointer">
-                            Cmnd + Shift + S
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-flask-conical"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" /><path d="M6.453 15h11.094" /><path d="M8.5 2h7" /></svg>
                         </span>
                     </div>
 
-                    <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
-                        <span>
-                            Command Palette
-                        </span>
-                        <span className="flex items-center text-secondary text-xs p-1 rounded-md cursor-pointer">
-                            Cmnd + /
-                        </span>
-                    </div>
 
-                    <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
-                        <span>
-                            Keyboard shortcuts
-                        </span>
-                        <span className="flex items-center text-secondary text-xs p-1 rounded-md cursor-pointer">
-                            Cmnd + ?
-                        </span>
-                    </div>
 
                 </div>
                 <Separator variant='another' className='w-full' />
@@ -124,11 +127,11 @@ const SettingsDrawer = () => {
                     </div>
 
 
-
+                    {/* 
                     <div className="flex justify-between w-full items-center border-another hover-custom text-default px-2 py-2 mx-1 rounded-md cursor-pointer">
                         <span>Save previous state</span>
                         <input type="checkbox" />
-                    </div>
+                    </div> */}
 
                 </div>
 

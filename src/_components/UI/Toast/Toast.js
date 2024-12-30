@@ -8,7 +8,7 @@ const ToastIcons = {
     success: <svg viewBox="0 0 24 24" width="20" height="20" fill="var(--success)"><path d="M12 0a12 12 0 1012 12A12.014 12.014 0 0012 0zm6.927 8.2l-6.845 9.289a1.011 1.011 0 01-1.43.188l-4.888-3.908a1 1 0 111.25-1.562l4.076 3.261 6.227-8.451a1 1 0 111.61 1.183z"></path></svg>,
     error: <svg viewBox="0 0 24 24" width="20" height="20" fill="var(--destructive)"><path d="M11.983 0a12.206 12.206 0 00-8.51 3.653A11.8 11.8 0 000 12.207 11.779 11.779 0 0011.8 24h.214A12.111 12.111 0 0024 11.791 11.766 11.766 0 0011.983 0zM10.5 16.542a1.476 1.476 0 011.449-1.53h.027a1.527 1.527 0 011.523 1.47 1.475 1.475 0 01-1.449 1.53h-.027a1.529 1.529 0 01-1.523-1.47zM11 12.5v-6a1 1 0 012 0v6a1 1 0 11-2 0z"></path></svg>,
     warn: null,
-    info: null,
+    info: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--info)" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>,
 
     loading: <svg className="lucide lucide-loader-circle animate-spin" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
 }
@@ -33,7 +33,7 @@ const Toast = (props) => {
 
     return (
         <div className="flex flex-col">
-            <div onMouseEnter={onHovered} onMouseLeave={onUnHovered} className={`dialog dialog-${positionX} dialog-${positionY} z-60 fixed flex items-center justify-end animate-slide-in-y`}>
+            <div onMouseEnter={onHovered} onMouseLeave={onUnHovered} className={`dialog dialog-${positionX} dialog-${positionY} z-250 fixed flex items-center justify-end animate-slide-in-y`}>
                 <div className="max-w-sm min-w-sm">
                     <div className={`card border  border-custom bg-default rounded-lg m-3`}>
 
