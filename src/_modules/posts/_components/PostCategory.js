@@ -34,6 +34,7 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
             setFilters((previousFilters) => ({ ...previousFilters, page: previousFilters.page + 1 }));
         } catch (err) {
             console.error(err);
+            // throw err;
         }
     }
 
@@ -45,7 +46,7 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
         onChange(newCategoryData.id, newCategoryData);
         }catch (err) {
             console.error(err);
-            throw err;
+            // throw err;
         }
     }
 

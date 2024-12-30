@@ -45,6 +45,7 @@ const usePostsCategories = () => {
         } catch (error) {
             const { statusCode } = error || {};
             if (statusCode === 401) {
+                logout();
                 setFetchStatus('unauthorised');
             } else {
                 setFetchStatus('failure');
@@ -73,8 +74,8 @@ const usePostsCategories = () => {
             const { statusCode } = error || {};
             if (statusCode === 401) {
                 logout();
-                return;
             }
+            throw error;
             setFetchStatus('failure');
         }
     }
