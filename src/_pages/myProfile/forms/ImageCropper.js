@@ -74,9 +74,9 @@ const ImageCropper = ({ imageUrl, onCancel = () => { }, onUpload = () => { } }) 
 
     return (
         <div>
-            {!isCropped && <div ref={croppieRef}></div>}
+            {!isCropped && <div className="bg-secondary rounded-md" ref={croppieRef}></div>}
             {croppedImage ? (
-                <div>
+                <div >
                     <Typography className='my-2'>Confirm your new display picture</Typography>
 
                     {responseMessage && <div className="flex">

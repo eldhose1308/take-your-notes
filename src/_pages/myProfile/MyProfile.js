@@ -14,11 +14,12 @@ import UserProfileCard from "_modules/users/_component/UserProfileCard";
 
 const MyProfile = () => {
     const { updateUserData } = useAuth()
-    const { userDetail, fetchStatus } = useMyUserDetails();
+    const { userDetail, fetchStatus, setUserDetail } = useMyUserDetails();
 
     const handleUpdateProfileDetails = async (data) => {
         try {
-            await updateUserData(data);
+            const userData = await updateUserData(data);
+            setUserDetail(previousState => ({ ...previousState, ...userData }));
         } catch (err) {
             throw err;
         }

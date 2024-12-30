@@ -32,7 +32,9 @@ const useMyUserDetails = () => {
 
     return {
         fetchStatus,
-        userDetail
+        userDetail,
+
+        setUserDetail
     }
 }
 

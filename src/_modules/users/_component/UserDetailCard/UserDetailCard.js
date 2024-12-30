@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Separator from "_components/Misc/Separator/Separator";
 import Typography from "_components/Misc/Typography/Typography";
@@ -15,6 +15,9 @@ const UserDetailCard = (props) => {
     const [userState, setUserState] = useState(userData);
     const { avatar, id: userId, userName, fullName, bio, joinedAt, websiteLink, posts, followers, following, rank, isFollowing } = userState;
 
+    useEffect(() => {
+        setUserState(userData);
+    }, [userData])
 
     return (
         <div className="border bg-default p-4 rounded-md">
