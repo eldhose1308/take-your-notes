@@ -1,27 +1,26 @@
 .grid-container {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 50px 1fr 50px;
+  grid-template-rows: 50px 1fr;
   grid-template-areas:
     'header'
-    'main'
-    'footer';
-  height: 100vh;
+    'main';  */
+  /* height: 100vh; */
 }
 
 .header {
-  /* position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
-  right: 0; */
+  right: 0;
 
-  grid-area: header;
+  /* grid-area: header; */
   /* background-color: whitesmoke; */
   display: flex;
   align-items: center;
   justify-content: space-between;
   /* color: darkblue; */
-  padding: 0 15px;
+  /* padding: 0 15px; */
 }
 
 .aside {
@@ -37,10 +36,15 @@
 }
 
 .main {
-  grid-area: main;
-  overflow-y: auto;
-  
-  position: relative;
+  /* grid-area: main; */
+
+  /* height: 100vh; */
+  /* overflow-y: scroll; */
+  /* height: 90vh; */
+
+  margin-top: 50px;
+  /* margin-bottom: 16px; */
+  /* position: relative; */
   /* background-color: white; */
 }
 

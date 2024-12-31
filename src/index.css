@@ -155,9 +155,9 @@ body.light{
 
 body {
   /* font-family: "Assistant", sans-serif; */
-  background-color: var(--bg-light);
+  background-color: var(--bg-secondary);
   margin: 0;
-  overflow: hidden; /* remove if can solve the sidebar scroll issue */
+  /* overflow: hidden; */
 }
 
 .modern-font {
@@ -1432,8 +1432,8 @@ textarea::placeholder {
   padding-bottom: 2rem;
 }
 
-.pb-12 {
-  padding-bottom: 3rem;
+.mb-12 {
+  margin-bottom: 3rem;
 }
 
 .mr-1 {

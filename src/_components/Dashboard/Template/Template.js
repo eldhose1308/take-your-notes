@@ -28,13 +28,13 @@ const Template = ({ children, ...props }) => {
             <div className="grid-container">
                 <Header isSidebarNeeded={isSidebarNeeded} />
                 <Sidebar />
-                <main className="main overflow-scroll pb-12 bg-secondary">
+                <main className="main overflow-scroll mb-12s bg-secondary">
                     {children}
                 </main>
-                <footer className="footer">
+                {/* <footer className="footer"> */}
         {/* <div className="footer_copyright">&copy;2024</div> */}
-        <div className="text-sm footer_byline">Made with &hearts;</div>
-      </footer>
+        {/* <div className="text-sm footer_byline">Made with &hearts;</div> */}
+      {/* </footer> */}
             </div>
         </TemplateContext.Provider>
     )
