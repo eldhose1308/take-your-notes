@@ -40,7 +40,7 @@ const Header = (props) => {
     return (
         <>
 
-            <header className="header bg-default text-default">
+            <header className="header bg-default text-default z-200">
                 <div className="flex px-4">
 
                     {isSidebarNeeded && <div className="menu-icon" onClick={toggleSidebar}>

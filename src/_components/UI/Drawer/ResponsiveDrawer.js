@@ -42,7 +42,7 @@ const ResponsiveDrawer = ({ children, ...props }) => {
 
             {isHookVisible ? (
 
-                <div className={`drawer-hook h-full absolute border border-light-gray ${direction === 'right' ? 'right-0' : 'left-0'}`}>
+                <div className={`drawer-hook h-full fixed border border-light-gray ${direction === 'right' ? 'right-0' : 'left-0'}`}>
                     <span onClick={openDrawer} className={`absolute top-20 cursor-pointer bg-custom text-default border border-light-gray p-1 ${direction === 'right' ? 'right-100 border-r-none rounded-x-md ' : 'left-100 border-l-none rounded-y-md '}`}>
                         {openIcon[direction]}           
                     </span>
