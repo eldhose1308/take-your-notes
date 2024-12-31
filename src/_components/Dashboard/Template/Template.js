@@ -32,8 +32,8 @@ const Template = ({ children, ...props }) => {
                     {children}
                 </main>
                 <footer className="footer">
-        <div className="footer_copyright">&copy;2024</div>
-        <div className="footer_byline">Made with &hearts;</div>
+        {/* <div className="footer_copyright">&copy;2024</div> */}
+        <div className="text-sm footer_byline">Made with &hearts;</div>
       </footer>
             </div>
         </TemplateContext.Provider>

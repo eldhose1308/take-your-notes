@@ -22,6 +22,7 @@ const useUsers = () => {
             }else{
                 setFetchStatus('failure');
             }
+            throw error;
         }
     };
 
