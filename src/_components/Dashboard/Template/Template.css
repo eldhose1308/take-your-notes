@@ -1,7 +1,7 @@
 .grid-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 50px 1fr 30px;
+  grid-template-rows: 50px 1fr 50px;
   grid-template-areas:
     'header'
     'main'
@@ -39,14 +39,21 @@
 .main {
   grid-area: main;
   overflow-y: auto;
-
+  
   position: relative;
   /* background-color: white; */
 }
 
 .footer {
+  display: grid;
   grid-area: footer;
+  width: 100%;
+
+  /* position: absolute;
+  bottom: 0; */
   /* background-color: whitesmoke; */
+  background-color: var(--bg-default);
+  color: var(--default);
 }
 
 /* flexing header and footer*/
