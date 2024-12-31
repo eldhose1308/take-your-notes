@@ -1,49 +1,104 @@
-import React, { createContext, useState, useEffect, useMemo } from 'react';
-
-import * as postsService from '_services/posts.service';
-import * as categoriesService from '_services/postsCategories.service';
-import { useToast } from './ToastProvider';
+import React, { createContext, useState, useEffect, useMemo, useContext, useRef } from 'react';
 
 export const PostsContext = createContext();
 
 export const PostsProvider = ({ children }) => {
-    const [postsList, setPostsList] = useState([]);
-    const [categoriesList, setCategoriesList] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const { toast } = useToast()
+    const [postsList, setPostsList] = useState({});
+    const [filters, setFilters] = useState([]);
+    const clickedPost = useRef({});
+    const previousPage = useRef({});
 
-    const normalisedPosts = useMemo(() => postsList.reduce((acc, postItem) => ({ ...acc, [postItem.id]: postItem }), {}), [postsList])
+    const [usersPostsList, setUsersPostsList] = useState([]);
+    const [usersPostFilters, setUsersPostFilters] = useState([]);
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try{
-                const postsData = await postsService.getAuthPosts();
-                setPostsList(postsData);
-            }catch(err){
-                toast({
-                    heading: 'Oops! There was an error retrieving your posts.',
-                    options: { position: 'top-right' }
-                }).error()
-            }
-        };
 
-        const fetchCategories = async () => {
-            try{
-                const categoriesData = await categoriesService.getPostsCategories();
-                setCategoriesList(categoriesData);
-                setSelectedCategory(categoriesData.length > 0 ? categoriesData[0] : null)
-            }catch(err){
-                alert(33)
-            }
-        };
 
-        fetchPosts();
-        fetchCategories();
-    }, []);
+    const cachePostsList = (newPostsList) => {
+        console.log('@cachePostsList', newPostsList);
+        setPostsList((previousPostCache) => ({ ...previousPostCache, [window.location.href]: newPostsList }));
+    }
+
+    const cacheUsersPostsList = (newPostsList, newFilters) => {
+        setUsersPostsList(newPostsList);
+        setUsersPostFilters(newFilters)
+    }
+
+    const getLastClickedPost = () => {
+        // return '';
+        return clickedPost.current[window.location.href] || '';
+    }
+
+    const setLastClickedPost = (postSlug) => {
+        clickedPost.current[window.location.href] = postSlug;
+    }
+
+
+    const getCachedPostsList = () => {
+        console.log('@postsList', postsList, previousPage.current);
+        return postsList[window.location.href] || [];
+    }
+
+    const getCachedFilters = () => {
+        return filters[window.location.href] || [];
+    }
+
+    const setCachedFilters = (newFilters) => {
+        setPostsList([]);
+        setFilters((previousFiltersCache) => ({ ...previousFiltersCache, [window.location.href]: newFilters }));
+    }
+
+    const getPreviousPage = () => {
+        return previousPage.current[window.location.href] || 0;
+    }
+
+    const setPreviousPage = (page) => {
+        previousPage.current[window.location.href] = page;
+    }
+
+    // const setCachedPostsList = (newPostsList) => {
+    //     setPostsList(newPostsList);
+    // }
+
+    const usersPostCache = {
+        cachedUsersPostList: usersPostsList,
+        cachedUsersPostFilters: usersPostFilters,
+        cacheUsersPostsList
+    }
+
+    const lastClickedPOJO = {
+        setLastClickedPost,
+        getLastClickedPost
+    }
+
+    const postsCache = {
+        getCachedPostsList,
+
+        getCachedFilters,
+        setCachedFilters,
+
+        getPreviousPage,
+        setPreviousPage
+        // setCachedPostsList,
+    }
 
     return (
-        <PostsContext.Provider value={{ postsList, categoriesList, selectedCategory, setSelectedCategory, setPostsList, postDetails: normalisedPosts }}>
+        <PostsContext.Provider value={{ ...usersPostCache, ...lastClickedPOJO, ...postsCache, cachePostsList, clickedPost, cachedFilters: filters, cachedPostsList: postsList, setPostsList }}>
             {children}
         </PostsContext.Provider>
     );
 };
+
+
+
+const usePostsCache = () => {
+    const context = useContext(PostsContext)
+
+    if (!context) {
+        throw new Error('usePostsCache must be used within PostsContext')
+    }
+
+    return context
+}
+
+export { usePostsCache };
+

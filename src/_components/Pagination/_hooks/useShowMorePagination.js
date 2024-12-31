@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const useShowMorePagination = (props) => {
-    const { pageSize=10 } = props || {};
+    const { pageSize=10, previousPageFromCache=0 } = props || {};
 
     const [currentPage, setCurrentPage] = useState(0);
     const [isAllDataFetched, setAllDataFetched] = useState(false);
@@ -18,6 +18,10 @@ const useShowMorePagination = (props) => {
     const checkIfAllDataFetched = (data) => {
         setAllDataFetched(data.length === 0 || data.length % pageSize !== 0);
     }
+
+    useEffect(() => {
+        setCurrentPage(previousPageFromCache);
+    }, [previousPageFromCache])
 
     return {
         currentPage,

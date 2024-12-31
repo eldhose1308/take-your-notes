@@ -6,27 +6,37 @@ import PostFilters from "_modules/posts/_components/PostFilters";
 import usePosts from "_modules/posts/_hooks/usePosts";
 import useShowMorePagination from "_components/Pagination/_hooks/useShowMorePagination";
 import { stringifyJSON } from "_utils/json";
+import { usePostsCache } from "_contexts/PostsContext";
 
 const pageSize = 30;
 
 const PostsHomeList = () => {
-    const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize });
+    const { cachePostsList, getCachedPostsList, getCachedFilters, setCachedFilters, getLastClickedPost, getPreviousPage, setPreviousPage } = usePostsCache();
+    const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize, previousPageFromCache: getPreviousPage() });
     const { fetchStatus, fetchPostsData } = usePosts();
 
-    const [filters, setFilters] = useState(null);
+    const [filters, setFilters] = useState(getCachedFilters());
     const [data, setData] = useState([]);
 
+
+    const handlePostsData = (posts) => {
+        checkIfAllDataFetched(posts);
+        setData(posts);
+        cachePostsList(posts);
+    }
 
     const handleFiltersChange = async (newFilters) => {
         const postFilters = { ...filters, ...newFilters };
         setFilters(postFilters);
+
+        setCachedFilters(postFilters);
+
         setData([]);
         resetPagination();
-        const postsFilter = { page: 1, limit: pageSize, ...postFilters };
+        const postsFilter = {  page: 1, limit: pageSize, ...postFilters };
         try{
             const posts = await fetchPostsData(postsFilter);
-            checkIfAllDataFetched(posts);
-            setData(posts);
+            handlePostsData(posts);
         }catch(e){
             console.log(e);
         }
@@ -38,10 +48,10 @@ const PostsHomeList = () => {
         try{
 
             const posts = await fetchPostsData(postsFilter);
-            setData((previousPosts) => [...previousPosts, ...posts]);
-            
+            handlePostsData([ ...data, ...posts ]);
             incrementPagination();
-            checkIfAllDataFetched(posts);
+            setPreviousPage(currentPage + 1);
+
             return posts;
         }catch(e){
             console.log(e);
@@ -50,13 +60,37 @@ const PostsHomeList = () => {
     }
 
 
+    const handleCachedData = (cachedPostData) => {
+        handlePostsData(cachedPostData);
+        setTimeout(() => {
+            const lastClickedPost = getLastClickedPost();
+            const lastPost = document.querySelector(`[data-id="${lastClickedPost}"]`); 
+            if(lastPost){
+                lastPost.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+
+
+    
     useEffect(() => {
-        fetchPosts();
+
+        const checkOnCacheAndFetch = () => {
+            const cachedPostData = getCachedPostsList();
+            if(cachedPostData.length > 0){
+                handleCachedData(cachedPostData);
+                return;
+            }
+            fetchPosts();
+
+        }
+
+        checkOnCacheAndFetch();
     }, [])
 
     return (
         <React.Fragment>
-            <PostFilters onChange={handleFiltersChange} />
+            <PostFilters filters={filters} onChange={handleFiltersChange} />
             <ShowMorePaginationWrapper key={`posts_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchPosts}>
                 <React.Fragment>
                     <PostsSuccess usersPostList={data} />

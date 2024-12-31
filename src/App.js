@@ -17,15 +17,11 @@ import setTheme from "_utils/setTheme";
 import { toggleFont } from "_utils/domUtils";
 import FullPageSkeleton from "FullPageSkeleton";
 import ConfirmDeleteDialogProvider from "_contexts/ConfirmDeleteDialogProvider";
+import { PostsProvider } from "_contexts/PostsContext";
 
 
 const router = createHashRouter(ROUTES);
 
-const AppLoader = () => (
-  <div className="flex justify-center items-center h-screen w-full">
-    <div className="loader"></div>
-  </div>
-);
 
 // make it a class component!!
 function App() {
@@ -48,9 +44,11 @@ function App() {
             <TopLoaderProvider>
               <ConfirmDeleteDialogProvider>
                 <AuthProvider>
-                  <Suspense fallback={<FullPageSkeleton />}>
-                    <RouterProvider router={router} />
-                  </Suspense>
+                  <PostsProvider>
+                    <Suspense fallback={<FullPageSkeleton />}>
+                      <RouterProvider router={router} />
+                    </Suspense>
+                  </PostsProvider>
                 </AuthProvider>
               </ConfirmDeleteDialogProvider>
             </TopLoaderProvider>

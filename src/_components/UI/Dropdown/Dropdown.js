@@ -80,16 +80,16 @@ const DropdownMenuItem = ({ onChange, value, children, ...props }) => {
   )
 }
 
-const DropdownMenuItemGroup = ({ options = [], value, onChange }) => {
+const DropdownMenuItemGroup = ({ selectedOption, options = [], value, onChange }) => {
   const { setOptions, setSelectedItem } = useContext(DropdownContext)
 
 
   // normalise the options and set value if exists or else set first item as default value if a flag is present else no items are selected by default
   useEffect(() => {
-    const selectedItem = options[0] || ''
+    const selectedItem = selectedOption || options[0] || ''
     setOptions(options)
     setSelectedItem(selectedItem)
-  }, [options, setOptions, setSelectedItem])
+  }, [options, setOptions, setSelectedItem, selectedOption])
 
   return (
     <React.Fragment>

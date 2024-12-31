@@ -17,6 +17,7 @@ import CLIENT_ROUTES from "_routes/clientRoutes";
 import PostCategoryBadge from "_modules/postCategories/_components/PostCategoryBadge";
 import { useConfirmDeleteDialog } from "_contexts/ConfirmDeleteDialogProvider";
 import useMyPosts from "_modules/posts/_hooks/useMyPosts";
+import { usePostsCache } from "_contexts/PostsContext";
 
 
 
@@ -36,6 +37,8 @@ const PostListItem = (props) => {
     const [isDeleted, setIsDeleted] = useState(false);
     const [buttonStatus, setButtonStatus] = useState('none');
 
+
+    const { setLastClickedPost } = usePostsCache();
     const { deletePost, restorePost } = useMyPosts();
     // const { isAuthenticated } = useAuth();
     const { confirmDelete } = useConfirmDeleteDialog();
@@ -77,6 +80,7 @@ const PostListItem = (props) => {
     }
 
     return (
+        <div data-id={`postItem_${postSlug}`} className="w-full post-list-item">
         <Card border='another' variant='default' rounded='md' className={`border hover-border-highlight my-2 w-full max-h-mds ${isVerified ? '' : 'opacity-50'} ${isDeleted ? 'opacity-50' : ''}`}>
             <CardHeader>
                 <Flex justifyContent='spaceBetween' alignItems='none' className=''>
@@ -91,7 +95,7 @@ const PostListItem = (props) => {
             </CardHeader>
 
             <CardContent>
-                <Link to={postDetailRoute} className='cursor-pointer group-hover'>
+                <Link to={postDetailRoute} onClick={() => { setLastClickedPost(`postItem_${postSlug}`) }} className='cursor-pointer group-hover'>
                     <Typography type='h1' size='md' className='mb-2 w-full'>
                         {postTitle}
                         <span className="text-center ml-2 invisible group-hover-item">
@@ -193,6 +197,7 @@ const PostListItem = (props) => {
             </CardFooter>
 
         </Card>
+        </div>
     )
 }
 
