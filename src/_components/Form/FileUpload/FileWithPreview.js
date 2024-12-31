@@ -22,7 +22,7 @@ const FileWithPreview = ({ preview, format='image/' }) => {
                 )}
             </div>
 
-            {isPreviewOpen && (<div className="flex items-center justify-center overlay overlay-semi z-50">
+            {isPreviewOpen && (<div className="flex items-center justify-center overlay overlay-semi z-250">
                 <div className="relative">
                     {format.startsWith("image/") ? (
                         <img src={preview} alt="Full Preview" className="h-48 w-48 object-cover" />

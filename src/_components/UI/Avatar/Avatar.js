@@ -58,7 +58,7 @@ const Avatar = ({ src, name = '', alt = 'Avatar', size, hasPreview=true, hasZoom
                 {src && !imageError ? <img onClick={handleImageClick} onError={handleError} alt={name || alt} className={`flex object-cover w-full h-full transition-opacity duration-500 border-2 ${hasZoom ? 'scale-150' : ''}`} src={src} /> :
                     <div>{nameImg}</div>}
             </span>
-            {isPreviewOpen && (<div className="flex items-center justify-center overlay overlay-semi z-50">
+            {isPreviewOpen && (<div className="flex items-center justify-center overlay overlay-semi z-250">
                 <div onClick={handleImageClose} className="relative flex w-full h-full items-center justify-center">
                     <img src={src} alt="Full Preview" className="h-48 w-48 object-cover" />
 
