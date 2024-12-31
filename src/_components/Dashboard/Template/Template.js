@@ -31,10 +31,10 @@ const Template = ({ children, ...props }) => {
                 <main className="main overflow-scroll bg-secondary">
                     {children}
                 </main>
-                {/* <footer className="footer">
-        <div className="footer_copyright">&copy;2020</div>
+                <footer className="footer">
+        <div className="footer_copyright">&copy;2024</div>
         <div className="footer_byline">Made with &hearts;</div>
-      </footer> */}
+      </footer>
             </div>
         </TemplateContext.Provider>
     )
