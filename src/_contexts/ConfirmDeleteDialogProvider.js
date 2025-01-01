@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 
 import Dialog from "_components/UI/Dialog/Dialog";
@@ -56,6 +56,22 @@ const ConfirmDeleteDialogProvider = ({ children }) => {
     };
 
     useEscClose(handleCancelClick, isOpen);
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === "Enter" && isOpen) {
+                event.preventDefault();
+                handleDeleteClick();
+            }
+        };
+
+        if(isOpen){
+            window.addEventListener("keydown", handleKeyDown);
+        }
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [isOpen])
 
     return (
         <ConfirmDeleteContext.Provider value={{ confirmDelete }}>
