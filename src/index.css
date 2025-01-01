@@ -1648,6 +1648,10 @@ textarea::placeholder {
   display: inline-flex;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .hidden {
   display: none;
 }

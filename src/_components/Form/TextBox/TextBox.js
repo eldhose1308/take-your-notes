@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cva from '_utils/createVariantClassNames';
 
@@ -52,20 +52,27 @@ const textBoxVariants = cva('flex h-12 toggle-placeholders disabled-50 rounded-m
     },
 });
 
-const TextBox = ({ labelName, validationMsg = {}, variant, width, size, placeholderFocus, className, ...otherProps }) => {
+const TextBox = ({ labelName, value='', validationMsg = {}, variant, width, size, placeholderFocus, className, ...otherProps }) => {
     const { type: messageType = 'default', messages = [] } = validationMsg;
 
-    const { labelProps: labelPropsWithClassName, isFocused, onChange=()=>{}, onKeyDown=()=>{}, ...propsTextBox } = otherProps
+    const { labelProps: labelPropsWithClassName, isFocused, onChange = () => { }, onKeyDown = () => { }, ...propsTextBox } = otherProps
     const { className: labelClassName, ...labelProps } = labelPropsWithClassName || {};
 
     const inputRef = useRef(null);
+    const [inputValue, setInputValue] = useState(value);
 
     const validationClass = validationTextClass({ type: messageType });
     const inputClassNames = textBoxVariants({ variant, width, size, placeholderFocus, className, });
 
     const handleChange = (e) => {
         const { value } = e.target
+        setInputValue(value)
         onChange(value, e)
+    }
+
+    const handleClear = (e) => {
+        setInputValue('')
+        onChange('', e)
     }
 
     const handleKeyDown = (e) => {
@@ -75,26 +82,32 @@ const TextBox = ({ labelName, validationMsg = {}, variant, width, size, placehol
 
     useEffect(() => {
         // alert(isFocused)
-        if(isFocused){
+        if (isFocused) {
             inputRef.current.focus();
         }
-      }, [isFocused]);
+    }, [isFocused]);
 
     return (
         <div className="flex flex-col">
-            <div className="inline-flex relative">
+            <div className="inline-block relative">
                 <input
                     className={inputClassNames}
                     {...propsTextBox}
                     onChange={handleChange}
                     onKeyDown={handleKeyDown}
                     ref={inputRef}
+                    value={inputValue}
                 />
                 {labelName && (
-                    <label className={`label text-default absolute px-3 py-3 duration-400 ${labelClassName}`} {...labelProps}>
+                    <label className={`label text-default absolute top-0 px-3 py-3 duration-400 ${labelClassName}`} {...labelProps}>
                         {labelName}
                     </label>
                 )}
+
+                {inputValue.length > 2 && <span onClick={handleClear} className="textbox-clear-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-delete"><path d="M20 5H9l-7 7 7 7h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z" /><line x1="18" x2="12" y1="9" y2="15" /><line x1="12" x2="18" y1="9" y2="15" /></svg>
+                </span>}
+
             </div>
             {messages.length > 0 && (
                 <div className="flex flex-col mx-2 space-y-1">
