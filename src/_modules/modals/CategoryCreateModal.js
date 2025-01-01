@@ -9,6 +9,7 @@ import Tags from "_components/UI/Tags/Tags";
 import * as postsCategoriesService from "_services/postsCategories.service";
 import MainCategorySelector from "_modules/postCategories/_components/MainCategorySelector";
 import { Alerts } from "_components/UI";
+import useEscClose from "_hooks/useEscClose";
 
 const buttonCreateStateValues = {
     none: 'Create',
@@ -45,6 +46,9 @@ const CategoryCreateModal = (props) => {
         onClose();
         setNewFolderName('');
     }
+
+    useEscClose(closeModal, status);
+
 
     const handleCancelClick = () => {
         closeModal();
