@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useToast } from "_contexts/ToastProvider";
@@ -29,7 +29,7 @@ const buttonStateValues = {
 }
 
 const PostListItem = (props) => {
-    const { postItem } = props;
+    const { postItem, lastClickedPost } = props;
     const { postTitle, postSlug, id, content, category, user, createdAt, updatedAt } = postItem;
     const { categoryName, categorySlug, isVerified } = category || {};
     const { userName, fullName, avatar } = user || {};
@@ -78,6 +78,17 @@ const PostListItem = (props) => {
         }
         return false;
     }
+
+    
+     useEffect(() => {
+        if(lastClickedPost && lastClickedPost === `postItem_${postSlug}`){
+            const lastPost = document.querySelector(`[data-id="${lastClickedPost}"]`); 
+            if(lastPost){
+                lastPost.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    
+        }, [lastClickedPost, postSlug])
 
     return (
         <div data-id={`postItem_${postSlug}`} className="w-full post-list-item">

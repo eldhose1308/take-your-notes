@@ -43,7 +43,7 @@ export const PostsProvider = ({ children }) => {
     }
 
     const setCachedFilters = (newFilters) => {
-        setPostsList([]);
+        cachePostsList([]);
         setFilters((previousFiltersCache) => ({ ...previousFiltersCache, [window.location.href]: newFilters }));
     }
 

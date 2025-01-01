@@ -18,7 +18,7 @@ const filterQueryParamMappings = {
 }
 
 const PostFilters = (props) => {
-    const { filters, onChange = () => { }, resetPagination = () => { } } = props;
+    const { filters={}, onChange = () => { }, resetPagination = () => { } } = props;
 
 
     const selectedValue = useMemo(() => Object.keys(filterQueryParamMappings).find(filterKey => {

@@ -11,7 +11,7 @@ import { usePostsCache } from "_contexts/PostsContext";
 const pageSize = 5;
 
 const PostsHomeList = () => {
-    const { cachePostsList, getCachedPostsList, getCachedFilters, setCachedFilters, getLastClickedPost, getPreviousPage, setPreviousPage } = usePostsCache();
+    const { cachePostsList, getCachedPostsList, getCachedFilters, setCachedFilters, getPreviousPage, setPreviousPage } = usePostsCache();
     const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize, previousPageFromCache: getPreviousPage() });
     const { fetchStatus, fetchPostsData } = usePosts();
 
@@ -62,13 +62,6 @@ const PostsHomeList = () => {
 
     const handleCachedData = (cachedPostData) => {
         handlePostsData(cachedPostData);
-        setTimeout(() => {
-            const lastClickedPost = getLastClickedPost();
-            const lastPost = document.querySelector(`[data-id="${lastClickedPost}"]`); 
-            if(lastPost){
-                lastPost.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
     }
 
 

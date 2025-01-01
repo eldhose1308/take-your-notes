@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import CLIENT_ROUTES from '_routes/clientRoutes';
 import { Alerts } from '_components/UI';
 import MyPostsHelp from '_modules/help/MyPostsHelp';
+import PostList from '_modules/posts/_components/list/PostList';
 
 const pageSize = 30;
 
@@ -128,9 +129,10 @@ const MyPostList = (props) => {
 
                     {(fetchStatus !== 'empty') ? (
                         <div className='flex content-start w-full'>
-                            <React.Fragment>
+                            <PostList posts={data} />
+                            {/* <React.Fragment>
                                 {data.map(postItem => <PostListItem key={postItem.id} postItem={postItem} onEdit={navigateToEdit} hasFollowButton={hasFollowButton} />)}
-                            </React.Fragment>
+                            </React.Fragment> */}
                         </div>
                     ) : (
                         <EmptyAuthUserPosts>
