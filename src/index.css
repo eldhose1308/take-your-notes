@@ -1469,6 +1469,9 @@ textarea::placeholder {
 }
 
 
+.ml-1 {
+  margin-left: .25rem;
+}
 .ml-2 {
   margin-left: .5rem;
 }

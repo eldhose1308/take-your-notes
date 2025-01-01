@@ -8,7 +8,7 @@ import useShowMorePagination from "_components/Pagination/_hooks/useShowMorePagi
 import { stringifyJSON } from "_utils/json";
 import { usePostsCache } from "_contexts/PostsContext";
 
-const pageSize = 30;
+const pageSize = 5;
 
 const PostsHomeList = () => {
     const { cachePostsList, getCachedPostsList, getCachedFilters, setCachedFilters, getLastClickedPost, getPreviousPage, setPreviousPage } = usePostsCache();

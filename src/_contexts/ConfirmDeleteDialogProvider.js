@@ -5,6 +5,7 @@ import Dialog from "_components/UI/Dialog/Dialog";
 import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card/Card";
 import Typography from "_components/Misc/Typography/Typography";
 import { Button } from "_components/Form";
+import useEscClose from "_hooks/useEscClose";
 
 
 const ConfirmDeleteContext = createContext();
@@ -53,6 +54,8 @@ const ConfirmDeleteDialogProvider = ({ children }) => {
         setPrimaryResolve(false);
         setIsOpen(false);
     };
+
+    useEscClose(handleCancelClick, isOpen);
 
     return (
         <ConfirmDeleteContext.Provider value={{ confirmDelete }}>

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Dialog from "_components/UI/Dialog/Dialog";
 import Typography from "_components/Misc/Typography/Typography";
 import Separator from "_components/Misc/Separator/Separator";
+import useEscClose from "_hooks/useEscClose";
 
 const shortCuts = [{
     title: 'Heading 1',
@@ -83,6 +84,9 @@ const shortCuts = [{
 ];
 
 const KeyboardShortcuts = ({ isOpen, onClose = () => { } }) => {
+
+    useEscClose(onClose, isOpen);
+
     return (
         <Dialog isShown={isOpen} hasOverlay size='xl'>
             <div className="my-4">
@@ -100,59 +104,59 @@ const KeyboardShortcuts = ({ isOpen, onClose = () => { } }) => {
 
             <div className="h-screen-3/4 overflow-scroll">
 
-            <div className="mx-4 my-4">
+                <div className="mx-4 my-4">
 
-                <Typography textVariant='h3' size='md' className='my-2 mx-4'>Editor</Typography>
-                <Separator className='my-2' />
+                    <Typography textVariant='h3' size='md' className='my-2 mx-4'>Editor</Typography>
+                    <Separator className='my-2' />
 
-                <div className="flex justify-between">
+                    <div className="flex justify-between">
 
-                    <div className="border border-another rounded-md my-4 w-full">
+                        <div className="border border-another rounded-md my-4 w-full">
 
-                        <div className="flex justify-between border-b border-another">
-                            <Typography textVariant='default' size='xs' className='my-2 mx-4'>Save the content</Typography>
-                            <Typography textVariant='span' size='xs' className='my-2 mx-4'>Ctrl + Enter</Typography>
+                            <div className="flex justify-between border-b border-another">
+                                <Typography textVariant='default' size='xs' className='my-2 mx-4'>Save the content</Typography>
+                                <Typography textVariant='span' size='xs' className='my-2 mx-4'>Ctrl + Enter</Typography>
+                            </div>
+
+                            <div className="flex justify-between border-b border-another">
+                                <Typography textVariant='default' size='xs' className='my-2 mx-4'>Preview Mode</Typography>
+                                <Typography textVariant='span' size='xs' className='my-2 mx-4'>Ctrl + P</Typography>
+                            </div>
+
+
+                            <div className="flex justify-between border-b border-another">
+                                <Typography textVariant='default' size='xs' className='my-2 mx-4'>Edit Mode</Typography>
+                                <Typography textVariant='span' size='xs' className='my-2 mx-4'>Ctrl + E</Typography>
+                            </div>
+
+                            <div className="flex justify-between border-b border-another">
+                                <Typography textVariant='default' size='xs' className='my-2 mx-4'>Preview & Edit Mode</Typography>
+                                <Typography textVariant='span' size='xs' className='my-2 mx-4'>Ctrl + Shift + E</Typography>
+                            </div>
+
                         </div>
 
-                        <div className="flex justify-between border-b border-another">
-                            <Typography textVariant='default' size='xs' className='my-2 mx-4'>Preview Mode</Typography>
-                            <Typography textVariant='span' size='xs' className='my-2 mx-4'>Ctrl + P</Typography>
-                        </div>
+                        <div className="border border-another rounded-md my-4 w-full">
 
-
-                        <div className="flex justify-between border-b border-another">
-                            <Typography textVariant='default' size='xs' className='my-2 mx-4'>Edit Mode</Typography>
-                            <Typography textVariant='span' size='xs' className='my-2 mx-4'>Ctrl + E</Typography>
-                        </div>
-
-                        <div className="flex justify-between border-b border-another">
-                            <Typography textVariant='default' size='xs' className='my-2 mx-4'>Preview & Edit Mode</Typography>
-                            <Typography textVariant='span' size='xs' className='my-2 mx-4'>Ctrl + Shift + E</Typography>
-                        </div>
-
-                    </div>
-
-                    <div className="border border-another rounded-md my-4 w-full">
-
-                        {shortCuts.map((shortCut, index) => {
-                            const { title, format, key } = shortCut;
-                            const shortCutKey = `Ctrl + ${key.toUpperCase()}`;
-                            return (
-                                <div className="flex justify-between border-b border-another">
-                                    <Typography textVariant='default' size='xs' className='my-2 mx-4'>{title}</Typography>
-                                    <div className="flex">
-                                    <Typography textVariant='span' size='xs' className='my-2'>{format}</Typography>
-                                    <Typography textVariant='span' size='xs' className='my-2 mx-4'>{shortCutKey}</Typography>
+                            {shortCuts.map((shortCut, index) => {
+                                const { title, format, key } = shortCut;
+                                const shortCutKey = `Ctrl + ${key.toUpperCase()}`;
+                                return (
+                                    <div className="flex justify-between border-b border-another">
+                                        <Typography textVariant='default' size='xs' className='my-2 mx-4'>{title}</Typography>
+                                        <div className="flex">
+                                            <Typography textVariant='span' size='xs' className='my-2'>{format}</Typography>
+                                            <Typography textVariant='span' size='xs' className='my-2 mx-4'>{shortCutKey}</Typography>
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        })}
+                                )
+                            })}
 
+                        </div>
                     </div>
+
+
                 </div>
-
-
-            </div>
 
             </div>
         </Dialog>

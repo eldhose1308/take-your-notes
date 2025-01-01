@@ -3,6 +3,7 @@ import { TextBox } from "_components/Form";
 import React, { useState, useRef, createContext, useContext, useMemo, useEffect } from "react";
 import { highlightText } from "./_utils/utils";
 import Loader from "_components/Loader/Loader";
+import useEscClose from "_hooks/useEscClose";
 
 const ComboboxContext = createContext();
 
@@ -47,6 +48,7 @@ const ComboboxContent = ({ heading = 'Heading', children, options = [], isFetchi
   const { isMenuOpen, hide, searchQuery, setSearchQuery } = useContext(ComboboxContext)
   // call debounced search func
   const [highlightedIndex, setHighlightedIndex] = useState(-1)
+  useEscClose(hide, isMenuOpen);
 
   const dropdownRef = useRef(null);
   const filteredItems = useMemo(() =>

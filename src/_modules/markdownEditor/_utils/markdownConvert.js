@@ -105,7 +105,7 @@ function convertMarkdownToHtml(markdown) {
     });
 
     // links
-    markdown = markdown.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<span><a class="md-link" target="_blank" href="$2">$1</a><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-circle-arrow-out-up-right"><path d="M22 12A10 10 0 1 1 12 2"/><path d="M22 2 12 12"/><path d="M16 2h6v6"/></svg><span>');
+    markdown = markdown.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<span class="flex group-hover md-link"><a target="_blank" href="$2">$1</a><span class="flex items-center group-hover-item invisible ml-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-circle-arrow-out-up-right"><path d="M22 12A10 10 0 1 1 12 2"/><path d="M22 2 12 12"/><path d="M16 2h6v6"/></svg></span><span>');
 
 
     markdown = markdown.replace(/---/g, '<hr>'); // TODO: if more than 3 is written, then also a single line should only be done
