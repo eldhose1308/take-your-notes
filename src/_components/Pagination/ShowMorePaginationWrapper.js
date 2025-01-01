@@ -43,6 +43,9 @@ const ShowMorePaginationWrapper = (props) => {
     }
 
     const handleNextPage = () => {
+        if(fetchStatus === 'loading'){
+            return
+        }
         // setCurrentPage(previousPage => (previousPage + 1));
         fetchData(currentPage + 1);
     }
