@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Dialog from "_components/UI/Dialog/Dialog";
 import Typography from "_components/Misc/Typography/Typography";
 import Separator from "_components/Misc/Separator/Separator";
+import useEscClose from "_hooks/useEscClose";
 
 const HelpDialog = (props) => {
     const { title, children } = props;
@@ -15,6 +16,8 @@ const HelpDialog = (props) => {
     const closeHelpInfo = () => {
         setIsHelpInfoOpen(false);
     }
+
+    useEscClose(closeHelpInfo, isHelpInfoOpen);
 
     if (!isHelpInfoOpen) {
         return (
