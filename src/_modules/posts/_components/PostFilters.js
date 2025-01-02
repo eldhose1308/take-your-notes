@@ -23,7 +23,8 @@ const PostFilters = (props) => {
 
     const selectedValue = useMemo(() => Object.keys(filterQueryParamMappings).find(filterKey => {
         const filterItem = filterQueryParamMappings[filterKey];
-        return (JSON.stringify(filterItem) === JSON.stringify(filters))
+        // return (JSON.stringify(filterItem) === JSON.stringify(filters))
+        return Object.keys(filterItem).every(key => filters[key] === filterItem[key]);
     }), [filters]);
 
     const selectedOption = useMemo(() => filterOptions.find(option => option.id === selectedValue), [selectedValue]);
