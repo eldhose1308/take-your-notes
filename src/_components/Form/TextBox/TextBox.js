@@ -81,6 +81,10 @@ const TextBox = ({ labelName, value='', validationMsg = {}, variant, width, size
     }
 
     useEffect(() => {
+        setInputValue(value)
+    }, [value])
+
+    useEffect(() => {
         // alert(isFocused)
         if (isFocused) {
             inputRef.current.focus();
