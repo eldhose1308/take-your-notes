@@ -24,12 +24,18 @@
   /* font-size: 16px; */
   box-sizing: border-box;
   resize: none;
+  line-height: 2rem;
+
 }
 
 
 
 
 /***Move to Prevoew component **/
+
+.preview{
+  line-height: 2rem;
+}
 
 blockquote {
   background-color: var(--bg-custom);

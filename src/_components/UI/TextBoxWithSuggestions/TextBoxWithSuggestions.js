@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect } from "react"
 import { TextBox } from "_components/Form"
 
 const SUGGESTIONS_THRESHOLD = 0;
-const MAX_SELECTED_OPTIONS = 10;
+const MAX_SELECTED_OPTIONS = 30;
 
 // change textbox to bottomBorder
 const TextBoxWithSuggestions = (props) => {
