@@ -13,6 +13,7 @@ import PostCategoryBadge from "_modules/postCategories/_components/PostCategoryB
 import PostItemTableOfContent from "_modules/posts/_components/PostItemTableOfContent";
 
 import * as interactionService from "_services/interactions.service";
+import { getUserDetailsOfCurrentUser } from "_utils/userAuth";
 
 
 const PostItemSuccess = (props) => {
@@ -23,12 +24,17 @@ const PostItemSuccess = (props) => {
     const tableOfContents = useMemo(() => getTableOfContents(markdownInHTML),[markdownInHTML]);
 
     const categoryDetailRoute = CLIENT_ROUTES.CATEGORY_DETAIL(categorySlug);
-
+    const { userName: currentUserName } = getUserDetailsOfCurrentUser();
 
 
     useEffect(() => {
 
         const trackInteractions = async (entityType, entityId, interactionType) => {
+            const { userName: currentUserName } = getUserDetailsOfCurrentUser();
+            const { userName: userNameOfPost } = user;
+            if(!currentUserName || userNameOfPost === currentUserName){
+                return;
+            }
             try{
                 await interactionService.interactionWithPost({ entity_type: entityType, entity_id: entityId, interaction_type: interactionType });
             }catch(error){
