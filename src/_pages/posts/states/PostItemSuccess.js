@@ -24,7 +24,6 @@ const PostItemSuccess = (props) => {
     const tableOfContents = useMemo(() => getTableOfContents(markdownInHTML),[markdownInHTML]);
 
     const categoryDetailRoute = CLIENT_ROUTES.CATEGORY_DETAIL(categorySlug);
-    const { userName: currentUserName } = getUserDetailsOfCurrentUser();
 
 
     useEffect(() => {
