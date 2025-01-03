@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 
 import Flex from "_components/Misc/Flex/Flex";
 import Separator from "_components/Misc/Separator/Separator";
@@ -12,6 +12,9 @@ import CLIENT_ROUTES from "_routes/clientRoutes";
 import PostCategoryBadge from "_modules/postCategories/_components/PostCategoryBadge";
 import PostItemTableOfContent from "_modules/posts/_components/PostItemTableOfContent";
 
+import * as interactionService from "_services/interactions.service";
+
+
 const PostItemSuccess = (props) => {
     const { postItem } = props;
     const { postTitle, id, content, category, user, createdAt, updatedAt } = postItem;
@@ -21,7 +24,21 @@ const PostItemSuccess = (props) => {
 
     const categoryDetailRoute = CLIENT_ROUTES.CATEGORY_DETAIL(categorySlug);
 
-    console.log('@tableOfContents', tableOfContents);
+
+
+    useEffect(() => {
+
+        const trackInteractions = async (entityType, entityId, interactionType) => {
+            try{
+                await interactionService.interactionWithPost({ entity_type: entityType, entity_id: entityId, interaction_type: interactionType });
+            }catch(error){
+                console.log(error);
+            }
+        }
+
+        trackInteractions('post', id, 'view');
+    }, [id])
+
     return (
         <React.Fragment>
 
