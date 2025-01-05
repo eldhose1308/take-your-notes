@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { Stencil } from "_components/Loader";
@@ -12,7 +12,7 @@ import SeeMoreButton from "_components/Misc/SeeMoreButton";
 
 const AdditionalUsersPosts = (props) => {
     const { userName, fullName } = props;
-    const { usersPostList, fetchStatus } = useUserPosts({ userName });
+    const { usersPostList, fetchUsersPost, fetchStatus } = useUserPosts({ userName });
 
     const userDetailRoute = CLIENT_ROUTES.USER_DETAIL(userName);
     
@@ -22,6 +22,13 @@ const AdditionalUsersPosts = (props) => {
         success: <MiniUserPostsList usersPostList={usersPostList} />
     });
 
+      useEffect(() => {
+            if (!userName) {
+                return;
+            }
+    
+            fetchUsersPost({ page: 1, limit: 6 });
+        }, [userName]);
 
     return (
         <React.Fragment>
