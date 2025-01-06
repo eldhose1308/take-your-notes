@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Button, TextBox } from "_components/Form";
 import Separator from "_components/Misc/Separator/Separator";
@@ -12,11 +12,21 @@ const messages = {
     error: { heading: 'Profile Update Failed', description: 'There was an error updating your profile' }
 };
 
+
+const buttonStateValues = {
+    none: 'Update Profile',
+    loading: 'Updating your profile',
+    failure: 'Failed to update',
+    completed: 'Updated successfully',
+}
+
+
 const IdentityForm = (props) => {
     const { identityData, onSave = () => { } } = props;
     const { avatar, userName, fullName, email, bio, joinedAt, websiteLink, phone, postCounts, followers, following, rank } = identityData;
     const initialValues = { userName, fullName };
 
+    const [buttonStatus, setButtonStatus] = useState('none');
     const { register, submit, errors, errorMessages, isSubmitting } = useForm({ schema: IdentitySchema, initialValues, messages });
 
     const handleSave = async (formData) => {
@@ -26,10 +36,17 @@ const IdentityForm = (props) => {
             user_name,
             password
         };
+        setButtonStatus('loading');
         try {
             await onSave({ basicInfo: formPayload });
+            setButtonStatus('completed');
         } catch (err) {
+            setButtonStatus('failure');
             throw err;
+        } finally {
+            setTimeout(() => {
+                setButtonStatus('none');
+            }, 1000)
         }
     }
 
@@ -85,7 +102,9 @@ const IdentityForm = (props) => {
             </div>
 
             <div>
-                <Button size='xs' width='none' variant='accent' className='mx-2' onClick={submit(handleSave)}>Update Profile</Button>
+                <Button size='xs' width='none' variant='accent' className='mx-2' onClick={submit(handleSave)} buttonStatus={buttonStatus}>
+                    {buttonStateValues[buttonStatus]}
+                </Button>
             </div>
 
         </React.Fragment>
