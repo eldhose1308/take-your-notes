@@ -24,8 +24,11 @@ export const PostsProvider = ({ children }) => {
     }
 
     const getLastClickedPost = () => {
-        // return '';
         return clickedPost.current[window.location.href] || '';
+    }
+
+    const removeLastClickedPost = () => {
+        delete clickedPost.current[window.location.href];
     }
 
     const setLastClickedPost = (postSlug) => {
@@ -67,7 +70,8 @@ export const PostsProvider = ({ children }) => {
 
     const lastClickedPOJO = {
         setLastClickedPost,
-        getLastClickedPost
+        getLastClickedPost,
+        removeLastClickedPost
     }
 
     const postsCache = {

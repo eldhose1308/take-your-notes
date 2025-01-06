@@ -38,7 +38,7 @@ const PostListItem = (props) => {
     const [buttonStatus, setButtonStatus] = useState('none');
 
 
-    const { setLastClickedPost } = usePostsCache();
+    const { setLastClickedPost, removeLastClickedPost } = usePostsCache();
     const { deletePost, restorePost } = useMyPosts();
     // const { isAuthenticated } = useAuth();
     const { confirmDelete } = useConfirmDeleteDialog();
@@ -85,6 +85,7 @@ const PostListItem = (props) => {
             const lastPost = document.querySelector(`[data-id="${lastClickedPost}"]`); 
             if(lastPost){
                 lastPost.scrollIntoView({ behavior: 'smooth' });
+                removeLastClickedPost();
             }
         }
     
