@@ -477,6 +477,10 @@ line-height: 1.5rem;
   background-color: var(--highlight);
 }
 
+.bg-primary {
+  background-color: var(--primary);
+}
+
 .bg-light {
   background-color: var(--bg-light);
 }

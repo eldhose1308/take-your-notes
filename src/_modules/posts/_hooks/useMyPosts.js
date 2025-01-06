@@ -84,6 +84,7 @@ const useMyPosts = () => {
                 description: message,
                 options: { position: 'top-right' }
             }).error()
+            throw error;
             return false;
         }
     }, []);
@@ -111,6 +112,7 @@ const useMyPosts = () => {
                 description: message,
                 options: { position: 'top-right' }
             }).error()
+            throw error;
             return false;
         }
     }, []);
@@ -181,15 +183,15 @@ const useMyPosts = () => {
 
 
     const savePost = async () => {
-        const [error, message] = validatePostForm(postFormState);
-        if(error){
-            toast({
-                heading: 'Oops! Please verify the changes.',
-                description: message,
-                options: { position: 'top-right' }
-            }).error()
-            return;
-        }
+        // const [error, message] = validatePostForm(postFormState);
+        // if(error){
+        //     toast({
+        //         heading: 'Oops! Please verify the changes.',
+        //         description: message,
+        //         options: { position: 'top-right' }
+        //     }).error()
+        //     return;
+        // }
 
         const { postId, postTags, currentVisibilityMode, postCategory, postTitle, markdownContent } = postFormState;
 
@@ -243,6 +245,7 @@ const useMyPosts = () => {
         fetchCategoriesData,
         fetchMyPostsData,
         fetchUsersPostItem,
+        validatePostForm,
 
         savePost,
         deletePost,

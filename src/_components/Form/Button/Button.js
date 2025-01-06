@@ -14,6 +14,7 @@ const buttonVariants = cva(
             variant: {
                 default: 'btn bg-default text-custom',
                 accent: 'btn bg-accent text-custom',
+                primary: 'btn bg-primary text-default',
                 secondary: 'btn bg-secondary text-default',
                 custom: 'btn bg-custom text-default hover-accent hover-text-custom',
                 destructive: 'btn bg-destructive text-white',

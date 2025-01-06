@@ -10,7 +10,7 @@ import useEscClose from "_hooks/useEscClose";
 
 const ConfirmDeleteContext = createContext();
 
-const buttonStateValues = {
+const defaultButtonStateValues = {
     none: 'Delete',
     loading: 'Deleting',
     failure: 'Failed',
@@ -19,13 +19,22 @@ const buttonStateValues = {
 
 
 const ConfirmDeleteDialogProvider = ({ children }) => {
+    const [dialogDetails, setDialogDetails] = useState({
+        variant: 'destructive',
+        heading: 'Confirm Deletion',
+        message: 'Are you sure you want to permanently delete this item?',
+        buttonStateValues: defaultButtonStateValues
+    });
     const [isOpen, setIsOpen] = useState(false);
     const [resolvePromise, setResolvePromise] = useState(null);
     const [primaryResolve, setPrimaryResolve] = useState(null);
 
     const [buttonStatus, setButtonStatus] = useState('none');
     
-    const confirmDelete = async (apiCallMethod) => {
+    const { variant, heading, message, buttonStateValues } = dialogDetails;
+
+    const confirmDelete = async (apiCallMethod, dialogDetailsOptions={}) => {
+        setDialogDetails({ ...dialogDetails, ...dialogDetailsOptions });
         setIsOpen(true);
         return new Promise((resolve) => {
             setResolvePromise(() => apiCallMethod);
@@ -81,18 +90,18 @@ const ConfirmDeleteDialogProvider = ({ children }) => {
 
                     <Card variant='ghost' rounded='lg'>
                         <CardHeader>
-                            <Typography size='lg'>Confirm Deletion</Typography>
+                            <Typography size='lg'>{heading}</Typography>
                         </CardHeader>
 
                         <CardContent>
 
-                            <Typography size='sm' textVariant='default'>Are you sure you want to permanently delete this item?</Typography>
+                            <Typography size='sm' textVariant='default'>{message}</Typography>
 
                         </CardContent>
 
                         <CardFooter className='p-0 flex justify-between'>
                             <Button size='xs' width='none' variant='custom' onClick={handleCancelClick}>Cancel</Button>
-                                <Button size='xs' width='none' variant='destructive' onClick={handleDeleteClick} buttonStatus={buttonStatus}>
+                                <Button size='xs' width='none' variant={variant} onClick={handleDeleteClick} buttonStatus={buttonStatus}>
                                 {buttonStateValues[buttonStatus]}
                             </Button>
                         </CardFooter>
