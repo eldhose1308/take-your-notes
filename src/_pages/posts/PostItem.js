@@ -12,6 +12,7 @@ import useComponentFetchState from "_hooks/useComponentFetchState";
 import PostItemSuccess from "./states/PostItemSuccess";
 import AdditionalContentSection from "_components/Misc/AdditionalContentSection";
 import AdditionalUsersPosts from "_modules/additionalContents/AdditionalUsersPosts";
+import AdditionalCategoryPosts from "_modules/additionalContents/AdditionalCategoryPosts";
 
 const PostItem = () => {
     const { userName, postSlug } = useParams();
@@ -19,6 +20,7 @@ const PostItem = () => {
 
     const { postTitle, id, content, category, user, createdAt, updatedAt } = usersPostItem;
     const { userName: userNameOfPost, fullName, avatar } = user || {};
+    const { categorySlug, categoryName } = category || {};
 
     useTitle(postTitle);
 
@@ -57,6 +59,7 @@ const PostItem = () => {
                         </div>
                             
                         <AdditionalUsersPosts userName={userNameOfPost} fullName={fullName} />
+                        <AdditionalCategoryPosts categorySlug={categorySlug} categoryName={categoryName} />
 
                     </div>
                 </ResponsiveDrawer>
