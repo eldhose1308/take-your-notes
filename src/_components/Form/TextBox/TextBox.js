@@ -59,7 +59,7 @@ const TextBox = ({ labelName, value='', validationMsg = {}, variant, width, size
     const { className: labelClassName, ...labelProps } = labelPropsWithClassName || {};
 
     const inputRef = useRef(null);
-    const [inputValue, setInputValue] = useState(value);
+    const [inputValue, setInputValue] = useState(value || '');
 
     const validationClass = validationTextClass({ type: messageType });
     const inputClassNames = textBoxVariants({ variant, width, size, placeholderFocus, className, });
@@ -81,7 +81,7 @@ const TextBox = ({ labelName, value='', validationMsg = {}, variant, width, size
     }
 
     useEffect(() => {
-        setInputValue(value)
+        setInputValue(value || '')
     }, [value])
 
     useEffect(() => {
