@@ -53,7 +53,7 @@ const ResponsiveDrawer = ({ children, ...props }) => {
 
             {isDrawerOpen && (
                 <Drawer isActive={isDrawerOpen}  {...props} hide={closeDrawer}>
-                    <div className="h-screen overflow-scroll">
+                    <div className="h-screen-90 overflow-scroll">
                     {children}
                     </div>
                 </Drawer>

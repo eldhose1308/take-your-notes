@@ -838,6 +838,10 @@ line-height: 1.5rem;
   height: 50vh;
 }
 
+.h-screen-90{
+  height: 90vh;
+}
+
 .h-screen-60{
   height: 60vh;
 }
