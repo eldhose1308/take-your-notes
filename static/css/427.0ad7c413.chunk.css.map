@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/427.0ad7c413.chunk.css","mappings":"AAAA,eAEI,UAAY,CADZ,UAEF,CACF,kCACI,UACF","sources":["_modules/postCategories/_components/DragAndDrop/DragAndDrop.css"],"sourcesContent":[".item.dragging {\n    width: 100%;\n    opacity: 0.4;\n  }\n.item.dragging :where(.details, i) {\n    opacity: 0.4;\n  }"],"names":[],"sourceRoot":""}
