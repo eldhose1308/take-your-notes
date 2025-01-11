@@ -11,6 +11,7 @@ import AdditionalCategories from "_modules/additionalContents/AdditionalCategori
 import WelcomeCard from "_modules/posts/_components/WelcomeCard";
 import AdditionalSeries from "_modules/additionalContents/AdditionalSeries";
 import AdditionalRecentSearch from "_modules/additionalContents/AdditionalRecentSearch";
+import Typography from "_components/Misc/Typography/Typography";
 
 
 const PostFeedPage = () => {
@@ -18,6 +19,7 @@ const PostFeedPage = () => {
 
     return (
         <div className="text-default m-5">
+                <Typography size='lg' type='h2' className='flex mx-8'>Your Feeds</Typography>
             <div className="flex w-full px-2 my-4 rounded-md">
 
                 <div className="flex flex-col grow-1 basis-0">

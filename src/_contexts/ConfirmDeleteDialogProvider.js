@@ -21,7 +21,7 @@ const defaultButtonStateValues = {
 const ConfirmDeleteDialogProvider = ({ children }) => {
     const [dialogDetails, setDialogDetails] = useState({
         variant: 'destructive',
-        heading: 'Confirm Deletion',
+        heading: 'Confirm Deletion?',
         message: 'Are you sure you want to permanently delete this item?',
         buttonStateValues: defaultButtonStateValues
     });

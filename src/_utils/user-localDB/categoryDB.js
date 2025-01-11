@@ -20,6 +20,16 @@ export const setCategoryToLocal = (data) => {
 }
 
 
+export const removeCategoryFromLocal = (data) => {
+    const { id, categoryId, categorySlug, categoryName } = data;
+    const trackedCategories = getFromLocalDB(CATEGORY_TRACKING_DBKEY) || [];
+
+    const deletedCategoryIndex = trackedCategories.findIndex(({ categorySlug: trackedDataCategorySlug }) => trackedDataCategorySlug === categorySlug);
+    trackedCategories.splice(deletedCategoryIndex, 1);
+
+    saveToLocalDB(CATEGORY_TRACKING_DBKEY, trackedCategories);
+}
+
 export const getCategoryFromLocal = () => {
     return getFromLocalDB(CATEGORY_TRACKING_DBKEY) || [];
 }

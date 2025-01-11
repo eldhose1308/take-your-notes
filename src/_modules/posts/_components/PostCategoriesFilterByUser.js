@@ -7,7 +7,7 @@ import Separator from "_components/Misc/Separator/Separator";
 import useEscClose from "_hooks/useEscClose";
 import DragAndDrop from "_modules/postCategories/_components/DragAndDrop/DragAndDrop";
 import PostCategory from "./PostCategory";
-import { getCategoryFromLocal, setCategoryToLocal } from "_utils/user-localDB/categoryDB";
+import { getCategoryFromLocal, removeCategoryFromLocal, setCategoryToLocal } from "_utils/user-localDB/categoryDB";
 
 
 const formatCategoryToDragAndDrop = (category) => {
@@ -53,6 +53,10 @@ const PostCategoriesFilterByUser = (props) => {
         setSelectedCategories(categories);
     }
 
+    const handleDeleteCategoryIdPreference = (deletedCategory, categories) => {
+        setSelectedCategories(categories);
+        removeCategoryFromLocal(deletedCategory);
+    }
 
     useEffect(() => {
         const categoryIds = selectedCategories.map((category) => category.id);
@@ -107,7 +111,7 @@ const PostCategoriesFilterByUser = (props) => {
                 <Typography textVariant='span' size='xs' className='mb-4'>Categories that will be filtered in your feed</Typography>
 
 
-                <DragAndDrop items={selectedCategories} onReordered={handleCategoryIds} />
+                <DragAndDrop items={selectedCategories} onReordered={handleCategoryIds} onDelete={handleDeleteCategoryIdPreference} />
             </div>
 
         </Drawer>
