@@ -14,6 +14,7 @@ import PostItemTableOfContent from "_modules/posts/_components/PostItemTableOfCo
 
 import * as interactionService from "_services/interactions.service";
 import { getUserDetailsOfCurrentUser } from "_utils/userAuth";
+import { setCategoryToLocal } from "_utils/user-localDB/categoryDB";
 
 
 const PostItemSuccess = (props) => {
@@ -43,6 +44,11 @@ const PostItemSuccess = (props) => {
 
         trackInteractions('post', id, 'view');
     }, [id])
+
+
+     useEffect(() => {
+        setCategoryToLocal(category);
+    }, [category]); 
 
     return (
         <React.Fragment>

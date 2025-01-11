@@ -75,8 +75,8 @@ const usePostsCategories = () => {
             if (statusCode === 401) {
                 logout();
             }
-            throw error;
             setFetchStatus('failure');
+            throw error;
         }
     }
 

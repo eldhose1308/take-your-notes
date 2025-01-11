@@ -7,8 +7,9 @@ import useDebounce from "_hooks/useDebounce";
 
 const pageSize = 30;
 
-const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAddOption = true }) => {
-    const { savePostCategory, fetchMyPostCategories, fetchStatus: categoryFetchStatus, isAllDataFetched, categories: categoryList } = usePostsCategories();
+const PostCategory = ({ my = true,category, categoryList_arg, onChange = () => { }, hasAddOption = true }) => {
+    const { savePostCategory, fetchMyPostCategories, fetchPostCategories, fetchStatus: categoryFetchStatus, isAllDataFetched, categories: categoryList } = usePostsCategories();
+    const fetchPostCategoriesMethod = my ? fetchMyPostCategories : fetchPostCategories;
 
     const [filters, setFilters] = useState({ filters: 'explore', verified: 'all', limit: pageSize, page: 1 });
     const [selectedCategory, setSelectedCategory] = useState(category);
@@ -29,7 +30,7 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
     const handleFetchPostCategories = async (newFilters = []) => {
         const usersFilter = { ...filters, ...newFilters };
         try {
-            const users = await fetchMyPostCategories(usersFilter);
+            const users = await fetchPostCategoriesMethod(usersFilter);
             setData((previousUsers) => [...previousUsers, ...users]);
             setFilters((previousFilters) => ({ ...previousFilters, page: previousFilters.page + 1 }));
         } catch (err) {
@@ -55,7 +56,7 @@ const PostCategory = ({ category, categoryList_arg, onChange = () => { }, hasAdd
         const usersFilter = { ...filters, ...{ search: value, page: 1 } };
         try{
 
-            const users = await fetchMyPostCategories(usersFilter);
+            const users = await fetchPostCategoriesMethod(usersFilter);
             setData(users);
             setFilters((previousFilters) => ({ ...previousFilters, page: 2 }));
         }catch(err){

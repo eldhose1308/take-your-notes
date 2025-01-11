@@ -10,7 +10,9 @@ import { usePostsCache } from "_contexts/PostsContext";
 
 const pageSize = 50;
 
-const PostsHomeList = () => {
+const PostsHomeList = (props) => {
+    const { hasMultipleCategoryFilter } = props;
+
     const { cachePostsList, getCachedPostsList, getCachedFilters, setCachedFilters, getPreviousPage, setPreviousPage } = usePostsCache();
     const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize, previousPageFromCache: getPreviousPage() });
     const { fetchStatus, fetchPostsData } = usePosts();
@@ -83,7 +85,7 @@ const PostsHomeList = () => {
 
     return (
         <React.Fragment>
-            <PostFilters filters={filters} onChange={handleFiltersChange} />
+            <PostFilters filters={filters} onChange={handleFiltersChange} hasMultipleCategoryFilter={hasMultipleCategoryFilter} />
             <ShowMorePaginationWrapper key={`posts_${stringifyJSON(filters)}`} initialFetchStatus={fetchStatus} currentPage={currentPage} isAllDataFetched={isAllDataFetched} fetchDataMethod={fetchPosts}>
                 <React.Fragment>
                     <PostsSuccess usersPostList={data} />

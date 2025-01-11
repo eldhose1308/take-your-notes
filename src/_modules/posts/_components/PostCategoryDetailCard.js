@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Separator from "_components/Misc/Separator/Separator";
 import Typography from "_components/Misc/Typography/Typography";
@@ -7,6 +7,7 @@ import FollowButton from "_modules/postCategories/_components/FollowButton";
 import PostCategoryInfo from "./PostCategoryInfo";
 import CLIENT_ROUTES from "_routes/clientRoutes";
 import { Link } from "react-router-dom";
+import { setCategoryToLocal } from "_utils/user-localDB/categoryDB";
 
 const PostCategoryDetailCard = (props) => {
 
@@ -14,6 +15,9 @@ const PostCategoryDetailCard = (props) => {
     const [categoryState, setCategoryState] = useState(categoryData);
     const { id: categoryId, categorySlug, categoryName, bio, createdAt, createdUser, createdUserName, posts, followers, rank, isFollowing } = categoryState;
 
+    useEffect(() => {
+        setCategoryToLocal(categoryData);
+    }, [categoryData]);
 
     return (
         <div className="border bg-default p-4 rounded-md">

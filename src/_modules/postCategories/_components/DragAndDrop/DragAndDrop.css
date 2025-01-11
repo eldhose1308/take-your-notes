@@ -1,0 +1,7 @@
+.item.dragging {
+    width: 100%;
+    opacity: 0.4;
+  }
+.item.dragging :where(.details, i) {
+    opacity: 0.4;
+  }

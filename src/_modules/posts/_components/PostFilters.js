@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 
 import Filter from "_modules/filters/_components/Filter";
+import PostCategoriesFilterByUser from "./PostCategoriesFilterByUser";
 
 const filterOptions = [
     { id: 'none', text: 'None' },
@@ -18,7 +19,7 @@ const filterQueryParamMappings = {
 }
 
 const PostFilters = (props) => {
-    const { filters={}, onChange = () => { }, resetPagination = () => { } } = props;
+    const { filters={}, onChange = () => { }, resetPagination = () => { }, hasMultipleCategoryFilter=false } = props;
 
 
     const selectedValue = useMemo(() => Object.keys(filterQueryParamMappings).find(filterKey => {
@@ -37,14 +38,23 @@ const PostFilters = (props) => {
         onChange(filterQueryParams, id);
     }
 
+    const handleCategoryIdsFilterChange = (filterQuery) => {
+        resetPagination();
+        onChange(filterQuery);
+    }
+
     return (
-        <div className="flex">
+        <div className="flex flex-col">
             <Filter
                 label='Filter by'
                 onSelect={handleFilterChange}
                 options={filterOptions}
                 selectedOption={selectedOption}
             />
+
+            {hasMultipleCategoryFilter && <PostCategoriesFilterByUser 
+                onSelect={handleCategoryIdsFilterChange}
+            />}
 
             {/* <Filter
                 label='Category'

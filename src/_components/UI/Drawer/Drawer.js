@@ -1,6 +1,6 @@
 import React from "react";
 
-const Drawer = ({ hide, direction='right', isActive, heading = '', children, ...props }) => {
+const Drawer = ({ hide, width='80', direction='right', isActive, heading = '', children, ...props }) => {
 
     if (!isActive) {
         return null
@@ -13,7 +13,7 @@ const Drawer = ({ hide, direction='right', isActive, heading = '', children, ...
             <div onClick={hide} className="overlay z-200"></div>
 
             <div id="drawer-example" className={`fixed top-0 z-200 h-screenoverflow-y-auto  h-full
-            bg-default border-l border-another w-80 transition-transform transform-none ${direction === 'right' ? 'right-0 translate-x-full' : 'left-0 translate-x-full-right'  }`}
+            bg-default border-l border-another w-${width} transition-transform transform-none ${direction === 'right' ? 'right-0 translate-x-full' : 'left-0 translate-x-full-right'  }`}
                 tabindex="-1" aria-labelledby="drawer-label">
                 <div className="flex justify-between p-4 ">
                     <h5 id="drawer-label" className="flex items-center justify-center">{heading}</h5>
