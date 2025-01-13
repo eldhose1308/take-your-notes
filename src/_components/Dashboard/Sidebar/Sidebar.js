@@ -31,7 +31,7 @@ const Sidebar = (props) => {
 
                 </div>
 
-                <div className="aside_divst">
+                <div className="aside_divst px-4">
                     {top.map(menuItem => {
                         const { id, path, needsAuth } = menuItem
                         return (<SidebarItems key={id} item={menuItem} isActive={pathname === path} isAuthenticated={isAuthenticated} />)

@@ -95,7 +95,7 @@ const ConfirmDeleteDialogProvider = ({ children }) => {
 
                         <CardContent>
 
-                            <Typography size='sm' textVariant='default'>{message}</Typography>
+                            <Typography size='xs' variant='secondary' textVariant='default'>{message}</Typography>
 
                         </CardContent>
 

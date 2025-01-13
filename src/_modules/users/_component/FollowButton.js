@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { getUserDetailsOfCurrentUser, isUserDataSameAsLoggedInUser } from "_utils/userAuth";
 
 import * as usersService from '_services/users.service';
+import { useToast } from "_contexts/ToastProvider";
 
 const FOLLOW_STATE = {
     'true': {
@@ -20,29 +21,55 @@ const FollowButton = (props) => {
 
     const isCurrentUserDetail = userName ? isUserDataSameAsLoggedInUser(userName) : false;
 
+    const [fetchStatus, setFetchStatus] = useState('none');
+    const { toast } = useToast();
+
     const handleFollow = async () => {
+        setFetchStatus('loading');
         try{
             await usersService.followUser(userId);
             updateUser(previousUserState => ({ ...previousUserState, followers: Number(previousUserState.followers) + 1, isFollowing: !previousUserState.isFollowing }));
-            // await onFollow();
+            toast({
+                heading: 'Followed',
+                options: { position: 'top-center' }
+            }).success()
         }catch(err){
-            alert(err.message);
+            const { statusCode, message } = err;
+            toast({
+                heading: statusCode === 401 ? 'Please login to follow' : message,
+                options: { position: 'top-center' }
+            }).error()
+        }finally{
+            setFetchStatus('none');
         }
     }
 
     const handleUnFollow = async () => {
+        setFetchStatus('loading');
         try{
             await usersService.unFollowUser(userId);
             updateUser(previousUserState => ({ ...previousUserState, followers: Number(previousUserState.followers) - 1, isFollowing: !previousUserState.isFollowing }));
-            // await onFollow();
+            toast({
+                heading: 'UnFollowed',
+                options: { position: 'top-center' }
+            }).success()
         }catch(err){
-            alert(err.message);
+            const { statusCode, message } = err;
+            toast({
+                heading: statusCode === 401 ? 'Please login to unfollow' : message,
+                options: { position: 'top-center' }
+            }).error()
+        }finally{
+            setFetchStatus('none');
         }
     }
 
     const handleClick = async () => {
+        if(fetchStatus === 'loading'){
+            return;
+        }
         if(!userId){
-            alert('Nopeee')
+            // alert('Nopeee')
             return;
         }
         if(isFollowing){
