@@ -37,6 +37,7 @@ const UsersPostList = lazyLoadWithDelay(() => import('_pages/users/UsersPostList
 const PostItem = lazyLoadWithDelay(() => import('_pages/posts/PostItem'));
 const PostsHome = lazyLoadWithDelay(() => import('_pages/posts/PostsHome'));
 const PostFeedPage = lazyLoadWithDelay(() => import('_pages/posts/PostFeedPage'));
+const MySubscriptionsPage = lazyLoadWithDelay(() => import('_pages/subscriptions/MySubscriptionsPage'));
 const UserDetailPage = lazyLoadWithDelay(() => import('_pages/users/UserDetailPage'));
 const MyPostForm = lazyLoadWithDelay(() => import('_pages/myPosts/form/MyPostForm'));
 const MyPostList = lazyLoadWithDelay(() => import('_pages/myPosts/list/MyPostList'));
@@ -123,6 +124,16 @@ export const ROUTES = [
       {
         path: "",
         element: <MyProfile />
+      }
+    ]
+  },
+  {
+    path: "/my/subscriptions",
+    element: <WithDashboardLayout />,
+    children: [
+      {
+        path: "",
+        element: <MySubscriptionsPage />
       }
     ]
   },
