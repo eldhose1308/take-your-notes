@@ -50,7 +50,7 @@ export const MENU_ITEMS = {
             svg: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-users-round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg>
         },
         {
-            id: 6,
+            id: 5,
             text: 'My Subscriptions',
             route: '/my/subscriptions',
             path: '/my/subscriptions',
@@ -59,6 +59,14 @@ export const MENU_ITEMS = {
         },
         {
             id: 6,
+            text: 'My Subscribers',
+            route: '/my/subscribers',
+            path: '/my/subscribers',
+            needsAuth: true,
+            svg: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+        },
+        {
+            id: 7,
             text: 'My Posts',
             route: '/my/posts',
             path: '/my/posts',
@@ -66,7 +74,7 @@ export const MENU_ITEMS = {
             svg: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-rss"><path d="M4 11a9 9 0 0 1 9 9" /><path d="M4 4a16 16 0 0 1 16 16" /><circle cx="5" cy="19" r="1" /></svg>
         },
         {
-            id: 7,
+            id: 8,
             text: 'My Categories',
             route: '/my/categories',
             path: '/my/categories',
@@ -74,7 +82,7 @@ export const MENU_ITEMS = {
             svg: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" class="lucide lucide-square-menu"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 8h10"/><path d="M7 12h10"/><path d="M7 16h10"/></svg>
         },
         {
-            id: 8,
+            id: 9,
             text: 'Publish',
             route: '/user/publish',
             path: '/user/publish',
