@@ -21,8 +21,9 @@ const Checkbox = (props) => {
 
                 <input 
                     type="checkbox" 
-                    value="" 
+                    // value="" 
                     onChange={handleChange}
+                    {...remainingProps}
                 />
 
                 {labelName && (

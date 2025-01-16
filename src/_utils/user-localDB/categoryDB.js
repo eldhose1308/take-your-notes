@@ -1,4 +1,4 @@
-import { CATEGORY_TRACKING_DBKEY } from "_constants/localStorageKeys";
+import { CATEGORY_TRACKING_DBKEY, TRACKING_DBKEY } from "_constants/localStorageKeys";
 import { getFromLocalDB, saveToLocalDB } from "_utils/localDB";
 
 const maxCategoriesToTrack = 10;
@@ -16,6 +16,7 @@ export const setCategoryToLocal = (data) => {
         trackedCategories.push(categoryData);
     }
 
+    saveToLocalDB(TRACKING_DBKEY, CATEGORY_TRACKING_DBKEY);
     saveToLocalDB(CATEGORY_TRACKING_DBKEY, trackedCategories);
 }
 
@@ -27,6 +28,7 @@ export const removeCategoryFromLocal = (data) => {
     const deletedCategoryIndex = trackedCategories.findIndex(({ categorySlug: trackedDataCategorySlug }) => trackedDataCategorySlug === categorySlug);
     trackedCategories.splice(deletedCategoryIndex, 1);
 
+    saveToLocalDB(TRACKING_DBKEY, CATEGORY_TRACKING_DBKEY);
     saveToLocalDB(CATEGORY_TRACKING_DBKEY, trackedCategories);
 }
 

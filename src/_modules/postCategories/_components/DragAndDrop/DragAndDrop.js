@@ -58,7 +58,7 @@ const DragAndDrop = (props) => {
     }
 
     const confirmAndDelete = async (index) => {
-        const isConfirmed = await confirmDelete(() => handleDelete(index), {
+        await confirmDelete(() => handleDelete(index), {
             heading: 'Confirm Removal?',
             message: 'Are you sure you want to remove this item from your preference?'
         });

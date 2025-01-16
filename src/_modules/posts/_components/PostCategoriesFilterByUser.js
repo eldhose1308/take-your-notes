@@ -1,75 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import Drawer from "_components/UI/Drawer/Drawer";
 import Typography from "_components/Misc/Typography/Typography";
 import Separator from "_components/Misc/Separator/Separator";
 
-import useEscClose from "_hooks/useEscClose";
-import DragAndDrop from "_modules/postCategories/_components/DragAndDrop/DragAndDrop";
-import PostCategory from "./PostCategory";
-import { getCategoryFromLocal, removeCategoryFromLocal, setCategoryToLocal } from "_utils/user-localDB/categoryDB";
+import TabPanel from "_components/Misc/TabPanel/TabPanel";
+
+import renderForm from "./feedFilters/_utils/formRenderer";
+import tabItems from "./feedFilters/_constants/tabItems";
 
 
-const formatCategoryToDragAndDrop = (category) => {
-    const { id, categorySlug, categoryName } = category || {};
-    const selectedOption = { id, categorySlug, categoryName, name: categoryName };
-    return selectedOption;
-}
-
-const categoriesTracked = getCategoryFromLocal().map(formatCategoryToDragAndDrop);
 const PostCategoriesFilterByUser = (props) => {
     const { onSelect = () => { } } = props;
 
-    const [isSelectedCategoriesVisible, setIsSelectedCategoriesVisible] = useState(false);
-    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [isFeedFiltersVisible, setIsFeedFiltersVisible] = useState(false);
 
     const openCategoryInfo = () => {
-        setIsSelectedCategoriesVisible(true);
+        setIsFeedFiltersVisible(true);
     }
 
     const closeCategoryInfo = () => {
-        setIsSelectedCategoriesVisible(false);
+        setIsFeedFiltersVisible(false);
     }
 
-    // useEscClose(closeCategoryInfo, isSelectedCategoriesVisible);
-
-    const handlePostCategoryChange = (categoryId, category) => {
-        const { id } = category || {};
-        if (!id) { return; }
-
-        const selectedOption = formatCategoryToDragAndDrop(category);
-
-        setSelectedCategories((previousCategories) => {
-            const categoryIndex = previousCategories.findIndex((categoryItem) => categoryItem.id === id);
-            if (categoryIndex === -1) {
-                return [...previousCategories, selectedOption];
-            }
-            return previousCategories.filter((categoryItem) => categoryItem.id !== id);
-        });
-
+    const handleSelectFilters = (queryParams) => {
+        onSelect(queryParams);
+        closeCategoryInfo();
     }
 
-    const handleCategoryIds = (categories) => {
-        setSelectedCategories(categories);
-    }
-
-    const handleDeleteCategoryIdPreference = (deletedCategory, categories) => {
-        setSelectedCategories(categories);
-        removeCategoryFromLocal(deletedCategory);
-    }
-
-    useEffect(() => {
-        const categoryIds = selectedCategories.map((category) => category.id);
-        onSelect({ categories: categoryIds });
-        selectedCategories.map(setCategoryToLocal);
-    }, [selectedCategories]);
+    // useEscClose(closeCategoryInfo, isFeedFiltersVisible);
 
 
-    useEffect(() => {
-        setSelectedCategories(categoriesTracked);
-    }, []);
-
-    if (!isSelectedCategoriesVisible) {
+    if (!isFeedFiltersVisible) {
         return (
             <div onClick={openCategoryInfo} className="flex items-center cursor-pointer mx-2 my-1 text-xs">
                 <div className="flex items-center py-1 px-2 hover-custom rounded-md">
@@ -84,35 +46,13 @@ const PostCategoriesFilterByUser = (props) => {
 
 
     return (
-        <Drawer isActive={isSelectedCategoriesVisible} width='full' hide={closeCategoryInfo}>
-
+        <Drawer isActive={isFeedFiltersVisible} width='full' hide={closeCategoryInfo}>
             <div className="flex justify-between">
-
-                <Typography textVariant='h3' size='md' className='mx-4'>Your selected categories</Typography>
-                <Typography textVariant='p' variant='secondary' size='xs' className='mx-4'>
-                    You can customize your feed by selecting categories you are interested in.
-                </Typography>
-
+                <Typography textVariant='h3' size='md' className='mx-4'>Filter your feed based on</Typography>
             </div>
-
             <Separator className='my-2' />
 
-            <div className="mx-4 mb-4 py-4 text-sm">
-
-                <div className="flex">
-
-                    <div className="border border-custom rounded-md p-2">
-
-                        <PostCategory my={false} onChange={handlePostCategoryChange} />
-                    </div>
-                </div>
-
-                <Separator className='my-2' />
-                <Typography textVariant='span' size='xs' className='mb-4'>Categories that will be filtered in your feed</Typography>
-
-
-                <DragAndDrop items={selectedCategories} onReordered={handleCategoryIds} onDelete={handleDeleteCategoryIdPreference} />
-            </div>
+            <TabPanel tabItems={tabItems} renderForm={renderForm} additionalProps={{ onSelect: handleSelectFilters }} />
 
         </Drawer>
     )

@@ -11,13 +11,15 @@ import { usePostsCache } from "_contexts/PostsContext";
 const pageSize = 50;
 
 const PostsHomeList = (props) => {
-    const { hasMultipleCategoryFilter } = props;
+    const { hasMultipleCategoryFilter, userPreferredFilters={} } = props;
+
+    const { payload: initialFilters, data: preferenceData } = userPreferredFilters;
 
     const { cachePostsList, getCachedPostsList, getCachedFilters, setCachedFilters, getPreviousPage, setPreviousPage } = usePostsCache();
     const { currentPage, isAllDataFetched, incrementPagination, checkIfAllDataFetched, resetPagination } = useShowMorePagination({ pageSize, previousPageFromCache: getPreviousPage() });
     const { fetchStatus, fetchPostsData } = usePosts();
 
-    const [filters, setFilters] = useState(getCachedFilters());
+    const [filters, setFilters] = useState({ ...initialFilters, ...getCachedFilters() });
     const [data, setData] = useState([]);
 
 

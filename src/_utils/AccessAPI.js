@@ -8,6 +8,22 @@ export const constructUrl = (baseUrl, data = {}) => {
     return `${baseUrl}?${queryParams}`;
 };
 
+export const removeEmptyQueryParams = (url) => {
+    const [baseUrl, queryString] = url.split('?');
+    if (!queryString) return url; 
+
+    const queryParams = queryString.split('&');
+    
+    const filteredParams = queryParams.filter(param => {
+        const [key, value] = param.split('=');
+        return value !== undefined && value !== '';
+    });
+
+    return filteredParams.length > 0 
+        ? `${baseUrl}?${filteredParams.join('&')}` 
+        : baseUrl;
+}
+
 const refreshAccessToken = async () => {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -31,7 +47,8 @@ const refreshAccessToken = async () => {
 
 export default function AccessAPI(url) {
     const api = {
-        ajax(method, url, args, payload = {}, onSuccess, onFailure, onProgress) {
+        ajax(method, apiUrl, args, payload = {}, onSuccess, onFailure, onProgress) {
+            const url = removeEmptyQueryParams(apiUrl);
             const promise = new Promise((resolve, reject) => {
                 const xhr = new XMLHttpRequest();
                 xhr.open(method, url);
