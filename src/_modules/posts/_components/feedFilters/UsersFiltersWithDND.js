@@ -11,16 +11,16 @@ import UsersDropdown from "_modules/users/_component/UsersDropdown";
 
 const formatCategoryToDragAndDrop = (category) => {
     const { id, userName, fullName } = category || {};
-    const selectedOption = { id, userName, fullName, name: fullName };
+    const selectedOption = { id: userName, userName, fullName, name: fullName };
     return selectedOption;
 }
 
-const categoriesTracked = getUserFeedPreferenceFromLocal().map(formatCategoryToDragAndDrop);
 const MAX_PREFERENCES = 10;
 
 const UsersFiltersWithDND = (props) => {
     const { onSelect } = props;
 
+    const categoriesTracked = getUserFeedPreferenceFromLocal().map(formatCategoryToDragAndDrop);
     const [selectedCategories, setSelectedCategories] = useState([]);
 
     const handlePostCategoryChange = (categoryId, category) => {

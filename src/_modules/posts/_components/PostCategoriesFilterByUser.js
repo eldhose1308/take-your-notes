@@ -8,11 +8,13 @@ import TabPanel from "_components/Misc/TabPanel/TabPanel";
 
 import renderForm from "./feedFilters/_utils/formRenderer";
 import tabItems from "./feedFilters/_constants/tabItems";
+import { getLastSavedPreference } from "_utils/user-localDB/feedPreferenceDB";
 
 
 const PostCategoriesFilterByUser = (props) => {
     const { onSelect = () => { } } = props;
 
+    const lastSavedPreference = getLastSavedPreference();
     const [isFeedFiltersVisible, setIsFeedFiltersVisible] = useState(false);
 
     const openCategoryInfo = () => {
@@ -52,7 +54,7 @@ const PostCategoriesFilterByUser = (props) => {
             </div>
             <Separator className='my-2' />
 
-            <TabPanel tabItems={tabItems} renderForm={renderForm} additionalProps={{ onSelect: handleSelectFilters }} />
+            <TabPanel initialTab={lastSavedPreference} tabItems={tabItems} renderForm={renderForm} additionalProps={{ onSelect: handleSelectFilters }} />
 
         </Drawer>
     )

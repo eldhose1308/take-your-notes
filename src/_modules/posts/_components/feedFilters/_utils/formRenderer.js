@@ -7,9 +7,9 @@ import SubscriptionsFilter from "../SubscriptionsFilter";
 
 const renderForm = (selectedTab, props) => {
     switch (selectedTab) {
-        case 'categories':
+        case 'category':
             return <CategoryFiltersWithDND {...props} />;
-        case 'users':
+        case 'user':
             return <UsersFiltersWithDND {...props} />;
         case 'subscriptions':
             return <SubscriptionsFilter {...props} />;

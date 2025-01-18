@@ -53,7 +53,7 @@ const DragAndDrop = (props) => {
 
     const handleDelete = (index) => {
         const newItems = [...items];
-        const deletedItem = newItems.splice(index, 1);
+        const deletedItem = newItems.splice(index, 1)[0];
         onDelete(deletedItem, newItems);
     }
 

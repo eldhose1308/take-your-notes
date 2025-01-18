@@ -8,11 +8,11 @@ import { getUserSubscriptionFeedPreferenceFromLocal, setUserSubscriptionFeedPref
 
 import { Checkbox } from "_components/Form";
 
-const subscriptionsPreference = getUserSubscriptionFeedPreferenceFromLocal();
 
 const SubscriptionsFilter = (props) => {
     const { onSelect } = props;
-
+    
+    const subscriptionsPreference = getUserSubscriptionFeedPreferenceFromLocal();
     const [isChecked, setIsChecked] = useState(subscriptionsPreference || false);
 
 

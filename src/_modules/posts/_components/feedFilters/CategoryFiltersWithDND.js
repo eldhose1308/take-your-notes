@@ -11,17 +11,17 @@ import { getCategoryFromLocal, removeCategoryFromLocal, setCategoryToLocal } fro
 
 const formatCategoryToDragAndDrop = (category) => {
     const { id, categorySlug, categoryName } = category || {};
-    const selectedOption = { id, categorySlug, categoryName, name: categoryName };
+    const selectedOption = { id: categorySlug, categorySlug, categoryName, name: categoryName };
     return selectedOption;
 }
 
-const categoriesTracked = getCategoryFromLocal().map(formatCategoryToDragAndDrop);
 const MAX_PREFERENCES = 10;
 
 const CategoryFiltersWithDND = (props) => {
     const { onSelect } = props;
-
-    const [selectedCategories, setSelectedCategories] = useState([]);
+    
+    const categoriesTracked = getCategoryFromLocal().map(formatCategoryToDragAndDrop);
+    const [selectedCategories, setSelectedCategories] = useState(categoriesTracked);
 
     const handlePostCategoryChange = (categoryId, category) => {
         const { categorySlug } = category || {};
@@ -58,9 +58,9 @@ const CategoryFiltersWithDND = (props) => {
     }, [selectedCategories]);
 
 
-    useEffect(() => {
-        setSelectedCategories(categoriesTracked);
-    }, []);
+    // useEffect(() => {
+    //     setSelectedCategories(categoriesTracked);
+    // }, []);
 
     return (
         <React.Fragment>
