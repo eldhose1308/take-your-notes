@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useMemo, useEffect } from "react";
+import React, { createContext, useContext, useState, useMemo, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -21,6 +21,7 @@ const AuthProvider = ({ children }) => {
     const dispatch = useDispatch();
 
     const [user, setUser] = useState(userData)
+    const lastURLBeforeLogout = useRef(null);
 
     const isAuthenticated = useMemo(() => user ? !!Object.keys(user).length : false, [user])
 
@@ -30,17 +31,21 @@ const AuthProvider = ({ children }) => {
     }
 
     const loginClient = (data) => {
-        const { token, ...remainingUserData } = userData || data;
+        const { token, ...remainingUserData } = userData || data || {};
 
         setUser(remainingUserData);
         setUserDetailToLocal(remainingUserData);
         channel.postMessage('user-login');
 
+        if(lastURLBeforeLogout.current){
+            window.location.href = lastURLBeforeLogout.current;
+        }
         // redirectOnAuthorised();
     }
 
     const logoutClient = () => {
         setUser({});
+        lastURLBeforeLogout.current = window.location.href;
         // removeUserDetailFromLocal();
         dispatch(resetAuth());
         resetUserDetailFromLocal();
