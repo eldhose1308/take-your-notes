@@ -13,6 +13,7 @@ import PostCategoryDetailCard from "_modules/posts/_components/PostCategoryDetai
 import Typography from "_components/Misc/Typography/Typography";
 import CategoriesPostList from "./CategoriesPostList";
 import AdditionalCategories from "_modules/additionalContents/AdditionalCategories";
+import Metadata from "_modules/Metadata";
 
 
 const PostsCategoriesPage = () => {
@@ -38,6 +39,8 @@ const PostsCategoriesPage = () => {
 
     return (
         <div className="text-default m-5">
+        <Metadata title={`${categoryName}`} description={`${categoryName}`} />
+
         <div className="flex">
             <div className="flex flex-col mx-2 grow-3 basis-0">
 

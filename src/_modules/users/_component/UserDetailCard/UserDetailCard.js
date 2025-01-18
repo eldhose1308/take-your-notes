@@ -10,6 +10,7 @@ import FollowButton from "_modules/users/_component/FollowButton";
 import CLIENT_ROUTES from "_routes/clientRoutes";
 import { Link } from "react-router-dom";
 import SubscribeUser from "../SubscribeUser/SubscribeUser";
+import Metadata from "_modules/Metadata";
 
 const UserDetailCard = (props) => {
     const { userData } = props;
@@ -22,6 +23,7 @@ const UserDetailCard = (props) => {
 
     return (
         <div className="border bg-default p-4 rounded-md">
+            <Metadata title={`${fullName}`} description={`${userName} - ${bio}`} />
 
             <div className="flex justify-between">
 

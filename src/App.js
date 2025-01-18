@@ -18,6 +18,7 @@ import { toggleFont } from "_utils/domUtils";
 import FullPageSkeleton from "FullPageSkeleton";
 import ConfirmDeleteDialogProvider from "_contexts/ConfirmDeleteDialogProvider";
 import { PostsProvider } from "_contexts/PostsContext";
+import { MetadataProvider } from "_contexts/MetadataProvider";
 
 
 const router = createHashRouter(ROUTES);
@@ -44,11 +45,13 @@ function App() {
             <TopLoaderProvider>
               <ConfirmDeleteDialogProvider>
                 <AuthProvider>
-                  <PostsProvider>
-                    <Suspense fallback={<FullPageSkeleton />}>
-                      <RouterProvider router={router} />
-                    </Suspense>
-                  </PostsProvider>
+                  <MetadataProvider>
+                    <PostsProvider>
+                      <Suspense fallback={<FullPageSkeleton />}>
+                        <RouterProvider router={router} />
+                      </Suspense>
+                    </PostsProvider>
+                  </MetadataProvider>
                 </AuthProvider>
               </ConfirmDeleteDialogProvider>
             </TopLoaderProvider>

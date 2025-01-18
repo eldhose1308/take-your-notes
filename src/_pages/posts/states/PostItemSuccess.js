@@ -15,14 +15,16 @@ import PostItemTableOfContent from "_modules/posts/_components/PostItemTableOfCo
 import * as interactionService from "_services/interactions.service";
 import { getUserDetailsOfCurrentUser } from "_utils/userAuth";
 import { setCategoryToLocal } from "_utils/user-localDB/categoryDB";
+import Metadata from "_modules/Metadata";
 
 
 const PostItemSuccess = (props) => {
     const { postItem } = props;
     const { postTitle, id, content, category, user, createdAt, updatedAt } = postItem;
     const { categoryName, categorySlug } = category || {};
-    const markdownInHTML = useMemo(() => convertToHTML(content),[content])
-    const tableOfContents = useMemo(() => getTableOfContents(markdownInHTML),[markdownInHTML]);
+    const { userName: userNameOfPost, fullName } = user;
+    const markdownInHTML = useMemo(() => convertToHTML(content), [content])
+    const tableOfContents = useMemo(() => getTableOfContents(markdownInHTML), [markdownInHTML]);
 
     const categoryDetailRoute = CLIENT_ROUTES.CATEGORY_DETAIL(categorySlug);
 
@@ -32,12 +34,12 @@ const PostItemSuccess = (props) => {
         const trackInteractions = async (entityType, entityId, interactionType) => {
             const { userName: currentUserName } = getUserDetailsOfCurrentUser();
             const { userName: userNameOfPost } = user;
-            if(!currentUserName || userNameOfPost === currentUserName){
+            if (!currentUserName || userNameOfPost === currentUserName) {
                 return;
             }
-            try{
+            try {
                 await interactionService.interactionWithPost({ entity_type: entityType, entity_id: entityId, interaction_type: interactionType });
-            }catch(error){
+            } catch (error) {
                 console.log(error);
             }
         }
@@ -46,13 +48,13 @@ const PostItemSuccess = (props) => {
     }, [id])
 
 
-     useEffect(() => {
+    useEffect(() => {
         setCategoryToLocal(category);
-    }, [category]); 
+    }, [category]);
 
     return (
         <React.Fragment>
-
+            <Metadata title={`${postTitle} - ${categoryName}`} description={content.substring(0, 100)} author={`${fullName} - ${userNameOfPost}`} />
             {/* <div className="flex">
                 <span onClick={() => { }} className="flex text-sm p-2 bg-default hover-accent hover-text-custom rounded-md cursor-pointer mx-1">
                     <span className="flex items-center pr-2">

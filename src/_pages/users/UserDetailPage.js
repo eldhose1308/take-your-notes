@@ -22,6 +22,7 @@ const UserDetailPage = () => {
 
     return (
         <div className="text-default m-5">
+            
             <div className="flex">
                 <div key={userName} className="flex flex-col mx-2 grow-3 basis-0">
 
