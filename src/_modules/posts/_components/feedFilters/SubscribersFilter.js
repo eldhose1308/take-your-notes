@@ -8,6 +8,8 @@ import { getUserSubscriberFeedPreferenceFromLocal, setUserSubscriberFeedPreferen
 
 import { Checkbox } from "_components/Form";
 
+import { getUserDetailsOfCurrentUser } from "_utils/userAuth";
+
 
 const SubscribersFilter = (props) => {
     const { onSelect } = props;
@@ -15,6 +17,8 @@ const SubscribersFilter = (props) => {
 
     const [isChecked, setIsChecked] = useState(subscriberPreference || false);
 
+    const { userName } = getUserDetailsOfCurrentUser();
+    
 
     const handleChange = (checked, e) => {
         setUserSubscriberFeedPreferenceToLocal(checked);
@@ -38,6 +42,9 @@ const SubscribersFilter = (props) => {
                     <Typography textVariant='p' variant='secondary' size='xs' className='mx-4'>
                         You can customize your feed by choosing whether you want to filter with your subscribers or not.
                     </Typography>
+                    {!userName && <Typography textVariant='p' variant='destructive' size='xs' className='mx-4'>
+                        Since you are not logged in, this filter will not have any effect
+                    </Typography>}
                 </div>
 
                 <div>
