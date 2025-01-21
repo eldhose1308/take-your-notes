@@ -17,6 +17,24 @@ import { getUserDetailsOfCurrentUser } from "_utils/userAuth";
 import { setCategoryToLocal } from "_utils/user-localDB/categoryDB";
 import Metadata from "_modules/Metadata";
 
+const extractHeadingsFromTableOfContent = (tableOfContent) => {
+    const headingsArray = [];
+
+    const loopAndExtract = (tableOfContent) => {
+        const { text, children=[] } = tableOfContent;
+        headingsArray.push(text);
+        
+        if (children.length) {
+            children.forEach(child => loopAndExtract(child));
+        }
+    }
+
+    tableOfContent.forEach(contentItem => {
+        loopAndExtract(contentItem);
+    });
+    
+    return headingsArray;
+}
 
 const PostItemSuccess = (props) => {
     const { postItem } = props;
@@ -26,6 +44,8 @@ const PostItemSuccess = (props) => {
     const markdownInHTML = useMemo(() => convertToHTML(content), [content])
     const tableOfContents = useMemo(() => getTableOfContents(markdownInHTML), [markdownInHTML]);
 
+    const postContentHeadings = useMemo(() => extractHeadingsFromTableOfContent(tableOfContents).join(","), [tableOfContents]);
+    
     const categoryDetailRoute = CLIENT_ROUTES.CATEGORY_DETAIL(categorySlug);
 
 
@@ -54,7 +74,7 @@ const PostItemSuccess = (props) => {
 
     return (
         <React.Fragment>
-            <Metadata title={`${postTitle} - ${categoryName}`} description={content.substring(0, 100)} author={`${fullName} - ${userNameOfPost}`} />
+            <Metadata title={`${postTitle} - ${categoryName}`} description={postContentHeadings || content.substring(0, 100)} author={`${fullName} - ${userNameOfPost}`} />
             {/* <div className="flex">
                 <span onClick={() => { }} className="flex text-sm p-2 bg-default hover-accent hover-text-custom rounded-md cursor-pointer mx-1">
                     <span className="flex items-center pr-2">
