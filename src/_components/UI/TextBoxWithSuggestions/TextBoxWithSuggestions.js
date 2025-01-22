@@ -56,6 +56,7 @@ const TextBoxWithSuggestions = (props) => {
             }
         } else if (event.key === 'Escape') {
             event.preventDefault();
+            event.stopPropagation();
             setShowSuggestions(false)
         }
     }
@@ -90,7 +91,7 @@ const TextBoxWithSuggestions = (props) => {
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-list"><path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/></svg>
                 </span> */}
             {/* </div> */}
-            {!isMaxSuggestionsReached && shouldShowSuggestions && (
+            {!isMaxSuggestionsReached && showSuggestions && (
                 <div className="bg-default border border-another rounded-md mx-3 my-2 absolute top-100 w-4/5">
                     <div className="flex flex-col p-1 text-sm">
                         <div className="flex justify-between text-xs text-secondary px-2 my-2">
