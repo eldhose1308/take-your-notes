@@ -9,6 +9,7 @@ export const setUserDetailToLocal = (data) => {
 
 export const getUserDetailFromLocal = () => {
     const userDBData = getFromLocalDB(USER_DETAIL_DBKEY);
+    if(!userDBData) { return userDBData }
     return Object.keys(userDBData).length > 0 ? userDBData : null;
 }
 
