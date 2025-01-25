@@ -8,7 +8,8 @@ export const setUserDetailToLocal = (data) => {
 
 
 export const getUserDetailFromLocal = () => {
-    return getFromLocalDB(USER_DETAIL_DBKEY);
+    const userDBData = getFromLocalDB(USER_DETAIL_DBKEY);
+    return Object.keys(userDBData).length > 0 ? userDBData : null;
 }
 
 

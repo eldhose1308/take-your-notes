@@ -33,6 +33,9 @@ const AuthProvider = ({ children }) => {
     const loginClient = (data) => {
         const { token, ...remainingUserData } = userData || data || {};
 
+        if(Object.keys(remainingUserData).length === 0){
+            return;
+        }
         setUser(remainingUserData);
         setUserDetailToLocal(remainingUserData);
         channel.postMessage('user-login');
