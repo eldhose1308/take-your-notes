@@ -7,6 +7,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 
 import './Template.css'
+import VerifyEmail from "../VerifyEmail/VerifyEmail";
 
 const TemplateContext = createContext();
 
@@ -29,6 +30,7 @@ const Template = ({ children, ...props }) => {
                 <Header isSidebarNeeded={isSidebarNeeded} />
                 <Sidebar />
                 <main className="main overflow-scrolls mb-12s bg-secondary">
+                    <VerifyEmail />
                     {children}
                 </main>
                 {/* <footer className="footer"> */}

@@ -41,6 +41,30 @@ const signup = (payload) => {
 
 }
 
+
+const sendEmailVerification = (payload) => {
+    return new AccessAPI(BASE_URL + 'auth/send-email-verify').post(payload)
+        .then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+
+}
+
+
+const checkEmailVerified = (payload) => {
+    return new AccessAPI(BASE_URL + 'auth/check-email-status').post(payload)
+        .then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+
+}
+
+
+
 const signout = (payload) => {
     return new AccessAPI(BASE_URL + 'auth/logout').post(payload)
         .then((res) => {
@@ -63,6 +87,8 @@ export {
     login,
     signin,
     signup,
+    sendEmailVerification,
+    checkEmailVerified,
     signout,
 
     googleAuth

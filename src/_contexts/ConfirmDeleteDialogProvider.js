@@ -17,14 +17,15 @@ const defaultButtonStateValues = {
     completed: 'Deleted',
 }
 
+const initialDialogDetails = {
+    variant: 'destructive',
+    heading: 'Confirm Deletion?',
+    message: 'Are you sure you want to permanently delete this item?',
+    buttonStateValues: defaultButtonStateValues
+}
 
 const ConfirmDeleteDialogProvider = ({ children }) => {
-    const [dialogDetails, setDialogDetails] = useState({
-        variant: 'destructive',
-        heading: 'Confirm Deletion?',
-        message: 'Are you sure you want to permanently delete this item?',
-        buttonStateValues: defaultButtonStateValues
-    });
+    const [dialogDetails, setDialogDetails] = useState(initialDialogDetails);
     const [isOpen, setIsOpen] = useState(false);
     const [resolvePromise, setResolvePromise] = useState(null);
     const [primaryResolve, setPrimaryResolve] = useState(null);
@@ -34,7 +35,11 @@ const ConfirmDeleteDialogProvider = ({ children }) => {
     const { variant, heading, message, buttonStateValues } = dialogDetails;
 
     const confirmDelete = async (apiCallMethod, dialogDetailsOptions={}) => {
-        setDialogDetails({ ...dialogDetails, ...dialogDetailsOptions });
+        if(!Object.keys(dialogDetailsOptions).length){
+            setDialogDetails(initialDialogDetails);
+        }else{
+            setDialogDetails({ ...dialogDetails, ...dialogDetailsOptions });
+        }
         setIsOpen(true);
         return new Promise((resolve) => {
             setResolvePromise(() => apiCallMethod);

@@ -25,6 +25,27 @@ const register = async (data, config = {}) => {
 }
 
 
+const sendEmailVerification = async (data, config = {}) => {
+    try {
+        const response = await auth.sendEmailVerification(data, config);
+        return response;
+    }catch (err) {
+        throw err;
+    }
+}
+
+
+const checkEmailVerified = async (data, config = {}) => {
+    try {
+        const response = await auth.checkEmailVerified(data, config);
+        return response;
+    }catch (err) {
+        throw err;
+    }
+}
+
+
+
 const googleAuth = async (data, config = {}) => {
     try {
         const response = await auth.googleAuth(data, config);
@@ -49,6 +70,8 @@ const logout = async (data, config = {}) => {
 export {
     login,
     register,
+    sendEmailVerification,
+    checkEmailVerified,
     logout,
 
     googleAuth

@@ -420,6 +420,10 @@ line-height: 1.5rem;
   background-color: var(--bg-default);
 }
 
+.bg-info {
+  background-color: var(--info);
+}
+
 .hover-transparent:hover{
   background-color: transparent;
 }
