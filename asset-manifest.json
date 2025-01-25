@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/take-your-notes/static/css/main.a8a91551.css",
-    "main.js": "/take-your-notes/static/js/main.bf41dc1a.js",
+    "main.js": "/take-your-notes/static/js/main.bde64ded.js",
     "static/js/655.a74e77af.chunk.js": "/take-your-notes/static/js/655.a74e77af.chunk.js",
     "static/css/403.0ad7c413.chunk.css": "/take-your-notes/static/css/403.0ad7c413.chunk.css",
     "static/js/403.a7732974.chunk.js": "/take-your-notes/static/js/403.a7732974.chunk.js",
@@ -36,7 +36,7 @@
     "static/media/lato-regular.ttf": "/take-your-notes/static/media/lato-regular.79164ee524feb6583a94.ttf",
     "index.html": "/take-your-notes/index.html",
     "main.a8a91551.css.map": "/take-your-notes/static/css/main.a8a91551.css.map",
-    "main.bf41dc1a.js.map": "/take-your-notes/static/js/main.bf41dc1a.js.map",
+    "main.bde64ded.js.map": "/take-your-notes/static/js/main.bde64ded.js.map",
     "655.a74e77af.chunk.js.map": "/take-your-notes/static/js/655.a74e77af.chunk.js.map",
     "403.0ad7c413.chunk.css.map": "/take-your-notes/static/css/403.0ad7c413.chunk.css.map",
     "403.a7732974.chunk.js.map": "/take-your-notes/static/js/403.a7732974.chunk.js.map",
@@ -71,6 +71,6 @@
   },
   "entrypoints": [
     "static/css/main.a8a91551.css",
-    "static/js/main.bf41dc1a.js"
+    "static/js/main.bde64ded.js"
   ]
 }
