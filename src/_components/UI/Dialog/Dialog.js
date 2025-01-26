@@ -4,6 +4,7 @@ import { Card, CardHeader, CardContent, CardFooter } from "_components/Misc/Card
 import { Button } from "_components/Form";
 
 import './Dialog.css'
+import Portal from "_components/Misc/Portal";
 
 // create a key so that the toast re-mounts after every call
 const Dialog = ({ children, ...props }) => {
@@ -18,6 +19,8 @@ const Dialog = ({ children, ...props }) => {
     }
 
     return (
+        <Portal>
+
         <div className="flex flex-col w-full">
             {isShown && hasOverlay && <div className="overlay z-50 cursor-pointer"></div>}
 
@@ -34,7 +37,7 @@ const Dialog = ({ children, ...props }) => {
                 </div>
             </div>
         </div>
-
+</Portal>
     )
 }
 
