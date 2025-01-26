@@ -84,6 +84,7 @@ const ConfirmDeleteDialogProvider = ({ children }) => {
         }
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
+            setButtonStatus('none');
         };
     }, [isOpen])
 

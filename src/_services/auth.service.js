@@ -35,14 +35,37 @@ const sendEmailVerification = async (data, config = {}) => {
 }
 
 
-const checkEmailVerified = async (data, config = {}) => {
+const verifyEmailOtp = async (data, config = {}) => {
     try {
-        const response = await auth.checkEmailVerified(data, config);
+        const response = await auth.verifyEmailOtp(data, config);
         return response;
     }catch (err) {
         throw err;
     }
 }
+
+
+
+
+const sendResetPasswordEmail = async (data, config = {}) => {
+    try {
+        const response = await auth.sendResetPasswordEmail(data, config);
+        return response;
+    }catch (err) {
+        throw err;
+    }
+}
+
+
+const resetPasswordOtp = async (data, config = {}) => {
+    try {
+        const response = await auth.resetPasswordOtp(data, config);
+        return response;
+    }catch (err) {
+        throw err;
+    }
+}
+
 
 
 
@@ -71,7 +94,9 @@ export {
     login,
     register,
     sendEmailVerification,
-    checkEmailVerified,
+    verifyEmailOtp,
+    sendResetPasswordEmail,
+    resetPasswordOtp,
     logout,
 
     googleAuth

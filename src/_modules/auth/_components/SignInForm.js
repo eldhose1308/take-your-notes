@@ -11,6 +11,7 @@ import { SignInSchema } from "../_utils/validation-rules";
 import useButtonStatus from "_hooks/useButtonStatus";
 import buttonStates from "_constants/buttonStates";
 import { Link } from "react-router-dom";
+import ForgotPassword from "./ForgotPassword/ForgotPassword";
 
 
 const messages = {
@@ -79,7 +80,10 @@ const SignInForm = (props) => {
                         </span>
                     </div>
                 </Link>
+
             </Flex>
+
+            <ForgotPassword />
             {/* 
             <Typography variant='secondary' className='my-2'>
                 By clicking continue, you agree to our Terms of Service and Privacy Policy.

@@ -112,6 +112,7 @@ const useAuth = () => {
     return {
         user,
         updateUserData,
+        updateUser,
         isAuthenticated,
         login,
         signup,

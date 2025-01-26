@@ -53,8 +53,30 @@ const sendEmailVerification = (payload) => {
 }
 
 
-const checkEmailVerified = (payload) => {
-    return new AccessAPI(BASE_URL + 'auth/check-email-status').post(payload)
+const verifyEmailOtp = (payload) => {
+    return new AccessAPI(BASE_URL + 'auth/verify-email').post(payload)
+        .then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+
+}
+
+
+const sendResetPasswordEmail = (payload) => {
+    return new AccessAPI(BASE_URL + 'auth/reset-password-email').post(payload)
+        .then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+
+}
+
+
+const resetPasswordOtp = (payload) => {
+    return new AccessAPI(BASE_URL + 'auth/reset-password').post(payload)
         .then((res) => {
             return res
         }).catch((err) => {
@@ -88,7 +110,9 @@ export {
     signin,
     signup,
     sendEmailVerification,
-    checkEmailVerified,
+    verifyEmailOtp,
+    sendResetPasswordEmail,
+    resetPasswordOtp,
     signout,
 
     googleAuth
