@@ -48,7 +48,7 @@ const VerifyEmail = () => {
             completed: 'Email Sent',
         }
         const heading = `Verify Email`;
-        const message = `A verification email has been sent to your email address(${maskEmail(email)}). Please check your email and verify your email address.`;
+        const message = `Confirm sending verification mail to your email address(${maskEmail(email)}). Confirm sending the OTP to verify your email address.`;
         await confirmDelete(() => verifyEmail(), { variant: 'primary', buttonStateValues: buttonValues, heading, message });
 
         setTimeout(() => {

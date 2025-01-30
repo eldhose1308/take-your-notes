@@ -50,7 +50,7 @@
   --highlight: #d8faee;
   --bg-light: #fbfbfb;
 
-  --overlay-color: rgba(255, 255, 255, 0.2);
+  --overlay-color: rgba(255, 255, 255, 0.4);
 
   --radius: 0.5rem;
 
@@ -76,7 +76,7 @@
     --highlight: #273d39;
     --bg-light: #222326;
 
-    --overlay-color: rgba(0, 0, 0, 0.2);
+    --overlay-color: rgba(0, 0, 0, 0.4);
 
     --radius: 0.5rem;
   
@@ -100,7 +100,7 @@
     --highlight: #d8faee;
     --bg-light: #fbfbfb;
   
-    --overlay-color: rgba(0, 0, 0, 0.3);
+    --overlay-color: rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -123,7 +123,7 @@ body.dark{
       --bg-light: #222326;
 
  
-     --overlay-color: rgba(0, 0, 0, 0.2);
+     --overlay-color: rgba(0, 0, 0, 0.4);
  
      --radius: 0.5rem;
    
@@ -142,7 +142,7 @@ body.light{
   --highlight: #d8faee;
   --bg-light: #fbfbfb;
 
-  --overlay-color: rgba(0, 0, 0, 0.3);
+  --overlay-color: rgba(0, 0, 0, 0.4);
 
 }
 

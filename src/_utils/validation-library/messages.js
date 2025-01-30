@@ -13,7 +13,7 @@ export const formatString = (string, ...args) => {
 }
 
 const VALIDATION_MSG =  {
-    REQUIRED: '{0} is a required field from.',
+    REQUIRED: '{0} is a required field item.',
     MIN: '{0} should have minimum {1} characters.',
     MAX: '{0} should have maximum {1} characters.',
     EXACT: '{0} should have exactly {1} characters.',
