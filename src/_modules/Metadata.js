@@ -19,7 +19,7 @@ const Metadata = ({ title='', description='', author, publishedTime }) => {
         {publishedTime && <meta property="article:published_time" content={publishedTime} />}
 
         <meta property="og:url" content={window.location.href} />
-        <meta property="og:site_name" content="Make My Blog" />
+        <meta property="og:site_name" content="Tale Chronicles" />
         <meta property="og:locale" content="en_US" />
 
       </Helmet>

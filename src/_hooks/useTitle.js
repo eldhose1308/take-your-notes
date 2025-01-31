@@ -6,7 +6,7 @@ const useTitle = (title) => {
         const previousTitle = document.title;
 
         if(title){
-            document.title = `${title} - MakeMyBlogs`;
+            document.title = `${title} - Tale Chronicles`;
         }
         
         return () => {

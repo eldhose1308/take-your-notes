@@ -16,7 +16,7 @@ const WelcomeCard = () => {
         <Card size='sm' rounded='lg' className='border hover-border-highlight mx-4 my-2 min-w-sm'>
             {!isAuthenticated ? (<CardContent>
                 <div className="p-2">
-                    <Typography type='h3' size='lg' className='my-2'>Welcome to MakeMyBlogs</Typography>
+                    <Typography type='h3' size='lg' className='my-2'>Welcome to Tale Chronicles</Typography>
                     <Typography type='h5' textVariant='normal' size='sm' className='my-2'>Your thoughts called — they want an audience!</Typography>
                     {/* Blogging: Because yelling your thoughts out the window isn’t effective. */}
                     <Typography textVariant='light' size='xs' className='my-2'>
@@ -48,7 +48,7 @@ const WelcomeCard = () => {
             ) : (
                 <CardContent>
                     <div className="p-2">
-                        <Typography type='h3' size='lg' className='my-2'>Welcome to MakeMyBlogs</Typography>
+                        <Typography type='h3' size='lg' className='my-2'>Welcome to Tale Chronicles</Typography>
                         <Typography type='h5' textVariant='normal' size='sm' className='my-2'>Hi {fullName}, ready to blog today?</Typography>
                         {/* Blogging: Because yelling your thoughts out the window isn’t effective. */}
                         <Typography textVariant='light' size='xs' className='my-2'>
