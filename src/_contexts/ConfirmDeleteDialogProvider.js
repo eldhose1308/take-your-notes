@@ -67,6 +67,7 @@ const ConfirmDeleteDialogProvider = ({ children }) => {
     const handleCancelClick = () => {
         setPrimaryResolve(false);
         setIsOpen(false);
+        setDialogDetails(initialDialogDetails);
     };
 
     useEscClose(handleCancelClick, isOpen);
@@ -85,6 +86,7 @@ const ConfirmDeleteDialogProvider = ({ children }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
             setButtonStatus('none');
+            
         };
     }, [isOpen])
 
